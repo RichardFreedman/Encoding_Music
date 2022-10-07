@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1000;
+            height: 800;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "#fffff", "id": "Oleh\u0027s Spotify", "label": "Oleh\u0027s Spotify", "shape": "dot"}, {"id": "L\u2019Hogan", "label": "L\u2019Hogan", "shape": "dot", "value": 8}, {"id": "Alternative \u0026 Indie", "label": "Alternative \u0026 Indie", "shape": "dot", "value": 22}, {"id": "Old Rock Originals", "label": "Old Rock Originals", "shape": "dot", "value": 27}, {"id": "Hip-Hop", "label": "Hip-Hop", "shape": "dot", "value": 16}, {"id": "edm", "label": "edm", "shape": "dot", "value": 59}, {"id": "Spanish", "label": "Spanish", "shape": "dot", "value": 20}, {"id": "Italian", "label": "Italian", "shape": "dot", "value": 2}, {"id": "Rap", "label": "Rap", "shape": "dot", "value": 34}, {"id": "good shit", "label": "good shit", "shape": "dot", "value": 87}]);
+        edges = new vis.DataSet([{"from": "Oleh\u0027s Spotify", "to": "L\u2019Hogan"}, {"from": "Oleh\u0027s Spotify", "to": "Alternative \u0026 Indie"}, {"from": "Oleh\u0027s Spotify", "to": "Old Rock Originals"}, {"from": "Oleh\u0027s Spotify", "to": "Hip-Hop"}, {"from": "Oleh\u0027s Spotify", "to": "edm"}, {"from": "Oleh\u0027s Spotify", "to": "Spanish"}, {"from": "Oleh\u0027s Spotify", "to": "Italian"}, {"from": "Oleh\u0027s Spotify", "to": "Rap"}, {"from": "Oleh\u0027s Spotify", "to": "good shit"}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
