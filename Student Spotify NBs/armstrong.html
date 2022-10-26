@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 500px;
+            height: 500px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "#fffff", "group": 0, "id": "Louis Armstrong", "label": "Louis Armstrong", "shape": "dot", "value": 69.0}, {"group": 1, "id": "Dinah Washington", "label": "Dinah Washington", "shape": "dot", "value": 58}, {"group": 2, "id": "Ella Fitzgerald", "label": "Ella Fitzgerald", "shape": "dot", "value": 68}, {"group": 3, "id": "Peggy Lee", "label": "Peggy Lee", "shape": "dot", "value": 58}, {"group": 4, "id": "Sarah Vaughan", "label": "Sarah Vaughan", "shape": "dot", "value": 55}, {"group": 5, "id": "Anita O\u0027Day", "label": "Anita O\u0027Day", "shape": "dot", "value": 50}, {"group": 6, "id": "Benny Goodman", "label": "Benny Goodman", "shape": "dot", "value": 50}, {"group": 7, "id": "Etta Jones", "label": "Etta Jones", "shape": "dot", "value": 49}, {"group": 8, "id": "Nat King Cole", "label": "Nat King Cole", "shape": "dot", "value": 67}, {"group": 9, "id": "Julie London", "label": "Julie London", "shape": "dot", "value": 57}, {"group": 10, "id": "Billie Holiday", "label": "Billie Holiday", "shape": "dot", "value": 65}, {"group": 1, "id": "BLOSSOM DEARIE", "label": "BLOSSOM DEARIE", "shape": "dot", "value": 53}, {"group": 1, "id": "Nancy Wilson", "label": "Nancy Wilson", "shape": "dot", "value": 55}, {"group": 1, "id": "Betty Carter", "label": "Betty Carter", "shape": "dot", "value": 46}, {"group": 1, "id": "Helen Merrill", "label": "Helen Merrill", "shape": "dot", "value": 45}, {"group": 1, "id": "Shirley Horn", "label": "Shirley Horn", "shape": "dot", "value": 45}, {"group": 1, "id": "Ernestine Anderson", "label": "Ernestine Anderson", "shape": "dot", "value": 42}, {"group": 3, "id": "Mel Torm\u00e9", "label": "Mel Torm\u00e9", "shape": "dot", "value": 49}, {"group": 3, "id": "Jo Stafford", "label": "Jo Stafford", "shape": "dot", "value": 48}, {"group": 3, "id": "June Christy", "label": "June Christy", "shape": "dot", "value": 46}, {"group": 3, "id": "Kay Starr", "label": "Kay Starr", "shape": "dot", "value": 47}, {"group": 5, "id": "Dakota Staton", "label": "Dakota Staton", "shape": "dot", "value": 43}, {"group": 6, "id": "Benny Goodman Quartet", "label": "Benny Goodman Quartet", "shape": "dot", "value": 33}, {"group": 6, "id": "Artie Shaw", "label": "Artie Shaw", "shape": "dot", "value": 46}, {"group": 6, "id": "Tommy Dorsey", "label": "Tommy Dorsey", "shape": "dot", "value": 49}, {"group": 6, "id": "Charlie Barnet", "label": "Charlie Barnet", "shape": "dot", "value": 30}, {"group": 6, "id": "Glenn Miller", "label": "Glenn Miller", "shape": "dot", "value": 55}, {"group": 6, "id": "Jimmy Dorsey", "label": "Jimmy Dorsey", "shape": "dot", "value": 31}, {"group": 6, "id": "Benny Goodman Trio", "label": "Benny Goodman Trio", "shape": "dot", "value": 34}, {"group": 6, "id": "Benny Goodman Sextet", "label": "Benny Goodman Sextet", "shape": "dot", "value": 37}, {"group": 6, "id": "Jimmy Dorsey \u0026 His Orchestra", "label": "Jimmy Dorsey \u0026 His Orchestra", "shape": "dot", "value": 32}, {"group": 6, "id": "Fletcher Henderson", "label": "Fletcher Henderson", "shape": "dot", "value": 29}, {"group": 7, "id": "Dorothy Dandridge", "label": "Dorothy Dandridge", "shape": "dot", "value": 38}, {"group": 8, "id": "Nat King Cole Trio", "label": "Nat King Cole Trio", "shape": "dot", "value": 52}, {"group": 8, "id": "Perry Como", "label": "Perry Como", "shape": "dot", "value": 57}, {"group": 8, "id": "Harry Connick, Jr.", "label": "Harry Connick, Jr.", "shape": "dot", "value": 52}, {"group": 8, "id": "Bobby Darin", "label": "Bobby Darin", "shape": "dot", "value": 60}, {"group": 8, "id": "Sammy Davis Jr.", "label": "Sammy Davis Jr.", "shape": "dot", "value": 50}]);
+        edges = new vis.DataSet([{"from": "Louis Armstrong", "to": "Dinah Washington"}, {"from": "Louis Armstrong", "to": "Ella Fitzgerald"}, {"from": "Louis Armstrong", "to": "Peggy Lee"}, {"from": "Louis Armstrong", "to": "Sarah Vaughan"}, {"from": "Louis Armstrong", "to": "Anita O\u0027Day"}, {"from": "Louis Armstrong", "to": "Benny Goodman"}, {"from": "Louis Armstrong", "to": "Etta Jones"}, {"from": "Louis Armstrong", "to": "Nat King Cole"}, {"from": "Louis Armstrong", "to": "Julie London"}, {"from": "Louis Armstrong", "to": "Billie Holiday"}, {"from": "Dinah Washington", "to": "Sarah Vaughan"}, {"from": "Dinah Washington", "to": "Etta Jones"}, {"from": "Dinah Washington", "to": "Julie London"}, {"from": "Dinah Washington", "to": "BLOSSOM DEARIE"}, {"from": "Dinah Washington", "to": "Nancy Wilson"}, {"from": "Dinah Washington", "to": "Betty Carter"}, {"from": "Dinah Washington", "to": "Anita O\u0027Day"}, {"from": "Dinah Washington", "to": "Helen Merrill"}, {"from": "Dinah Washington", "to": "Shirley Horn"}, {"from": "Dinah Washington", "to": "Ernestine Anderson"}, {"from": "Ella Fitzgerald", "to": "Sarah Vaughan"}, {"from": "Ella Fitzgerald", "to": "Dinah Washington"}, {"from": "Ella Fitzgerald", "to": "Julie London"}, {"from": "Ella Fitzgerald", "to": "Anita O\u0027Day"}, {"from": "Ella Fitzgerald", "to": "BLOSSOM DEARIE"}, {"from": "Ella Fitzgerald", "to": "Nancy Wilson"}, {"from": "Ella Fitzgerald", "to": "Etta Jones"}, {"from": "Ella Fitzgerald", "to": "Peggy Lee"}, {"from": "Ella Fitzgerald", "to": "Billie Holiday"}, {"from": "Ella Fitzgerald", "to": "Betty Carter"}, {"from": "Peggy Lee", "to": "Julie London"}, {"from": "Peggy Lee", "to": "Anita O\u0027Day"}, {"from": "Peggy Lee", "to": "Mel Torm\u00e9"}, {"from": "Peggy Lee", "to": "Dinah Washington"}, {"from": "Peggy Lee", "to": "Nancy Wilson"}, {"from": "Peggy Lee", "to": "BLOSSOM DEARIE"}, {"from": "Peggy Lee", "to": "Jo Stafford"}, {"from": "Peggy Lee", "to": "Etta Jones"}, {"from": "Peggy Lee", "to": "June Christy"}, {"from": "Peggy Lee", "to": "Kay Starr"}, {"from": "Sarah Vaughan", "to": "BLOSSOM DEARIE"}, {"from": "Sarah Vaughan", "to": "Betty Carter"}, {"from": "Sarah Vaughan", "to": "Etta Jones"}, {"from": "Sarah Vaughan", "to": "Anita O\u0027Day"}, {"from": "Sarah Vaughan", "to": "Nancy Wilson"}, {"from": "Sarah Vaughan", "to": "Julie London"}, {"from": "Sarah Vaughan", "to": "Helen Merrill"}, {"from": "Sarah Vaughan", "to": "Shirley Horn"}, {"from": "Sarah Vaughan", "to": "Ernestine Anderson"}, {"from": "Anita O\u0027Day", "to": "Helen Merrill"}, {"from": "Anita O\u0027Day", "to": "Betty Carter"}, {"from": "Anita O\u0027Day", "to": "BLOSSOM DEARIE"}, {"from": "Anita O\u0027Day", "to": "Etta Jones"}, {"from": "Anita O\u0027Day", "to": "Dakota Staton"}, {"from": "Anita O\u0027Day", "to": "Ernestine Anderson"}, {"from": "Anita O\u0027Day", "to": "Nancy Wilson"}, {"from": "Anita O\u0027Day", "to": "June Christy"}, {"from": "Benny Goodman", "to": "Benny Goodman Quartet"}, {"from": "Benny Goodman", "to": "Artie Shaw"}, {"from": "Benny Goodman", "to": "Tommy Dorsey"}, {"from": "Benny Goodman", "to": "Charlie Barnet"}, {"from": "Benny Goodman", "to": "Glenn Miller"}, {"from": "Benny Goodman", "to": "Jimmy Dorsey"}, {"from": "Benny Goodman", "to": "Benny Goodman Trio"}, {"from": "Benny Goodman", "to": "Benny Goodman Sextet"}, {"from": "Benny Goodman", "to": "Jimmy Dorsey \u0026 His Orchestra"}, {"from": "Benny Goodman", "to": "Fletcher Henderson"}, {"from": "Etta Jones", "to": "Nancy Wilson"}, {"from": "Etta Jones", "to": "Ernestine Anderson"}, {"from": "Etta Jones", "to": "Betty Carter"}, {"from": "Etta Jones", "to": "Shirley Horn"}, {"from": "Etta Jones", "to": "Helen Merrill"}, {"from": "Etta Jones", "to": "Dakota Staton"}, {"from": "Etta Jones", "to": "BLOSSOM DEARIE"}, {"from": "Etta Jones", "to": "Dorothy Dandridge"}, {"from": "Nat King Cole", "to": "Nat King Cole Trio"}, {"from": "Nat King Cole", "to": "Perry Como"}, {"from": "Nat King Cole", "to": "Harry Connick, Jr."}, {"from": "Nat King Cole", "to": "Bobby Darin"}, {"from": "Nat King Cole", "to": "Dinah Washington"}, {"from": "Nat King Cole", "to": "Mel Torm\u00e9"}, {"from": "Nat King Cole", "to": "Julie London"}, {"from": "Nat King Cole", "to": "Jo Stafford"}, {"from": "Nat King Cole", "to": "Sammy Davis Jr."}, {"from": "Nat King Cole", "to": "Peggy Lee"}, {"from": "Julie London", "to": "BLOSSOM DEARIE"}, {"from": "Julie London", "to": "Nancy Wilson"}, {"from": "Julie London", "to": "Mel Torm\u00e9"}, {"from": "Julie London", "to": "Helen Merrill"}, {"from": "Julie London", "to": "Etta Jones"}, {"from": "Julie London", "to": "Anita O\u0027Day"}, {"from": "Julie London", "to": "Betty Carter"}, {"from": "Billie Holiday", "to": "Dinah Washington"}, {"from": "Billie Holiday", "to": "Sarah Vaughan"}, {"from": "Billie Holiday", "to": "Anita O\u0027Day"}, {"from": "Billie Holiday", "to": "Julie London"}, {"from": "Billie Holiday", "to": "BLOSSOM DEARIE"}, {"from": "Billie Holiday", "to": "Etta Jones"}, {"from": "Billie Holiday", "to": "Betty Carter"}, {"from": "Billie Holiday", "to": "Nancy Wilson"}, {"from": "Billie Holiday", "to": "Helen Merrill"}, {"from": "Billie Holiday", "to": "Peggy Lee"}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
