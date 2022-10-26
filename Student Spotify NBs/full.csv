@@ -1,0 +1,429 @@
+,artist,album,track_name,track_id,danceability,energy,key,loudness,mode,speechiness,instrumentalness,liveness,valence,tempo,duration_ms,time_signature,popularity,playlist_name
+0,Camélia Jordana,Camelia Jordana,Moi c'est,0cgWTzGYVUWELohSykTxrb,0.862,0.409,6,-10.255,0,0.0399,0.0871,0.0927,0.8,135.013,170893,4,56.0,your 20s are for losing your mind
+1,Audrey Hepburn,Moon River (Breakfast at Tiffany's) [Remastered],Moon River (From Breakfast at Tiffany's) [Remastered],1XwAKjAZ1xDZOcuyZoqce4,0.381,0.0251,10,-19.128,1,0.0327,0.00109,0.099,0.173,85.968,123160,3,56.0,your 20s are for losing your mind
+2,Camera Obscura,Underachievers Please Try Harder,Suspended From Class,2YDmCSVs46QrhD2sqYGGqx,0.582,0.562,9,-8.985,1,0.0258,0.0126,0.0682,0.707,131.629,226227,4,32.0,your 20s are for losing your mind
+3,Julie London,Julie Is Her Name,Cry Me A River,7f6AAixCrVar1ZY7RPHDfM,0.496,0.0688,4,-14.927,0,0.0545,0.00229,0.112,0.161,119.898,178573,4,60.0,your 20s are for losing your mind
+4,The Smiths,Hatful of Hollow,"Please, Please, Please, Let Me Get What I Want - 2011 Remaster",6BrMEbPSSj55nQhkgf6DnE,0.241,0.468,2,-9.579,1,0.0272,0.0,0.161,0.451,91.581,112707,3,70.0,your 20s are for losing your mind
+5,Hélène Grimaud,Chopin / Rachmaninov: Piano Sonatas,"Piano Sonata No. 2 in B Flat Minor, Op. 36: II. Non allegro - Lento",79O3P99BRXIOWuARKZXNnT,0.255,0.0496,4,-24.645,0,0.0469,0.869,0.0686,0.0385,72.575,445800,4,4.0,your 20s are for losing your mind
+6,Fred Astaire,Funny Face (Original Motion Picture Soundtrack / Expanded Edition),Basal Metabolism (Based On How Long Has This Been Going On),3jV7xeKd7V5suD6w9qCT2m,0.491,0.445,4,-10.695,0,0.074,0.164,0.0694,0.451,114.497,173960,4,12.0,your 20s are for losing your mind
+7,Phoebe Bridgers,Stranger in the Alps (Deluxe Edition),Motion Sickness,25Syi9wnfn6ZGAmiOBypPq,0.651,0.546,1,-9.021,1,0.0357,0.0437,0.0842,0.623,107.021,229760,4,65.0,your 20s are for losing your mind
+8,The Buttertones,Buttertones,Dionysus,7wYU1avLwl1Gtkib8OTrZp,0.331,0.61,9,-8.138,1,0.0293,0.0548,0.14,0.55,132.746,209040,4,52.0,your 20s are for losing your mind
+9,Brandi Carlile,Bear Creek,Heart's Content,0pegFWSUOTiG0sLVEfxtvA,0.564,0.209,3,-8.922,1,0.0317,3.99e-05,0.107,0.402,109.024,214667,4,60.0,your 20s are for losing your mind
+0,Cigarettes After Sex,Cigarettes After Sex,Opera House,0syIc2ocYBIKASFqifvwRz,0.319,0.293,5,-14.145,1,0.0378,0.85,0.0971,0.0689,115.481,364680,4,61.0,so hot and so miserable
+1,The Kills,Keep On Your Mean Side,Gypsy Death & You,3389c73PSVyJBa1ieLjWcD,0.615,0.305,9,-12.233,1,0.0322,0.0131,0.0703,0.635,134.618,130307,4,19.0,so hot and so miserable
+2,Deerhoof,"Midnight, The Stars and You","Midnight, The Stars and You",1qLUD9yQS1j2OCKDSAW1We,0.458,0.45,4,-10.122,1,0.0334,0.395,0.352,0.479,113.509,224302,4,45.0,so hot and so miserable
+3,Erik Satie,Satie: 3 Gymnopédies; 6 Gnossiennes etc.,"Gnossiennes: No. 3, Lent",0REcxIiQJ3BTZ09AIvj447,0.376,0.014,9,-35.174,0,0.0412,0.919,0.116,0.0562,123.424,193027,3,28.0,so hot and so miserable
+4,BROCKHAMPTON,GINGER,HEAVEN BELONGS TO YOU,5SecO8b3bvFNBTtrTyt91o,0.68,0.634,7,-8.446,1,0.36,2.02e-06,0.479,0.693,155.911,89613,4,48.0,so hot and so miserable
+5,Wolfgang Amadeus Mozart,Mozart: Requiem,"Requiem in D Minor, K. 626: 3. Sequentia: Lacrimosa - Live",6izxDWP8kx2yErjuHOdhHV,0.184,0.0915,2,-20.03,0,0.0413,0.734,0.222,0.0387,119.375,173000,3,54.0,so hot and so miserable
+6,Nancy Sinatra,How Does That Grab You?,Bang Bang (My Baby Shot Me Down),4JLcAU2xY90qTkTSNM1lUa,0.433,0.174,5,-18.791,0,0.0537,0.101,0.111,0.366,95.802,162447,4,66.0,so hot and so miserable
+7,Mitski,Lush,Liquid Smooth,3XCveEutwTaDiekRkkfdp9,0.424,0.342,7,-9.469,0,0.0339,0.0,0.136,0.124,76.235,169773,4,74.0,so hot and so miserable
+8,Jonny Greenwood,Spencer (Original Motion Picture Soundtrack),Spencer,5A2VY74odRFW9gVnFo1CRE,0.243,0.158,2,-24.65,0,0.0494,0.937,0.117,0.304,112.454,103093,4,42.0,so hot and so miserable
+9,Cute Whore,Cult Leader,Cult Leader,1STwouYZSMXAaJ0nCrCsun,0.301,0.378,9,-9.895,0,0.0308,0.0344,0.104,0.0745,112.178,343393,4,49.0,so hot and so miserable
+10,The Smashing Pumpkins,Mellon Collie And The Infinite Sadness (Deluxe Edition),To Forgive - Remastered 2012,428dyogxbsqj9U5leQ9why,0.579,0.314,1,-12.589,1,0.0267,0.761,0.111,0.0512,126.746,257267,4,55.0,so hot and so miserable
+11,Nirvana,Nevermind (Remastered),Something In The Way,1nFtiJxYdhtFfFtfXBv06s,0.427,0.201,8,-13.044,1,0.0317,0.263,0.109,0.0668,105.218,232147,4,75.0,so hot and so miserable
+12,Radiohead,In Rainbows,All I Need,5Qv2Nby1xTr9pQyjkrc94J,0.67,0.478,4,-8.689,0,0.0355,0.428,0.138,0.0997,88.014,228747,4,68.0,so hot and so miserable
+13,Ludwig van Beethoven,"Beethoven: Piano Concerto No. 4 in G Major, Op. 58 (Gould Remastered)","Piano Concerto No. 4 in G Major, Op. 58: II. Andante con moto",2d4MHzZ4ryicSOF0Cnw5Og,0.335,0.0243,4,-23.606,0,0.0465,0.836,0.0836,0.0398,100.726,400613,4,8.0,so hot and so miserable
+0,Various Artists,Shrek,Hallelujah,5USZyz6dnBEn1oLsKcAKQy,0.344,0.196,9,-7.518,0,0.032,0,0.104,0.45,72.609,248800,4,58.0,Hallelujah Covers
+1,Tori Kelly,"Hallelujah (From ""Sing"" Original Motion Picture Soundtrack)",Hallelujah,3wWinz94TSPWe6CgTaSK6x,0.229,0.239,1,-9.146,0,0.0307,0,0.117,0.202,94.69,207987,3,54.0,Hallelujah Covers
+2,Pentatonix,A Pentatonix Christmas Deluxe,Hallelujah,0HZk0QsXPhMNAWNDR3rYE8,0.364,0.378,7,-7.381,0,0.0331,0,0.339,0.366,89.918,268960,3,62.0,Hallelujah Covers
+3,Kate Voegele,Don't Look Away,Hallelujah,5OqW09kxGmc6b5xGFmln1b,0.593,0.217,2,-7.474,0,0.0282,0,0.117,0.365,107.918,294200,3,40.0,Hallelujah Covers
+4,Jason Castro,Jason Castro (Deluxe),Hallelujah,6hsP7b83RjEY51ENfo1ZOc,0.343,0.241,0,-10.98,1,0.0367,0,0.107,0.169,184.232,233240,3,37.0,Hallelujah Covers
+5,Junkie XL,Zack Snyder's Justice League (Original Motion Picture Soundtrack),Hallelujah,6y3zNyQbSnMN50uXN0r3X3,0.355,0.193,8,-11.068,1,0.039,3.33e-06,0.132,0.0693,103.78,370787,4,32.0,Hallelujah Covers
+6,John Cale,Hallelujah,Hallelujah - Fragments [Single Version],56GBItqD18Be9iN7zGqMX5,0.35,0.272,0,-8.655,1,0.0271,6.88e-06,0.984,0.232,100.325,281919,3,41.0,Hallelujah Covers
+7,k.d. lang,Recollection,Hallelujah,5S0pF13mOsTnYweFwFy4D0,0.339,0.184,4,-8.624,1,0.0289,2.71e-06,0.109,0.0989,76.053,308440,4,52.0,Hallelujah Covers
+8,Jordan Smith,The Complete Season 9 Collection (The Voice Performance),Hallelujah - The Voice Performance,3LLYIitFpZSmXY95rQxw0E,0.401,0.373,2,-6.947,1,0.0257,0,0.117,0.109,94.523,189093,3,36.0,Hallelujah Covers
+9,Alexandra Burke,Overcome,Hallelujah,5IaR621NoOM6i5KTcuNRHM,0.177,0.425,2,-6.211,0,0.0291,0,0.195,0.0942,182.571,217827,3,65.0,Hallelujah Covers
+10,Leonard Cohen,Various Positions,Hallelujah,7yzbimr8WVyAtBX3Eg6UL9,0.28,0.344,0,-12.577,1,0.0293,0.00642,0.133,0.232,171.143,277160,3,64.0,Hallelujah Covers
+0,Various Artists,80s Pop,"Maniac - From ""Flashdance""",7CML07e8m56LrmgkC4Bl3Z,0.605,0.757,3,-5.897,0,0.0554,2.6e-06,0.0447,0.828,157.714,246000,4,48.0,Before the Night Out
+1,Madonna,True Blue (Reissue),La Isla Bonita,6r8k1vznHrzlEKYxL4dZEe,0.724,0.822,1,-4.374,0,0.0333,1.38e-05,0.0553,0.964,99.9,242733,4,74.0,Before the Night Out
+2,Sweet,Best Of Sweet,Love Is Like Oxygen,58gcsPyG1xsD4uNtDiMC4c,0.567,0.455,9,-9.896,0,0.0479,2.79e-06,0.118,0.58,123.416,227533,4,46.0,Before the Night Out
+3,Jarabe De Palo,La Flaca,La flaca,0ll9JAIrM3NVBOMl45sxSX,0.871,0.481,7,-9.068,1,0.0383,5.54e-05,0.0809,0.664,103.063,261200,4,57.0,Before the Night Out
+4,The Cardigans,First Band On The Moon (Remastered),Lovefool,7aQjPecQdIuNd1sz3KCDhD,0.704,0.636,9,-6.029,1,0.0252,0.0,0.35,0.89,111.845,193953,4,74.0,Before the Night Out
+5,Daryl Hall & John Oates,H2O,Maneater,7j74lucZ59vqN67Ipe2ZcY,0.724,0.498,11,-13.083,0,0.0423,8.56e-05,0.0761,0.823,88.825,273173,4,76.0,Before the Night Out
+6,Mecano,"Ana, José, Nacho",Me Colé en una Fiesta,4JOsL8WntMIwDeNQlKAwdA,0.728,0.98,9,-4.914,0,0.0505,0.00026,0.0512,0.893,144.725,256067,4,46.0,Before the Night Out
+7,The Pointer Sisters,So Excited! (Expanded Edition),I'm So Excited,1ot6jEe4w4hYnsOPjd3xKQ,0.59,0.868,5,-5.832,0,0.048,0.000322,0.442,0.798,184.348,230640,4,72.0,Before the Night Out
+8,Shawn Mendes,Señorita,Señorita,0TK2YIli7K1leLovkQiNik,0.759,0.54,9,-6.039,0,0.0287,0.0,0.0945,0.75,116.947,190960,4,81.0,Before the Night Out
+9,Boys Town Gang,Disco Kicks (The Complete Anthology),Can't Take My Eyes Off You - Original Extended Version,7EblNAQKo2q1DCRnO2bVmD,0.651,0.754,10,-10.421,1,0.0302,0.0043,0.139,0.664,129.617,589547,4,45.0,Before the Night Out
+0,Sammy Rae & The Friends,The Good Life,Kick It to Me,6QZbDUZEgkwaVWROtWzjQ0,0.597,0.675,2,-6.431,1,0.0569,1.45e-05,0.168,0.823,160.057,387600,4,60.0,M255 “Chilly Friday in Philly”
+1,Lake Street Dive,Obviously,Hypotheticals,5lE2EFXt4muvLFMGQg4hZN,0.69,0.664,1,-6.488,1,0.0562,0.00762,0.0496,0.383,164.145,230178,4,61.0,M255 “Chilly Friday in Philly”
+2,Stevie Wonder,Innervisions,Don't You Worry 'Bout A Thing,1QvWxgZvTU0w8rlPRE5Zrv,0.714,0.726,11,-9.218,1,0.0408,0.0,0.066,0.92,124.71,284840,4,63.0,M255 “Chilly Friday in Philly”
+3,Various Artists,Surf's Up Music From The Motion Picture,Into Yesterday,02TQFXm2cV6uwOr2OmlYBC,0.666,0.788,11,-6.821,1,0.0335,0.000145,0.15,0.922,91.018,251467,4,56.0,M255 “Chilly Friday in Philly”
+4,RELIC,Ghost,Ghost,6MvT7w4FeYJNfimIljosNs,0.435,0.386,3,-8.983,0,0.0313,0.000619,0.112,0.183,160.285,297000,4,26.0,M255 “Chilly Friday in Philly”
+5,The Smiths,The Queen Is Dead,There Is a Light That Never Goes Out - 2011 Remaster,0WQiDwKJclirSYG9v5tayI,0.523,0.769,4,-5.855,1,0.0269,0.0,0.136,0.876,136.162,244587,4,81.0,M255 “Chilly Friday in Philly”
+6,Jubël,Dancing In The Moonlight (feat. NEIMY),Dancing In The Moonlight (feat. NEIMY),4GSDkZt7GcmzBWmsMcpaVO,0.659,0.615,11,-5.865,0,0.0644,0.0,0.187,0.193,119.843,164010,4,76.0,M255 “Chilly Friday in Philly”
+7,Champagne Lane,Praying for a Little Rain,Praying for a Little Rain,20z1RaI92IQhdeIr8y8uVi,0.623,0.626,3,-10.003,1,0.059,0.000198,0.103,0.441,99.953,248011,4,40.0,M255 “Chilly Friday in Philly”
+8,Lawrence,Breakfast,Do You Wanna Do Nothing with Me?,2M7UdnD0fEaryh8TnCvqFX,0.548,0.611,1,-9.0,0,0.131,0.00247,0.0762,0.725,201.985,251853,4,56.0,M255 “Chilly Friday in Philly”
+9,Adele,19,Right As Rain,6oW04c2E7lebl09WHsBAWO,0.842,0.679,1,-5.876,1,0.0846,0.0,0.0891,0.918,137.2,197347,4,53.0,M255 “Chilly Friday in Philly”
+10,Sublime,Sublime,Santeria,2hnMS47jN0etwvFPzYk11f,0.682,0.765,1,-5.021,0,0.0395,3.42e-05,0.188,0.567,90.807,182747,4,78.0,M255 “Chilly Friday in Philly”
+11,One Direction,FOUR (Deluxe),Steal My Girl,2Bs4jQEGMycglOfWPBqrVG,0.536,0.768,10,-5.948,0,0.0347,0.0,0.114,0.545,77.217,228133,4,81.0,M255 “Chilly Friday in Philly”
+12,Dan + Shay,Glad You Exist,Glad You Exist,472vIK1ldetTxRxG3ovaiY,0.748,0.551,11,-6.12,1,0.0349,0.0,0.119,0.66,103.953,144533,4,70.0,M255 “Chilly Friday in Philly”
+0,The Parlor Mob,Dark Hour,Setting With The Sun,38cy2yg41sWM96SKMeGUPL,0.605,0.805,7,-7.805,1,0.0467,0.937,0.0846,0.534,128.969,220413,4,38.0,"M255 ""Monday Midnight Drive"""
+1,Rich Brian,The Sailor,Drive Safe,6eDfe957aV4sqGnDhlSikJ,0.635,0.312,7,-8.134,1,0.0265,0.0,0.138,0.414,98.017,240118,4,63.0,"M255 ""Monday Midnight Drive"""
+2,Russ,There's Really A Wolf,Ride Slow,6HK4YGOpZr1ost68QP3ul0,0.737,0.429,4,-10.252,0,0.0785,0.0,0.104,0.147,99.955,185400,4,65.0,"M255 ""Monday Midnight Drive"""
+3,Sam Coury,wish.,wish.,3eozmuyjtrhpaitBmd1LcE,0.618,0.375,11,-13.285,0,0.0417,3.93e-06,0.161,0.447,142.016,331311,4,4.0,"M255 ""Monday Midnight Drive"""
+4,Tash Sultana,Flow State,Cigarettes,4eFTvwsYlTC0b0fjqxmrx7,0.563,0.755,11,-5.048,0,0.248,7.59e-05,0.0562,0.576,158.027,322716,4,47.0,"M255 ""Monday Midnight Drive"""
+5,Sam Coury,run!,run!,3baLS9Kc4MdhcnhWh4hDDm,0.593,0.513,4,-14.934,1,0.0356,5.93e-05,0.074,0.65,149.967,252578,4,7.0,"M255 ""Monday Midnight Drive"""
+6,High Highs,Cascades,Ocean to City,3lM46J2IddE8ihX7e39w7H,0.555,0.77,4,-7.241,1,0.0265,0.318,0.223,0.321,131.921,271667,4,21.0,"M255 ""Monday Midnight Drive"""
+7,Magic Man,Before the Waves,Paris,4EaO2XR7gWaHq8DW7nu1iY,0.472,0.881,2,-5.252,1,0.0524,0.0,0.0698,0.502,178.858,232747,4,53.0,"M255 ""Monday Midnight Drive"""
+8,Digital Farm Animals,Tokyo Nights,Tokyo Nights,3TxKtkCNR1yQARsvHxvNnP,0.556,0.671,11,-6.366,0,0.0647,0.000377,0.111,0.252,105.057,243536,4,52.0,"M255 ""Monday Midnight Drive"""
+9,M83,"Hurry Up, We're Dreaming",Midnight City,1eyzqe2QqGZUmfcPZtrIyt,0.526,0.712,11,-6.525,0,0.0356,0.0,0.179,0.32,105.009,241440,4,72.0,"M255 ""Monday Midnight Drive"""
+10,Le Youth,Waves,Waves - OCULA Remix,3IeLJ5OLr0tCHsr7SDnfi8,0.738,0.666,5,-10.046,0,0.0377,0.918,0.107,0.0676,120.002,244000,4,40.0,"M255 ""Monday Midnight Drive"""
+11,Lane 8,Little by Little,Stir Me Up,2G3j7EHedVdb4ZEpJpkS5W,0.562,0.555,5,-10.461,1,0.0319,0.533,0.129,0.118,93.979,296170,4,44.0,"M255 ""Monday Midnight Drive"""
+12,Sultan + Shepard,"Something, Everything",Naama,2CFGJOKqK7pOdGN4Ujg0Ea,0.626,0.697,10,-8.689,0,0.0398,0.58,0.111,0.0537,119.961,332250,4,46.0,"M255 ""Monday Midnight Drive"""
+13,Le Youth,Reminders,Feel Around You,7nWvuyjrcLK2QnWAwXBfnv,0.582,0.433,0,-12.391,1,0.0382,0.0729,0.114,0.128,119.923,389020,4,42.0,"M255 ""Monday Midnight Drive"""
+14,SYML,Clean Eyes (The Midnight Remix),Clean Eyes - The Midnight Remix,5OwQwWZwwlRFRejqWPCQnu,0.633,0.715,7,-9.102,1,0.0438,0.0578,0.332,0.351,87.006,232738,4,44.0,"M255 ""Monday Midnight Drive"""
+0,Etta James,Tell Mama,I'd Rather Go Blind,1kPBT8S2wJFNAyBMnGVZgL,0.477,0.433,11,-6.473,0,0.0247,0.000195,0.151,0.611,82.52,156653,3,71.0,My subset of 10 from Freedman's 40
+1,Leonard Cohen,Songs From A Room,Bird on the Wire,3M0QK0bYdiGMu6JNoPk8YG,0.402,0.114,9,-15.691,1,0.0321,0.0024,0.318,0.191,128.332,206373,3,51.0,My subset of 10 from Freedman's 40
+2,Bill Withers,Just As I Am,Ain't No Sunshine,1k1Bqnv2R0uJXQN4u6LKYt,0.527,0.415,4,-11.451,0,0.122,1.72e-05,0.117,0.515,78.169,125093,4,79.0,My subset of 10 from Freedman's 40
+3,Smokey Robinson & The Miracles,Going To A Go-Go,The Tracks Of My Tears,6QyQmdvQ1ywNccYa0pwLNQ,0.502,0.333,7,-10.914,1,0.0264,0.0,0.222,0.729,96.982,174360,4,64.0,My subset of 10 from Freedman's 40
+4,B.B. King,Completely Well,The Thrill Is Gone,4NQfrmGs9iQXVQI9IpRhjM,0.547,0.46,11,-8.759,0,0.0256,0.442,0.0983,0.543,90.768,324733,4,63.0,My subset of 10 from Freedman's 40
+5,The Who,Who's Next (Deluxe Edition),Behind Blue Eyes,0cKk8BKEi7zXbdrYdyqBP5,0.394,0.622,4,-8.258,0,0.0336,4.45e-05,0.0892,0.342,126.844,221427,4,72.0,My subset of 10 from Freedman's 40
+6,Jimmy Cliff,"Wonderful World, Beautiful People",Many Rivers To Cross,1dZxI6OuzwJ283y3gOU1Kq,0.399,0.212,5,-16.03,1,0.0747,0.000434,0.116,0.149,137.76,164067,4,51.0,My subset of 10 from Freedman's 40
+7,Ben E. King,Stand By Me,Stand By Me,2KQM3kDM0zMBC9iynePBbS,0.653,0.334,9,-6.955,1,0.0313,3.47e-05,0.123,0.665,119.46,174253,4,59.0,My subset of 10 from Freedman's 40
+8,Wilson Pickett,Hey Jude,Hey Jude,1MMp1H2Kib2BCDtdL5nL63,0.561,0.385,6,-15.33,1,0.0323,0.000496,0.171,0.664,81.599,247733,4,54.0,My subset of 10 from Freedman's 40
+9,The Rolling Stones,Let It Bleed,You Can't Always Get What You Want,6lFZbCc7pn6Lme1NP7qQqQ,0.32,0.62,0,-9.686,1,0.0594,6.36e-05,0.253,0.472,86.327,448720,4,69.0,My subset of 10 from Freedman's 40
+0,Radiohead,Pablo Honey,Creep,70LcF31zb1H0PyJoS1Sx1r,0.515,0.43,7,-9.935,1,0.0372,0.000133,0.129,0.104,91.844,238640,4,86.0,POV: You Just Discovered Popular Music Older than You and are Making it Your Entire Personality
+1,Queen,Stone Cold Classics,Bohemian Rhapsody,6l8GvAyoUZwWDgF1e4822w,0.397,0.386,0,-10.405,0,0.0503,0.0,0.188,0.21,144.242,355400,4,68.0,POV: You Just Discovered Popular Music Older than You and are Making it Your Entire Personality
+2,Eagles,Hotel California (2013 Remaster),Hotel California - 2013 Remaster,40riOy7x9W7GXjyGp4pjAv,0.579,0.508,2,-9.484,1,0.027,0.000494,0.0575,0.609,147.125,391376,4,85.0,POV: You Just Discovered Popular Music Older than You and are Making it Your Entire Personality
+3,Led Zeppelin,Led Zeppelin IV (Deluxe Edition),Stairway to Heaven - Remaster,5CQ30WqJwcep0pYcV4AMNc,0.338,0.34,9,-12.049,0,0.0339,0.0032,0.116,0.197,82.433,482830,4,80.0,POV: You Just Discovered Popular Music Older than You and are Making it Your Entire Personality
+4,Nirvana,Nevermind (Remastered),Smells Like Teen Spirit,5ghIJDpPoe3CfHMGu71E6T,0.502,0.912,1,-4.556,1,0.0564,0.000173,0.106,0.72,116.761,301920,4,80.0,POV: You Just Discovered Popular Music Older than You and are Making it Your Entire Personality
+5,Elton John,Honky Chateau,"Rocket Man (I Think It's Going To Be A Long, Long Time)",3gdewACMIVMEWVbyb8O9sY,0.601,0.532,10,-9.119,1,0.0286,6.25e-06,0.0925,0.341,136.571,281613,4,82.0,POV: You Just Discovered Popular Music Older than You and are Making it Your Entire Personality
+6,David Bowie,Best of Bowie,Space Oddity - 1999 Remaster,22yy03IdKXGRUFMQX8EfBv,0.31,0.423,0,-12.902,1,0.0324,1.35e-05,0.365,0.457,136.205,316333,4,38.0,POV: You Just Discovered Popular Music Older than You and are Making it Your Entire Personality
+7,Electric Light Orchestra,Out of the Blue,Mr. Blue Sky,2RlgNHKcydI9sayD2Df2xp,0.388,0.338,10,-10.054,1,0.0329,3.73e-06,0.248,0.478,177.765,303373,4,81.0,POV: You Just Discovered Popular Music Older than You and are Making it Your Entire Personality
+8,Guns N' Roses,Appetite For Destruction,Sweet Child O' Mine,7snQQk1zcKl8gZ92AnueZW,0.446,0.952,6,-5.321,1,0.0523,0.0857,0.112,0.624,125.303,356067,4,80.0,POV: You Just Discovered Popular Music Older than You and are Making it Your Entire Personality
+9,AC/DC,Back In Black,Back In Black,08mG3Y1vljYA6bvDt4Wqkj,0.31,0.7,9,-5.678,1,0.047,0.00965,0.0828,0.763,188.386,255493,4,85.0,POV: You Just Discovered Popular Music Older than You and are Making it Your Entire Personality
+10,The Rolling Stones,Beggars Banquet (50th Anniversary Edition),Sympathy For The Devil - 50th Anniversary Edition,1Ud6moTC0KyXMq1Oxfien0,0.702,0.668,9,-9.237,1,0.214,0.0,0.0588,0.561,116.063,378147,4,75.0,POV: You Just Discovered Popular Music Older than You and are Making it Your Entire Personality
+11,Jimi Hendrix,Electric Ladyland,All Along the Watchtower,2aoo2jlRnM3A0NyLQqMN2f,0.438,0.805,8,-6.237,1,0.0624,5.69e-05,0.0842,0.564,113.253,240800,4,77.0,POV: You Just Discovered Popular Music Older than You and are Making it Your Entire Personality
+0,KMFDM,WWIII,WWIII,5jHYEOabEw2RSwOzf8nQPn,0.534,0.966,7,-6.597,1,0.0688,0.104,0.436,0.171,139.987,298707,4,45.0,Songs to Punch Drywall To
+1,King Gizzard & The Lizard Wizard,Infest The Rats' Nest,Mars For The Rich,4lV1tx0EdlIChOw7Kz7fP0,0.269,0.885,11,-5.938,0,0.0948,0.795,0.132,0.325,129.191,251720,4,45.0,Songs to Punch Drywall To
+2,Led Zeppelin,Led Zeppelin III (1994 Remaster),Immigrant Song - 1990 Remaster,6kjlvJLh2DBsSQtqVzFh8I,0.574,0.926,11,-10.79,1,0.0562,0.478,0.386,0.609,113.097,145067,4,0.0,Songs to Punch Drywall To
+3,A Day To Remember,Homesick,Mr. Highway's Thinking About The End,3VnBhHJdT7p05Wtenu4fmt,0.301,0.916,10,-6.218,0,0.0919,1.84e-05,0.293,0.451,150.091,255827,4,63.0,Songs to Punch Drywall To
+4,The Vines,Future Primitive,Black Dragon,2Z8EqEtv0CxT6Jfzfdhtbf,0.191,0.807,0,-4.726,1,0.0426,0.897,0.158,0.246,138.723,208747,4,43.0,Songs to Punch Drywall To
+5,Pantera,Vulgar Display of Power,Fucking Hostile,5RU50TPTgtxJLFNunUS2p5,0.479,0.96,6,-9.551,0,0.0991,4.62e-05,0.208,0.506,93.867,168600,4,57.0,Songs to Punch Drywall To
+6,Mastodon,Leviathan,Blood and Thunder,3jagGO7eHHuaD53ibehkux,0.364,0.935,2,-6.548,1,0.0724,0.729,0.0317,0.478,92.717,228587,4,66.0,Songs to Punch Drywall To
+7,Slayer,Reign In Blood,Raining Blood,01Mpj13vURSO3cCLprPt5T,0.294,0.995,1,-4.383,0,0.168,0.331,0.128,0.0379,88.777,254400,4,65.0,Songs to Punch Drywall To
+8,Pantera,Cowboys from Hell,Domination,769cLRTw2y6KRdkFWFkxtu,0.372,0.888,2,-5.88,1,0.0943,0.00442,0.115,0.555,141.374,305293,4,65.0,Songs to Punch Drywall To
+9,Judas Priest,Painkiller,Painkiller,0L7zm6afBEtrNKo6C6Gj08,0.435,0.987,1,-4.667,0,0.16,0.0847,0.268,0.101,103.16,365827,4,68.0,Songs to Punch Drywall To
+10,Meshuggah,ObZen,Bleed,4E6wpXABj8XosZEPXZz2OK,0.242,0.998,11,-5.64,1,0.0894,0.88,0.284,0.18,114.642,442733,4,61.0,Songs to Punch Drywall To
+0,National Anthem,"U.S.A. - The Stars Spangled Banner, National Anthem, Nationalhymne, Hymne National, Himno Nacional, национальный гимн - Single","U.S.A. - The Stars Spangled Banner, National Anthem, Nationalhymne, Hymne National, Himno Nacional, национальный гимн",6485LTAfFwpJhGCGbuiq3B,0.226,0.264,10,-9.864,1,0.0354,0.898,0.0993,0.252,79.519,83165,3,42.0,Obama's Mixtape
+1,The Tabernacle Choir at Temple Square,God Bless America,My Country! 'Tis Of Thee,20xUcvuAf5NdxUnNHSLuDm,0.311,0.102,5,-19.164,1,0.031,0.0,0.141,0.484,78.034,136840,5,23.0,Obama's Mixtape
+2,Ray Charles,America the Beautiful,America the Beautiful,5uPakSfc8x3RpbAGSpEHeB,0.402,0.278,3,-11.968,1,0.0366,0.0146,0.0368,0.498,100.804,216973,4,43.0,Obama's Mixtape
+3,Woody Guthrie,"This Land is Your Land: The Asch Recordings, Vol. 1",This Land is Your Land,3ZjrfGcb3A2PMGA1vRNgSk,0.606,0.0977,3,-15.668,1,0.0451,0.00148,0.126,0.551,105.593,139693,4,46.0,Obama's Mixtape
+4,Various US Military Bands,Patriotic Music for All Occassions,Stars and Stripes Forever,27LWUpmP5CfLLBeqcRQrOx,0.586,0.272,8,-24.673,1,0.0488,0.738,0.206,0.809,121.528,218467,4,31.0,Obama's Mixtape
+5,Paul Simon,Over the Bridge of Time: A Paul Simon Retrospective (1964-2011),America,7osZ8vZFHtAtJenio6dW7y,0.262,0.236,2,-15.119,1,0.0367,8.84e-06,0.073,0.33,176.295,208947,3,21.0,Obama's Mixtape
+6,Toby Keith,Unleashed,"Courtesy Of The Red, White And Blue (The Angry American)",0M7mWKqwTIaVjYyxfZmtTa,0.424,0.661,2,-5.547,1,0.0425,1.62e-06,0.0719,0.384,111.762,195533,4,69.0,Obama's Mixtape
+7,Lee Greenwood,American Patriot,God Bless The U.S.A.,623lYBOJ7bLwh1bu3yeN5V,0.299,0.422,5,-9.977,1,0.0285,0.0,0.182,0.168,67.797,191600,4,56.0,Obama's Mixtape
+8,John Denver,"Poems, Prayers and Promises","Take Me Home, Country Roads",1YYhDizHx7PnDhAhko6cDS,0.462,0.395,9,-9.376,1,0.0264,0.0,0.121,0.625,82.259,190160,4,74.0,Obama's Mixtape
+9,Geek Music,"America, F**K Yeah! (From ""Team America World Police"")","America, F**K Yeah! (From ""Team America World Police"")",5QTTqnJUZ67yVXexI5efjI,0.543,0.695,4,-8.075,0,0.0839,0.0,0.106,0.266,169.664,163332,4,45.0,Obama's Mixtape
+0,アトラスサウンドチーム,PERSONA5 ORIGINAL SOUNDTRACK,Beneath the Mask,5XLXrm5JVMdOus1fWmTOFw,0.717,0.466,5,-12.434,1,0.0259,0.105,0.161,0.644,147.966,277880,4,59.0,Aidans Shower Playlist
+1,DS Music,"Aria of the Soul (From ""Persona 5"")","Aria of the Soul (From ""Persona 5"")",6Et51Jb2Jj8Fg9FVwdlzEx,0.398,0.224,2,-12.949,1,0.0622,0.919,0.106,0.114,98.783,170899,4,20.0,Aidans Shower Playlist
+2,Streaming Music Studios,The Legend of Zelda: Breath of the Wild - A Piano Collection,"Kass's Theme (From ""The Legend of Zelda: Breath of the Wild"") [Piano Version]",4GbeaulUGgkDkuCZJ95CLE,0.584,0.17,9,-20.902,0,0.0641,0.858,0.106,0.338,169.748,60831,3,32.0,Aidans Shower Playlist
+3,The Marcus Hedges Trend Orchestra,The Wind Waker Orchestrated,The Great Sea,1D644kNnetS59dp2wUoVMl,0.373,0.442,2,-11.403,1,0.0331,0.847,0.331,0.351,139.895,227861,4,36.0,Aidans Shower Playlist
+4,Andrew Skeet,The Greatest Video Game Music,Super Mario Galaxy: Gusty Garden Galaxy,05XPxcgHp4I4CFlOhMnskS,0.249,0.316,1,-14.587,1,0.0368,0.963,0.294,0.32,153.897,229777,4,46.0,Aidans Shower Playlist
+5,Arcade Player,"Super Mario Galaxy, Greatest Themes & Sounds",Battlerock Galaxy,5HegnNzBAn6XsL4XTpBHIq,0.471,0.0859,4,-13.043,1,0.0316,0.917,0.132,0.217,137.955,204521,4,20.0,Aidans Shower Playlist
+6,Various Artists,ペルソナ4 オリジナル・サウンドトラック,Your Affection,6idKSeBnFz49htgvyWoMro,0.687,0.884,11,-5.91,1,0.0342,0.000617,0.334,0.744,119.026,172013,4,47.0,Aidans Shower Playlist
+7,アトラスサウンドチーム,PERSONA5 ORIGINAL SOUNDTRACK,Life Will Change,0LNyWv4RYKbaXIvzk6nMxZ,0.702,0.92,0,-5.121,0,0.0363,0.0133,0.127,0.625,131.986,262027,4,58.0,Aidans Shower Playlist
+8,Thennecan,"The Battle for Everyone's Souls (From ""Persona 3"")","The Battle for Everyone's Souls (From ""Persona 3"")",6Mf81jUHqt2RPldYSl2P2F,0.441,0.735,11,-6.598,0,0.0331,0.859,0.0611,0.256,150.044,338800,4,4.0,Aidans Shower Playlist
+9,Various Artists,ペルソナ3 オリジナル・サウンドトラック,キミの記憶,34RdcQ0rkkbdjbx7ks6BJF,0.649,0.802,2,-7.947,1,0.028,0.0,0.252,0.819,111.979,369387,4,47.0,Aidans Shower Playlist
+0,NERO,Welcome Reality +,Scorpions,5Ch7MDCPiHTyLtkaaGGPEE,0.264,0.9,6,-4.416,1,0.0587,0.0425,0.2,0.0369,104.905,355880,3,30.0,Siri's Selections for the Robot Uprising
+1,Virtual Riot,Chemistry EP,Borg,3pXmEIRFqRBmJUUWT6j1ol,0.569,0.96,1,-4.513,1,0.296,0.00135,0.0734,0.0413,75.016,265100,4,35.0,Siri's Selections for the Robot Uprising
+2,edIT,Crying over Pros for No Reason (Deluxe Edition),Ants,5Fwq7F2yjF3eQnvkfjN4LY,0.602,0.532,10,-7.468,1,0.042,0.175,0.41,0.173,139.65,243133,4,42.0,Siri's Selections for the Robot Uprising
+3,Daft Punk,Human After All,Technologic,0LSLM0zuWRkEYemF7JcfEE,0.812,0.516,9,-6.963,1,0.224,1.09e-05,0.0991,0.633,127.498,284280,4,52.0,Siri's Selections for the Robot Uprising
+4,Grandtheft,Mobbin / Give Me More,Mobbin,4bv3f4z27By49AbtqYO3mq,0.607,0.839,11,-4.058,1,0.0968,0.894,0.076,0.201,179.741,186667,4,36.0,Siri's Selections for the Robot Uprising
+5,Dogg Master,Like a Robot,Decompression Activated,6LmgvqJAUtNt47P4Unahh4,0.828,0.717,10,-8.833,0,0.142,0.351,0.0626,0.351,115.014,128640,4,7.0,Siri's Selections for the Robot Uprising
+6,Daft Punk,Discovery,"Harder, Better, Faster, Stronger",5W3cjX2J3tjhG8zb6u0qHn,0.817,0.716,6,-8.898,0,0.144,0.00263,0.358,0.692,123.474,224693,4,72.0,Siri's Selections for the Robot Uprising
+7,Broken Elegance,Watchtower EP,Falling Awake,2WyR0X74ighrvRMEfs46V4,0.559,0.843,5,-6.401,0,0.0399,0.708,0.107,0.298,129.985,227077,4,10.0,Siri's Selections for the Robot Uprising
+8,Au5,Secret Weapon,Smoke,7pzB3G1ZOfPjjEdQ9b7Pxt,0.654,0.809,1,-7.031,0,0.114,0.101,0.096,0.185,128.024,303047,4,34.0,Siri's Selections for the Robot Uprising
+9,Feed Me,Calamari Tuesday,Lonely Mountain,1kGbB1kCZfRqC7sijKBBN4,0.426,0.81,9,-5.463,0,0.333,0.0159,0.184,0.18,127.483,340367,4,31.0,Siri's Selections for the Robot Uprising
+10,Au5,Cataclysm,Cataclysm,7Bka7BItYbiCQOSbJNx0ni,0.509,0.867,6,-5.859,1,0.0511,0.383,0.105,0.0675,140.028,300000,4,25.0,Siri's Selections for the Robot Uprising
+11,Skrillex,Recess,Ragga Bomb,2zBXZY8lvzzmtzm07uImXc,0.595,0.961,7,-3.781,1,0.31,0.0,0.271,0.61,174.071,258827,4,55.0,Siri's Selections for the Robot Uprising
+0,Various Artists,It's Always Sunny In Philadelphia (Music from the Original FX Series),Off Broadway,7uSWYgt3MmFjLshyRdIgPL,0.602,0.668,2,-8.71,1,0.0352,0.876,0.462,0.849,150.073,150635,4,27.0,Thomas Cat's Chase Music Collection
+1,Vulfpeck,Mr Finish Line,Tee Time,3XxpR8oXqq5Km5X4LlS0pi,0.578,0.889,6,-9.708,1,0.0348,0.73,0.0984,0.868,140.986,169004,4,41.0,Thomas Cat's Chase Music Collection
+2,Various Artists,SUPER EUROBEAT presents INITIAL D 〜D SELECTION 2〜,LOVE & MONEY,16211VKpjM4Hh3MfIlcu4s,0.564,0.971,9,-5.338,0,0.0362,0.132,0.223,0.961,155.437,299933,4,46.0,Thomas Cat's Chase Music Collection
+3,Various Artists,SUPER EUROBEAT presents INITIAL D〜D SELECTION 3〜,NIGHT & DAY,1tYWuxQgXJqA4L4jACzjcK,0.38,0.985,1,-5.074,0,0.0548,5.3e-05,0.226,0.871,75.659,311300,4,47.0,Thomas Cat's Chase Music Collection
+4,Various Artists,The Fast And The Furious: Tokyo Drift (Original Motion Picture Soundtrack),Speed,5EbTHYIQQtNNMloPNirkKi,0.413,0.912,4,-5.092,0,0.0878,0.0203,0.14,0.497,165.156,168587,4,43.0,Thomas Cat's Chase Music Collection
+5,Fatboy Slim,The Greatest Hits: Why Try Harder,Weapon Of Choice,08kB9HSfrcIi83rymwgjMz,0.626,0.947,8,-4.608,0,0.057,0.78,0.209,0.959,195.972,219813,4,50.0,Thomas Cat's Chase Music Collection
+6,Cory Wong,The Optimist,Jax,39PRMLzu72Nz6lSOCF3bWN,0.781,0.84,5,-7.689,1,0.0578,0.834,0.0505,0.698,111.995,252253,4,37.0,Thomas Cat's Chase Music Collection
+7,Ricky Martin,Ricky Martin,Livin' la Vida Loca,0Ph6L4l8dYUuXFmb71Ajnd,0.425,0.954,1,-3.756,0,0.0476,0.0,0.0555,0.933,178.043,243160,4,75.0,Thomas Cat's Chase Music Collection
+8,A Certain Ratio,Sextet,Lucinda,7km2akG0G3Z5STqoKrHZPf,0.69,0.902,2,-6.632,1,0.0686,0.833,0.0923,0.783,124.855,234813,4,31.0,Thomas Cat's Chase Music Collection
+9,Kristofer Maddigan,Cuphead (Original Soundtrack),Fiery Frolic,02h2lqTc872LnYQ7TOFMmF,0.607,0.679,7,-6.221,0,0.114,0.659,0.336,0.715,150.229,217627,4,40.0,Thomas Cat's Chase Music Collection
+10,Ramones,Ramones (40th Anniversary Deluxe Edition; 2016 Remaster),Blitzkrieg Bop - 2016 Remaster,4KcH1ZRV2W1q7Flq0QqC76,0.385,0.783,9,-2.533,1,0.233,0.47,0.108,0.902,176.701,134467,4,73.0,Thomas Cat's Chase Music Collection
+11,Carpenter Brut,Leather Teeth,Hairspray Hurricane,2x11x3cBABgQUDNMtTxMch,0.38,0.83,2,-3.742,1,0.0533,0.934,0.275,0.102,92.588,331507,4,41.0,Thomas Cat's Chase Music Collection
+12,Toby Fox,UNDERTALE Soundtrack,MEGALOVANIA,2WpstnkNuH6dUnm3fVLCpU,0.715,0.612,7,-9.85,1,0.0515,0.864,0.0387,0.95,120.022,156000,4,0.0,Thomas Cat's Chase Music Collection
+0,Goth Babe,Encinitas,Encinitas,4tO2Ol08xzay6zcfhDKpuN,0.76,0.577,7,-4.981,1,0.0908,0.00352,0.445,0.553,116.02,171724,4,50.0,My Summer Playlist
+1,Steve Lacy,Gemini Rights,Bad Habit,4k6Uh1HXdhtusDW5y8Gbvy,0.686,0.494,1,-7.093,1,0.0355,5.8e-05,0.402,0.7,168.946,232067,4,90.0,My Summer Playlist
+2,Dominic Fike,What Could Possibly Go Wrong,Wurli,5MSshyHGM9ajWSEoBcR0jv,0.482,0.837,11,-3.696,1,0.0639,0.0216,0.132,0.0787,91.968,150620,4,65.0,My Summer Playlist
+3,Remi Wolf,We Love Dogs!,Photo ID (with Dominic Fike),1F35Dmog9pekyCVnH1eQpl,0.75,0.829,1,-4.942,1,0.0915,0.0,0.279,0.87,115.894,209971,4,65.0,My Summer Playlist
+4,Nicky Youre,Sunroof,Sunroof,3RfTeIrWS8LNrfHYwechtt,0.768,0.716,10,-5.11,1,0.0404,0.0,0.15,0.841,131.43,163026,4,28.0,My Summer Playlist
+5,Glass Animals,Dreamland,Tangerine,40rOlDoGejXXF4B0BYsjx8,0.845,0.583,9,-5.948,0,0.0773,0.000536,0.1,0.842,149.941,200584,4,64.0,My Summer Playlist
+6,The Griswolds,Nice to Meet Ya!,Nice to Meet Ya!,0llZHj92zlvNoX8pvhdguD,0.547,0.865,10,-5.377,0,0.0761,0.00361,0.0721,0.855,164.886,171401,4,43.0,My Summer Playlist
+7,Glass Animals,How To Be A Human Being,Youth,1LPGwuFgIzbJoShfDdw7MY,0.648,0.718,9,-7.765,0,0.0298,0.00156,0.112,0.785,96.017,230693,4,68.0,My Summer Playlist
+8,Goth Babe,I Wanna Help Your Mind,I Wanna Help Your Mind,08ZZ7SILfKcreLtA3K6Gqr,0.747,0.725,8,-8.517,1,0.215,0.197,0.0688,0.799,119.942,171938,4,64.0,My Summer Playlist
+9,Dominic Fike,What Could Possibly Go Wrong,Double Negative (Skeleton Milkshake),7ACT6YaXbYvl7hRWEOOEHQ,0.689,0.858,4,-2.868,1,0.161,0.0,0.129,0.643,153.977,126465,4,60.0,My Summer Playlist
+0,Lynyrd Skynyrd,Pronounced' Leh-'Nerd 'Skin-'Nerd,Free Bird,5EWPGh7jbTNO2wakv8LjUI,0.249,0.834,0,-8.21,1,0.0577,9.48e-05,0.0924,0.338,118.223,547107,4,78.0,My Dads Driving Playlist
+1,Creedence Clearwater Revival,Green River (Expanded Edition),Bad Moon Rising,20OFwXhEXf12DzwXmaV7fj,0.508,0.774,2,-5.973,1,0.0321,4.87e-06,0.063,0.942,178.946,141600,4,80.0,My Dads Driving Playlist
+2,The Rolling Stones,The Rolling Stones Singles Collection: The London Years,Sympathy For The Devil,75zMKn5euxQdlkZgu4P42J,0.728,0.681,9,-10.943,1,0.221,0.0,0.0559,0.578,115.944,376800,4,64.0,My Dads Driving Playlist
+3,John Mellencamp,American Fool,Jack & Diane,43btz2xjMKpcmjkuRsvxyg,0.811,0.41,9,-8.214,1,0.0391,6.63e-06,0.0799,0.626,103.965,254493,4,75.0,My Dads Driving Playlist
+4,Tom Petty,Full Moon Fever,Free Fallin',5tVA6TkbaAH9QMITTQRrNv,0.623,0.449,5,-13.333,1,0.0253,0.0,0.0613,0.572,84.383,256000,4,78.0,My Dads Driving Playlist
+5,The Who,Who's Next (Deluxe Edition),Baba O'Riley,3qiyyUfYe7CRYLucrPmulD,0.489,0.724,5,-8.367,1,0.0352,0.185,0.287,0.15,117.292,300400,4,77.0,My Dads Driving Playlist
+6,Bruce Springsteen,Born To Run,Born to Run,6hTcuIQa0sxrrByu9wTD7s,0.27,0.944,4,-4.199,1,0.0975,2.05e-05,0.116,0.606,146.347,269920,4,73.0,My Dads Driving Playlist
+7,Bryan Adams,Reckless (30th Anniversary / Deluxe Edition),Summer Of '69,0GONea6G2XdnHWjNZd6zt3,0.508,0.834,2,-6.205,1,0.0386,0.0,0.0732,0.774,139.131,216053,4,83.0,My Dads Driving Playlist
+8,Journey,Escape (Bonus Track Version),Don't Stop Believin',4bHsxqR3GMrXTxEPLuK5ue,0.5,0.748,4,-9.072,1,0.0363,0.0,0.447,0.514,118.852,250987,4,83.0,My Dads Driving Playlist
+9,Kansas,Leftoverture (Expanded Edition),Carry on Wayward Son,4DMKwE2E2iYDKY01C335Uw,0.482,0.786,7,-5.735,1,0.032,8.88e-05,0.446,0.793,126.755,323000,4,76.0,My Dads Driving Playlist
+10,John Denver,"The John Denver Collection, Vol. 1: Take Me Home Country Roads","Take Me Home, Country Roads - Rerecorded",2xYlyywNgefLCRDG8hlxZq,0.255,0.43,9,-12.564,1,0.0322,1.87e-05,0.188,0.546,164.267,197813,4,1.0,My Dads Driving Playlist
+11,Paul McCartney,Pure McCartney (Deluxe Edition),Live And Let Die,74Qio2ajLFnRgNTXS0J0q4,0.454,0.522,7,-9.942,1,0.062,0.00153,0.0955,0.202,124.656,194613,4,0.0,My Dads Driving Playlist
+0,Various Artists,Rhythm and Soul - Sweet Love Songs,Bound,1C8rYFLZu5QFSN6KV18Q4E,0.458,0.54,5,-6.457,0,0.027,0.000428,0.115,0.657,142.218,191205,4,33.0,Kanye’s Sample Search
+1,Ms. Lauryn Hill,MTV Unplugged No. 2.0,Mystery of Iniquity - Live,5KZwRD3KklSP73jnLoNWtF,0.65,0.428,2,-10.998,0,0.699,0.0,0.771,0.626,74.3,310733,3,44.0,Kanye’s Sample Search
+2,Mike Oldfield,Crises,In High Places,4RM7uN7fVEe89rt0f3NzcD,0.754,0.666,4,-9.516,0,0.0461,0.00454,0.0806,0.75,156.571,213160,4,0.0,Kanye’s Sample Search
+3,Smokey Robinson,Smokey,Will You Love Me Tomorrow?,3qdGPi6cpcOSAc1QzKFPmC,0.325,0.327,10,-12.301,1,0.0286,0.00899,0.175,0.413,145.669,280307,3,43.0,Kanye’s Sample Search
+4,Bon Iver,Blood Bank,Woods,35zX9FPuA6qg9bqx79eskS,0.193,0.352,3,-10.821,0,0.0921,0.224,0.102,0.162,77.129,285440,1,0.0,Kanye’s Sample Search
+5,"Bobby ""Blue"" Bland",Dreamer,Ain't No Love In The Heart Of The City - Single Version,4qYHnP5AmKzXbJhciPV8si,0.518,0.376,9,-18.248,0,0.0431,0.86,0.0976,0.744,158.089,233560,4,60.0,Kanye’s Sample Search
+6,Luther Vandross,Never Too Much,A House Is Not a Home,4gFVTfg1EFuuXJguJe1Z7W,0.374,0.236,5,-15.565,1,0.0317,0.000177,0.247,0.0772,105.898,427693,4,52.0,Kanye’s Sample Search
+7,Chaka Khan,I Feel for You,Through the Fire,7gh2v4IHnxdiwSgA6xluhe,0.563,0.593,8,-7.099,1,0.0322,1.85e-05,0.145,0.428,130.744,288653,4,62.0,Kanye’s Sample Search
+8,Various Artists,Essential Blues Anthems,I Got a Woman,4n3jZ9O3ntnHrP1sjmWW8T,0.6,0.507,9,-5.729,1,0.183,2.15e-05,0.124,0.731,198.488,171967,4,44.0,Kanye’s Sample Search
+9,Daft Punk,Discovery,"Harder, Better, Faster, Stronger",5W3cjX2J3tjhG8zb6u0qHn,0.817,0.716,6,-8.898,0,0.144,0.00263,0.358,0.692,123.474,224693,4,72.0,Kanye’s Sample Search
+0,Little Simz,Sometimes I Might Be Introvert,Introvert,2lbX8Jt97ou14yL9rqG58C,0.313,0.87,1,-6.613,0,0.114,0.0191,0.116,0.117,92.685,362653,4,54.0,Musicians intro to hip hop
+1,Nate Smith,Kinfolk 2: See the Birds,Square Wheel feat. Kokayi & Michael Mayo,4xjVI8dyuWXpOtxQFOewNH,0.576,0.695,9,-7.36,1,0.214,0.000587,0.272,0.768,116.412,300696,1,32.0,Musicians intro to hip hop
+2,Black Thought,Streams of Thought Vol. 2,Conception,61Vc6UXzRv7a9tWYxIJtcQ,0.565,0.858,0,-6.087,0,0.21,2.32e-06,0.0889,0.186,103.851,254006,4,42.0,Musicians intro to hip hop
+3,Kendrick Lamar,To Pimp A Butterfly,King Kunta,0N3W5peJUQtI4eyR6GJT5O,0.884,0.657,6,-4.569,0,0.0977,0.0,0.154,0.489,107.059,234693,4,75.0,Musicians intro to hip hop
+4,Kendrick Lamar,To Pimp A Butterfly,Institutionalized,4oFtLSgHyZPNYDCcANhTnO,0.539,0.731,3,-5.085,0,0.453,1.19e-06,0.129,0.568,81.114,271773,4,62.0,Musicians intro to hip hop
+5,The Roots,Things Fall Apart,You Got Me,4pdLZsxq0y5oJDb6Cxlokw,0.729,0.442,11,-8.106,0,0.285,0.0,0.189,0.757,81.029,259307,4,66.0,Musicians intro to hip hop
+6,Ghost-Note,Swagism,Nod to Dilla,5VCMdVMNw7HP3HrSu8nqVy,0.498,0.215,6,-11.675,0,0.0524,0.000574,0.23,0.281,82.777,201840,4,17.0,Musicians intro to hip hop
+7,Madvillain,Madvillainy,Accordion,67vrmPygrZ9giGqHUSReAT,0.578,0.631,9,-6.518,0,0.309,0.0,0.0665,0.716,96.332,118853,4,66.0,Musicians intro to hip hop
+8,Kanye West,ye,Ghost Town,7vgTNTaEz3CsBZ1N4YQalM,0.573,0.545,7,-4.247,0,0.0288,0.0,0.329,0.297,83.378,271387,4,79.0,Musicians intro to hip hop
+9,MF DOOM,Operation: Doomsday (Complete),Doomsday,7lT1dCz96jANsLAAADlfIg,0.856,0.841,6,-7.737,0,0.335,0.0,0.0773,0.794,95.418,298053,4,75.0,Musicians intro to hip hop
+0,Various Artists,熱烈!アニソン魂 THE BEST カバー楽曲集 TVアニメシリーズ「デジモンシリーズ」 vol.1,Butter-Fly (デジモンアドベンチャー全話OP),4A3G4Chh8DTJftwJEf5tOp,0.472,0.907,2,-4.545,1,0.0546,0,0.0645,0.441,164.994,257950,4,49.0,Anime Recollections
+1,毛毛,迪迦奥特曼,奇迹再现 - 《超人迪加》电视剧中文版片头曲,3zAieIyKyNODQn6y2sxbFq,0.457,0.864,9,-5.9,1,0.0838,0,0.374,0.441,159.784,236042,4,31.0,Anime Recollections
+2,Akano,"Blue Bird (From ""Naruto Shippuden"")","Blue Bird (From ""Naruto Shippuden"")",1bEnIDpwKsyhDauHVoMz6t,0.594,0.868,6,-3.286,0,0.0606,0,0.209,0.691,151.976,100201,4,64.0,Anime Recollections
+3,Katsuo Ohno,「名探偵コナン から紅の恋歌」オリジナル・サウンドトラック,名探偵コナン メイン・テーマ(から紅ヴァージョン),0RyQvri8BbQYChVVXSJnnL,0.269,0.857,5,-3.963,0,0.0495,0.654,0.218,0.689,131.912,186907,4,31.0,Anime Recollections
+4,Geek Music,"Tom And Jerry Main Theme (From ""Tom And Jerry"")","Tom And Jerry Main Theme (From ""Tom And Jerry"")",5sFKd7dVlGoOuXl2usSZuW,0.544,0.536,5,-8.701,1,0.0357,0.768,0.493,0.514,155.986,65736,3,33.0,Anime Recollections
+5,Various Artists,喜羊羊与灰太狼之虎虎生威电影原声大碟,别看我只是一只羊 - 国,1gn9wcyLBChQcC3q7tKK8F,0.827,0.507,0,-6.392,1,0.0433,0,0.068,0.696,125.996,186467,4,19.0,Anime Recollections
+6,毛毛,迪迦奥特曼,永远的奥特曼 - 《迪迦奥特曼》中文片尾曲,4MskqNyksAQvAqnHEJmhTg,0.662,0.872,4,-6.223,1,0.0402,2.11e-05,0.217,0.579,130.015,197120,4,20.0,Anime Recollections
+7,Various Artists,アニソンLive大全集 熱烈!アニソン魂「アニたまLive」vol.1 in AJF 2004,ウィーアー! (ワンピース),42esJ6BgSoV1DS3Onns03h,0.332,0.975,8,-6.182,1,0.106,0,0.981,0.268,167.874,262013,4,56.0,Anime Recollections
+8,牛奶@咖啡,越长大越孤单,快乐星猫,4Qzuh2Jp6MlIGjQPtYbZqi,0.543,0.866,2,-4.925,1,0.0689,0,0.0236,0.453,159.976,194160,4,31.0,Anime Recollections
+9,Toshio Masuda,NARUTO -ナルト- オリジナルサウンドトラック,NARUTO Main Theme,5kKloaKFvAuDNFi8m52hxy,0.525,0.766,4,-8.448,0,0.0438,0.00235,0.125,0.383,119.974,266920,4,57.0,Anime Recollections
+0,Sodagreen,冬 未了,他舉起右手點名,3ETJoNBnbGgrrEquK9lLtk,0.714,0.6,1,-5.652,1,0.0365,0,0.0458,0.411,117.985,222107,4,32.0,Four Seasons
+1,Sodagreen,冬 未了,牆外的風景,0sCbR920YIEXbka1KcpBNB,0.463,0.746,4,-5.205,1,0.0318,0,0.203,0.463,84.0,285653,4,27.0,Four Seasons
+2,Sodagreen,冬 未了,痛快的哀艷,0er0B3cAHhpELWxwfXEAcP,0.566,0.815,8,-5.354,0,0.04,0,0.293,0.515,120.012,360640,4,29.0,Four Seasons
+3,Sodagreen,秋:故事,再遇見,4thduM4ItRZZqJdFZhGfjl,0.489,0.796,3,-4.3,1,0.0352,0,0.0903,0.229,96.063,277394,4,47.0,Four Seasons
+4,Sodagreen,秋:故事,獨處的時候,3E6ApAOzKGetz5T4rYeB2k,0.508,0.297,5,-10.021,1,0.0339,4.19e-05,0.0988,0.23,119.61,274547,4,26.0,Four Seasons
+5,Sodagreen,秋:故事,我好想你,3aQ7k1TkEdannB2soLjtJC,0.445,0.481,6,-6.985,0,0.0272,3.39e-06,0.0709,0.35,76.034,326949,4,55.0,Four Seasons
+6,Sodagreen,夏 / 狂熱,他夏了夏天,5POo0zRDYRZhU0SMs49Rfo,0.525,0.683,9,-6.509,1,0.0304,0,0.0904,0.746,124.982,304600,4,41.0,Four Seasons
+7,Sodagreen,夏 / 狂熱,狂熱,0fTYdLQAiWx1TFSE8tg2hf,0.356,0.873,10,-5.25,1,0.0698,1.24e-06,0.202,0.696,185.167,206013,4,27.0,Four Seasons
+8,Sodagreen,夏 / 狂熱,彼得與狼,5gVrlaEpYYaSUTVzWnycMa,0.505,0.777,5,-7.88,1,0.0324,0,0.098,0.795,165.129,221867,4,20.0,Four Seasons
+9,Sodagreen,春.日光,日光,1amSmGRNoFesChDFgSBqUu,0.609,0.603,8,-9.062,1,0.0283,0,0.13,0.465,104.013,182333,3,25.0,Four Seasons
+10,Sodagreen,春.日光,在我們之間,5n7wzxierDYgkVFIoDjXGG,0.438,0.712,9,-6.099,1,0.0525,6.42e-06,0.0448,0.693,160.078,199960,4,14.0,Four Seasons
+11,Sodagreen,春.日光,各站停靠,1bQxFQIsoOGNul2UF7UGR2,0.353,0.218,4,-12.059,1,0.0352,4.03e-05,0.0905,0.255,77.059,244560,4,18.0,Four Seasons
+0,Yameii Online,Baby My Phone,Baby My Phone,2SjvBmZYIbQTJ7rrPgdmV8,0.427,0.666,5,-7.902,0,0.0415,0.229,0.0856,0.232,85.022,215771,4,62.0,Zoomer TikTok Neon Sugar Dream Playlist
+1,Trippie Redd,Trip At Knight (Complete Edition),Betrayal (feat. Drake),4mOkfIYbMX9PXx27hj8NTi,0.74,0.564,8,-6.71,1,0.0688,0.0,0.126,0.129,158.114,152025,4,62.0,Zoomer TikTok Neon Sugar Dream Playlist
+2,100 gecs,1000 gecs,stupid horse,23Dapn8107GgxvXDIsPwWm,0.526,0.902,3,-4.876,1,0.314,0.0,0.531,0.797,168.188,121682,4,58.0,Zoomer TikTok Neon Sugar Dream Playlist
+3,Lil Uzi Vert,Luv Is Rage 2,The Way Life Goes (feat. Oh Wonder),2eAZfqOm4EnOF9VvN50Tyc,0.703,0.757,1,-3.612,1,0.05,0.0,0.106,0.696,82.008,221747,4,81.0,Zoomer TikTok Neon Sugar Dream Playlist
+4,Olivia Rodrigo,SOUR,good 4 u,4ZtFanR9U6ndgddUvNcjcG,0.563,0.664,9,-5.044,1,0.154,0.0,0.0849,0.688,166.928,178147,4,88.0,Zoomer TikTok Neon Sugar Dream Playlist
+5,Doja Cat,Hot Pink,Say So,3Dv1eDb0MEgF93GpLXlucZ,0.787,0.673,11,-4.583,0,0.159,3.35e-06,0.0904,0.779,110.962,237893,4,80.0,Zoomer TikTok Neon Sugar Dream Playlist
+6,DaBaby,BLAME IT ON BABY,ROCKSTAR (feat. Roddy Ricch),7ytR5pFWmSjzHJIeQkgog4,0.746,0.69,11,-7.956,1,0.164,0.0,0.101,0.497,89.977,181733,4,81.0,Zoomer TikTok Neon Sugar Dream Playlist
+7,The Kid LAROI,STAY (with Justin Bieber),STAY (with Justin Bieber),5HCyWlXZPP0y6Gqq8TgA20,0.591,0.764,1,-5.484,1,0.0483,0.0,0.103,0.478,169.928,141806,4,90.0,Zoomer TikTok Neon Sugar Dream Playlist
+8,Glass Animals,Dreamland (+ Bonus Levels),Heat Waves,02MWAaffLxlfxAUY7c5dvx,0.761,0.525,11,-6.9,1,0.0944,6.7e-06,0.0921,0.531,80.87,238805,4,89.0,Zoomer TikTok Neon Sugar Dream Playlist
+9,Trippie Redd,Miss The Rage (feat. Playboi Carti),Miss The Rage (feat. Playboi Carti),2BITQ360Knh6qNAOqR7Dyq,0.584,0.859,8,-5.616,1,0.121,0.0,0.847,0.369,77.005,236883,4,76.0,Zoomer TikTok Neon Sugar Dream Playlist
+10,Bladee,Icedancer,Be Nice 2 Me,2TmqHjg7uhizGndzXQdFuf,0.449,0.631,7,-9.019,1,0.07,9.27e-06,0.482,0.331,139.017,127792,4,64.0,Zoomer TikTok Neon Sugar Dream Playlist
+11,Lil Mosey,Certified Hitmaker,Blueberry Faygo,22LAwLoDA5b4AaGSkg6bKW,0.774,0.554,0,-7.909,1,0.0383,0.0,0.132,0.349,99.034,162547,4,76.0,Zoomer TikTok Neon Sugar Dream Playlist
+12,Don Toliver,Heaven Or Hell,After Party,527k23H0A4Q0UJN3vGs0Da,0.629,0.692,5,-8.045,1,0.0376,0.331,0.603,0.453,162.948,167916,4,80.0,Zoomer TikTok Neon Sugar Dream Playlist
+13,Lil Nas X,MONTERO,MONTERO (Call Me By Your Name),1SC5rEoYDGUK4NfG82494W,0.593,0.503,8,-6.725,0,0.22,0.0,0.405,0.71,178.781,137704,4,83.0,Zoomer TikTok Neon Sugar Dream Playlist
+14,Lil Nas X,MONTERO,INDUSTRY BABY (feat. Jack Harlow),5Z9KJZvQzH6PFmb8SNkxuk,0.741,0.691,10,-7.395,0,0.0672,0.0,0.0476,0.892,150.087,212353,4,82.0,Zoomer TikTok Neon Sugar Dream Playlist
+0,Led Zeppelin,Led Zeppelin II (Remaster),Ramble On - Remaster,1oCOp1kVAgNlXX9Tx9mvzq,0.456,0.549,4,-13.111,1,0.0343,0.00227,0.0877,0.834,98.583,274010,4,50.0,Running until I pass out
+1,Led Zeppelin,Coda (Deluxe Edition),Travelling Riverside Blues (BBC Session) - Remastered,3dCarMp6T3GsKCspJgeD0a,0.467,0.835,7,-7.084,1,0.0642,0.000184,0.26,0.639,91.603,311640,4,56.0,Running until I pass out
+2,Led Zeppelin,Led Zeppelin III (Remaster),Friends - Remaster,7jP44G0vKQLkfJ3x19pqPn,0.257,0.452,7,-12.365,1,0.0349,0.0996,0.38,0.271,83.553,233901,1,52.0,Running until I pass out
+3,Led Zeppelin,Led Zeppelin III (Remaster),Celebration Day - Remaster,78MXICbE7bD4cuPKFh1EFO,0.453,0.895,2,-9.143,1,0.0649,0.00128,0.299,0.446,128.313,210227,4,49.0,Running until I pass out
+4,The Smashing Pumpkins,Mellon Collie And The Infinite Sadness (Deluxe Edition),Muzzle - Remastered 2012,6UuGRkwfLwBAfmHktU9GNA,0.278,0.686,10,-8.731,0,0.034,0.822,0.0939,0.334,91.852,223920,4,50.0,Running until I pass out
+5,The Smashing Pumpkins,Mellon Collie And The Infinite Sadness (Deluxe Edition),Jellybelly - Remastered 2012,6912SIXb1G9ql3quOxeCaa,0.209,0.835,1,-8.158,1,0.0569,0.873,0.191,0.506,117.003,181533,4,50.0,Running until I pass out
+6,The Smashing Pumpkins,Mellon Collie And The Infinite Sadness (Deluxe Edition),Zero - Remastered 2012,4YFcGTdgmEuw8xTO4XrxbB,0.438,0.728,8,-7.105,1,0.0458,0.57,0.0509,0.701,128.04,160173,4,70.0,Running until I pass out
+7,The Smashing Pumpkins,Mellon Collie And The Infinite Sadness (Deluxe Edition),Here Is No Why - Remastered 2012,5INe9EN6cNF6axQ4A4BQfy,0.319,0.654,8,-7.063,1,0.0334,0.895,0.136,0.602,79.598,225120,4,53.0,Running until I pass out
+8,The Smashing Pumpkins,Mellon Collie And The Infinite Sadness (Deluxe Edition),An Ode To No One - Remastered 2012,6W9nK2wPyJklgDVf0AQcPO,0.362,0.855,5,-8.806,0,0.0743,0.83,0.137,0.215,124.359,291733,4,48.0,Running until I pass out
+9,The Smashing Pumpkins,Mellon Collie And The Infinite Sadness (Deluxe Edition),Bullet With Butterfly Wings - Remastered 2012,6GtX0jaNL8IjVQfrDBx81z,0.404,0.72,10,-9.18,0,0.0623,0.836,0.0466,0.475,121.864,258467,4,76.0,Running until I pass out
+0,Pearl Jam,Ten,Alive,1L94M3KIu7QluZe63g64rv,0.284,0.875,11,-6.069,0,0.0422,0.000461,0.402,0.595,75.009,340907,4,77.0,family dishes
+1,Mesto,Leyla,Leyla,4pEylyftELdaYfRROnRhFs,0.817,0.728,4,-5.382,0,0.0973,0.0,0.0831,0.538,107.117,181811,4,47.0,family dishes
+2,Various Artists,Spider-Man: Into the Spider-Verse (Soundtrack From & Inspired by the Motion Picture),Sunflower - Spider-Man: Into the Spider-Verse,3KkXRkHbMCARz0aVfEt68P,0.76,0.479,2,-5.574,1,0.0466,0.0,0.0703,0.913,89.911,158040,4,84.0,family dishes
+3,Taska Black,Running Away,Running Away,5HbTUbKSPeNh75aKSW66OF,0.51,0.812,2,-5.782,0,0.0744,0.133,0.166,0.151,159.885,185813,4,48.0,family dishes
+4,Frank Sinatra,Nothing But The Best (Remastered),"Theme From New York, New York - 2008 Remastered",0K2WjMLZYr09LKwurGRYRE,0.312,0.497,2,-6.95,1,0.0309,0.0,0.246,0.546,94.311,204907,4,63.0,family dishes
+5,Calvin Harris,Slide (feat. Frank Ocean & Migos),Slide (feat. Frank Ocean & Migos),6gpcs5eMhJwax4mIfKDYQk,0.736,0.795,1,-3.299,0,0.0545,1.21e-06,0.254,0.511,104.066,230813,4,73.0,family dishes
+6,Seal,Seal,Kiss from a Rose,3YKptz29AsOlm7WAVnztBh,0.584,0.533,10,-7.11,0,0.0305,0.0,0.306,0.224,131.745,288427,3,75.0,family dishes
+7,Cage The Elephant,Melophobia,Cigarette Daydreams,2tznHmp70DxMyr2XhWLOW0,0.636,0.676,2,-3.442,1,0.0263,0.0,0.0831,0.273,113.98,208760,4,80.0,family dishes
+8,Camila Cabello,Camila,Havana (feat. Young Thug),1rfofaqEpACxVEHIZBJe6W,0.765,0.523,2,-4.333,1,0.03,3.56e-05,0.132,0.394,104.988,217307,4,81.0,family dishes
+9,Fleetwood Mac,Rumours (Super Deluxe),Dreams - 2004 Remaster,0ofHAoxe9vBkTCp2UQIavz,0.828,0.492,0,-9.744,1,0.0276,0.00428,0.128,0.789,120.151,257800,4,84.0,family dishes
+0,Mick Jenkins,The Water (S),Jazz,2rk0lCpO1vkKAQ6BC8bjUX,0.636,0.61,8,-9.665,1,0.119,0.000121,0.113,0.296,125.227,260160,3,57.0,sunset by the water
+1,On Planets,Don't Think So Hard,Don't Think So Hard,3hWnEM3FbJHGvOBo3aRcKM,0.774,0.425,8,-8.826,1,0.205,0.00516,0.109,0.393,76.0,216337,4,44.0,sunset by the water
+2,New Navy,Zimbabwe (Flume Remix),Zimbabwe - Flume Remix,3THtJnVD817XzrS49LPAem,0.674,0.697,9,-8.766,0,0.0344,0.223,0.0936,0.0395,110.003,213620,4,41.0,sunset by the water
+3,RÜFÜS DU SOL,SOLACE,No Place,6rLQZW36LaEUGWl3sWTg7v,0.612,0.876,4,-6.247,0,0.0315,0.175,0.189,0.187,120.022,237987,4,62.0,sunset by the water
+4,Ben Böhmer,Weightless (jamesjamesjames Remix),Weightless - jamesjamesjames Remix,0OOT6JmtkcYidsuQ9Fh54i,0.688,0.814,6,-7.252,0,0.0419,0.581,0.399,0.0961,127.99,249780,4,63.0,sunset by the water
+5,Miguel,Rogue Waves,waves - Tame Impala Remix,3lB0GMiI5KxDbTOG8V3bOx,0.529,0.894,2,-3.599,1,0.0412,5.38e-06,0.254,0.543,108.024,253347,4,68.0,sunset by the water
+6,Plastic Toy,Try Me,Try me,2iwKb075HoUFjyOVR8oAeI,0.537,0.699,7,-3.376,0,0.076,0.022,0.128,0.211,203.878,198405,4,0.0,sunset by the water
+7,Flume,Flume: Deluxe Edition,Warm Thoughts,1QgGyNtuFClzvZnNCofqsF,0.533,0.883,5,-6.839,0,0.13,0.014,0.0856,0.612,167.95,228376,4,42.0,sunset by the water
+8,Louis The Child,Here For Now,Free (with Drew Love),6wjm92jBZapfiplQS4XV0X,0.651,0.564,1,-6.64,1,0.0353,3.53e-05,0.143,0.153,124.99,222253,4,56.0,sunset by the water
+9,Petit Biscuit,Presence,Problems,7wKzj1b8YKPuZELfVDz708,0.802,0.371,6,-9.087,0,0.131,3.82e-06,0.108,0.263,113.951,219933,4,56.0,sunset by the water
+0,DJ Khaled,"All I Do Is Win (feat. T-Pain, Ludacris, Snoop Dogg & Rick Ross)","All I Do Is Win (feat. T-Pain, Ludacris, Snoop Dogg & Rick Ross)",28jyTDJQyz5IeDTkB1lOuu,0.55,0.779,0,-3.808,1,0.21,0,0.333,0.293,150.068,230281,4,50.0,Sociopath Motivation
+1,Drake,"Honestly, Nevermind",Jimmy Cooks (feat. 21 Savage),3F5CgOj3wFlRv51JsHbxhe,0.529,0.673,0,-4.711,1,0.175,2.41e-06,0.093,0.366,165.921,218365,4,91.0,Sociopath Motivation
+2,Denzel Curry,Melt My Eyez See Your Future,Walkin,1q8DwZtQen5fvyB7cKbShC,0.557,0.654,11,-7.201,0,0.196,0,0.291,0.386,135.983,280000,4,71.0,Sociopath Motivation
+3,Kanye West,My Beautiful Dark Twisted Fantasy,POWER,2gZUPNdnz5Y45eiGxpHGSc,0.542,0.914,0,-4.747,0,0.113,0,0.744,0.576,153.993,292093,4,79.0,Sociopath Motivation
+4,Gloria Gaynor,20th Century Masters: The Millennium Collection: Best Of Gloria Gaynor,I Will Survive - Single Version,7cv28LXcjAC3GsXbUvXKbX,0.777,0.725,0,-8.681,1,0.05,0.00805,0.246,0.529,116.669,198066,4,69.0,Sociopath Motivation
+5,Lil Wayne,Tha Carter III,A Milli,6ScJMrlpiLfZUGtWp4QIVt,0.674,0.695,6,-8.636,0,0.278,0.00202,0.194,0.773,151.486,221840,4,70.0,Sociopath Motivation
+6,Eminem,The Eminem Show,Till I Collapse,4xkOaSrkexMciUUogZKVTS,0.548,0.847,1,-3.237,1,0.186,0,0.0816,0.1,171.447,297787,4,86.0,Sociopath Motivation
+7,Eminem,Curtain Call: The Hits (Deluxe Edition),"Lose Yourself - From ""8 Mile"" Soundtrack",5Z01UMMf7V1o0MzF86s6WJ,0.692,0.744,2,-4.565,1,0.257,0.000423,0.359,0.0612,171.374,326467,4,78.0,Sociopath Motivation
+8,BROCKHAMPTON,SATURATION III,BOOGIE,3NuN59jpH3B5cNa2M4r7XG,0.604,0.933,1,-3.034,1,0.214,0,0.37,0.28,110.029,193155,4,64.0,Sociopath Motivation
+0,((( O ))),((( 2 ))),iFeel,7ilx6MENwjH6tUEt9kOH4S,0.608,0.411,3,-10.07,1,0.0344,0.912,0.154,0.104,149.979,269638,4,46.0,Meditation and Reflection
+1,KAYTRANADA,NOTHIN LIKE U / CHANCES,IT WAS MEANT 2 B,1nDhL6yVejczIo4SwzUyvO,0.827,0.577,1,-8.119,0,0.202,0.259,0.154,0.489,94.908,240147,4,44.0,Meditation and Reflection
+2,FKJ,French Kiwi Juice,Blessed,6VE2189Tetcqmaxrrf4if3,0.5,0.601,6,-8.87,1,0.0435,0.48,0.0901,0.384,97.971,265392,4,49.0,Meditation and Reflection
+3,Medasin,Irene,Home,42NB7w0tDCag0mQpCtZe7Y,0.66,0.45,4,-11.011,1,0.0451,0.714,0.374,0.242,145.011,194547,4,54.0,Meditation and Reflection
+4,((( O ))),((( 3 ))),fall in me,6gidVEFLd5oX25RL6n579O,0.464,0.0582,5,-17.912,0,0.0293,0.0563,0.105,0.174,87.032,133174,4,34.0,Meditation and Reflection
+5,((( O ))),((( 1 ))),Nature's Joint,7hq5EkXfgUcIuxSpwx3hV1,0.377,0.24,4,-11.468,1,0.0389,0.031,0.0975,0.088,101.152,285545,3,43.0,Meditation and Reflection
+6,Cookin Soul,Boa Bunda,Sushi Masta,7J6C7HMZS0qYN4XWie6lnA,0.603,0.556,6,-7.297,0,0.0373,0.92,0.171,0.617,80.055,156000,4,29.0,Meditation and Reflection
+7,Kenny Beats,LOUIE,Hooper,2QK35TtLvYlOpV2zjw6vtt,0.635,0.786,1,-7.5,0,0.237,0.00567,0.773,0.356,135.12,87093,4,55.0,Meditation and Reflection
+8,Alabama Shakes,Sound & Color,This Feeling,3IBhpCAFOJxynTfrw0t2LN,0.628,0.329,7,-11.424,1,0.036,0.00335,0.11,0.305,130.808,268853,4,49.0,Meditation and Reflection
+9,Masego,The Pink Polo EP,Sunday Vibes,3l75jB2gKi4VpgklWIbTOz,0.691,0.67,1,-4.471,1,0.0644,0.764,0.117,0.22,170.066,226168,4,56.0,Meditation and Reflection
+0,"Crosby, Stills & Nash",Greatest Hits,Suite: Judy Blue Eyes,2Jf0PGy9NzR1PTXvRFfaoE,0.454,0.399,9,-11.558,1,0.0429,0,0.182,0.322,154.244,444053,4,43.0,EM - Offbrand Boy Bands
+1,Simon & Garfunkel,Sounds Of Silence,April Come She Will,0djZ2ndRfAL69WYNra5jRC,0.489,0.186,9,-16.237,1,0.029,0.000152,0.2,0.349,102.245,109387,4,66.0,EM - Offbrand Boy Bands
+2,The Beach Boys,Smiley Smile (Remastered),Good Vibrations - Remastered 2001,5t9KYe0Fhd5cW6UYT4qP8f,0.396,0.473,10,-7.67,0,0.0345,0.000124,0.109,0.385,133.449,219027,4,72.0,EM - Offbrand Boy Bands
+3,Florida Georgia Line,Here's To The Good Times,Cruise,5BhsEd82G0Mnim0IUH6xkT,0.457,0.948,10,-3.364,1,0.0354,0,0.0536,0.878,148.0,208960,4,60.0,EM - Offbrand Boy Bands
+4,The Chainsmokers,Paris,Paris,15vzANxN8G9wWfwAJLLMCg,0.646,0.644,2,-6.763,1,0.031,0,0.0888,0.251,99.999,221520,4,71.0,EM - Offbrand Boy Bands
+5,MKTO,MKTO,American Dream,3JMAdPq5TUOKBGsTATjLEH,0.554,0.767,0,-5.043,1,0.0497,0,0.231,0.497,122.846,225747,4,63.0,EM - Offbrand Boy Bands
+6,NEEDTOBREATHE,H A R D L O V E,HAPPINESS,7aag0fFgE9K1Gj8lJwQaGI,0.575,0.765,9,-6.608,1,0.0345,0,0.331,0.407,98.037,205773,4,58.0,EM - Offbrand Boy Bands
+7,OneRepublic,Oh My My,Heaven,1lFHaHvZeLf6XrOqX6iLlS,0.585,0.724,10,-6.658,0,0.0321,0,0.105,0.37,95.009,258947,4,53.0,EM - Offbrand Boy Bands
+8,Bastille,Quarter Past Midnight,Quarter Past Midnight,1etiUDkISHELzQGMY79ryt,0.504,0.821,8,-3.356,1,0.0598,0,0.0418,0.458,155.131,201799,4,57.0,EM - Offbrand Boy Bands
+9,"Earth, Wind & Fire","The Best Of Earth, Wind & Fire Vol. 1",September,2grjqo0Frpf2okIBiifQKs,0.697,0.832,9,-7.264,1,0.0298,0.00131,0.269,0.979,125.926,215093,4,84.0,EM - Offbrand Boy Bands
+0,Renée Fleming,Renée Fleming,Norma / Act 1: Casta Diva,1iAdr5jKUbjAJTwRG8FILz,0.244,0.0848,5,-22.675,1,0.0462,0.449,0.132,0.0379,106.51,458200,3,26.0,EM - Banner's Calmdown Playlist
+1,Kelly Clarkson,Greatest Hits - Chapter One,Catch My Breath,5qxPabNDnJQ551Tf4v6k3j,0.692,0.908,9,-5.364,1,0.0677,0.0,0.0933,0.513,124.042,250387,4,55.0,EM - Banner's Calmdown Playlist
+2,Various Artists,The Evil Within: Original Game Soundtrack,Clair De Lune,405HNEYKGDifuMcAZvqrqA,0.202,0.129,1,-18.237,1,0.0411,0.00243,0.104,0.0793,86.741,306573,1,58.0,EM - Banner's Calmdown Playlist
+3,Bastille,Bad Blood,Oblivion,6ZeQp2XTOiPCePWRfCHSo5,0.422,0.321,5,-8.952,1,0.0294,2.33e-06,0.429,0.28,78.533,196347,4,53.0,EM - Banner's Calmdown Playlist
+4,Radiohead,Pablo Honey,Creep,70LcF31zb1H0PyJoS1Sx1r,0.515,0.43,7,-9.935,1,0.0372,0.000133,0.129,0.104,91.844,238640,4,86.0,EM - Banner's Calmdown Playlist
+5,Etta James,At Last!,At Last,4Hhv2vrOTy89HFRcjU3QOx,0.274,0.348,5,-8.631,1,0.0293,0.0133,0.334,0.328,87.43,179693,3,76.0,EM - Banner's Calmdown Playlist
+6,Coldplay,A Rush of Blood to the Head,The Scientist,75JFxkI2RXiU7L9VXzMkle,0.557,0.442,5,-7.224,1,0.0243,1.46e-05,0.11,0.213,146.277,309600,4,86.0,EM - Banner's Calmdown Playlist
+7,Sesame Street,"Sesame Street: Jim Henson: A Sesame Street Celebration, Vol. 2",Bein' Green,007Au2b0uwB1x5PD2gJNjc,0.562,0.357,10,-8.32,1,0.0949,9.36e-06,0.196,0.397,66.574,145032,4,34.0,EM - Banner's Calmdown Playlist
+8,Elton John,Madman Across The Water,Tiny Dancer,2TVxnKdb3tqe1nhQWwwZCO,0.414,0.428,0,-11.097,1,0.0278,0.000243,0.148,0.282,145.075,377093,4,78.0,EM - Banner's Calmdown Playlist
+9,Elton John,Caribou,Don't Let The Sun Go Down On Me,11FcfHd3SOmmrWJPGe7Y30,0.424,0.446,0,-8.526,1,0.0261,1.89e-06,0.0921,0.354,139.701,336733,4,63.0,EM - Banner's Calmdown Playlist
+10,The Beatles,Abbey Road (Remastered),Here Comes The Sun - Remastered 2009,6dGnYIeXmHdcikdzNNDMm2,0.557,0.54,9,-10.484,1,0.0347,0.00248,0.179,0.394,129.171,185733,4,83.0,EM - Banner's Calmdown Playlist
+0,Taylor Swift,reputation,I Did Something Bad,4svZDCRz4cJoneBpjpx8DJ,0.696,0.602,0,-6.156,0,0.159,2.11e-05,0.0696,0.305,82.989,238253,4,76.0,M255 Villian Playlist
+1,Imagine Dragons,Sharks,Sharks,0TyUOnU4H4GLqOcrH0auc8,0.927,0.642,10,-4.466,0,0.0657,3.62e-05,0.279,0.901,123.969,190883,4,82.0,M255 Villian Playlist
+2,Various Artists,Into the Woods (Original Motion Picture Soundtrack/Deluxe Edition),Last Midnight,4qnOxzNUfUfmsloijG5ex0,0.469,0.338,1,-8.624,1,0.074,1.32e-06,0.12,0.275,55.931,214173,4,45.0,M255 Villian Playlist
+3,Tears For Fears,Songs From The Big Chair (Super Deluxe Edition),Everybody Wants To Rule The World,4RvWPyQ5RL0ao9LPZeSouE,0.645,0.795,7,-12.095,1,0.0527,0.00389,0.104,0.535,112.067,251489,4,88.0,M255 Villian Playlist
+4,BLVKES,Ivory Tower,Demon,2Lnq0o9WaRaS5G9LNFxXAW,0.632,0.576,9,-7.191,0,0.0427,0.0,0.108,0.119,139.938,113571,4,40.0,M255 Villian Playlist
+5,Rival,Throne,Throne,4Kl9Kpn7Il7TueTz9hvpW2,0.488,0.886,0,-4.684,0,0.0806,2.3e-05,0.471,0.418,154.063,211948,4,48.0,M255 Villian Playlist
+6,Everybody Loves an Outlaw,I See Red,I See Red,5MAK1nd8R6PWnle1Q1WJvh,0.509,0.448,4,-7.552,0,0.0357,0.0137,0.244,0.221,156.909,230613,3,77.0,M255 Villian Playlist
+7,Sam Tinnesz,Play with Fire (feat. Yacht Money),Play with Fire (feat. Yacht Money),7vguMCv8uVuZLiQJ156u3Z,0.573,0.539,2,-6.091,0,0.0322,1.16e-05,0.105,0.39,75.012,180691,4,77.0,M255 Villian Playlist
+8,VOSTOK,Welcome to the Show,Welcome to the Show,5CXm6XtDLfynt0XPTHJ8tS,0.552,0.449,9,-8.104,0,0.0789,0.0,0.119,0.137,143.619,186667,4,45.0,M255 Villian Playlist
+9,Henri Werner,Impostor,Impostor,3hwBBKxf7z0diu6m86e6mW,0.545,0.746,11,-3.489,0,0.044,0.0395,0.282,0.134,127.92,155625,4,47.0,M255 Villian Playlist
+0,Elvis Presley,From Elvis in Memphis,Suspicious Minds,1H5IfYyIIAlgDX8zguUzns,0.487,0.382,7,-10.889,1,0.0309,4.74e-06,0.411,0.714,116.557,261280,4,77.0,M255 Stitch's Playlist
+1,Elvis Presley,"Elvis' Golden Records, Vol. 3",Stuck on You,39zODpVtRvghMyfNjZ3BVK,0.647,0.513,7,-12.372,1,0.0421,8.64e-06,0.108,0.955,131.641,139640,4,54.0,M255 Stitch's Playlist
+2,Elvis Presley,Elvis' Golden Records,Hound Dog,64Ny7djQ6rNJspquof2KoX,0.494,0.756,0,-8.492,1,0.0499,0.00505,0.76,0.949,86.895,136027,4,67.0,M255 Stitch's Playlist
+3,Elvis Presley,Elvis 30 #1 Hits,(You're The) Devil in Disguise,0D1pEisM3QkiacGXJe5dmd,0.481,0.733,5,-7.633,1,0.165,1.18e-05,0.108,0.874,122.909,140427,4,68.0,M255 Stitch's Playlist
+4,Various Artists,Lilo & Stitch,He Mele No Lilo,3G9ZnSjGYyHx7e221v0qse,0.73,0.331,2,-12.427,1,0.0429,0.000286,0.104,0.394,126.592,148133,4,66.0,M255 Stitch's Playlist
+5,Elvis Presley,Elvis (Fool),Burning Love,7zMUCLm1TN9o9JlLISztxO,0.66,0.748,2,-11.206,1,0.0284,0.00585,0.283,0.972,143.549,170293,4,75.0,M255 Stitch's Playlist
+6,Hank Williams,"The Legend Lives Anew: Hank Williams, Sr. With Strings",I'm So Lonesome I Could Cry,4tj7IsJrn4MvesuhoY0JBy,0.524,0.258,4,-14.827,1,0.0287,0.00164,0.328,0.349,111.937,169067,3,47.0,M255 Stitch's Playlist
+7,Elvis Presley,Blue Hawaii,Aloha Oe,0a1OAjVB17jFlGegbhpQig,0.287,0.278,7,-15.653,1,0.0337,5.35e-05,0.194,0.254,98.772,114227,3,40.0,M255 Stitch's Playlist
+8,Various Artists,Lilo & Stitch,Stitch to the Rescue,1616uIpy5KwVqnKtIuyhcu,0.182,0.105,2,-18.314,1,0.0377,0.518,0.0713,0.0351,78.757,354827,4,35.0,M255 Stitch's Playlist
+9,Various Artists,Lilo & Stitch,Hawaiian Roller Coaster Ride,7GmiJVBAzWNikX5VkNQg85,0.702,0.624,5,-9.927,1,0.0285,0.0152,0.0669,0.947,114.542,208227,4,68.0,M255 Stitch's Playlist
+0,Quatuor Ébène,"Debussy, Fauré & Ravel: String Quartets","Ravel: String Quartet, M. 35: II. Assez vif - Très rythmé",5erj8jK6bq8MWFnDVv2HtI,0.286,0.0439,5,-24.745,1,0.042,0.551,0.147,0.0932,152.867,389213,3,41.0,Sherlock Holmes' Thinking Music
+1,Craig Armstrong,Far from the Madding Crowd (Original Motion Picture Soundtrack),Opening,0x1rnXl24iJl8xZFMkoyNv,0.138,0.189,2,-15.733,0,0.0394,0.279,0.113,0.0729,91.207,279547,4,51.0,Sherlock Holmes' Thinking Music
+2,Alexandre Desplat,The Imitation Game (Original Motion Picture Soundtrack),The Imitation Game,0o9ivTBX7mjTnaUYF4Gk6t,0.318,0.308,5,-13.676,0,0.0285,0.889,0.109,0.0592,103.925,157027,4,58.0,Sherlock Holmes' Thinking Music
+3,Jóhann Jóhannsson,The Theory of Everything (Original Motion Picture Soundtrack),Domestic Pressures,2dHnIe0JsqshUnyzcMMOhW,0.201,0.133,9,-19.194,0,0.0387,0.961,0.116,0.0775,155.788,157222,3,58.0,Sherlock Holmes' Thinking Music
+4,Howard Shore,The Hobbit: The Battle of the Five Armies (Original Motion Picture Soundtrack),Courage and Wisdom,4GN2iwKms5RC1fnjvwVtOR,0.0753,0.08,5,-21.772,0,0.048,0.89,0.106,0.0303,80.248,310160,3,31.0,Sherlock Holmes' Thinking Music
+5,Alexandre Desplat,Cinematic Nights,"One Of Them - From ""Darkest Hour"" Soundtrack",4iC8vY8wSITSkJA5wQY8Mm,0.278,0.0118,0,-32.6,0,0.0363,0.944,0.12,0.0974,139.334,93387,4,18.0,Sherlock Holmes' Thinking Music
+6,Lang Lang,The Painted Veil,The Painted Veil,3HohQPAZ5xzDs1ANErgk52,0.48,0.176,1,-22.666,1,0.0345,0.945,0.103,0.128,124.013,197653,4,36.0,Sherlock Holmes' Thinking Music
+7,Alexandre Desplat,"Harry Potter and the Deathly Hallows, Pt. 1 (Original Motion Picture Soundtrack)",Obliviate,3yHrZ0f21yKyzG0ox65nB0,0.294,0.204,0,-19.13,1,0.0505,0.954,0.104,0.0368,149.74,182200,4,49.0,Sherlock Holmes' Thinking Music
+8,Edvard Grieg,"Wonderland - Edvard Grieg: Piano Concerto, Lyric Pieces","Piano Concerto in A Minor, Op. 16: I. Allegro molto moderato - Live",0N1nVucqKLpIQVuVZyi8t8,0.331,0.0896,9,-21.395,0,0.0409,0.896,0.117,0.0375,120.037,793480,4,39.0,Sherlock Holmes' Thinking Music
+9,Max Richter,"Recomposed by Max Richter: Vivaldi, The Four Seasons","Recomposed By Max Richter: Vivaldi, The Four Seasons: Winter 1",3ua34oh2znEwkcH53psowq,0.481,0.584,5,-13.118,0,0.0854,0.81,0.296,0.52,149.075,180560,4,0.0,Sherlock Holmes' Thinking Music
+0,Zach Bryan,Something in the Orange,Something in the Orange,3WMj8moIAXJhHsyLaqIIHI,0.369,0.192,4,-12.151,0,0.04,8.35e-06,0.0954,0.148,175.212,228013,3,88.0,Focus for Fighting Dragons
+1,Calum Scott,Only Human (Deluxe),Dancing On My Own,2BOqDYLOJBiMOXShCV1neZ,0.681,0.174,1,-8.745,1,0.0315,3.35e-05,0.0983,0.231,112.672,260285,4,81.0,Focus for Fighting Dragons
+2,Sasha Alex Sloan,Dancing With Your Ghost,Dancing With Your Ghost,1TQXIltqoZ5XXyfCbAeSQQ,0.629,0.328,11,-8.284,1,0.029,2.5e-05,0.103,0.389,74.953,197732,4,81.0,Focus for Fighting Dragons
+3,carobae,songs from 3am,i don't miss u,5WgdCkTa3l9GznpPQaQH6W,0.407,0.292,3,-7.621,1,0.0773,0.0,0.117,0.0772,78.412,178896,4,56.0,Focus for Fighting Dragons
+4,Taylor Swift,Red (Taylor's Version),I Bet You Think About Me (feat. Chris Stapleton) (Taylor’s Version) (From The Vault),4CkgMiMqZ5JzW9iYXSTMTL,0.391,0.715,0,-4.516,1,0.0495,0.0,0.183,0.473,149.654,285107,3,77.0,Focus for Fighting Dragons
+5,The Wreckers,"Stand Still, Look Pretty (U.S. Version)",Leave the Pieces,1VnQfAPIHwFImjfO9gnyUt,0.514,0.679,6,-6.117,1,0.0273,0.0,0.0594,0.496,164.109,210233,4,60.0,Focus for Fighting Dragons
+6,Alanis Morissette,Jagged Little Pill,You Oughta Know,0Dw9z44gXhplDh5HCWZIxP,0.66,0.831,4,-8.195,1,0.0557,0.0,0.736,0.43,105.32,249200,4,57.0,Focus for Fighting Dragons
+7,Nirvana,In Utero - 20th Anniversary Remaster,Heart-Shaped Box,66w5OYw2ja8lnmaA3Ns0PU,0.256,0.641,1,-10.283,1,0.0552,0.0329,0.0853,0.382,203.006,281160,4,59.0,Focus for Fighting Dragons
+8,The All-American Rejects,When The World Comes Down,Gives You Hell,6ihL9TjfRjadfEePzXXyVF,0.718,0.691,4,-6.44,1,0.0387,0.0,0.0627,0.552,100.008,213107,4,72.0,Focus for Fighting Dragons
+9,Carrie Underwood,Some Hearts,Before He Cheats,0ZUo4YjG4saFnEJhdWp9Bt,0.519,0.749,6,-3.318,0,0.0405,0.0,0.119,0.29,147.905,199947,4,79.0,Focus for Fighting Dragons
+10,Everybody Loves an Outlaw,I See Red,I See Red,2Xau3uNsnIb9FwzsvHR84z,0.42,0.447,4,-7.555,0,0.0375,0.0156,0.202,0.216,78.775,230613,3,0.0,Focus for Fighting Dragons
+11,Nelly Furtado,Loose,Maneater,4wH4dJgrsxONID6KS2tDQM,0.796,0.777,6,-4.81,1,0.0397,0.000358,0.121,0.787,132.722,258893,4,81.0,Focus for Fighting Dragons
+12,Charlotte Lawrence,Joke's On You,Joke's On You,2D0FX6WiP1GKGL3yCdXxs7,0.476,0.652,2,-4.546,0,0.104,0.0,0.136,0.47,190.118,184659,3,66.0,Focus for Fighting Dragons
+13,The Score,ATLAS,Unstoppable,6rrKbzJGGDlSZgLphopS49,0.485,0.843,1,-3.993,0,0.0467,1.01e-05,0.14,0.602,78.001,192107,4,74.0,Focus for Fighting Dragons
+14,Fall Out Boy,American Beauty/American Psycho,Centuries,04aAxqtGp5pv12UXAg4pkq,0.393,0.858,4,-2.868,0,0.0729,0.0,0.102,0.56,176.042,228360,4,81.0,Focus for Fighting Dragons
+0,RINI,Camped,Camped,2HMMxCBemHQY4Qktdtcpwj,0.632,0.375,8,-13.582,1,0.0422,1.98e-05,0.128,0.342,133.009,220602,4,56.0,Late Night Drives
+1,RINI,Red Lights (feat. Wale),Red Lights (feat. Wale),0nzqv2KS3q7SMA2s18RbAJ,0.567,0.666,10,-4.907,0,0.0623,3.9e-06,0.109,0.571,116.643,219687,4,50.0,Late Night Drives
+2,Adele,25,All I Ask,05TOt5Vz4StdjMpEdFPlvB,0.591,0.28,4,-5.494,1,0.0283,0.0,0.124,0.348,141.916,271800,4,72.0,Late Night Drives
+3,Joji,Glimpse of Us,Glimpse of Us,6xGruZOHLs39ZbVccQTuPZ,0.44,0.317,8,-9.258,1,0.0531,4.78e-06,0.141,0.268,169.914,233456,3,95.0,Late Night Drives
+4,Manwolves,A Safety Meeting,Weather Is Warm,5ZNyW89G6LSC3wSTrptXqE,0.538,0.786,2,-4.392,1,0.0534,0.0,0.0687,0.546,157.936,244607,4,36.0,Late Night Drives
+5,JVKE,golden hour,golden hour,6GD1eomgaGT1Epto6Q5eAo,0.511,0.594,1,-4.799,0,0.0316,0.177,0.249,0.143,94.473,209260,3,89.0,Late Night Drives
+6,Rex Orange County,WHO CARES?,"OPEN A WINDOW (feat. Tyler, The Creator)",1TDeDFUYHjZKLsO6bzoVg1,0.541,0.607,2,-7.174,1,0.0482,0.0,0.193,0.548,79.974,218587,4,66.0,Late Night Drives
+7,H.E.R.,H.E.R.,Best Part (feat. H.E.R.),4OBZT9EnhYIV17t4pGw7ig,0.473,0.371,4,-10.219,0,0.0405,0.0,0.109,0.413,75.205,209400,4,72.0,Late Night Drives
+8,Giveon,Stuck On You,Stuck On You,08HPWLi0YmRUStJzkQ1ffh,0.599,0.449,7,-7.423,1,0.0529,2.66e-05,0.107,0.143,158.0,205116,3,65.0,Late Night Drives
+9,Daniel Caesar,Japanese Denim,Japanese Denim,7pgdKNreH79L8dxCZACCDZ,0.707,0.238,3,-8.818,1,0.0379,2.42e-06,0.0842,0.345,124.156,270847,3,47.0,Late Night Drives
+0,AC/DC,Highway to Hell,Highway to Hell,2zYzyRzz6pRmhPzyfMEC8s,0.574,0.913,6,-4.793,0,0.133,0.00158,0.156,0.423,115.728,208400,4,85.0,Long Road Trips
+1,Kansas,Leftoverture (Expanded Edition),Carry on Wayward Son,4DMKwE2E2iYDKY01C335Uw,0.482,0.786,7,-5.735,1,0.032,8.88e-05,0.446,0.793,126.755,323000,4,76.0,Long Road Trips
+2,AC/DC,The Razors Edge,Thunderstruck,57bgtoPSgt236HzfBOd8kj,0.502,0.89,4,-5.175,1,0.0364,0.0117,0.217,0.259,133.52,292880,4,84.0,Long Road Trips
+3,Boston,Boston,More Than a Feeling,1QEEqeFIZktqIpPI4jSVSF,0.377,0.681,7,-8.039,1,0.0298,0.0023,0.0504,0.285,108.789,285133,4,80.0,Long Road Trips
+4,Lynyrd Skynyrd,Pronounced' Leh-'Nerd 'Skin-'Nerd,Simple Man,1ju7EsSGvRybSNEsRvc7qY,0.422,0.752,6,-8.682,1,0.0449,0.000119,0.129,0.403,120.471,356627,4,75.0,Long Road Trips
+5,KISS,Dressed To Kill,Rock And Roll All Nite,6KTv0Z8BmVqM7DPxbGzpVC,0.654,0.929,1,-5.906,1,0.0998,0.0,0.0539,0.902,144.774,168840,4,77.0,Long Road Trips
+6,Electric Light Orchestra,Out of the Blue,Mr. Blue Sky,2RlgNHKcydI9sayD2Df2xp,0.388,0.338,10,-10.054,1,0.0329,3.73e-06,0.248,0.478,177.765,303373,4,81.0,Long Road Trips
+7,Bon Jovi,Slippery When Wet,Livin' On A Prayer,37ZJ0p5Jm13JPevGcx4SkF,0.532,0.887,0,-3.757,1,0.0335,0.000214,0.294,0.795,122.511,249293,4,86.0,Long Road Trips
+8,Guns N' Roses,Use Your Illusion II,Knockin' On Heaven's Door,4JiEyzf0Md7KEFFGWDDdCr,0.496,0.739,6,-7.193,1,0.0415,0.00444,0.106,0.378,132.41,336000,4,80.0,Long Road Trips
+9,Bon Jovi,Slippery When Wet,You Give Love A Bad Name,0rmGAIH9LNJewFw7nKzZnc,0.541,0.96,0,-2.947,0,0.0505,2.25e-06,0.344,0.812,122.803,222707,4,82.0,Long Road Trips
+0,Maroon 5,Overexposed (Deluxe),Payphone,4P0osvTXoSYZZC2n8IFH3c,0.739,0.756,4,-4.828,1,0.0394,0,0.37,0.523,110.028,231387,4,72.0,Mom’s Car
+1,Maroon 5,V,Animals,2bL2gyO6kBdLkNSkxXNh6x,0.279,0.742,4,-6.46,0,0.0898,0,0.593,0.328,189.868,231013,4,81.0,Mom’s Car
+2,Outkast,Speakerboxxx/The Love Below,Hey Ya!,2PpruBYCo4H7WOBJ7Q2EwM,0.727,0.974,4,-2.261,0,0.0664,0.000532,0.174,0.965,79.526,235213,4,82.0,Mom’s Car
+3,Adele,21,Rolling in the Deep,1c8gk2PeTE04A1pIDH9YMk,0.73,0.769,8,-5.114,1,0.0298,0,0.0473,0.507,104.948,228093,4,80.0,Mom’s Car
+4,Adele,21,Set Fire to the Rain,73CMRj62VK8nUS4ezD2wvi,0.603,0.67,2,-3.882,0,0.0249,1.68e-06,0.112,0.446,107.993,242974,4,79.0,Mom’s Car
+5,Lady Gaga,The Fame,Just Dance,2x7MyWybabEz6Y6wvHuwGE,0.822,0.739,1,-4.541,0,0.0311,4.26e-05,0.181,0.745,118.992,241933,4,76.0,Mom’s Car
+6,fun.,Some Nights,Some Nights,6t6oULCRS6hnI7rm0h5gwl,0.672,0.738,0,-7.045,1,0.0506,6.75e-05,0.0927,0.392,107.938,277040,4,71.0,Mom’s Car
+7,The Chainsmokers,Memories...Do Not Open,Something Just Like This,6RUKPb4LETWmmr3iAEQktW,0.617,0.635,11,-6.769,0,0.0317,1.44e-05,0.164,0.446,103.019,247160,4,86.0,Mom’s Car
+8,Train,"Save Me, San Francisco (Golden Gate Edition)","Hey, Soul Sister",4HlFJV71xXKIGcU3kRyttv,0.673,0.886,1,-4.44,0,0.0431,0,0.0826,0.795,97.012,216773,4,83.0,Mom’s Car
+9,Train,California 37,Drive By,0KAiuUOrLTIkzkpfpn9jb9,0.765,0.837,1,-3.113,0,0.032,1.06e-05,0.0801,0.721,122.028,195973,4,78.0,Mom’s Car
+0,Duran Duran,Rio (Collector's Edition),Hungry Like the Wolf - 2009 Remaster,39lSeqnyjZJejRuaREfyLL,0.691,0.812,0,-7.772,1,0.0558,1.16e-06,0.299,0.685,127.568,220627,4,74.0,Dad’s Basement Gym
+1,Peter Schilling,The Different Story (World Of Lust And Crime),Major Tom - Coming Home,709ffFK4o4MtG1NKoLvOma,0.787,0.42,4,-14.32,0,0.0645,0.164,0.169,0.838,161.247,301373,4,66.0,Dad’s Basement Gym
+2,Michael Jackson,Thriller 25 Super Deluxe Edition,Thriller,3S2R0EVwBSAVMd5UMgKTL0,0.773,0.859,11,-4.913,1,0.0747,0.000187,0.914,0.813,118.459,357267,4,74.0,Dad’s Basement Gym
+3,Bee Gees,How Can You Mend A Broken Heart,Stayin Alive,5ubvP9oKmxLUVq506fgLhk,0.702,0.773,10,-9.256,0,0.0343,0.00871,0.147,0.953,103.564,285373,4,81.0,Dad’s Basement Gym
+4,Guns N' Roses,Appetite For Destruction,Welcome To The Jungle,0G21yYKMZoHa30cYVi1iA8,0.453,0.987,8,-4.485,1,0.0889,0.283,0.268,0.316,123.544,273480,4,75.0,Dad’s Basement Gym
+5,Bon Jovi,Slippery When Wet,Wanted Dead Or Alive,0oerlffJSzhRVvtDfLcp3N,0.252,0.802,7,-3.976,1,0.0391,0.0146,0.309,0.253,150.056,308667,4,76.0,Dad’s Basement Gym
+6,AC/DC,Back In Black,Back In Black,08mG3Y1vljYA6bvDt4Wqkj,0.31,0.7,9,-5.678,1,0.047,0.00965,0.0828,0.763,188.386,255493,4,85.0,Dad’s Basement Gym
+7,Van Halen,1984 (Remastered),Jump - 2015 Remaster,7N3PAbqfTjSEU1edb2tY8j,0.572,0.835,0,-6.219,1,0.0317,0.000377,0.0702,0.795,129.981,241600,4,79.0,Dad’s Basement Gym
+8,Loverboy,We Are The '80s,Working for the Weekend,0sgDEFq9oeC8ueOK0mR5IA,0.526,0.924,7,-5.591,1,0.0391,0.000728,0.598,0.793,147.28,220707,4,0.0,Dad’s Basement Gym
+9,Pat Benatar,Crimes Of Passion,Hit Me With Your Best Shot,0vOkmmJEtjuFZDzrQSFzEE,0.741,0.58,4,-9.05,1,0.0304,3.31e-05,0.212,0.944,127.402,171267,4,73.0,Dad’s Basement Gym
+10,Europe,The Final Countdown (Expanded Edition),The Final Countdown,3MrRksHupTVEQ7YbA0FsZK,0.529,0.843,6,-6.908,0,0.0616,0.000827,0.0608,0.188,117.662,310333,4,79.0,Dad’s Basement Gym
+11,Steve Miller Band,Abracadabra,Abracadabra,2E2ZVy2fxslpAUgbb4zu84,0.791,0.535,9,-13.261,0,0.0355,1.96e-06,0.156,0.963,127.488,308373,4,67.0,Dad’s Basement Gym
+12,Guns N' Roses,Appetite For Destruction,Paradise City,6eN1f9KNmiWEhpE2RhQqB5,0.268,0.98,11,-5.958,1,0.103,0.00709,0.182,0.395,100.315,405600,4,74.0,Dad’s Basement Gym
+0,Abra Cadabra,Lean Wit It,Lean Wit It,1NFfmOAVWhY6rCnU8x8nqB,0.585,0.692,9,-5.906,1,0.4,0,0.408,0.584,144.796,202199,4,45.0,MUSC255:GenZ_UK_Rap
+1,SR,Brucky 2.0,Brucky 2.0,7tTcleU0z0VpBaGWlBdIko,0.816,0.623,2,-9.811,1,0.457,0,0.688,0.708,145.138,185652,4,57.0,MUSC255:GenZ_UK_Rap
+2,Meekz,More Money,More Money,0ZLhqWBAhobSU4bTvKdM2K,0.626,0.569,8,-4.06,1,0.25,1.58e-05,0.145,0.276,90.8,221538,4,60.0,MUSC255:GenZ_UK_Rap
+3,Tion Wayne,Wid It,Wid It,4Go2u6SexdY2Qxo0oHMIzE,0.768,0.72,11,-6.528,0,0.23,0,0.201,0.49,140.024,181059,4,62.0,MUSC255:GenZ_UK_Rap
+4,Stormzy,Vossi Bop,Vossi Bop,44ZJ4hLD5onikKsVLQaILr,0.682,0.653,8,-6.062,1,0.339,0.00116,0.129,0.428,188.115,196267,4,64.0,MUSC255:GenZ_UK_Rap
+5,Octavian,Papi Chulo,Papi Chulo,6Juv5N0dNU1imms9c9u1dA,0.866,0.563,11,-6.964,0,0.108,0,0.0889,0.307,127.954,161668,4,9.0,MUSC255:GenZ_UK_Rap
+6,Tion Wayne,Wow,Wow,1zEtEb820Vwe9giuUFXH7H,0.811,0.62,10,-4.82,0,0.43,0,0.211,0.638,139.927,173571,4,61.0,MUSC255:GenZ_UK_Rap
+7,Skiifall,WOIIYOIE TAPES Vol.1,Lost Angeles,7HcXYiiZVtXm8lt4AYffm7,0.923,0.365,0,-8.487,0,0.222,0,0.115,0.689,138.025,187200,4,44.0,MUSC255:GenZ_UK_Rap
+8,Russ Millions,One Of A Kind Music Presents: Reggae & Calypso (Russ Millions x Buni x YV),Reggae & Calypso (Russ Millions x Buni x YV),3FMedgGsLUNwx8NciePFEK,0.759,0.803,1,-6.77,0,0.277,0,0.362,0.895,140.994,141277,4,76.0,MUSC255:GenZ_UK_Rap
+9,Central Cee,Doja,Doja,3LtpKP5abr2qqjunvjlX5i,0.911,0.573,6,-7.43,1,0.288,0,0.403,0.972,140.04,97393,4,93.0,MUSC255:GenZ_UK_Rap
+0,Santana,Abraxas,Oye Como Va,5u6y4u5EgDv0peILf60H5t,0.736,0.379,7,-13.208,1,0.0539,0.345,0.104,0.948,128.399,256933,4,67.0,List of 40 Selection
+1,Led Zeppelin,Led Zeppelin II (1994 Remaster),Ramble On - 1990 Remaster,3MODES4TNtygekLl146Dxd,0.468,0.607,9,-11.367,1,0.0336,0.000852,0.225,0.886,98.429,263333,4,71.0,List of 40 Selection
+2,Louis Armstrong,What A Wonderful World,What A Wonderful World,29U7stRjqHU6rMiS8BfaI9,0.271,0.165,5,-20.652,1,0.0351,1.6e-06,0.118,0.203,77.082,139227,4,69.0,List of 40 Selection
+3,The Rolling Stones,Let It Bleed,You Can't Always Get What You Want,6lFZbCc7pn6Lme1NP7qQqQ,0.32,0.62,0,-9.686,1,0.0594,6.36e-05,0.253,0.472,86.327,448720,4,69.0,List of 40 Selection
+4,Howlin' Wolf,Howlin' Wolf,Spoonful,7j02rdE5RVtNcNMuLGY5SS,0.821,0.376,0,-13.622,1,0.0487,1.39e-05,0.106,0.824,119.039,170000,4,58.0,List of 40 Selection
+5,Jimi Hendrix,Axis: Bold As Love,Little Wing,1Eolhana7nKHYpcYpdVcT5,0.515,0.534,6,-8.045,1,0.0768,0.00278,0.0547,0.426,70.776,145747,4,72.0,List of 40 Selection
+6,Ben E. King,Stand By Me,Stand By Me,2KQM3kDM0zMBC9iynePBbS,0.653,0.334,9,-6.955,1,0.0313,3.47e-05,0.123,0.665,119.46,174253,4,59.0,List of 40 Selection
+7,Donovan,The Hurdy Gurdy Man,Hurdy Gurdy Man,7AL6qzIDHIX7pEUWrzNiIs,0.405,0.463,0,-16.167,1,0.0542,0.0442,0.392,0.542,79.451,193467,4,59.0,List of 40 Selection
+8,The Byrds,Turn! Turn! Turn!,Turn! Turn! Turn! (To Everything There Is a Season),5qBqBdfTEIWJwAS0Jm2F5R,0.451,0.818,2,-8.124,1,0.0439,2.92e-05,0.052,0.755,124.532,229360,4,65.0,List of 40 Selection
+9,Patsy Cline,Sentimentally Yours,She's Got You - Single Version,4H1POasJbrLNaQirsIH29e,0.388,0.143,5,-17.545,1,0.0416,0.000865,0.1,0.578,182.665,181800,3,57.0,List of 40 Selection
+0,Led Zeppelin,Led Zeppelin II (1994 Remaster),Ramble On - 1990 Remaster,3MODES4TNtygekLl146Dxd,0.468,0.607,9,-11.367,1,0.0336,0.000852,0.225,0.886,98.429,263333,4,71.0,list of 40 subset
+1,"Peter, Paul and Mary",Album 1700,Leaving on a Jet Plane,6ZSTinOwx5dKFYc6iYyGDn,0.414,0.167,9,-16.519,1,0.0484,0.0,0.117,0.384,133.45,207240,4,64.0,list of 40 subset
+2,The Who,Who's Next (Deluxe Edition),Behind Blue Eyes,0cKk8BKEi7zXbdrYdyqBP5,0.394,0.622,4,-8.258,0,0.0336,4.45e-05,0.0892,0.342,126.844,221427,4,72.0,list of 40 subset
+3,Joe Cocker,With A Little Help From My Friends,With A Little Help From My Friends,0YZ3J8xzGwLOg4yEgST1YK,0.307,0.43,2,-11.333,1,0.0629,0.000994,0.0988,0.305,145.224,312173,3,67.0,list of 40 subset
+4,The Rolling Stones,Let It Bleed,You Can't Always Get What You Want,6lFZbCc7pn6Lme1NP7qQqQ,0.32,0.62,0,-9.686,1,0.0594,6.36e-05,0.253,0.472,86.327,448720,4,69.0,list of 40 subset
+5,Jimi Hendrix,Axis: Bold As Love,Little Wing,1Eolhana7nKHYpcYpdVcT5,0.515,0.534,6,-8.045,1,0.0768,0.00278,0.0547,0.426,70.776,145747,4,72.0,list of 40 subset
+6,Simon & Garfunkel,Bookends,America,6dfhF1BDGmhM69fnCb6wSC,0.259,0.241,2,-15.955,1,0.042,6.62e-06,0.0849,0.275,178.453,215293,3,65.0,list of 40 subset
+7,Yusuf / Cat Stevens,Tea For The Tillerman (Remastered 2020),Wild World,7mjSHL2Eb0kAwiKbvNNyD9,0.48,0.542,0,-8.51,1,0.0348,0.000609,0.113,0.567,152.853,200560,4,77.0,list of 40 subset
+8,B.B. King,Completely Well,The Thrill Is Gone,4NQfrmGs9iQXVQI9IpRhjM,0.547,0.46,11,-8.759,0,0.0256,0.442,0.0983,0.543,90.768,324733,4,63.0,list of 40 subset
+9,Jimmy Cliff,"Wonderful World, Beautiful People",Many Rivers To Cross,1dZxI6OuzwJ283y3gOU1Kq,0.399,0.212,5,-16.03,1,0.0747,0.000434,0.116,0.149,137.76,164067,4,51.0,list of 40 subset
+0,Louis Armstrong,What A Wonderful World,What A Wonderful World,29U7stRjqHU6rMiS8BfaI9,0.271,0.165,5,-20.652,1,0.0351,1.6e-06,0.118,0.203,77.082,139227,4,69.0,Whimsical Rover Playlist
+1,Sam Cooke,Ain't That Good News,A Change Is Gonna Come,0KOE1hat4SIer491XKk4Pa,0.212,0.383,10,-10.071,1,0.0347,0.0,0.299,0.452,173.79,191160,3,67.0,Whimsical Rover Playlist
+2,Marion Williams,The Gospel Soul of Marion Williams,I'll Fly Away,4iReG4ZYXQWFdzL87cuFWE,0.489,0.0444,8,-12.397,1,0.0424,0.0,0.281,0.367,108.011,169013,5,22.0,Whimsical Rover Playlist
+3,Bob Dylan,Highway 61 Revisited,Like a Rolling Stone,3AhXZa8sUQht0UEdBJgpGc,0.482,0.721,0,-6.839,1,0.0321,0.0,0.189,0.557,95.263,369600,4,71.0,Whimsical Rover Playlist
+4,Led Zeppelin,Led Zeppelin II (1994 Remaster),Ramble On - 1990 Remaster,3MODES4TNtygekLl146Dxd,0.468,0.607,9,-11.367,1,0.0336,0.000852,0.225,0.886,98.429,263333,4,71.0,Whimsical Rover Playlist
+5,Jimi Hendrix,Axis: Bold As Love,Little Wing,1Eolhana7nKHYpcYpdVcT5,0.515,0.534,6,-8.045,1,0.0768,0.00278,0.0547,0.426,70.776,145747,4,72.0,Whimsical Rover Playlist
+6,The Rolling Stones,Let It Bleed,You Can't Always Get What You Want,6lFZbCc7pn6Lme1NP7qQqQ,0.32,0.62,0,-9.686,1,0.0594,6.36e-05,0.253,0.472,86.327,448720,4,69.0,Whimsical Rover Playlist
+7,Johnny Cash,At Folsom Prison,"Folsom Prison Blues - Live at Folsom State Prison, Folsom, CA - January 1968",2fDHuS1PTkHBbCWWZF1ph9,0.621,0.524,0,-15.269,1,0.0803,0.00199,0.893,0.889,110.586,162653,4,69.0,Whimsical Rover Playlist
+8,Simon & Garfunkel,Bookends,America,6dfhF1BDGmhM69fnCb6wSC,0.259,0.241,2,-15.955,1,0.042,6.62e-06,0.0849,0.275,178.453,215293,3,65.0,Whimsical Rover Playlist
+9,"Peter, Paul and Mary",Album 1700,Leaving on a Jet Plane,6ZSTinOwx5dKFYc6iYyGDn,0.414,0.167,9,-16.519,1,0.0484,0.0,0.117,0.384,133.45,207240,4,64.0,Whimsical Rover Playlist
