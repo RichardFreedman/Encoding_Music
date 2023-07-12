@@ -98,7 +98,7 @@ def analyze_playlist(creator, playlist_id):
 </Details>
 
 ---
-##  Analyze Multiple Playlists <a name="analyze-multiple-playlists"></a>
+## <span style="color:olive"> Analyze Multiple Playlists </span> <a name="analyze-multiple-playlists"></a>
 #### This function returns the same data frame as the function from above, but allows you to analyze multiple playlists.
 ---
 #### To use this function, you need to create a dictionary of playlists. To do so, see the example code below.
