@@ -59,9 +59,7 @@ playlist_data_frame.head() #Displays the first n rows of the data frame
 </Details>
 
 <Details>
-<Summary>
-Full Code
-</Summary>
+<Summary>Full Code</Summary>
 
 ```python
 def analyze_playlist(creator, playlist_id):
@@ -127,9 +125,7 @@ multiple_playlist_data_frame.head()
 
 </Details>
 <Details>
-<Summary>
-Full Code
-</Summary>
+<Summary>Full Code</Summary>
 
 ```python
 def analyze_playlist_dict(playlist_dict):
@@ -178,9 +174,7 @@ all_user_tracks.head()
 
 </Details>
 <Details>
-<Summary>
-Full Code
-</Summary>
+<Summary>Full Code</Summary>
 
 ```python
 def get_all_user_tracks(username):

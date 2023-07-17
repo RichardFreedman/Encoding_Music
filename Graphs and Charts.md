@@ -1,0 +1,206 @@
+# Statistical Charts
+
+In this lesson, we will explore various statistical charts commonly used in data analysis. These charts provide visual representations of data and help us gain insights and draw conclusions. We'll cover how to generate each chart using Plotly, Matplotlib, and Altair. Let's dive in!
+
+## Bar Charts
+
+Bar charts are used to display categorical data. They consist of vertical or horizontal bars that represent different categories and their corresponding values. Bar charts are excellent for comparing data across different categories.
+
+Here's an example of a bar chart showing the sales of different products:
+![Alt text](images/bar_chart_plotly.svg)
+```python
+# Plotly
+import plotly.graph_objects as go
+
+categories = ['Product A', 'Product B', 'Product C']
+sales = [100, 150, 120]
+
+fig = go.Figure(data=[go.Bar(x=categories, y=sales)])
+
+fig.show()
+```
+
+```python
+# Matplotlib
+import matplotlib.pyplot as plt
+
+categories = ['Product A', 'Product B', 'Product C']
+sales = [100, 150, 120]
+
+plt.bar(categories, sales)
+plt.show()
+```
+
+```python
+# Altair
+import altair as alt
+import pandas as pd
+
+data = pd.DataFrame({'categories': ['Product A', 'Product B', 'Product C'],
+                     'sales': [100, 150, 120]})
+
+alt.Chart(data).mark_bar().encode(x='categories', y='sales').interactive()
+```
+
+## Histograms
+Histograms are used to display the distribution of numerical data. They consist of a series of adjacent rectangles (bins) that represent the frequency or proportion of data falling within specific intervals. Histograms help us understand the shape and spread of data.
+
+Here's an example of a histogram displaying the distribution of exam scores:
+
+```python
+# Plotly
+import plotly.graph_objects as go
+import numpy as np
+
+np.random.seed(0)
+scores = np.random.normal(70, 10, 100)
+
+fig = go.Figure(data=[go.Histogram(x=scores)])
+
+fig.show()
+```
+
+```python
+# Matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+
+np.random.seed(0)
+scores = np.random.normal(70, 10, 100)
+
+plt.hist(scores)
+plt.show()
+```
+
+```python
+# Altair
+import altair as alt
+import pandas as pd
+import numpy as np
+
+np.random.seed(0)
+scores = np.random.normal(70, 10, 100)
+
+data = pd.DataFrame({'scores': scores})
+
+alt.Chart(data).mark_bar().encode(x=alt.X('scores', bin=alt.Bin(step=5)), y='count()').interactive()
+```
+
+
+## Scatterplots
+Scatter plots are used to display the relationship between two numerical variables. Each point on the plot represents the values of the variables. Scatter plots are useful for identifying patterns, trends, and outliers in the data.
+
+Here's an example of a scatter plot showing the relationship between study hours and exam scores:
+
+```python
+# Plotly
+import plotly.graph_objects as go
+
+study_hours = [3, 4, 2, 5, 6, 5, 3, 4, 2, 6]
+exam_scores = [70, 80, 65, 90, 95, 85, 75, 80, 70, 90]
+
+fig = go.Figure(data=go.Scatter(x=study_hours, y=exam_scores, mode='markers'))
+
+fig.show()
+```
+
+```python
+# Matplotlib
+import matplotlib.pyplot as plt
+
+study_hours = [3, 4, 2, 5, 6, 5, 3, 4, 2, 6]
+exam_scores = [70, 80, 65, 90, 95, 85, 75, 80, 70, 90]
+
+plt.scatter(study_hours, exam_scores)
+plt.show()
+```
+
+```python
+# Altair
+import altair as alt
+import pandas as pd
+
+study_hours = [3, 4, 2, 5, 6, 5, 3, 4, 2, 6]
+exam_scores = [70, 80, 65, 90, 95, 85, 75, 80, 70, 90]
+
+data = pd.DataFrame({'study_hours': study_hours, 'exam_scores': exam_scores})
+
+alt.Chart(data).mark_circle().encode(x='study_hours', y='exam_scores').interactive()
+```
+
+## Correlation Plots
+Correlation plots are used to visualize the strength and direction of the relationship between two numerical variables. They provide a numerical measure called the correlation coefficient, which ranges from -1 to 1. A value close to -1 indicates a strong negative correlation, a value close to 1 indicates a strong positive correlation, and a value close to 0 indicates no or weak correlation.
+
+Here's an example of a correlation plot:
+```python
+# Plotly
+import plotly.graph_objects as go
+import numpy as np
+
+np.random.seed(0)
+x = np.random.rand(100)
+y = np.random.rand(100)
+
+correlation_matrix = np.corrcoef(x, y)
+correlation = correlation_matrix[0, 1]
+
+fig = go.Figure(data=go.Heatmap(z=correlation_matrix, x=['Variable X', 'Variable Y'], y=['Variable X', 'Variable Y']))
+fig.update_layout(title=f'Correlation: {correlation:.2f}')
+fig.show()
+```
+
+```python
+# Matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+
+np.random.seed(0)
+x = np.random.normal(0, 1, 100)
+y = np.random.normal(0, 1, 100)
+
+plt.scatter(x, y)
+plt.xlabel('Variable X')
+plt.ylabel('Variable Y')
+plt.title('Correlation Plot')
+plt.show()
+```
+
+```python
+# Altair
+import altair as alt
+import pandas as pd
+import numpy as np
+
+np.random.seed(0)
+x = np.random.rand(100)
+y = np.random.rand(100)
+
+data = pd.DataFrame({'Variable X': x, 'Variable Y': y})
+
+correlation_matrix = data.corr()
+
+alt.Chart(correlation_matrix.reset_index()).mark_rect().encode(
+    x='index',
+    y='columns',
+    color='value'
+).properties(
+    width=200,
+    height=200,
+    title='Correlation Plot'
+)
+```
+
+
+## Correlation does not equal causation
+It's crucial to understand that correlation does not imply causation. Just because two variables are correlated does not mean that one variable causes the other. Correlation measures the statistical relationship between variables but cannot determine cause and effect.
+
+Always exercise caution when interpreting correlations and avoid making causal claims based solely on correlation. Other factors, such as confounding variables, might be influencing the observed relationship.
+
+Remember, correlation is not causation!
+
+
+For example: 
+![Alt text](images/Correlation%20not%20Causation%20Example.png)
+Image Source: [Spurious Correlations by Tyler Vigen](https://www.tylervigen.com/spurious-correlations)
+
+Although these two are strongly correlated, married couples that eat more margarine are not guaranteed to get divorced.
