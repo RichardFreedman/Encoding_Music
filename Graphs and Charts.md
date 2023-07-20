@@ -7,7 +7,7 @@ In this lesson, we will explore various statistical charts commonly used in data
 Bar charts are used to display categorical data. They consist of vertical or horizontal bars that represent different categories and their corresponding values. Bar charts are excellent for comparing data across different categories.
 
 Here's an example of a bar chart showing the sales of different products:
-![Alt text](images/bar_chart_plotly.svg)
+
 ```python
 # Plotly
 import plotly.graph_objects as go
@@ -20,6 +20,8 @@ fig = go.Figure(data=[go.Bar(x=categories, y=sales)])
 fig.show()
 ```
 
+![Alt text](images/bar_chart_plotly.svg)
+
 ```python
 # Matplotlib
 import matplotlib.pyplot as plt
@@ -30,17 +32,7 @@ sales = [100, 150, 120]
 plt.bar(categories, sales)
 plt.show()
 ```
-
-```python
-# Altair
-import altair as alt
-import pandas as pd
-
-data = pd.DataFrame({'categories': ['Product A', 'Product B', 'Product C'],
-                     'sales': [100, 150, 120]})
-
-alt.Chart(data).mark_bar().encode(x='categories', y='sales').interactive()
-```
+![Alt text](images/bar_chart_matplotlib.svg)
 
 ## Histograms
 Histograms are used to display the distribution of numerical data. They consist of a series of adjacent rectangles (bins) that represent the frequency or proportion of data falling within specific intervals. Histograms help us understand the shape and spread of data.
@@ -60,6 +52,8 @@ fig = go.Figure(data=[go.Histogram(x=scores)])
 fig.show()
 ```
 
+![Alt text](images/histogram_plotly.svg)
+
 ```python
 # Matplotlib
 import matplotlib.pyplot as plt
@@ -72,19 +66,7 @@ plt.hist(scores)
 plt.show()
 ```
 
-```python
-# Altair
-import altair as alt
-import pandas as pd
-import numpy as np
-
-np.random.seed(0)
-scores = np.random.normal(70, 10, 100)
-
-data = pd.DataFrame({'scores': scores})
-
-alt.Chart(data).mark_bar().encode(x=alt.X('scores', bin=alt.Bin(step=5)), y='count()').interactive()
-```
+![Alt text](images/histogram_matplotlib.svg)
 
 
 ## Scatterplots
@@ -103,6 +85,7 @@ fig = go.Figure(data=go.Scatter(x=study_hours, y=exam_scores, mode='markers'))
 
 fig.show()
 ```
+![Alt text](images/scatter_plot_plotly.svg)
 
 ```python
 # Matplotlib
@@ -115,18 +98,11 @@ plt.scatter(study_hours, exam_scores)
 plt.show()
 ```
 
-```python
-# Altair
-import altair as alt
-import pandas as pd
+![Alt text](images/scatter_plot_matplotlib.svg)
 
-study_hours = [3, 4, 2, 5, 6, 5, 3, 4, 2, 6]
-exam_scores = [70, 80, 65, 90, 95, 85, 75, 80, 70, 90]
 
-data = pd.DataFrame({'study_hours': study_hours, 'exam_scores': exam_scores})
 
-alt.Chart(data).mark_circle().encode(x='study_hours', y='exam_scores').interactive()
-```
+[See More Info on Regressions, here](Regressions.md)
 
 ## Correlation Plots
 Correlation plots are used to visualize the strength and direction of the relationship between two numerical variables. They provide a numerical measure called the correlation coefficient, which ranges from -1 to 1. A value close to -1 indicates a strong negative correlation, a value close to 1 indicates a strong positive correlation, and a value close to 0 indicates no or weak correlation.
@@ -148,6 +124,8 @@ fig = go.Figure(data=go.Heatmap(z=correlation_matrix, x=['Variable X', 'Variable
 fig.update_layout(title=f'Correlation: {correlation:.2f}')
 fig.show()
 ```
+![Alt text](images/correlation_plot_plotly.svg)
+
 
 ```python
 # Matplotlib
@@ -165,30 +143,7 @@ plt.title('Correlation Plot')
 plt.show()
 ```
 
-```python
-# Altair
-import altair as alt
-import pandas as pd
-import numpy as np
-
-np.random.seed(0)
-x = np.random.rand(100)
-y = np.random.rand(100)
-
-data = pd.DataFrame({'Variable X': x, 'Variable Y': y})
-
-correlation_matrix = data.corr()
-
-alt.Chart(correlation_matrix.reset_index()).mark_rect().encode(
-    x='index',
-    y='columns',
-    color='value'
-).properties(
-    width=200,
-    height=200,
-    title='Correlation Plot'
-)
-```
+![Alt text](images/correlation_plot_matplotlib.svg)
 
 
 ## Correlation does not equal causation
@@ -204,3 +159,4 @@ For example:
 Image Source: [Spurious Correlations by Tyler Vigen](https://www.tylervigen.com/spurious-correlations)
 
 Although these two are strongly correlated, married couples that eat more margarine are not guaranteed to get divorced.
+
