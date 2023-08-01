@@ -42,6 +42,12 @@ When interpreting regression results, keep the following in mind:
 
 4. **Overfitting**: Complex models can overfit the data and perform poorly on new data. Balancing model complexity and generalization is essential.
 
+## Correlation Coefficient
+The correlation coefficient is a statistical measure of the strength of the relationship between two (or more) variables.
+![Alt text](images/r-values.png)
+[Image Source](https://www.cuemath.com/data/how-to-calculate-correlation-coefficient/)
+
+
 ## Conclusion
 
 Regression analysis is a powerful tool for understanding and interpreting data relationships. By fitting a regression line to the data, we can identify how changes in independent variables impact the dependent variable. However, it's essential to consider the limitations and assumptions of different regression techniques and validate findings with additional analyses. Used correctly, regressions provide valuable insights that aid decision-making and predictive modeling in various fields.
