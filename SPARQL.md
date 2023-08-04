@@ -86,7 +86,4 @@ SPARQL queries provide a powerful and standardized way to retrieve specific info
 
 Note: The examples above are for illustrative purposes and may need to be modified to match the specific RDF dataset and vocabulary being used.
 
-Sources:
 
-1. [SPARQL - Wikipedia](https://en.wikipedia.org/wiki/SPARQL)
-2. [SPARQL 1.1 Query Language - W3C Recommendation](https://www.w3.org/TR/sparql11-query/)
