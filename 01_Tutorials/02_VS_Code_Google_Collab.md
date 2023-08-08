@@ -10,9 +10,13 @@ To use and develop the application:
 
 * **Create a virtual environment.**  One good way to manage virtual environments is with Anaconda Navigator:  https://www.anaconda.com/download.  Learn more about Anaconda Navigator here:  https://learning.anaconda.cloud/
 
-* Create a new environment (you can name it as you like, for example "Streamlit")
+* Create a new environment (you can name it as you like, for example "encoding_music"; note that it's best to avoid spaces in the name!)
 
 ![Alt text](images/screenshot_1506.png)
+
+* **Install the various libraries needed for our work.**  This is handled via a `requirements.txt` file that can be found on github for Encoding Music (https://github.com/RichardFreedman/Encoding_Music/blob/main/requirements.txt).  To install the various libraries in your local environment, you will need to:
+
+- Open a new 'terminal
 
 * **Install Jupyter Notebook or Visual Studio Code** if they are not already in that environment.
 
