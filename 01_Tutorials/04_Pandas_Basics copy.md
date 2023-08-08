@@ -1,204 +1,352 @@
-# Pandas  
+# Pandas:  Python for Data Analysis
 
 Pandas is a Python library which allows for the creation and manipulation of DataFrames, which are two dimensional objects designed to store data. Below are a few of the many ways in which pandas DataFrames can be modified, filtered, or transformed. 
 
-## Counting and Sorting Intervals: General Pandas Operations  
+Pandas = Python for Data Analysis
+* High-performance manipulation of text, integers, numbers, dates
+* Data alignment, reshaping, pivoting
+* Intelligent slicing, grouping, and subsetting
+* Merging and joining of sets
+* Integrated modules for analysis, plots, visualizations, maps, networks
+
+[Read more](https://pandas.pydata.org/about/).
+
+[Tutorials](https://www.w3schools.com/python/pandas/default.asp).
+
+[Pandas Cheat Sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf).
+
+## Data Frames
+
+Pandas **data frames** are the basic unit upon which all operations take place.  Data frames are like spreadsheets, with columns and rows.
+
+Indeed, Pandas can easily import spreadsheets in **CSV** (comma separated values) format.  We will also import data from databases in **JSON** format (Java Script Object Notation), similar to a Python dictionary.  There are special scripts for working with JSON, too.
+
+Pandas can export as well as import these formats (among others).
+
+## Meet the Beatles
+
+The Pandas library has a vast array of tools for sorting, filtering, grouping, analyzing, and even visualizing tabluar data of various kinds:  strings, booleans, integers, floats, dates, and so on.  We begin with data about the albums and songs issued by the Beatles. The data are drawn from two sources:
+
+* A set from **Spotify** includes information about 193 songs, albums, years, plus other acoustic ratings that Spotify uses to characterize tracks. View these data as a [Google spreadsheet](https://docs.google.com/spreadsheets/d/1CBiNbxqF4FHWMkFv-C6nl7AyOJUFqycrR-EvWvDZEWY/edit#gid=953807965).
+
+* A set compiled by a team at the **University of Belgrade (Serbia)** that contains information about over 300 Beatles songs:  author(s), lead singer(s), album, musical genre(s), and standing in the Top 50 Billboard charts.  View these data on [Github]('https://github.com/inteligentni/Class-05-Feature-engineering/blob/master/The%20Beatles%20songs%20dataset%2C%20v1%2C%20no%20NAs.csv').
+
+We will work with both of these sets, and in the process learn how to inspect, clean, combine, filter, group, and analyze the information they contain.
+
+We give the URL of the CSV file a name (simply for convenience), then pass that name to the `read_csv('source_file_name')` method, and name the resulting data frame.
+
+```
+beatles_spotify_csv = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRCv45ldJmq0isl2bvWok7AbD5C6JWA0Xf1tBqow5ngX7_ox8c2d846PnH9iLp_SikzgYmvdPHe9k7G/pub?output=csv'
+
+beatles_spotify = pd.read_csv(beatles_spotify_csv)
+
+```
+
+and 
+
+```
+beatles_billboard_csv = 'https://raw.githubusercontent.com/inteligentni/Class-05-Feature-engineering/master/The%20Beatles%20songs%20dataset%2C%20v1%2C%20no%20NAs.csv'
+
+beatles_billboard = pd.read_csv(beatles_billboard_csv)
+```
 
 The outputs of the `notes()`, `melodic()`, and `harmonic()` functions are all in the format of a pandas DataFrame. Therefore, they can each be manipulated by the functions built into pandas for this purpose. A cheat sheet of pandas DataFrame operations can be [found here](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf). For the following examples, we can assume that some piece has been imported, and define a variable "mel" as the melodic intervals DataFrame for that piece:  
 
     mel = piece.melodic()  
 
-### Working with Rows
+## Inspect the Data Frame
 
-Dataframes can be **long**, since they will have a row for every event in the composition (beats and subbeats alike).  By default Pandas displays dataframes in an abbreviated view consisting of the first five and last five rows. The last row will be included, so it is easy to see just how long the results are!
+A quick look at the file as a dataframe:
 
-But it is possible to show various slices and segments (see the cheatsheet linked above for many examples), such as:
+```
+beatles_billboard = pd.read_csv(beatles_billboard_csv)
+beatles_billboard.head(25)
+```
 
-    piece.notes().head(20)
-    piece.notes().tail(20)
-    piece.notes().sample(20)
+Now we can look at the data in various ways to see what is here. The first column is the `index` (and begins with "0").
 
-`df.loc[]` and `df.iloc[]` have two different meanings! The first of these selects some range of *specific index values* (`df.loc[10:20]` would in this case return a slice of the frame 'df' where the actual offsets are between 10 (inclusive) and 20 (exclusive).
 
-    nr = piece.notes()
-    nr.loc[10:20]
+* `beatles_spotify.info()` will show the names, number and data types of the columns
+* `beatles_spotify.shape` will tell us the size of our frame:  how many **rows and columns**, like `(193, 11)`.  Note:  normally these methods are followed by `()`.  This one is not.
+* `beatles_spotify.describe()` delivers basic statistical information about the set, such as count, average, mean, standard deviation, and basic percentiles.
 
-On the other hand, the `iloc[]` method with Pandas will select the rows according to their *position in the index* rather than the index values.  So this would report the 10th until the 19th row of the frame for notes and rests:
+![Alt text](<pd 1-1.png>)
 
-    nr = piece.notes()
-    nr.iloc[10:20]
+## Working with Rows
 
-#### Examples from CRIM Intervals:  Filter df of Notes according to Measure or Beat Strength
+By default Pandas shows only the first and last five rows of any data frame.  There are various ways to see others:
 
-The `piece.measures()` function returns a df that shows were each new measure begins.  The index of this df is saved as a list, which in turn is tested against the index of the df for notes to produce a Boolean series: `nr.index.isin(measure_starts)`.  This Boolean is then passed to nr.loc to yield the final dataframe:  `nr2 = nr.loc[nr.index.isin(measure_starts)]`.
+* **All rows**, set `pandas.set_option('display.max_rows', None)` or `pd.options.display.max_rows = 9999` before you display the frame.
+* **Head** rows (default of five from the start, but can be any number):  `beatles_spotify.head(20)`
+* **Tail** rows (default of five from the end, but can be any number):  `beatles_spotify.tail(20)`
+* **Sample** a random sampling of x rows:  `beatles_spotify.sample(20)`
 
-    #df of measures (that is, where each starts)
-    ms = piece.measures()
-    #index of that df as list
-    measure_starts = ms.index.to_list()
-    #df of notes and rests
-    nr = piece.notes()
-    #filter nr to show only those offsets (=index) that are in the list just made
-    notes_at_start_of_measures = nr.loc[nr.index.isin(measure_starts)]
-    notes_at_start_of_measures
 
-### Working With Columns  
+### Selecting Rows:  `loc` and `iloc` 
 
+`df.loc`` and `dc.iloc`` are _not_ the same!
 
-#### Show Column Names
+* **iloc** to select rows by **index number** (the left-hand column) use `iloc`. The syntax puts rows before columns, as in `beatles_spotify.iloc[startrow:endrow, startcolumn:endcolumn]`.  Thus rows 10-15 (and all columns) of our dataframe would be `beatles_spotify.iloc[10:15, :]`.  Note:  the first number is *inclusive* but the second is *exclusive*.  So `10:15` will yield rows 10, 11, 12, 13, 14, but *not* 15.
+* **loc** to select rows by **label** of the left-hand column (as when you might have an index of strings), use `loc`.  This is useful when our index is a string rather than a number.  It is especially useful for working with columns.
 
-A list of the columns could be useful as a way to list the voice parts in a composition:
+Pandas Cheat Sheet:  [here](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf).
 
-    voices = piece.notes().columns.to_list()
-    voices
-    #output as follows
-    ['Superius', 'Contratenor', 'PrimusTenor', 'SecundusTenor', 'Bassus']
+Try:
 
+    beatles_spotify.iloc[10:15,]
 
-#### Rename Columns
-Perhaps in turn it might be necessary to rename some or all of the columns.  This could be done by passing a Python 'dictionary' in which the old and new voice (column) names are given as `key : value` pairs inside curved braces, separated by commas: `{old_col_1_name : new_col_1_name, old_col_2_name : new_col_2_name }`. It is only necessary to provide dictionaries for the columns to be renamed; the others can be left out. For instance:
+## Working with Columns
 
-    mel.rename(columns = {'Superius':'Soprano', 'Contratenor':'Alto'})
 
+We now start to look more closely the columns.
 
-#### Selected Columns in New Dataframe
 
-**By Name with `loc` Method**
+* **column names** as a list:  `beatles_spotify.columns`
+* **rename a column**:  `beatles_billboard["album"] = beatles_billboard["Album.debut"]` or `beatles_billboard.rename(columns = {'Album.debut':'album'})`
+* **drop a column**: `beatles_billboard.drop(columns=['Album.debut'])`.  Note that these must be presented as a list, even if there is only one!
+* **add a column**; in this case we might want to create a column based on condition in another (like "Instrumental" as a Boolean ):   
+* **data types** of the columns:  `beatles_spotify.dtypes`.  Note that we can do something similar with `beatles_spotify.info()`.  To change data type, see Cleaning and Checking Data, below.
+* **sort the columns** alphabetically:  `beatles_spotify.columns.sort_values()`
+* **move or reorganize columns** by specifying a new order; this would also work to drop certain columns ommitted from the list:
 
-Image that only the "PrimusTenor" and "SecundusTenor" are needed in a new dataframe.  These can be selected with `loc` by name:
+```
+column_list = ['Title', 'Year', 'Album.debut', 'Genre','Songwriter', 'Top.50.Billboard']
+beatles_billboard_short = beatles_billboard[column_list]
+beatles_billboard_short
+```
 
-    nr = piece.notes()
-    nr2 = nr.loc[:, ['PrimusTenor', 'SecundusTenor']]
 
-Note that the information about the columns to select appears to the right of the comma. In this case the `:` to the left of the column means that *all rows* are returned.  But these could be specified, too, as shown above.
+An individual column is called a **series**
+* **One column**:  `beatles_spotify["year"]`
+* Count the **number of unique values** in a single column: `beatles_spotify["album"].nunique()`
+* Count the **number of entries** for each value in a column:  `beatles_spotify["album"].value_counts()`
 
-**By Position with `iloc` Method**
+Pandas Cheat Sheet:  [here](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf).
 
-It is also possible to select columns on the basis of their *position* in the dataframe (the first is '0', the last is '-1'). To return just the top and bottom voices (Superius and Bassus from the list above), use the `iloc` function:
 
-    nr = piece.notes()
-    nr2 = nr.iloc[:, [0, -1]]
+Show the columns of our df:
 
-Note that `iloc` method allows selection of either rows or columns (or both). 
+    beatles_billboard.columns
 
-Note that the information about the columns to select appears to the right of the comma. In this case the `:` to the left of the column means that *all rows* are returned.  But these could be specified, too, as shown above.
+Or the data types for each column:
 
-Pandas provides several other ways to rename, select or reorganize columns. See the cheat sheet above.
+    beatles_spotify.dtypes
 
-### Counting and Sorting
+Or sort the column names as a list:
 
-#### Counting Notes
-A count of the *rows* of the dataframe will be in effect a count of the number of offsets.  Pass the entire function to the Python `len` method, for instance:
+    beatles_spotify.columns.sort_values()
 
-    len(piece.notes())
+Make a new df with just a subset of columns.  We first make a `list` of the required columns, then we pass that list inside `[]` against the original df.  In effect we are saying: `billboard` where `[these columns]` are `True`.
 
-But it is also possible to count the number of **notes** in each voice (column):
+```
+column_list = ['Title', 'Year', 'Album.debut', 'Genre','Songwriter', 'Top.50.Billboard']
+beatles_billboard_short = beatles_billboard[column_list]
+beatles_billboard_short
+```
+![Alt text](<pdf 2.png>)
 
-    nr = piece.notes() 
-    nr.count()
-    #output as follows:
-    Superius         388
-    Contratenor      448
-    PrimusTenor      373
-    SecundusTenor    377
-    Bassus           337
+Meanwhile an individual column is represented as a "Series"
 
-Or `stack()` all the columns on top of each other, then report the **total number of unique values** (that is, a count of the unique pitches):
+```
+beatles_spotify["song"]
 
-    nr.stack().nunique()
+```
 
+![Alt text](<pd 3.png>)
 
-#### Sorting Notes
+## Cleaning and Checking Data
 
-Count the notes in each voice part, then *sort the df alphabetically by note* (which is the index in this case.  Since music21 names the notes by pitch class and octave, the result is a table from low to high of all the tones in the piece:
+Missing data or data encoded as the wrong type will result in errors of various kinds.  See more [here](https://www.w3schools.com/python/pandas/pandas_cleaning.asp).
 
-    nr.apply(pd.Series.value_counts).fillna(0).astype(int)
+### The NAN Problem
 
-Or sorted by the *counts in a particular voice* (here the NA's are filled with 0 [zero]. To select a different column, change `nr.columns[0]` to a different number. To sort them in descending order, try `ascending = True`.
+In Python there is a difference between a "0" and nothing.  The latter is a Null, which represents "no data at all."  Nulls will result in errors when you attempt to perform some operation on them.  You cannot add to or compare something to a Null.  Nor can you test whether a Null contains some set of characters or matches a word. 
 
-    nr.apply(pd.Series.value_counts).fillna(0).astype(int).sort_values(by = nr.columns[0], ascending = False)
+* **Find the NaN's**:  `df[df.isna().any(axis=1)]`, or for the billboard data:  `beatles_billboard[beatles_billboard.isna().any(axis=1)]`.  
 
-But it is also possible to *declare a sort order for the pitches* , then organize the entire data frame in that sequence. This will show the voice ranges of each part.
+* **Fill the NaN's**. If you are performing mathematical operations, You can fill missing values with some default number or string. The solution will probably vary from one column to the next (since some are integers, some dates, and are text):  `beatles_billboard.fillna("-")` would fill *all NaN* with the same string.  But we could instead try something that would be more meaningful.  For example: `beatles_billboard['Album.debut'].fillna("unreleased", inplace=True)`
+* If you are trying to filter a data frame by a particular keyword or condition, you can treat the Nulls as "False" and thereby ignore them.
 
-First, create a list of the pitches in order (from low to high, in this case). Note that music21 (and thus CRIM Intervals) represents B-flat as `B-`. C-sharp is `C#`.
+### Duplicate Rows
 
-    pitch_order = ['E-2', 'E2', 'F2', 'F#2', 'G2', 'A2', 'B-2', 'B2', 
-               'C3', 'C#3', 'D3', 'E-3','E3', 'F3', 'F#3', 'G3', 'G#3','A3', 'B-3','B3',
-               'C4', 'C#4','D4', 'E-4', 'E4', 'F4', 'F#4','G4', 'A4', 'B-4', 'B4',
-               'C5', 'C#5','D5', 'E-5','E5', 'F5', 'F#5', 'G5', 'A5', 'B-5', 'B5']
+Duplicate rows can also create errors, or distort your results.  Find them:  `duplicate = beatles_billboard[beatles_billboard.duplicated()]
+duplicate` (in this case there are none).  Remove them automatically with `beatles.drop_duplicates()`
 
-Then, create a dataframe corresponding to our piece, and sort it by pitches, as shown:
+### Wrong Data Type
 
-    #find notes, fill NA's
-    df = piece.notes().fillna('-') 
-    #count the values, fill NA's and make a copy for safety
-    df = nr.apply(pd.Series.value_counts).fillna(0).astype(int).reset_index().copy() 
-    #rename the index as 'pitch'
-    df.rename(columns = {'index':'pitch'}, inplace = True) 
-    #assign the order from pitch_order above
-    df['pitch'] = pd.Categorial(df["pitch"], categories = pitch_order)
-    #sort values, drop NA's, and copy 
-    df = df.sort_values(by = "pitch").dropna().copy()
-    #display results as df
-    df
+Wrong data type in a given column is another common error (particularly since Pandas attempts to guess the correct data type when importing from CSV or JSON).  In our beatles_spotify dataset, notice that the data type for 'energy' is `object`, which in the context of Pandas means it is a Python `string`.  As such we cannot perform mathematical operations on it. Change the data type with the `astype()` method:
 
+```
+beatles_spotify['energy'] = beatles_spotify['energy'].astype(np.float64)
+```
 
-#### Counting Melodic Intervals
+The same thing can happen with **date=time** information.  In our orignal datasets, the "Year" columms are in fact integers.  This works fine for basic sorting.  But Pandas has an intelligent format for working with date-time information that allows us to sort by month-day-year, or create 'bins' representing quarters, decades, centuries.  
 
-The same approach could be applied to melodic intervals.  The count of melodic intervals:
+So you will need to check the original data type, then convert to strings before converting to **date-time format**.  For example:
 
-    len(piece.melodic())
+```
 
-Melodic intervals in each voice:
+beatles_billboard["Year"] = beatles_billboard["Year"].astype(str)
 
-    mel = piece.melodic() 
-    mel.count()
-  
-And so on, as above. Remember that it is also possible to specify various parameters for the `melodic()` function, thus reporting different kinds of intervals, qualities, and so on.
+```
 
-#### Sorting Melodic Intervals  
+Then convert that string to **datetime** format (in this case, in a new column, for comparison):
 
-Similar to the note order created above, first define an order of intervals as follows:  
+```
+beatles_billboard["Year_DT"] = pd.to_datetime(beatles_billboard["Year"], format='%Y')
+```
+And then reorder the columns for clarity:
 
-    int_order = ["P1", "m2", "M2", "m3", "M3", "P4", "P5", "m6", "M6", "m7", "M7", "P8", "-m2", "-M2", "-m3", "-M3", "-P4", "-P5", "-m6", "-M6", "-m7", "-M7", "-P8"]  
+```
+beatles_billboard_sorted = beatles_billboard.iloc[:, [0, 1, 9, 3, 4, 5, 6, 7, 8]]
+beatles_billboard_sorted.head()
 
-This `int_order` can now be used to sort the intervals from smallest to largest, ascending to descending:
+```
+### Wrong or Inconsistent Format
 
-    #df of melodic intervals, NA's filled
-    mel = piece.melodic().fillna("-") 
-    #counting the intervals, NA's filled as 0, and copy the df to avoid problems
-    mel = mel.apply(pd.Series.value_counts).fillna(0).astype(int).reset_index().copy()
-    #rename the index as 'interval' 
-    mel.rename(columns = {'index':'interval'}, inplace = True) 
-    #map each interval to the order specified in the "int_order" list above
-    mel['interval'] = pd.Categorical(mel["interval"], categories = int_order)
-    #sort the results, remove NA's, and make a copy to avoid problems
-    mel = mel.sort_values(by = "interval").dropna().copy()
-    #reset the index and display
-    mel.reset_index() 
+For example when spelling or capitalization are different for the same item across many rows or columns.  There are Pandas methods to help with this process. 
 
+### Incorrect Data
 
+This is more difficult, since you will need to know the details of the errors, and how to correct them.  But Python and Pandas can help you automate the process.
 
+See more [here](https://towardsdatascience.com/simplify-your-dataset-cleaning-with-pandas-75951b23568e).
+ 
 
+## Cleaning Data with Functions
 
------
+Let's imagine that you have a dataset in which a particular column contains data that are inconsistent:  in some places for the name of an artist you have `John Lennon`, and other places `John Lenin`.  You could correct them by hand in a Spreadsheet.  But there is an easier way with a Python **function**.
 
-## Sections in this guide
+You will first want to understand all the values you are trying to correct.  So here you would use Pandas/Python **set** method on all the values of the df["column"] in question:
 
-  * [01_Introduction_and_Corpus](01_Introduction_and_Corpus.md)
-  * [02_Notes_Rests](02_Notes_Rests.md)
-  * [03_Durations](03_Durations.md) 
-  * [04_TimeSignatures_Beat_Strength](04_TimeSignatures_Beat_Strength.md)
-  * [05_DetailIndex](05_DetailIndex.md)
-  * [06_MelodicIntervals](06_MelodicIntervals.md)
-  * [07_HarmonicIntervals](07_HarmonicIntervals.md)
-  * [08_Contrapuntal_Modules](08_Contrapuntal_Modules.md)
-  * [09_Ngrams_Heat_Maps](09_Ngrams_Heat_Maps.md)
-  * [10_Lyrics_Homorhythm](10_Lyrics_Homorhythm.md)
-  * [11_Cadences](11_Cadences.md)
-  * [12_Presentation_Types](12_Presentation_Types.md)
-  * [13_Model_Finder](13_Model_Finder.md)
-  * [14_Visualizations_Summary](14_Visualizations_Summary.md)
-  * [15_Network_Graphs](15_Network_Graphs.md)
-  * [16_Python_Basics](16_Python_Basics.md)
-  * [17_Pandas_Basics](17_Pandas_Basics.md)
+`set(df["Artist"])`
+
+Now that you know what the problem values are, write a **function** that corrects `John Lenin` to `John Lennon`.  If you don't recall **functions** see **Python Basic Noteboo**!
+```
+
+def name_check:
+    if df["Artist"] == "John Lenin":
+        return "John Lennon"
+```
+In this case the **return** statement makes the result available for the next step in the process.
+
+But how to run this over **all rows** of a data frame?  We can easily do this with the **apply** method. In effect it **apply** allows us to automatically pass over all rows in the data frame, transforming only the column we select.  
+
+`df['column'] = df['column'].apply(name_check)`
+
+Note that we could use this approach not only for correcting data, but for creating **new columns** based on **existing columns**.  For example:  a Boolean column (True/False) based on the result of the contents of another column.  Here the new column will report True for any row where the column "artist" contains the string "Lennon".  
+
+`df['By_Lennon'] = df['artist'].str.contains("Lennon")`
+
+We can then use the Boolean column to filter the entire frame (see below).
+
+Try some out:
+
+NANs anywhere:
+
+    beatles_billboard[beatles_billboard.isna().any(axis=1)]
+
+Replace NA's in Album column with 'unreleased'
+
+```
+beatles_billboard['Album.debut'].fillna("unreleased", inplace=True)
+beatles_billboard.head(25)
+```
+
+Convert the year column to an integer, then use the Pandas "year" format to make an intelligent date out of it, and sort the columns according to their `index` positions:
+
+```
+beatles_billboard["Year"] = beatles_billboard["Year"].astype(int)
+beatles_billboard["Year_DT"] = pd.to_datetime(beatles_billboard["Year"], format='%Y')
+beatles_billboard_sorted = beatles_billboard.iloc[:, [0, 1, 9, 3, 4, 5, 6, 7, 8]]
+beatles_billboard_sorted.head()
+```
+
+You can think of some others!
+
+## Count, Sort, and Filter
+
+Pandas affords many ways to take stock of your data, with built-in functions counts of values, means, averages, and other statistical information.  Many of these are detailed on the [Pandas Cheat Sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf).  But the following will be useful for us:
+
+### Sort Values
+
+**Sort Values** in any column.  This ascending (alphabetically or numerically) by default, but can be reversed.  Example:  
+
+```
+beatles_spotify.sort_values("danceability")
+```
+
+### Count Values
+**Count Values** in any column.  For example: 
+
+```
+beatles_billboard["Album.debut"].value_counts()
+```
+
+### Subset of Rows of Columns
+
+It is also possible to **select some subset of rows or columns** by name or index position.  See above, and the Pandas Cheat Sheet.
+
+### Filter Rows
+
+**Filter rows based on some logical condition or string** in one or more columns.  There are several possibilities.  Note the differences between **`str.contains()`** (matches full contents of cell) and **isin(["sub_string_1", "sub_string_2"])** (which matches any number of shorter strings within a cell).
+
+The **`str.contains("some text here")`** method will work if the text matches the **full contents** of the cell. For example here we filter to tracks with "unreleased" in the `Album.debut` column. The **items within "[]" become a Boolean series**:
+
+```
+[beatles_billboard['Album.debut'].str.contains("unreleased")]
+```
+
+This is then used to **mask** the complete data trame (rows with "True" are retained), which happens when we append this list to the name of the dataframe itself.  In effect we are saying "return df where [these conditions] are True"
+
+```
+beatles_billboard[beatles_billboard['Album.debut'].str.contains("unreleased")]
+```
+
+But we can also **invert the Boolean series**, so that the string "unreleased" is **False**.  "~" (the tilde) is used to invert the mask:
+
+```
+beatles_billboard[~beatles_billboard['Album.debut'].str.contains("unreleased")]
+```
+
+Or we can **filter with two conditions** (the above, plus "Year < 1965".  Notice that in this case each condition (which will be a set of True/False values) is surrounded in `()`, and then together linked by `&` as part of the complete `[]` test.
+
+```
+beatles_billboard[(beatles_billboard['Album.debut'].str.contains("unreleased")) & (beatles_billboard['Year'] < 1965)]
+```
+
+The **isin()** method works if you are looking for *one or more substrings in a given cell*.  Note that the strings must be presented as a "list", thus **`isin(["substring_1", "substring_2"])`**.  For example, this, which returns either "Lennon" OR "McCartney" (in any context within that column):
+
+```
+beatles_billboard[beatles_billboard['Songwriter'].isin(["Lennon", "McCartney"])]
+```
+
+
+
+## Combining, Joining, and Merging DataFrames
+
+We can merge the two Beatles data frame on the basis of some shared columns.  It is not necessary for the columns to have the same name, but they need to share the same items (like 'songs')
+
+* In this case the **Published_In** column in the emblems list corresponds to the **Book_Id**
+* In Pandas, the two frames to be joined are called "left" and "right"
+* The "suffixes" argument tells Pandas how to handle fields are otherwise named identically in the source files
+
+```
+beatles_combined = pd.merge(right=beatles_spotify, 
+         left=beatles_billboard, 
+         right_on="song", 
+         left_on="Title", 
+         how="left")
+beatles_combined
+```
+
+![Alt text](<pd 4.png>)
+
+This is not very meaningful!  But instead we could use billboard data and find the *mean ranking* of those in the top 50 by year.
+
+```
+top_50 = beatles_billboard[beatles_billboard["Top.50.Billboard"] > 0].sort_values('Year')
+top_50.tail()
+```
+
+![Alt text](<pd 5.png>)
