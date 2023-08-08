@@ -136,7 +136,6 @@ pyFUME==0.2.25
 Pygments==2.13.0
 pyLDAvis==3.3.1
 pyloco==0.0.139
-pynput==1.7.6
 pyparsing==3.0.9
 PyQt5==5.15.7
 PyQt5-Qt5==5.15.2
