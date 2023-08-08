@@ -13,9 +13,7 @@ Read more about [Python with w3school reference guide](https://www.w3schools.com
 It's important to understand **data types**:
 
 *   **integer**:  any whole number, such as 1, 2, 10
-
 *   **float**:  decimal numbers, such as 2.25, 6.875
-
 *   **string**:   any alpha-numeric character, surrounded by quotation marks (double or single)
 *   **Boolean**:  True or False (in fact these are reserved words in Python and should not be used beyond Boolean functions)
 
@@ -27,7 +25,6 @@ These can also be combined as various kind of **collections**:
 *   **lists**:  an ordered sequence presented in brackets and separated by commas, such as **["Blues", "Gospel", "Country"]** or **[1.0, 4.0, 6.0]**.  Lists can contain duplicates
 *   **set**:  an unordered sequence; it cannot contain duplicates
 *   **tuples**: a special kind of list that cannot be altered, presented as **("Jazz", "Classical", "Folk")** or **(1.25, 4.76, 8.03)**
-
 *   **dictionaries**:  a series of **key : value** pairs contained within braces, such as **{"artist" : "McCartney, Paul", "title" : "Yesterday"}**
 
 Read more about [Python data types at the w3schools resource](https://www.w3schools.com/python/python_datatypes.asp)
@@ -381,24 +378,3 @@ for sample_name in sample_name_list:
 ```
 
 ---
-
-
-## Sections in this guide
-
-  * [01_Introduction_and_Corpus](01_Introduction_and_Corpus.md)
-  * [02_Notes_Rests](02_Notes_Rests.md)
-  * [03_Durations](03_Durations.md) 
-  * [04_TimeSignatures_Beat_Strength](04_TimeSignatures_Beat_Strength.md)
-  * [05_DetailIndex](05_DetailIndex.md)
-  * [06_MelodicIntervals](06_MelodicIntervals.md)
-  * [07_HarmonicIntervals](07_HarmonicIntervals.md)
-  * [08_Contrapuntal_Modules](08_Contrapuntal_Modules.md)
-  * [09_Ngrams_Heat_Maps](09_Ngrams_Heat_Maps.md)
-  * [10_Lyrics_Homorhythm](10_Lyrics_Homorhythm.md)
-  * [11_Cadences](11_Cadences.md)
-  * [12_Presentation_Types](12_Presentation_Types.md)
-  * [13_Model_Finder](13_Model_Finder.md)
-  * [14_Visualizations_Summary](14_Visualizations_Summary.md)
-  * [15_Network_Graphs](15_Network_Graphs.md)
-  * [16_Python_Basics](16_Python_Basics.md)
-  * [17_Pandas_Basics](17_Pandas_Basics.md)

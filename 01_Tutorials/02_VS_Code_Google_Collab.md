@@ -1,44 +1,84 @@
-# intervals-streamlit
+# Encoding Music:  Running Notebooks and Code on Your Own Machine
 
-# A Streamlit Web Application for CRIM Intervals
+It's certainly possible to do all assignments via the class Jupyter Hub (which requires that you are on the Haverford College Network (a special log-in is needed for students from Bryn Mawr College).
 
-Learn about CRIM Intervals here:  https://github.com/HCDigitalScholarship/intervals/tree/rich_dev_22
+But it is also possible to run all our notebooks (and also develop your own ideas) on your own computer.  The steps detailed below will show you how.
 
-Learn about Streamlit functions here:  https://docs.streamlit.io/library/api-reference
+## Anaconda Navigator, VS Code, and All the Rest
 
-To use and develop the application:
+### Install Anaconda Navigator
 
-* **Create a virtual environment.**  One good way to manage virtual environments is with Anaconda Navigator:  https://www.anaconda.com/download.  Learn more about Anaconda Navigator here:  https://learning.anaconda.cloud/
+* Download and install [Anaconda Navigator](https://www.anaconda.com/download) on your machine.  It's free. Learn more about Anaconda Navigator via its [learning resources](https://learning.anaconda.cloud/)
 
-* Create a new environment (you can name it as you like, for example "encoding_music"; note that it's best to avoid spaces in the name!)
+### Create a New Virtual Environment
+
+* The next step is to create a new virtual environment, which will make sure that you are working with the correct libraries, and the correct versions of those libraries in a way that will not interfere with any other packages or resources on your computer. You can name the virtual environment it as you like, for example "encoding_music"; note that it's best to avoid spaces in the name!
+
+> 1) Click the "+" at the bottom of Navigator to start the process:
 
 ![Alt text](images/screenshot_1506.png)
 
-* **Install the various libraries needed for our work.**  This is handled via a `requirements.txt` file that can be found on github for Encoding Music (https://github.com/RichardFreedman/Encoding_Music/blob/main/requirements.txt).  To install the various libraries in your local environment, you will need to:
+> 2) And then name the environment via the dialogue box:
 
-- Open a new 'terminal
+![Alt text](images/screenshot_1614.png)
 
-* **Install Jupyter Notebook or Visual Studio Code** if they are not already in that environment.
+### Install Jupyter Notebook and Visual Studio Code
 
-From 
+* From the 'home' page of your environment you will see an array of software packages.  The ones we will use are Jupyter Notebook and VS Code.  If they are already installed, you will see a button to 'launch'.  If you see 'install' then click that to do so. No need to launch either of them yet, however!
 
-* **Clone the Streamlit for Intervals repository to your local machine**.  Github Desktop is a good way to do this:  https://desktop.github.com/.  You will need to look for Clone a Repository under the File menu for GitHub Desktop, then paste in this url:  https://github.com/RichardFreedman/intervals-streamlit and provide a location on your own computer where you would like the files to be saved.
+![Alt text](images/screenshot_1615.png)
 
-![Alt text](images/screenshot_1508.png)
+### Install Libraries
 
-* From within your Streamlit virtual environment on Anaconda Navigator, and using VS Code or Jupyter Notebook, **open a new Terminal window, and 'acvitate' your environment**.  When you start the terminal you will probably see that you are running on 'base', but you will need to type `conda activate streamlit` (the last word will be the name of the environment you created above) at the terminal prompt:
+* Python Libraries handle various functions (from charts and graphs to music rendering). They are installed via a `requirements.txt` file that can be found on github for [Encoding Music](https://github.com/RichardFreedman/Encoding_Music/blob/main/requirements.txt). To install the various libraries in your local environment, you will need to:
 
-![Alt text](images/screenshot_1509.png)
+Open a new 'terminal' as shown here:
 
-If you are successful you will see that you are now running on 'streamlit' (or whatever you call your environment).
+![Alt text](images/screenshot_1616.png)
 
-* Make sure that terminal (and thus VS Code and Jupyter Notebooks) are looking to the local directory on your computer where you downloaded the Streamlit repository in the step above.  At the terminal prompt, type (for instance) `cd '/Users/rfreedma/Documents/CRIM_Python/intervals-streamlit'`
+The terminal prompt (in a new window), will look something like what you see below, with the name of your environment in parentheses, and the name of your computer afterwards:
 
-![Alt text](images/screenshot_1510.png)
+	(encoding_music) rfreedma@rfreedma-22 ~ % 
 
-* **Install the 'requirements' for Streamlit Intervals**.  This is file is part of the streamlit intervals GitHub repository, and which was added to your local folder when you cloned the respository in the step above.  So in the terminal type `pip install -r requirements.txt`
+Copy the following code and paste it directly after the terminal prompt, then press return/enter.
 
-This might take a minute or two, and you will see a long and rapdily moving display of content in the Terminal window.  Eventually the process will stop and you will see the prompt again.
 
-* Now you are ready to start the Streamlit for Intervals application via the terminal with `streamlit run intervals_streamlit2.py`.  Your internet browser will launch automatically, and then you can use the app!
+	pip install -r https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/main/requirements.txt
+
+![Alt text](images/screenshot_1621.png)
+
+This might take a minute or two, and you will see a long and rapdily moving display of content in the Terminal window.  Eventually the process will stop and you will see the prompt again.  Success!
+
+### Get The Notebooks
+
+You have various options for working with the Notebooks (or creating new ones). 
+
+You could simply download our Encoding Music notebooks from github, saving them locally on your computer.  This will certainly work, although you will need to keep track as you edit them.  It's a good policy to _rename_ any file you are working with (perhaps with a suffix) so that you don't spoil the one you downloaded.  Find all the Notebooks at Encoding Music on github:
+
+	https://github.com/RichardFreedman/Encoding_Music
+
+Follow the `code` and `download zip` as shown below to get the files.
+
+![Alt text](images/screenshot_1626.png)
+
+Alternatively you could `clone` the entire repository via your own git account.  The files will remain on your computer, but you will also have the security of publishing version-controlled copies on github.  But DO NOT include passwords or other secure information in your notebooks if you choose this approach!
+
+### Run A Notebook (or Create Your Own Code)
+
+Again you have choices.  You can run the Notebooks in **Jupyter Notebook** (which you will launch from the home page of your environment).  Notebooks provide a browser-like space to run code and create markdown.  They are relatively simple to use, but they give only minimal guidance as you write code (called 'syntax highlighting'), and little support to fix errors.
+
+![Alt text](images/screenshot_1615.png)
+
+You can also run the Notebooks in **VS Code**.  Here you have more support for syntax highlighting (such as telling you when a variable has been used in your code, or not), and also support for debugging.  But to start a Notebook in VS Code you must be sure to select the correct Python "Kernel".  This will only be necessary the first time you run it.  See below:
+
+![Alt text](images/screenshot_1623.png)
+
+You might also be prompted (only the first time you use VS Code with your first notebook) to install an "Extension" called `ipykernel`.  This is easily done via the Extensions manager.  Ask if you need help.  
+
+You might also want to install an extension called `live preview`, which will help to render networks and other figures.
+
+![Alt text](images/screenshot_1624.png)
+=
+
+
 
