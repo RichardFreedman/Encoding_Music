@@ -357,6 +357,7 @@ top_50.tail()
 Learn more about Groupby [here](https://medium.com/towards-data-science/pandas-groupby-aggregate-transform-filter-c95ba3444bbb).
 
 **Groupby** functions allow you to organize and analyze data that share certain features.  For instance, we could find the **number of songs per album**:
+
 ```
 beatles_billboard.groupby("Album.debut")["Title"].count()
 ```
@@ -364,12 +365,10 @@ beatles_billboard.groupby("Album.debut")["Title"].count()
 ![Alt text](<images/pd 6.png>)
 
 
-```
 Or focus on the relative activity of Lennon and McCartney across the years, first by filtering to only their work:
 
 ```
 beatles_jl_pm = beatles_billboard[beatles_billboard['Songwriter'].isin(["Lennon", "McCartney"])]
-
 ```
 
 Then find the 'groups':
