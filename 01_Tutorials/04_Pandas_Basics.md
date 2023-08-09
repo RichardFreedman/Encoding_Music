@@ -413,3 +413,41 @@ beatles_jl_pm.groupby(['Songwriter','Year']).size()
 ```
 
 ![Alt text](<images/Pd 7.png>)
+
+
+## Charts and Graphs
+
+Through libraries like **matplot**, Pandas can quickly produce histograms, charts, and graphs of various kinds (these can even be saved as PNG files for publications).
+
+For example: a histogram of the count of songs per albumn.
+
+```
+beatles_spotify["album"].hist(figsize=(10, 5), bins=100)
+plt.xlabel("Album")
+plt.xticks(rotation = 60) # Rotates X-Axis Ticks by 60-degrees
+plt.ylabel("Song Count")
+plt.show()
+```
+
+
+![Alt text](<images/pd 8.png>)
+
+Various built-in math functions allow us to run basic statistics.  Libraries like `numpy` permit many more!
+
+
+
+```
+top_50 = beatles_billboard[beatles_billboard["Top.50.Billboard"] > 0].sort_values('Year')
+
+top_50.set_index('Title', inplace=True)
+top_50['top-down'] = 50 - top_50['Top.50.Billboard']
+top_50['top-down'].plot(kind="bar", figsize=(15, 10))
+# ax = plt.gca()
+# ax.invert_yaxis()
+plt.title("Beatles Top 50 Hits 1962-1969")
+plt.xlabel("Song Title")
+plt.ylabel("Position in Top 50")
+plt.show()
+```
+
+![Alt text](<images/pd 9.png>)
