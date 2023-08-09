@@ -350,3 +350,67 @@ top_50.tail()
 ```
 
 ![Alt text](<pd 5.png>)
+
+
+# Groupby Functions
+
+Learn more about Groupby [here](https://medium.com/towards-data-science/pandas-groupby-aggregate-transform-filter-c95ba3444bbb).
+
+**Groupby** functions allow you to organize and analyze data that share certain features.  For instance, we could find the **number of songs per album**:
+```
+beatles_billboard.groupby("Album.debut")["Title"].count()
+```
+
+![Alt text](<images/pd 6.png>)
+
+
+```
+Or focus on the relative activity of Lennon and McCartney across the years, first by filtering to only their work:
+
+```
+beatles_jl_pm = beatles_billboard[beatles_billboard['Songwriter'].isin(["Lennon", "McCartney"])]
+
+```
+
+Then find the 'groups':
+
+```
+grouped = beatles_jl_pm.groupby(["Songwriter"])
+grouped.groups
+```
+
+And inspect a single "group":
+
+```
+grouped.get_group("Lennon")
+```
+
+And finally to compare the outputs by grouping via two columns, songwriter and year.
+
+"Size" considers _all_ the rows (even ones with NaNs).
+
+```
+beatles_jl_pm.groupby(['Songwriter','Year']).size()
+```
+
+"Count" includes only the rows with valid data.
+
+```
+beatles_jl_pm.groupby(['Songwriter','Year']).count()
+```
+
+There are many other functions that can be applied to aggregate, filter and transform data within groups!  See the essay above for a guide.
+
+A count of track titles per album:
+
+```
+beatles_billboard.groupby("Album.debut")["Title"].count()
+```
+
+Group by Songwriter and Year, showing counts for each:
+
+```
+beatles_jl_pm.groupby(['Songwriter','Year']).size()
+```
+
+![Alt text](<images/Pd 7.png>)
