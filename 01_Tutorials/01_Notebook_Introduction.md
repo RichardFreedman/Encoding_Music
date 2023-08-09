@@ -10,7 +10,7 @@ To **run an individual cell**, use the arrow/run command at the top of the Noteb
 
 The **sequence in which cells have been run** is tracked in the space to left of individual cells.  The succession often matters, since one cell will use the state of a variable or dataframe that has been created in a previous one.  This is important, since it is possible to alter in a subsequent cell something that has been established in a previous one.
 
-It is also good practice to **copy and rename** any notebook you work on in order to preserve the original version of it.
+It is also good practice to **copy and rename** any notebook you work on in order to preserve the original version of it.  See more below to learn how.
 
 ## Run the Notebooks in a Browser or VS Code
 
@@ -24,33 +24,106 @@ You can also run the Notebooks in a local installation of Jupyter or VS Code on 
 
 Class notebooks are published on the [Encoding Music Github](https://github.com/RichardFreedman/Encoding_Music) repository. 
 
-If you plan to use the class [Jupyter Hub](https://encodingmusic.haverford.edu/) then there is an easy way to load the notebooks.  Follow the link--if you are already logged in to the Encoding Music Jupyter Hub, your notebooks will load (then log out and back in again!).  If you are not yet logged in to the Jupyter Hub, do so when prompted (and then log out and back in).
+If you plan to use the class [Jupyter Hub](https://encodingmusic.haverford.edu/) follow [this link](https://encodingmusic.haverford.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2FRichardFreedman%2FEncoding_Music&urlpath=tree%2FEncoding_Music%2F&branch=main). 
+
+If you are already logged in to the Encoding Music Jupyter Hub, your notebooks will load (then log out and back in again!). If you are not yet logged in to the Jupyter Hub, do so when prompted (and then log out and back in).
 
 ![Alt text](<images/nb 3.png>)
 
-If you use Github you can "clone" the repository to your own space, then open the relevant folder of notebooks (a copy of which will now be on your own machine), and then navigate to them in the Encoding Music Juptyer Hub.  
+If you use Github you can "clone" the repository to your own space, then open the relevant folder of notebooks (a copy of which will now be on your own machine), and then navigate to them in the Encoding Music Juptyer Hub. If you are collaborating with a classmate, this might be the best way to share Notebooks and other code (with several branches on the same GitHub repository). Ask if you need help with this.
 
-If you are collaborating with a classmate, this might be the best way to share Notebooks and other code (with several branches on the same GitHub repository). Ask if you need help with this.
-
-
-### Basic Navigation
+## Basic Navigation
 
 If you're using the class Jupyter Hub, this is how you will open a notebook:
 
 ![Alt text](<images/nb 4.png>)
 
-If you 
-
+Opening a notebook in VS Code or Jupyter in your local machine might look slightly different, but the basic concept is the same:  the folder of files is to the left; the active notebooks are to the right.  You can run more than one at a time (each it its own tab).
 
 ## The Kernel
 
-## Viewing Charts and Graphics
+Your notebook will only correctly if it is operating on the correct "Kernel", which is a version of Python (complete with all the relevant dependencies) that is available on the server or machine.  
 
-## Saving DataFrames as CSV and Excel Files
+In the Jupyter Hub you will always want to be sure that you are using the **Encoding Music** kernel!  From the Encoding Music hub, start the correct Kernel as shown here:
 
-## Saving and Exporting Notebooks
+![Alt text](<images/nb 2.png>)
+
+If your notebook will not work after opening it, you might want to **double check that you are on the Encoding Music Kernel**, as shown here:
+
+![Alt text](<images/nb 8.png>)
+
+If your Notebook becomes unresponsive, or you are simply stuck in some other way, one solution is to "Restart the Kernel" and begin again from the top.  Look for the "Kernel" menu or function.
+
+## Viewing and Saving Charts and Graphics
+
+Normally, in the Encoding Music version and your local Anaconda Jupyter, all charts, graphs, and notation should render directly in the output cells for each code block.
+
+In a local VS-Code version of the notebook, you might find that graphs and charts are saved to your working folder (at the left) as `.png` or `.html` files.  You will need to open these in a browser or other viewer.
+
+If you would like to save a chart or graph to reuse in another publication (such as Google Slides or Docs), there are various solutions:
+
+In the **Encoding Music** hub version of Jupyter, `right-click` on output of the cell in question, then select `copy to clipboard`.  Now you can paste this image directly into some other document.  The process is the same if you are running notebooks **locally in Anaconda Jupyter** 
+
+![Alt text](<images/nb 19.png>)
+
+In a local **Anaconda VS-Code** put your cursor in the output area of the cell (near the image).  You will then see three icons--the one on the right is to "Save" the image.  Follow the dialogue to name and save the PNG file, then use it some other document.
+
+![Alt text](<images/nb 20.png>)
+
+![Alt text](<images/nb 21.png>)
+
+## Saving DataFrames as CSV Files (and Loading Datframes from CSV)
+
+Dataframes can be saved as CSV files, which provide a good way of reusing them in other projects.  For instance a df called `beatles_hits` could be saved with:
+
+	`beatles_hits.to_csv('beatles_hits_output.csv')`
+
+Note that you must include `.csv` as part of name of the file, and that you must provide a name for the file in quotation marks.
+
+Conversely, it's easy to *load* a csv file as a dataframe.  Either provide a url (such as the raw version of a github file, or a shared csv from Google drive), or a local path to the file on your computer). For example:
+
+Name the file path some simple variable, then use `pd.read_csv` to import to Pandas:
+
+We give the URL of the CSV file a name (simply for convenience), then pass that name to the `read_csv('source_file_name')` method, and name the resulting data frame.
+
+```
+beatles_spotify_csv = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRCv45ldJmq0isl2bvWok7AbD5C6JWA0Xf1tBqow5ngX7_ox8c2d846PnH9iLp_SikzgYmvdPHe9k7G/pub?output=csv'
+
+beatles_spotify = pd.read_csv(beatles_spotify_csv)
+
+```
+
+## Copy, Save, and Download Notebook
+
+It's a good idea to make a Copy of your Notebook before you run or edit it.  Rename with "_dev" at the end, for instance, so you can distinguish it from the original.
+
+In the **Encoding Music** hub version of Jupyter, `right-click` on the NB file, then pick "Duplicate".  Note that you can follow the same menu to `Download` your Notebook as ipynb to share or submit.
+
+![Alt text](<images/nb 12.png>)
+
+If you are running notebooks **locally in Anaconda Jupyter**, then `File>DownloadAs>Notebook`:
+
+![Alt text](<images/nb 13.png>)
+
+In a local **Anaconda VS-Code** you can simply find the ipynb file on your computer and copy or share it from there.
+
+## Export to HTML or PDF
+
+Saving your Notebook as HTML or PDF is the only way to share your work outside of the Jupyter environment. The process of creating HTML or PDF is slightly different (but equally tedious) in each platform.
+
+From the **Encoding Music** hub or **Local Jupyter (on Anaconda)**, follow `File>Download` (or `File>DownloadAs`) and select **HTML** as the format.  Be sure to select HTML and *not* any of the PDF formats, which will not work! This will be saved to the 'downloads' area on your computer. Next,open the file in a browser, then use the `Print` dialogue to save it as PDF.  Be sure to name it according to the conventions!
 
 
+![Alt text](<images/nb 14.png>)
+
+From Local VS-Code (on Anaconda), look for the 'three dots' at the top right of your Notebook, then pick `Export`:
+
+
+![Alt text](<images/nb 15.png>)
+
+Now from the Export menu select 'HTML' (PDF will not work!). The HTML will be saved to the 'downloads' area on your computer. Open the file in a browser, then use the `Print` dialogue to save it as PDF.  Be sure to name it according to the conventions!
+
+![Alt text](<images/nb 16.png>)
 
 
 
