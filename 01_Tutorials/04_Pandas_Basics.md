@@ -283,6 +283,26 @@ beatles_spotify.sort_values("danceability")
 beatles_billboard["Album.debut"].value_counts()
 ```
 
+### Bins 
+
+Another important tool is being able to categorize data. Oftentimes, this is done through "binning" -- assigning the entry to one of several discrete categories based on some continuous value. In our specific example, we will use the values in the "danceability" column (expressed as floats ranging from 0 to 1) to classify a track as a Dance Tune (0 => Not a Dance Tune; 1 => Definitely a Dance Tune). 
+
+First, you need to think about picking a certain threshold value. Is Get Back by the Beatles (0.628 danceability rating) a Dance Tune? How about Doctor Robert (0.392 danceability score)? Use the code cell below to **pick your danceability threshold value** and save it as a variable. 
+
+```
+beatles_spotify.loc[beatles_spotify["danceability"].astype(float).between(0.000, 0.500, "right"), "Dance Tune"] = 0
+beatles_spotify.loc[beatles_spotify["danceability"].astype(float).between(0.510, 1.000, "right"), "Dance Tune"] = 1
+beatles_spotify
+```
+
+### Categorical Binning
+
+Sometimes, a simple True/False ranking isn't enough. For example, the "tempo" column provides the Beat Per Minute musical tempo value for a given track; this value typically ranges between 1 and ~500 bpm. While it is possible to classify tracks into Slow and Not Slow, it might be more useful to, for example, categorize them into "Slow", "Medium", and "Fast". 
+
+Similarly to the previous task, use the space below to **come up with two relative thresholds** that would separate tempo into Slow, Medium, and Fast:
+
+
+
 ### Subset of Rows of Columns
 
 It is also possible to **select some subset of rows or columns** by name or index position.  See above, and the Pandas Cheat Sheet.
@@ -320,10 +340,21 @@ The **isin()** method works if you are looking for *one or more substrings in a 
 ```
 beatles_billboard[beatles_billboard['Songwriter'].isin(["Lennon", "McCartney"])]
 ```
+## Bins
 
+Another important tool is being able to categorize data. Oftentimes, this is done through "binning" -- assigning the entry to one of several discrete categories based on some continuous value. In our specific example, we will use the values in the "danceability" column (expressed as floats ranging from 0 to 1) to classify a track as a Dance Tune (0 => Not a Dance Tune; 1 => Definitely a Dance Tune). 
 
+First, you need to think about picking a certain threshold value. Is Get Back by the Beatles (0.628 danceability rating) a Dance Tune? How about Doctor Robert (0.392 danceability score)? Use the code cell below to **pick your danceability threshold value** and save it as a variable. 
 
 ## Combining, Joining, and Merging DataFrames
+
+As you are working with multiple datasets, you might find it useful to combine several datasets. There are two main ways to combine datasets: merging and concatenating. First, we ask you to explore **concatenating DataFrames** using Pandas' built-in *pandas.concat*.
+
+You can read more about Concatenation [here](https://pandas.pydata.org/docs/reference/api/pandas.concat.html).
+
+While concatenating datasets usually means appending more entries that have the same features (columns), **merging DataFrames** enables appending new features (columns) for the same (or new) entries in your DataFrame. Here, we ask you to **merge two datasets** using Pandas' built-in *pandas.DataFrame.merge*.
+
+You can read more about Merging [here](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html).
 
 We can merge the two Beatles data frame on the basis of some shared columns.  It is not necessary for the columns to have the same name, but they need to share the same items (like 'songs')
 
