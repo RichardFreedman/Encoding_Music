@@ -70,7 +70,7 @@ Now we can look at the data in various ways to see what is here. The first colum
 * `beatles_spotify.shape` will tell us the size of our frame:  how many **rows and columns**, like `(193, 11)`.  Note:  normally these methods are followed by `()`.  This one is not.
 * `beatles_spotify.describe()` delivers basic statistical information about the set, such as count, average, mean, standard deviation, and basic percentiles.
 
-![Alt text](<pd 1-1.png>)
+![Alt text](<images/pd 1-1.png>)
 
 ## Working with Rows
 
@@ -143,7 +143,7 @@ column_list = ['Title', 'Year', 'Album.debut', 'Genre','Songwriter', 'Top.50.Bil
 beatles_billboard_short = beatles_billboard[column_list]
 beatles_billboard_short
 ```
-![Alt text](<pdf 2.png>)
+![Alt text](<images/pdf 2.png>)
 
 Meanwhile an individual column is represented as a "Series"
 
@@ -151,8 +151,8 @@ Meanwhile an individual column is represented as a "Series"
 beatles_spotify["song"]
 
 ```
+![Alt text](<images/pd 3.png>)
 
-![Alt text](<pd 3.png>)
 
 ## Cleaning and Checking Data
 
@@ -340,7 +340,7 @@ beatles_combined = pd.merge(right=beatles_spotify,
 beatles_combined
 ```
 
-![Alt text](<pd 4.png>)
+![Alt text](<images/pd 4.png>)
 
 This is not very meaningful!  But instead we could use billboard data and find the *mean ranking* of those in the top 50 by year.
 
@@ -349,7 +349,7 @@ top_50 = beatles_billboard[beatles_billboard["Top.50.Billboard"] > 0].sort_value
 top_50.tail()
 ```
 
-![Alt text](<pd 5.png>)
+![Alt text](<images/pd 5.png>)
 
 
 # Groupby Functions
@@ -363,7 +363,6 @@ beatles_billboard.groupby("Album.debut")["Title"].count()
 ```
 
 ![Alt text](<images/pd 6.png>)
-
 
 Or focus on the relative activity of Lennon and McCartney across the years, first by filtering to only their work:
 
@@ -429,8 +428,8 @@ plt.ylabel("Song Count")
 plt.show()
 ```
 
-
 ![Alt text](<images/pd 8.png>)
+
 
 Various built-in math functions allow us to run basic statistics.  Libraries like `numpy` permit many more!
 
