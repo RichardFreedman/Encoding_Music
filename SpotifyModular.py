@@ -1,0 +1,61 @@
+import pandas as pd
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
+
+# Replace with your own Spotify API credentials
+client_id = 'your_client_id'
+client_secret = 'your_client_secret'
+
+# Initialize Spotipy client
+sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id, client_secret))
+
+def analyze_playlist(creator, playlist_id):
+    playlist_features_list = ["artist", "album", "track_name", "track_id", 
+                             "danceability", "energy", "key", "loudness", "mode", "speechiness",
+                             "instrumentalness", "liveness", "valence", "tempo", "duration_ms", "time_signature"]
+    playlist_df = pd.DataFrame(columns=playlist_features_list)
+    
+    playlist_features = {}
+    
+    playlist = sp.user_playlist_tracks(creator, playlist_id)["items"]
+    for track in playlist:
+        playlist_features["artist"] = track["track"]["album"]["artists"][0]["name"]
+        playlist_features["album"] = track["track"]["album"]["name"]
+        playlist_features["track_name"] = track["track"]["name"]
+        playlist_features["track_id"] = track["track"]["id"]
+        
+        audio_features = sp.audio_features(playlist_features["track_id"])[0]
+        for feature in playlist_features_list[4:]:
+            playlist_features[feature] = audio_features[feature]
+        
+        track_df = pd.DataFrame(playlist_features, index=[0])
+        playlist_df = pd.concat([playlist_df, track_df], ignore_index=True)
+        
+    return playlist_df
+
+def analyze_playlist_dict(playlist_dict):
+    for i, (key, val) in enumerate(playlist_dict.items()):
+        playlist_df = analyze_playlist(*val)
+        playlist_df["playlist"] = key
+        
+        if i == 0:
+            playlist_dict_df = playlist_df
+        else:
+            playlist_dict_df = pd.concat([playlist_dict_df, playlist_df], ignore_index=True)
+            
+    return playlist_dict_df
+
+def get_all_user_tracks(username):
+    all_my_playlists = pd.DataFrame(sp.user_playlists(username))
+    list_of_dataframes = []
+
+    for playlist in all_my_playlists.index:
+        current_playlist = pd.DataFrame(sp.user_playlist_tracks(username, all_my_playlists["items"][playlist]["id"]))
+        current_playlist_audio = get_audio_features_df(current_playlist)
+        if all_my_playlists["items"][playlist]["name"]:
+            current_playlist_audio["playlist_name"] = all_my_playlists["items"][playlist]["name"]
+        else:
+            current_playlist_audio["playlist_name"] = None
+        list_of_dataframes.append(current_playlist_audio)
+
+    return pd.concat(list_of_dataframes)
