@@ -1,0 +1,494 @@
+,artist,track_name,track_id,danceability,energy,key,loudness,mode,speechiness,instrumentalness,liveness,valence,tempo,duration_ms,time_signature,Album_Name
+0,The Rolling Stones,Concert Intro Music - Live,2IEkywLJ4ykbhi1yRQvmsT,0.463,0.993,1,-12.913,1,0.11,0.996,0.932,0.0302,118.001,48640,4,Licked Live In NYC
+1,The Rolling Stones,Street Fighting Man - Live,6GVgVJBKkGJoRfarYRvGTU,0.326,0.965,11,-4.803,1,0.0759,0.233,0.961,0.318,131.455,253173,4,Licked Live In NYC
+2,The Rolling Stones,Start Me Up - Live,1Lu761pZ0dBTGpzxaQoZNW,0.386,0.969,5,-4.936,1,0.115,0.4,0.956,0.313,130.066,263160,4,Licked Live In NYC
+3,The Rolling Stones,If You Can't Rock Me - Live,1agTQzOTUnGNggyckEqiDH,0.369,0.985,0,-5.535,1,0.193,0.000107,0.895,0.147,132.994,305880,4,Licked Live In NYC
+4,The Rolling Stones,Don’t Stop - Live,7piGJR8YndQBQWVXv6KtQw,0.303,0.969,9,-5.098,1,0.093,0.0559,0.966,0.206,130.533,305107,4,Licked Live In NYC
+5,The Rolling Stones,Monkey Man - Live,3ixZ1NQk5sqvBZgWeIdiqr,0.34,0.956,6,-5.539,1,0.0915,0.125,0.741,0.125,101.628,244293,4,Licked Live In NYC
+6,The Rolling Stones,Angie - Live,3R1Vq1RS6mWNSD2oni6jNf,0.262,0.81,0,-6.851,1,0.0969,2.76E-06,0.972,0.394,77.52,245507,4,Licked Live In NYC
+7,The Rolling Stones,Let It Bleed - Live,0TGmW5dvuocb0QUMPsj31R,0.413,0.971,0,-5.509,1,0.0873,0.000267,0.993,0.484,128.958,313587,4,Licked Live In NYC
+8,The Rolling Stones,Midnight Rambler - Live,643LFQHx7UKat9u6UlwPBr,0.268,0.942,11,-6.018,0,0.119,0.0408,0.959,0.285,139.452,781173,4,Licked Live In NYC
+9,The Rolling Stones,Tumbling Dice - Live,5NMRgeO81hNY5nEEY54XtK,0.31,0.944,11,-5.074,1,0.128,0.0752,0.974,0.188,119.782,333413,4,Licked Live In NYC
+10,The Rolling Stones,Band Introductions - Live,06KxbhUQxW94BdHvjjvQzp,0.262,0.939,4,-9.269,0,0.222,0.00952,0.936,0.0317,79.42,284427,3,Licked Live In NYC
+11,The Rolling Stones,Thru And Thru - Live,1rXa5covpujMsZPzOadZRr,0.278,0.651,9,-7.024,1,0.0553,0.000425,0.893,0.334,95.853,432360,4,Licked Live In NYC
+12,The Rolling Stones,Happy - Live,0qr1oRKbG1EazVFjNGd1Li,0.322,0.947,2,-4.12,1,0.0602,0.163,0.955,0.498,136.149,222560,4,Licked Live In NYC
+13,The Rolling Stones,Gimme Shelter - Live,3Dv8Lmpi2bWyOdyfwVjlTw,0.36,0.98,1,-5.104,0,0.104,0.00219,0.98,0.136,119.779,430427,4,Licked Live In NYC
+14,The Rolling Stones,You Got Me Rocking - Live,2aN5Ar91xvFAEdpeDPr65b,0.388,0.974,7,-4.982,1,0.0974,0.0955,0.966,0.166,128.486,227547,4,Licked Live In NYC
+15,The Rolling Stones,Can't You Hear Me Knocking - Live,2hyGhUTLHq3M5xquWrkN8s,0.401,0.921,9,-5.664,0,0.0517,0.0366,0.976,0.734,144.848,667987,4,Licked Live In NYC
+16,The Rolling Stones,Honky Tonk Women - Live,3na0tUgyURnbyXe6qsO8S3,0.401,0.94,7,-4.858,1,0.0928,0.00183,0.937,0.342,112.304,301107,4,Licked Live In NYC
+17,The Rolling Stones,Satisfaction - Live,6oM2I8fqyXxIRaZVJ7qPRg,0.256,0.979,9,-4.472,1,0.0906,0.309,0.969,0.24,142.464,371133,4,Licked Live In NYC
+18,The Rolling Stones,It's Only Rock 'N' Roll - Live,1Wkbdv5UDv3slS34WWJOAN,0.378,0.986,4,-5.232,1,0.0833,0.621,0.971,0.436,140.253,303960,4,Licked Live In NYC
+19,The Rolling Stones,When The Whip Comes Down - Live,4hTRileyEpgtFpZ64mYXkp,0.292,0.986,2,-5.827,1,0.131,0.282,0.975,0.179,149.383,291093,4,Licked Live In NYC
+20,The Rolling Stones,Brown Sugar - Live,2JMQKVRanp4auj0hGkw3GE,0.34,0.989,0,-4.734,1,0.108,0.722,0.982,0.164,139.361,337600,4,Licked Live In NYC
+21,The Rolling Stones,Sympathy For The Devil - Live,183DVZGxd5Nw5ia0Tv8KOF,0.447,0.979,9,-4.942,1,0.114,2.17E-05,0.953,0.295,109.191,409467,4,Licked Live In NYC
+22,The Rolling Stones,Jumpin Jack Flash - Live,7p0sTErcMXc1jJ2Ff4QlcT,0.192,0.964,4,-4.264,1,0.0609,0.538,0.968,0.191,138.005,370733,4,Licked Live In NYC
+23,The Rolling Stones,Honky Tonk Women - Live At The El Mocambo 1977,7BPKw4y2CX3waC8IQnQDXB,0.43,0.901,0,-6.215,1,0.045,0.011,0.694,0.89,112.077,216547,4,Live At The El Mocambo
+24,The Rolling Stones,All Down The Line - Live At The El Mocambo 1977,7nQvrUDwdrskdM1Qeqf438,0.245,0.965,0,-5.153,1,0.0828,0.0547,0.95,0.697,157.346,252640,4,Live At The El Mocambo
+25,The Rolling Stones,Hand Of Fate - Live At The El Mocambo 1977,5L0g7jbPjo97KtsrYM3ep0,0.477,0.899,0,-6.189,1,0.0425,0.0376,0.727,0.805,129.991,267867,4,Live At The El Mocambo
+26,The Rolling Stones,Route 66 - Live At The El Mocambo 1977,0lJqBJWvI7k5l5eFLbbF8O,0.473,0.923,4,-6.204,0,0.0791,0.00157,0.722,0.792,144.625,193653,4,Live At The El Mocambo
+27,The Rolling Stones,Fool To Cry - Live At The El Mocambo 1977,4ORw1k0PzLvF4F8BybMLma,0.331,0.692,5,-7.105,1,0.045,0.0143,0.889,0.512,76.21,297387,4,Live At The El Mocambo
+28,The Rolling Stones,Crazy Mama - Live At The El Mocambo 1977,0eumG7lbsUdmmIDr5VOSSC,0.447,0.883,11,-6.266,0,0.0371,0.00554,0.726,0.556,117.604,299213,4,Live At The El Mocambo
+29,The Rolling Stones,Mannish Boy - Live At The El Mocambo 1977,3xS9kCa3g4XXGatRVULzTz,0.272,0.76,2,-7.508,1,0.0526,0.00087,0.962,0.782,201.585,362867,3,Live At The El Mocambo
+30,The Rolling Stones,Crackin’ Up - Live At The El Mocambo 1977,1TZos9kygOjAaHw8398LZi,0.594,0.801,7,-7.448,1,0.0277,0.103,0.699,0.925,105.572,254507,4,Live At The El Mocambo
+31,The Rolling Stones,Dance Little Sister - Live At The El Mocambo 1977,7MBfVQ4f3qSGY7fTVX9HhM,0.311,0.912,9,-6.316,1,0.103,0.0426,0.851,0.713,154.192,292533,4,Live At The El Mocambo
+32,The Rolling Stones,Around And Around - Live At The El Mocambo 1977,3obSrugIHUiznbg0NkEBJg,0.429,0.869,2,-7.467,1,0.042,0.00543,0.848,0.79,97.223,233200,4,Live At The El Mocambo
+33,The Rolling Stones,Tumbling Dice - Live At The El Mocambo 1977,3MnDqaLZto9mE5GKbLaphc,0.45,0.842,10,-7.254,1,0.0343,0.0358,0.758,0.768,107.825,296227,4,Live At The El Mocambo
+34,The Rolling Stones,Hot Stuff - Live At The El Mocambo 1977,7ch462Z5tNmLK4pbN2nIpT,0.497,0.914,2,-6.82,1,0.0487,0.181,0.753,0.791,110.005,328613,4,Live At The El Mocambo
+35,The Rolling Stones,Star Star - Live At The El Mocambo 1977,6j7yZyys6FJOcPhDyBZHmI,0.251,0.926,9,-6.013,1,0.0997,0.0661,0.901,0.767,155.776,264493,4,Live At The El Mocambo
+36,The Rolling Stones,Let's Spend The Night Together - Live At The El Mocambo 1977,2w2ZqPMmPAmtjQnEhTsNHP,0.37,0.89,9,-6.004,1,0.0408,0.000808,0.7,0.723,78.472,228253,3,Live At The El Mocambo
+37,The Rolling Stones,Worried Life Blues - Live At The El Mocambo 1977,5JCh3eM1P3sU0IZBGCDkHQ,0.417,0.677,9,-8.309,1,0.0461,0.00296,0.759,0.589,111.718,326707,1,Live At The El Mocambo
+38,The Rolling Stones,Little Red Rooster - Live At The El Mocambo 1977,1ZVk6O2dxWKDyQIKIB2eOa,0.292,0.608,7,-8.809,1,0.0341,0.00879,0.746,0.43,98.803,290960,3,Live At The El Mocambo
+39,The Rolling Stones,It’s Only Rock ’N’ Roll (But I Like It) - Live At The El Mocambo 1977,3zLSTP4RvQTni2RtA7cck0,0.327,0.919,9,-5.885,1,0.0379,0.00432,0.94,0.901,141.465,295373,4,Live At The El Mocambo
+40,The Rolling Stones,Rip This Joint - Live At The El Mocambo 1977,6QtxrobAYG2mMfM9LcW6Y4,0.437,0.948,6,-5.321,0,0.0943,0.756,0.976,0.727,116.343,131133,4,Live At The El Mocambo
+41,The Rolling Stones,Brown Sugar - Live At The El Mocambo 1977,6nrRJBTr0qU66SGPxBkkpf,0.347,0.916,0,-5.455,1,0.081,0.0499,0.973,0.795,150.435,204707,4,Live At The El Mocambo
+42,The Rolling Stones,Jumpin’ Jack Flash - Live At The El Mocambo 1977,70ntdSs0g1wIP7xbpTWSds,0.219,0.915,9,-6.613,1,0.104,0.652,0.975,0.64,151.344,326387,4,Live At The El Mocambo
+43,The Rolling Stones,Melody - Live At The El Mocambo 1977,4uTQ3FJtWYqc84ARgQJT4Y,0.494,0.727,2,-7.673,0,0.0418,0,0.894,0.729,126.323,282413,4,Live At The El Mocambo
+44,The Rolling Stones,Luxury - Live At The El Mocambo 1977,1jCNV8q2UPFHaMiZBjvomk,0.568,0.789,0,-6.731,1,0.0284,0.0515,0.728,0.946,127.512,311760,4,Live At The El Mocambo
+45,The Rolling Stones,Worried About You - Live At The El Mocambo 1977,5FMCBVnugUvShPqgxBFDpU,0.389,0.717,0,-6.576,1,0.0263,0.00627,0.714,0.633,82.795,491053,4,Live At The El Mocambo
+46,The Rolling Stones,Start Me Up - Remastered 2021,0QT1jprS8mepNiTNvdVblv,0.555,0.956,5,-2.147,1,0.0577,0.367,0.0753,0.933,121.752,214173,4,Tattoo You (Super Deluxe)
+47,The Rolling Stones,Hang Fire - Remastered 2021,0fcw78KJ56avczitNUdmB2,0.421,0.927,9,-1.734,Major,0.0345,0.0797,0.264,0.922,151.096,141627,4,Tattoo You (Super Deluxe)
+48,The Rolling Stones,Slave - Remastered 2021,7CYbtT5BeRAVJnkJwgEBcu,0.558,0.898,4,-4.314,1,0.0515,0.306,0.0562,0.853,133.338,392427,4,Tattoo You (Super Deluxe)
+49,The Rolling Stones,Little T&A - Remastered 2021,6S15wFSluDwivPVllx1chM,0.497,0.953,5,-1.978,1,0.0328,0.0429,0.667,0.801,135.453,204440,4,Tattoo You (Super Deluxe)
+50,The Rolling Stones,Black Limousine - Remastered 2021,2iMqzwJWjp3z6J3jCTVxzI,0.48,0.934,0,-1.382,1,0.0715,0.198,0.701,0.825,108.894,214893,4,Tattoo You (Super Deluxe)
+51,The Rolling Stones,Neighbours - Remastered 2021,0TatWEWIZ3iT65ltkxn6w3,0.479,0.981,9,-1.712,1,0.071,0.00563,0.245,0.671,82.412,214307,4,Tattoo You (Super Deluxe)
+52,The Rolling Stones,Worried About You - Remastered 2021,0Vb7dqiZ89IQngeX52jLaO,0.423,0.714,0,-4.01,1,0.0318,0.000517,0.082,0.383,84.351,318253,4,Tattoo You (Super Deluxe)
+53,The Rolling Stones,Tops - Remastered 2021,4qN6oZw2aRuOGn4Lq4QnxU,0.57,0.826,10,-3.225,1,0.0457,4.60E-05,0.11,0.634,80.247,229093,4,Tattoo You (Super Deluxe)
+54,The Rolling Stones,Heaven - Remastered 2021,7f1HoWerlIfVpwgsOu0Mib,0.611,0.559,1,-5.833,0,0.0325,0.0167,0.132,0.111,114.128,263187,4,Tattoo You (Super Deluxe)
+55,The Rolling Stones,No Use In Crying - Remastered 2021,4hH58AvAjRwnWQnC5IXhzR,0.594,0.609,9,-3.171,1,0.0311,0.000337,0.229,0.404,142.838,206533,3,Tattoo You (Super Deluxe)
+56,The Rolling Stones,Waiting On A Friend - Remastered 2021,5rF5SyxEdhjMi0ijb1Luqi,0.57,0.86,0,-2.903,1,0.0315,0.111,0.632,0.885,116.607,275760,4,Tattoo You (Super Deluxe)
+57,The Rolling Stones,Living In The Heart Of Love,0snzJKHdP7q7iEWAWVewc7,0.463,0.925,0,-1.392,1,0.0962,0.0825,0.0791,0.761,132.485,253053,4,Tattoo You (Super Deluxe)
+58,The Rolling Stones,Fiji Jim,7jq7FzX54N5h1swZhn4bt9,0.33,0.96,9,-1.014,1,0.204,0.00585,0.044,0.624,179.524,240467,4,Tattoo You (Super Deluxe)
+59,The Rolling Stones,Troubles A’ Comin,3Lmv7FA2jUR2PH8rqhwzaY,0.582,0.926,8,-2.732,1,0.0612,0.0604,0.0766,0.514,104.892,256173,4,Tattoo You (Super Deluxe)
+60,The Rolling Stones,"Shame, Shame, Shame",2OzKSJvmGCUsiuMlS2EF5N,0.475,0.908,9,-3.087,1,0.0419,0.043,0.319,0.564,78.362,253547,4,Tattoo You (Super Deluxe)
+61,The Rolling Stones,Drift Away,100ccVerC10XT80e9qKcNb,0.421,0.674,9,-3.404,1,0.0589,1.05E-05,0.118,0.603,78.519,246587,4,Tattoo You (Super Deluxe)
+62,The Rolling Stones,It's A Lie,0UycNMER7WTsH1edRSsTf3,0.528,0.978,9,-2.213,1,0.119,0.00669,0.406,0.619,127.681,297000,4,Tattoo You (Super Deluxe)
+63,The Rolling Stones,Come To The Ball,03RJy09l9XuJZGmixPt7QQ,0.44,0.971,9,-2.498,0,0.0448,0.339,0.371,0.735,136.086,220720,4,Tattoo You (Super Deluxe)
+64,The Rolling Stones,"Fast Talking, Slow Walking",1a4BmdKkz56SERLEoWJNc8,0.436,0.724,11,-2.89,1,0.0313,0.00274,0.0523,0.277,73.698,340200,4,Tattoo You (Super Deluxe)
+65,The Rolling Stones,Start Me Up,0INM0SfWqrD33nTDGA5Mts,0.661,0.879,5,-2.911,1,0.0778,0.00723,0.303,0.659,125.967,250360,4,Tattoo You (Super Deluxe)
+66,The Rolling Stones,Under My Thumb - Live at Wembley Stadium 1982,6bfEROTTedGsYPKzg6Agkq,0.374,0.954,2,-7.062,Major,0.0766,0.908,0.988,0.582,140.934,233787,4,Tattoo You (Super Deluxe)
+67,The Rolling Stones,When The Whip Comes Down - Live at Wembley Stadium 1982,5EARznSdXjRszJk5WTSFqx,0.382,0.972,2,-6.821,1,0.102,0.959,0.67,0.436,79.249,273547,4,Tattoo You (Super Deluxe)
+68,The Rolling Stones,Let's Spend The Night Together - Live at Wembley Stadium 1982,1tgevSO1tG0mwuLqwxen19,0.382,0.959,7,-5.971,1,0.124,0.964,0.955,0.426,157.371,262040,4,Tattoo You (Super Deluxe)
+69,The Rolling Stones,Shattered - Live at Wembley Stadium 1982,2GUGfCkxUubz7arI3nX54i,0.362,0.985,4,-6.276,1,0.163,0.501,0.935,0.289,162.353,281067,4,Tattoo You (Super Deluxe)
+70,The Rolling Stones,Neighbours - Live at Wembley Stadium 1982,2sOpm0AZURgyXGhgy5uQrK,0.402,0.969,4,-6.204,1,0.104,0.977,0.947,0.379,92.289,250147,4,Tattoo You (Super Deluxe)
+71,The Rolling Stones,Black Limousine - Live at Wembley Stadium 1982,1RJVKm42E1FDiEHDdRirUK,0.307,0.963,0,-6.042,1,0.217,0.927,0.994,0.528,120.546,231400,4,Tattoo You (Super Deluxe)
+72,The Rolling Stones,Just My Imagination (Running Away With Me) - Live at Wembley Stadium 1982,4dYsPUF7CbTr3dypXadEci,0.314,0.935,2,-6.393,1,0.0913,0.932,0.944,0.61,117.422,572187,4,Tattoo You (Super Deluxe)
+73,The Rolling Stones,Twenty Flight Rock - Live at Wembley Stadium 1982,0qV3okWhZyPsp40aaczoMM,0.548,0.968,7,-5.737,1,0.0581,0.872,0.877,0.64,105.267,106120,4,Tattoo You (Super Deluxe)
+74,The Rolling Stones,Going To A Go-Go - Live at Wembley Stadium 1982,5qNF2uTdTb1Q3gO4ChnvC7,0.572,0.932,9,-5.955,1,0.0671,0.773,0.941,0.624,127.818,220000,4,Tattoo You (Super Deluxe)
+75,The Rolling Stones,Chantilly Lace - Live at Wembley Stadium 1982,44N2LGPWDdfZ2dTzzO4rld,0.485,0.952,9,-5.495,1,0.0605,0.791,0.958,0.752,123.483,251627,4,Tattoo You (Super Deluxe)
+76,The Rolling Stones,Let Me Go - Live at Wembley Stadium 1982,3tGCxbXINNxHSv1rqIMhOv,0.286,0.978,9,-6.113,1,0.135,0.917,0.903,0.701,189.824,245733,4,Tattoo You (Super Deluxe)
+77,The Rolling Stones,Time Is On My Side - Live at Wembley Stadium 1982,7xAaYf0Pt9IlcxfUfl719c,0.304,0.831,5,-6.507,1,0.0992,0.00664,0.89,0.473,174.336,231107,3,Tattoo You (Super Deluxe)
+78,The Rolling Stones,Beast Of Burden - Live at Wembley Stadium 1982,4LljYIdSbIfwG7gWp6qcjK,0.556,0.882,4,-6.754,1,0.0496,0.126,0.963,0.783,111.12,442640,4,Tattoo You (Super Deluxe)
+79,The Rolling Stones,Let It Bleed - Live at Wembley Stadium 1982,3B65s0AYHRn4PeVuuhYnmr,0.492,0.969,0,-6.337,1,0.0617,0.185,0.904,0.784,129.238,360387,4,Tattoo You (Super Deluxe)
+80,The Rolling Stones,You Can't Always Get What You Want - Live at Wembley Stadium 1982,1XDh5It3t7GqdlxHL6Aoxa,0.358,0.843,0,-7.031,1,0.0851,0.193,0.988,0.576,77.872,648267,4,Tattoo You (Super Deluxe)
+81,The Rolling Stones,Band Introductions - Live at Wembley Stadium 1982,79WmJqppHiyEeJ6S4EY4iG,0.345,0.946,4,-10.683,0,0.425,0.0514,0.732,0.0316,78.893,71547,5,Tattoo You (Super Deluxe)
+82,The Rolling Stones,Little T&A - Live at Wembley Stadium 1982,3rZmvRfoboInopoGZ2GsT8,0.423,0.97,2,-6.179,0,0.101,0.0516,0.975,0.463,78.767,201120,4,Tattoo You (Super Deluxe)
+83,The Rolling Stones,Tumbling Dice - Live at Wembley Stadium 1982,4FuwLhBiHFOinjkXyi1GN7,0.446,0.915,10,-6.404,1,0.0975,0.296,0.966,0.526,117.936,267067,4,Tattoo You (Super Deluxe)
+84,The Rolling Stones,She's So Cold - Live at Wembley Stadium 1982,3HylUWQsFpoYy8hUGPQeYa,0.36,0.952,0,-6.579,1,0.138,0.673,0.736,0.618,168.863,250493,4,Tattoo You (Super Deluxe)
+85,The Rolling Stones,Hang Fire - Live at Wembley Stadium 1982,5OOPWKx9NoFQDLOPjfWKzE,0.197,0.979,6,-5.8,0,0.0954,0.712,0.993,0.57,171.766,147107,4,Tattoo You (Super Deluxe)
+86,The Rolling Stones,Miss You - Live at Wembley Stadium 1982,3dAaW8lo0SEpUMdrfmn0Rd,0.509,0.874,9,-6.823,0,0.0498,0.104,0.911,0.683,116.717,468587,4,Tattoo You (Super Deluxe)
+87,The Rolling Stones,Honky Tonk Women - Live at Wembley Stadium 1982,2DwPAb4GWe0HOCfY5Q8dvv,0.412,0.923,0,-6.532,1,0.0506,0.0509,0.904,0.624,116.167,211427,4,Tattoo You (Super Deluxe)
+88,The Rolling Stones,Brown Sugar - Live at Wembley Stadium 1982,5XoxicCLs7FZbGGtliOh9V,0.267,0.985,0,-5.808,1,0.118,0.344,0.967,0.321,146.544,203973,4,Tattoo You (Super Deluxe)
+89,The Rolling Stones,Start Me Up - Live at Wembley Stadium 1982,4FbMzbRKaa8hTuDUHtLv6A,0.401,0.986,5,-5.755,Major,0.14,0.666,0.976,0.493,138.949,279867,4,Tattoo You (Super Deluxe)
+90,The Rolling Stones,Jumpin' Jack Flash - Live at Wembley Stadium 1982,1Y68wEpLrQAlnBZRY2deRn,0.227,0.978,4,-6.262,1,0.103,0.917,0.986,0.481,155.773,361533,4,Tattoo You (Super Deluxe)
+91,The Rolling Stones,(I Can't Get No) Satisfaction - Live at Wembley Stadium 1982,3n7zqQtyyTXtBqNKudGKwO,0.245,0.965,9,-5.666,1,0.0615,0.537,0.96,0.51,169.329,362027,4,Tattoo You (Super Deluxe)
+92,The Rolling Stones,Start Me Up - Remastered 2021,2g9o0pyV6uGBoCV58pKHbw,0.555,0.956,5,-2.147,1,0.0577,0.367,0.0753,0.933,121.752,214173,4,Tattoo You
+93,The Rolling Stones,Hang Fire - Remastered 2021,4EzYKKunEz1mvUnwiv7RQZ,0.421,0.927,9,-1.734,1,0.0345,0.0797,0.264,0.922,151.096,141627,4,Tattoo You
+94,The Rolling Stones,Slave - Remastered 2021,3qaS7z0tdy33jXD3mT410A,0.558,0.898,4,-4.314,1,0.0515,0.306,0.0562,0.853,133.338,392427,4,Tattoo You
+95,The Rolling Stones,Little T&A - Remastered 2021,0zTrg7EWTCdeOFURYpXCjl,0.497,0.953,5,-1.978,1,0.0328,0.0429,0.667,0.801,135.453,204440,4,Tattoo You
+96,The Rolling Stones,Black Limousine - Remastered 2021,01P3L0fBZHBpImwHlBIyvk,0.48,0.934,0,-1.382,1,0.0715,0.198,0.701,0.825,108.894,214893,4,Tattoo You
+97,The Rolling Stones,Neighbours - Remastered 2021,39f71Z1Ge24QPCmCSFfUMx,0.479,0.981,9,-1.712,1,0.071,0.00563,0.245,0.671,82.412,214307,4,Tattoo You
+98,The Rolling Stones,Worried About You - Remastered 2021,6H6xc0isHM5guLDPi8voes,0.423,0.714,0,-4.01,1,0.0318,0.000517,0.082,0.383,84.351,318253,4,Tattoo You
+99,The Rolling Stones,Tops - Remastered 2021,0ySwL9ML3837OrdlOqRDJn,0.57,0.826,10,-3.225,1,0.0457,4.60E-05,0.11,0.634,80.247,229093,4,Tattoo You
+100,The Rolling Stones,Heaven - Remastered 2021,2wrH8dAuxOx2zlDOnL30N1,0.611,0.559,1,-5.833,0,0.0325,0.0167,0.132,0.111,114.128,263187,4,Tattoo You
+101,The Rolling Stones,No Use In Crying - Remastered 2021,3kYBe8DXin0TGJWmMGJQTW,0.594,0.609,9,-3.171,1,0.0311,0.000337,0.229,0.404,142.838,206533,3,Tattoo You
+102,The Rolling Stones,Waiting On A Friend - Remastered 2021,0nF6T5B1ll314oY0IZZjhH,0.57,0.86,0,-2.903,1,0.0315,0.111,0.632,0.885,116.607,275760,4,Tattoo You
+103,The Rolling Stones,Intro - Live,1ainbI65iGCqgkqi0cJd1E,0.183,0.967,7,-13.77,1,0.088,0.688,0.87,0.0159,46.525,130760,4,A Bigger Bang (Live)
+104,The Rolling Stones,Jumpin’ Jack Flash - Live,4eCWyGsccThx7vuykVspby,0.258,0.988,11,-4.036,0,0.106,0.89,0.969,0.218,142.035,239053,4,A Bigger Bang (Live)
+105,The Rolling Stones,It's Only Rock 'N' Roll (But I Like It) - Live,4b9BvuSAs43QEG75K1yZai,0.353,0.995,6,-4.113,0,0.141,0.754,0.876,0.131,142.961,268547,4,A Bigger Bang (Live)
+106,The Rolling Stones,You Got Me Rocking - Live,0QjbVrKFGQaBo4yAQ4EHzl,0.422,0.971,7,-4.523,1,0.0987,0.307,0.974,0.343,137.572,214893,4,A Bigger Bang (Live)
+107,The Rolling Stones,Tumbling Dice - Live,6wCFnrRCdcrf8hGUJpif6Q,0.33,0.971,6,-4.435,0,0.129,0.478,0.984,0.263,125.392,290600,4,A Bigger Bang (Live)
+108,The Rolling Stones,"Oh No, Not You Again - Live",5XqfGdfVyc4jk0ptSPZVkn,0.359,0.978,2,-4.103,1,0.147,0.794,0.979,0.253,143.921,269400,4,A Bigger Bang (Live)
+109,The Rolling Stones,Wild Horses - Live,1q2O7ZcZOcUH9q66vNNPaB,0.287,0.757,7,-6.57,1,0.0455,0,0.729,0.452,78.74,336947,4,A Bigger Bang (Live)
+110,The Rolling Stones,Rain Fall Down - Live,25Mwb0TGFMVU73A1r6UoB7,0.449,0.954,7,-5.158,1,0.11,0.0285,0.946,0.374,100.042,329107,4,A Bigger Bang (Live)
+111,The Rolling Stones,Midnight Rambler - Live,1oCKC9PO08c1d9GhRlRtxc,0.291,0.955,9,-5.177,1,0.192,0.566,0.817,0.255,144.032,734707,4,A Bigger Bang (Live)
+112,The Rolling Stones,Night Time Is The Right Time - Live,2YRvXaKjTqrzPocOsTUg1C,0.298,0.965,6,-3.67,0,0.118,0.0253,0.951,0.237,115.396,318373,4,A Bigger Bang (Live)
+113,The Rolling Stones,Band Intros - Live,5EvmBtXGyWCbubE6PqT10N,0.268,0.838,3,-8.805,0,0.164,0.0504,0.953,0.0327,85.691,204893,1,A Bigger Bang (Live)
+114,The Rolling Stones,This Place Is Empty - Live,544rOvYyGJXGF2iV164GTz,0.245,0.783,0,-7.691,1,0.0552,0.00109,0.874,0.493,177.205,227520,4,A Bigger Bang (Live)
+115,The Rolling Stones,Happy - Live,1ijqpBC7Yqc4kWx963ZePf,0.229,0.985,6,-4.765,0,0.156,0.0322,0.713,0.164,137.867,234733,4,A Bigger Bang (Live)
+116,The Rolling Stones,Miss You - Live,743nh9ess93bZdwAqk7573,0.442,0.979,9,-4.445,0,0.143,0.0137,0.82,0.281,122.191,360627,4,A Bigger Bang (Live)
+117,The Rolling Stones,Rough Justice - Live,5pCxbLU4VTA064974GKU7y,0.281,0.993,0,-3.786,1,0.154,0.888,0.823,0.11,144.554,204227,4,A Bigger Bang (Live)
+118,The Rolling Stones,Get Off Of My Cloud - Live,0pi47jS9mOcEdd5roll4cA,0.357,0.994,4,-3.642,1,0.187,0.855,0.8,0.146,136.054,190080,4,A Bigger Bang (Live)
+119,The Rolling Stones,Honky Tonk Women - Live,0wiyEXjLIGSZP4kp2eydHE,0.396,0.983,0,-4.186,1,0.0874,0.444,0.951,0.339,124.933,252013,4,A Bigger Bang (Live)
+120,The Rolling Stones,Sympathy For The Devil - Live,1CqNBjoeHn8TzNKk5yOlN9,0.569,0.956,2,-4.486,1,0.116,0.138,0.881,0.387,110.207,481720,4,A Bigger Bang (Live)
+121,The Rolling Stones,Start Me Up - Live,1SBaSJ0M9qs2S4Rv0wkzaV,0.431,0.983,5,-3.722,1,0.0856,0.798,0.921,0.365,130.594,244853,4,A Bigger Bang (Live)
+122,The Rolling Stones,Brown Sugar - Live,26MGQq2uoqVgbXYTEIzsbT,0.377,0.982,0,-3.728,1,0.116,0.807,0.989,0.221,134.148,363493,4,A Bigger Bang (Live)
+123,The Rolling Stones,You Can't Always Get What You Want - Live,5EFRmbGViZgAAgkkHSTDrV,0.241,0.902,0,-4.663,1,0.0954,0.0241,0.95,0.384,176.337,441293,4,A Bigger Bang (Live)
+124,The Rolling Stones,(I Can't Get No) Satisfaction - Live,0uyhzYLrea2F9PQNbDWKan,0.287,0.984,9,-4.119,1,0.113,0.907,0.952,0.112,142.555,495320,4,A Bigger Bang (Live)
+125,The Rolling Stones,Start Me Up - Live,5gcJVrB4XI7g31G4WzzHj9,0.475,0.987,5,-4.37,1,0.0766,0.0239,0.964,0.426,133.137,227347,4,Steel Wheels Live
+126,The Rolling Stones,Bitch - Live,4EQNhDGHzDUbCKbqIWBmg7,0.376,0.969,2,-4.201,1,0.104,0.0122,0.967,0.286,76.705,207667,4,Steel Wheels Live
+127,The Rolling Stones,Sad Sad Sad - Live,2xKcihqvKEgrQmpi1S6450,0.234,0.972,0,-4.372,1,0.0944,0.0038,0.97,0.256,157.936,227200,4,Steel Wheels Live
+128,The Rolling Stones,Undercover Of The Night - Live,051D5qOJnz0uPpEMjO2sp9,0.347,0.98,5,-4.62,0,0.201,0,0.974,0.211,124.126,260533,4,Steel Wheels Live
+129,The Rolling Stones,Harlem Shuffle - Live,2PAPn72RtmfU1nEwxTGZa2,0.391,0.963,4,-4.096,0,0.0907,1.13E-06,0.964,0.309,121.483,273680,4,Steel Wheels Live
+130,The Rolling Stones,Tumbling Dice - Live,32n8UlX6aTm9dqmSWTnebA,0.344,0.966,4,-4.091,1,0.0815,9.58E-06,0.968,0.479,119.526,258253,4,Steel Wheels Live
+131,The Rolling Stones,Miss You - Live,2lwiZP8AlV3sCRijmzTLiL,0.435,0.978,9,-4.532,0,0.114,0.0169,0.968,0.337,122.82,403227,4,Steel Wheels Live
+132,The Rolling Stones,Terrifying - Live,51GGNalfxRRdno7Ou39AEj,0.402,0.956,0,-5.325,1,0.134,3.63E-05,0.969,0.362,136.785,299373,4,Steel Wheels Live
+133,The Rolling Stones,Ruby Tuesday - Live,1my92Wv8c2WWZCj8XzcMKm,0.359,0.875,0,-5.184,1,0.0474,1.19E-05,0.961,0.526,108.143,227747,4,Steel Wheels Live
+134,The Rolling Stones,Salt Of The Earth - Live,6BlnVRJ20AW1strZmHH3NN,0.254,0.95,4,-4.915,1,0.116,0.00073,0.978,0.292,92.903,361907,4,Steel Wheels Live
+135,The Rolling Stones,Rock And A Hard Place - Live,52mcW7YmsIAUGuoi8ih4Ju,0.4,0.964,9,-4.498,0,0.118,0.000308,0.969,0.268,135.158,305160,4,Steel Wheels Live
+136,The Rolling Stones,Mixed Emotions - Live,2rKizlW2LH5X3chBJFR1Xm,0.412,0.971,7,-4.804,1,0.0751,0.000789,0.974,0.527,136.124,318467,4,Steel Wheels Live
+137,The Rolling Stones,Honky Tonk Women - Live,6tnb1C5ebS1nlTwHhTxoEm,0.368,0.987,7,-4.482,1,0.115,0.00329,0.96,0.342,120.346,294600,4,Steel Wheels Live
+138,The Rolling Stones,Midnight Rambler - Live,4VoRb7a2phJVdYxU8gx6uL,0.306,0.957,4,-5.216,1,0.0984,0.0994,0.9,0.263,143.646,620613,4,Steel Wheels Live
+139,The Rolling Stones,You Can't Always Get What You Want - Live,7Ao4vrrWdPFoT6NgylPfQx,0.228,0.953,0,-4.733,1,0.102,0.000442,0.972,0.48,88.625,437907,4,Steel Wheels Live
+140,The Rolling Stones,Little Red Rooster - Live,4VxSc7C1Ib1HW4ut7nv7v3,0.333,0.946,10,-4.046,0,0.137,0.0174,0.969,0.361,104.578,379573,3,Steel Wheels Live
+141,The Rolling Stones,Boogie Chillen - Live,201TH5v5ZYdAMFAcySYoVJ,0.421,0.953,7,-5.438,1,0.152,0.113,0.971,0.228,78.932,332267,4,Steel Wheels Live
+142,The Rolling Stones,Can’t Be Seen - Live,5ofQTHkqt6KesCcCUFYgns,0.333,0.961,2,-5.772,Major,0.146,0.000543,0.951,0.25,78.24,366160,4,Steel Wheels Live
+143,The Rolling Stones,Happy - Live,6INlu2pIhP2xjteJhcJfqr,0.214,0.958,4,-4.262,1,0.114,0.00359,0.935,0.135,76.239,273107,4,Steel Wheels Live
+144,The Rolling Stones,Paint It Black - Live,2EAHchNVmNzKVnrUItEUgQ,0.208,0.981,2,-4.233,1,0.207,1.76E-05,0.939,0.126,166.042,230493,4,Steel Wheels Live
+145,The Rolling Stones,2000 Light Years From Home / She’s A Rainbow / Keyboard Duet - Live,7zJobhMVgGeYxGxSPcdw33,0.158,0.855,2,-7.001,1,0.078,0.0219,0.708,0.0612,99.535,444160,4,Steel Wheels Live
+146,The Rolling Stones,Sympathy For The Devil - Live,3Lk7DDUJOg4Fc8nfWmwmPZ,0.481,0.98,9,-5.127,1,0.123,0.00235,0.952,0.28,110.017,461067,4,Steel Wheels Live
+147,The Rolling Stones,Gimme Shelter - Live,1rmhUtVsgGNv3Kar4knFiq,0.324,0.971,1,-4.769,0,0.116,0.000269,0.957,0.31,128.288,451960,4,Steel Wheels Live
+148,The Rolling Stones,It's Only Rock 'N' Roll (But I Like It) - Live,3ax9DQN3QeVIvNh5XdVtr7,0.372,0.985,4,-4.506,1,0.135,0.00217,0.809,0.433,139.787,288787,4,Steel Wheels Live
+149,The Rolling Stones,Brown Sugar - Live,7eMwaVUReTSTkGPbsWzdOV,0.351,0.977,0,-4.315,0,0.104,0.113,0.996,,141.44,275920,4,Steel Wheels Live
+150,The Rolling Stones,(I Can't Get No) Satisfaction - Live,5Rsrz7d2Z31K2Qx09jQR1g,0.203,0.978,6,-4.437,0,0.113,0.0138,0.979,0.209,149.338,445747,4,Steel Wheels Live
+151,The Rolling Stones,Jumpin’ Jack Flash - Live,5m96zDBZcwqV52A0CPmXj4,0.157,0.977,4,-4.198,1,0.107,0.562,0.961,0.228,141.473,396080,4,Steel Wheels Live
+152,The Rolling Stones,Dancing With Mr D - 2020,2OJJaxVXG8VLYk3yk0VdH4,0.63,0.876,4,-4.346,0,0.0309,0.142,0.107,0.944,106.044,292360,4,Goats Head Soup (Deluxe)
+153,The Rolling Stones,100 Years Ago - 2020,0RJplx8HMNZsBYmvjCsnO4,0.398,0.804,9,-5.255,0,0.0455,0.173,0.217,0.687,124.305,238133,4,Goats Head Soup (Deluxe)
+154,The Rolling Stones,Coming Down Again - 2020,5Pk7w1nimgJlH5Rcd2nfNQ,0.483,0.397,6,-8.76,1,0.0308,0.519,0.111,0.384,71.902,354173,4,Goats Head Soup (Deluxe)
+155,The Rolling Stones,Doo Doo Doo Doo Doo (Heartbreaker) - 2020,6EF89xJ4zsFB5tSX8pEHeX,0.461,0.726,0,-5.138,1,0.0285,0.427,0.473,0.522,111.117,206760,4,Goats Head Soup (Deluxe)
+156,The Rolling Stones,Angie - 2020,1TJyjAa6rHkEZZpRS41rUp,0.441,0.488,0,-6.404,1,0.0307,2.24E-05,0.112,0.397,136.956,272173,4,Goats Head Soup (Deluxe)
+157,The Rolling Stones,Silver Train - 2020,0t3FSBpEMhJCDWnARnNVnw,0.425,0.919,7,-2.684,1,0.0365,0.793,0.566,0.883,147.821,266267,4,Goats Head Soup (Deluxe)
+158,The Rolling Stones,Hide Your Love - 2020,3HA10vklRF61I5B1906K6d,0.537,0.707,5,-4.873,1,0.0291,0.785,0.132,0.771,110.06,251827,4,Goats Head Soup (Deluxe)
+159,The Rolling Stones,Winter - 2020,4oNVLcilzcRNsFPr5T5ZAk,0.393,0.597,9,-6.395,1,0.0307,0.403,0.285,0.516,74.941,329400,4,Goats Head Soup (Deluxe)
+160,The Rolling Stones,Can You Hear The Music - 2020,0UieY2Pw1l8y8ayUNn0hwu,0.333,0.622,5,-7.039,1,0.0281,0.00016,0.234,0.467,73.157,331707,4,Goats Head Soup (Deluxe)
+161,The Rolling Stones,Star Star - 2020,5Q55liErm3FTXzxjIpD2rP,0.575,0.949,0,-4.432,1,0.0542,0.453,0.144,0.783,142.253,263667,4,Goats Head Soup (Deluxe)
+162,The Rolling Stones,Scarlet,3vSXV46H3bSmJHX79NV9Zu,0.482,0.948,9,-3.389,1,0.179,0.369,0.252,0.644,172.674,224293,4,Goats Head Soup (Deluxe)
+163,The Rolling Stones,All The Rage,6rPmU6mXAwGVhnYgEU0kCg,0.544,0.876,7,-4.33,1,0.0362,0.665,0.063,0.907,133.026,251173,4,Goats Head Soup (Deluxe)
+164,The Rolling Stones,Criss Cross,6HHfGbvGKx0ny7NMR1HIHL,0.555,0.94,0,-4.232,1,0.0762,0.628,0.057,0.668,131.951,272347,4,Goats Head Soup (Deluxe)
+165,The Rolling Stones,100 Years Ago - Piano Demo,7mJffnVw9vwPj4bh42lN2l,0.554,0.413,5,-7.8,1,0.0276,0.000994,0.145,0.414,105.219,163013,4,Goats Head Soup (Deluxe)
+166,The Rolling Stones,Dancing With Mr D - Instrumental,3alcnVj2ubCNEIYr9dftts,0.479,0.865,9,-5.182,1,0.0483,0.947,0.0542,0.801,113.555,210893,4,Goats Head Soup (Deluxe)
+167,The Rolling Stones,Heartbreaker - Instrumental,4eADFeuWdtyGqih4h98NVj,0.363,0.759,4,-8.022,0,0.0297,0.888,0.153,0.105,105.236,197627,4,Goats Head Soup (Deluxe)
+168,The Rolling Stones,Hide Your Love - Alternate Mix,5OTjZmoUjbiPN4org0pp9G,0.441,0.823,0,-5.4,1,0.053,0.75,0.244,0.689,108.276,317733,4,Goats Head Soup (Deluxe)
+169,The Rolling Stones,Dancing With Mr D,0Pg43FO5jiHiY7iNahhhER,0.661,0.938,2,-4.393,1,0.0343,0.104,0.0497,0.964,105.758,273920,4,Goats Head Soup (Deluxe)
+170,The Rolling Stones,Doo Doo Doo Doo Doo (Heartbreaker),7CNYADpAKvQrgqlLCfahjt,0.468,0.828,0,-5.887,1,0.0411,0.0972,0.227,0.686,110.044,206040,4,Goats Head Soup (Deluxe)
+171,The Rolling Stones,Silver Train,5M65wHGR5QMlbfwMPjqxqK,0.467,0.903,7,-5.159,1,0.0369,0.0553,0.492,0.869,147.406,271027,4,Goats Head Soup (Deluxe)
+172,The Rolling Stones,Scarlet - The War On Drugs Remix,6tm5HuYqyBqS6oqVcg6QzJ,0.563,0.803,9,-8.232,1,0.0652,0.00656,0.101,0.53,169.997,228813,4,Goats Head Soup (Deluxe)
+173,The Rolling Stones,Scarlet - The Killers & Jacques Lu Cont Remix,4XEtxrUZTYGL0beJxxNMLt,0.471,0.891,9,-9.463,1,0.0385,0.0434,0.112,0.612,174.067,194573,4,Goats Head Soup (Deluxe)
+174,The Rolling Stones,"Brown Sugar - Live / Forest National Arena, Brussels / 17/10/73",7d1Modg9hC8S1ybNkxJQDv,0.337,0.916,7,-4.93,0,0.056,0.00437,0.969,0.654,139.64,235907,4,Goats Head Soup (Deluxe)
+175,The Rolling Stones,"Gimme Shelter - Live / Forest National Arena, Brussels / 17/10/73",3PbtMSzzZWhHSJHKazxUFU,0.331,0.918,11,-5.602,0,0.0432,0.00548,0.464,0.613,131.647,332973,4,Goats Head Soup (Deluxe)
+176,The Rolling Stones,"Happy - Live / Forest National Arena, Brussels / 17/10/73",044S3UBvLAn0m4Q3Bl9lLm,0.353,0.955,4,-3.751,1,0.0568,0.0014,0.952,0.685,143.025,194040,4,Goats Head Soup (Deluxe)
+177,The Rolling Stones,"Tumbling Dice - Live / Forest National Arena, Brussels / 17/10/73",4P9CeNqN0HrhS3FcPMUlG1,0.4,0.897,4,-4.685,1,0.0582,0.000418,0.588,0.758,115.635,304280,4,Goats Head Soup (Deluxe)
+178,The Rolling Stones,"Star Star - Live / Forest National Arena, Brussels / 17/10/73",0bHSB6Uaj961kvixSxpneN,0.455,0.961,9,-4.345,1,0.0777,0.00236,0.978,0.804,149.063,256360,4,Goats Head Soup (Deluxe)
+179,The Rolling Stones,"Dancing With Mr D - Live / Forest National Arena, Brussels / 17/10/73",7vPc3SkHheOPlvs2jee78q,0.489,0.919,7,-4.325,1,0.035,0.000174,0.309,0.826,111.848,277600,4,Goats Head Soup (Deluxe)
+180,The Rolling Stones,"Doo Doo Doo Doo Doo (Heartbreaker) - Live / Forest National Arena, Brussels / 17/10/73",4esw3O5K1LCsuBqQZiJkKh,0.319,0.925,4,-5.584,0,0.088,0.000558,0.932,0.532,125.335,303213,4,Goats Head Soup (Deluxe)
+181,The Rolling Stones,"Angie - Live / Forest National Arena, Brussels / 17/10/73",5JYx98cbTYQoEwdJzChyDN,0.374,0.784,0,-6.621,1,0.0832,6.83E-05,0.131,0.347,134.467,314920,4,Goats Head Soup (Deluxe)
+182,The Rolling Stones,"You Can't Always Get What You Want - Live / Forest National Arena, Brussels / 17/10/73",2AJU84XDb04tidCmYrGrV0,0.364,0.929,0,-4.521,1,0.142,0.00893,0.745,0.509,141.693,660653,4,Goats Head Soup (Deluxe)
+183,The Rolling Stones,"Midnight Rambler - Live / Forest National Arena, Brussels / 17/10/73",2VJ1fpKzvstD1ZCEzlNCxw,0.251,0.871,9,-4.472,0,0.0579,0.0835,0.59,0.562,167.464,773227,4,Goats Head Soup (Deluxe)
+184,The Rolling Stones,"Honky Tonk Women - Live / Forest National Arena, Brussels / 17/10/73",5hViuOELqYLRJ3UEdYAGEk,0.343,0.974,7,-3.69,1,0.0638,0.00178,0.748,0.81,122.223,191573,4,Goats Head Soup (Deluxe)
+185,The Rolling Stones,"All Down The Line - Live / Forest National Arena, Brussels / 17/10/73",4wZX9zG3glbRoznqz1uhiI,0.239,0.963,7,-4.126,1,0.0552,0.47,0.795,0.664,83.126,260787,4,Goats Head Soup (Deluxe)
+186,The Rolling Stones,"Rip This Joint - Live / Forest National Arena, Brussels / 17/10/73",1motWyf00Bqa7uEfkX7m70,0.383,0.954,11,-3.659,1,0.0734,0.00294,0.401,0.689,108.597,145013,4,Goats Head Soup (Deluxe)
+187,The Rolling Stones,"Jumpin' Jack Flash - Live / Forest National Arena, Brussels / 17/10/73",1ANGrkuyDlTrpgdhyZR5yY,0.331,0.959,9,-4.186,1,0.0535,0.237,0.815,0.522,76.715,207467,4,Goats Head Soup (Deluxe)
+188,The Rolling Stones,"Street Fighting Man - Live / Forest National Arena, Brussels / 17/10/73",5w8br4p3i5TfWfTUEM8b2s,0.104,0.953,6,-3.149,1,0.0655,0.197,0.971,0.486,157.186,315093,4,Goats Head Soup (Deluxe)
+189,The Rolling Stones,(I Can't Get No) Satisfaction - Live,5Rim1P0I7PMI7Pn74Y9KaV,0.294,0.986,4,-5.094,0,0.206,0.0503,0.588,0.0918,142.591,320440,4,Bridges To Buenos Aires (Live)
+190,The Rolling Stones,Let's Spend The Night Together - Live,6mL5Zm8S6yId9UxwwtOKLR,0.487,0.983,7,-4.454,1,0.251,3.01E-05,0.944,0.287,143.53,245493,4,Bridges To Buenos Aires (Live)
+191,The Rolling Stones,Flip The Switch - Live,6ENz8cHpX4wfp4ODm9OfVI,0.335,0.972,4,-4.931,0,0.208,0.00372,0.931,0.337,152.321,243907,4,Bridges To Buenos Aires (Live)
+192,The Rolling Stones,Gimme Shelter - Live,5IRpllm7jTE2Car8yJpLSR,0.438,0.957,1,-5.064,0,0.135,0.00554,0.774,0.272,119.245,397387,4,Bridges To Buenos Aires (Live)
+193,The Rolling Stones,Sister Morphine - Live,3I7QCOWVFe2wZ9Vw6xEfiI,0.246,0.913,9,-5.153,0,0.0921,0.000478,0.969,0.332,80.371,379800,4,Bridges To Buenos Aires (Live)
+194,The Rolling Stones,It's Only Rock 'N' Roll (But I Like It) - Live,6149fevyO2eTIKQunFNEmq,0.366,0.981,4,-4.416,1,0.174,0.00269,0.853,0.368,142.269,279120,4,Bridges To Buenos Aires (Live)
+195,The Rolling Stones,Saint Of Me - Live,6yhjbShB9sI5mDpXF5jU7R,0.363,0.953,10,-4.687,1,0.143,0.00102,0.908,0.2,125.673,313920,4,Bridges To Buenos Aires (Live)
+196,The Rolling Stones,Out Of Control - Live,7JjPN9WHocmLzq455jvfZO,0.311,0.905,9,-5.523,1,0.116,0.0001,0.948,0.35,119.406,451387,4,Bridges To Buenos Aires (Live)
+197,The Rolling Stones,Miss You - Live,0PCFGGlFATjPB9YhDw0fxR,0.477,0.933,4,-4.95,0,0.22,0.0107,0.956,0.396,119.985,593853,4,Bridges To Buenos Aires (Live)
+198,The Rolling Stones,Like A Rolling Stone - Live,3X4U8XtqiUBsFLHFOTGpv9,0.303,0.955,0,-4.232,1,0.188,0.000564,0.906,0.307,107.591,385387,4,Bridges To Buenos Aires (Live)
+199,The Rolling Stones,Thief In The Night - Live,73FUI7y7l4wy0QuFJyNFYT,0.453,0.817,7,-5.283,1,0.0307,3.73E-05,0.93,0.671,93.726,379733,4,Bridges To Buenos Aires (Live)
+200,The Rolling Stones,Wanna Hold You - Live,184BvksyZna7EynO2ngV9h,0.188,0.957,7,-4.337,1,0.21,0.00234,0.965,0.385,144.547,292853,4,Bridges To Buenos Aires (Live)
+201,The Rolling Stones,Little Queenie - Live,22dtYIbap7KXxccSXqjksD,0.388,0.987,9,-3.972,1,0.255,0.0411,0.988,0.246,144.367,258573,4,Bridges To Buenos Aires (Live)
+202,The Rolling Stones,When The Whip Comes Down - Live,5URzOluDlx70DRRimczvFA,0.288,0.975,2,-4.254,1,0.215,0.00139,0.955,0.237,147.703,232640,4,Bridges To Buenos Aires (Live)
+203,The Rolling Stones,You Got Me Rocking - Live,0yprXO8L6NyKu2AIl5ck8C,0.342,0.976,7,-3.456,1,0.195,0.00863,0.967,0.141,137.945,193560,4,Bridges To Buenos Aires (Live)
+204,The Rolling Stones,Sympathy For The Devil - Live,68jFcL2HZImEbSWIboVn9Y,0.583,0.982,9,-4.429,1,0.166,0.000667,0.973,0.384,109.012,491440,4,Bridges To Buenos Aires (Live)
+205,The Rolling Stones,Tumbling Dice - Live,7x4bSVW8axiKwbsCecJk1i,0.409,0.96,11,-3.806,1,0.138,0.00133,0.947,0.359,109.091,356547,4,Bridges To Buenos Aires (Live)
+206,The Rolling Stones,Honky Tonk Women - Live,2RrHSXeVniB3IULwfPKQ0V,0.456,0.969,7,-3.582,1,0.0961,0.000766,0.925,0.499,112.632,290387,4,Bridges To Buenos Aires (Live)
+207,The Rolling Stones,Start Me Up - Live,5uCVY9qqHKJQyNOMEq6JJZ,0.42,0.979,5,-4.133,1,0.116,0.0198,0.943,0.462,123.541,260080,4,Bridges To Buenos Aires (Live)
+208,The Rolling Stones,Jumpin’ Jack Flash - Live,6H8SpmS8nCrOFHlLSHFz9I,0.274,0.982,6,-4.032,0,0.157,0.0135,0.904,0.154,129.367,418253,4,Bridges To Buenos Aires (Live)
+209,The Rolling Stones,You Can't Always Get What You Want - Live,5uiY2gspazi1pstCeul8Ou,0.204,0.942,0,-4.185,1,0.141,0.0165,0.904,0.358,76.782,348013,4,Bridges To Buenos Aires (Live)
+210,The Rolling Stones,Brown Sugar - Live,46DrcK6g62mgQ9y3siauiN,0.344,0.978,0,-3.888,1,0.123,0.0228,0.275,0.17,135.341,421387,4,Bridges To Buenos Aires (Live)
+211,The Rolling Stones,(I Can't Get No) Satisfaction - Live,6gBfp6ERorveURX4ejp3Tb,0.331,0.973,2,-4.344,1,0.121,0.0118,0.967,,139.314,308587,4,Bridges To Bremen (Live)
+212,The Rolling Stones,Let's Spend The Night Together - Live,7kTMLoKVsREwRD4npqdvxh,0.446,0.957,7,-5.113,1,0.244,0,0.683,0.397,140.87,274787,4,Bridges To Bremen (Live)
+213,The Rolling Stones,Flip The Switch - Live,604Gd9znHCiuPEw3NlBOYr,0.369,0.977,11,-4.552,0,0.306,0.000621,0.967,0.387,148.352,273573,4,Bridges To Bremen (Live)
+214,The Rolling Stones,Gimme Shelter - Live,0NNBlpbiNYwy3552UWVK6Y,0.405,0.955,1,-4.029,0,0.0881,0.014,0.74,0.327,121.535,403413,4,Bridges To Bremen (Live)
+215,The Rolling Stones,Anybody Seen My Baby? - Live,5RSni91jR9Fe3NFvZPr1iS,0.482,0.843,4,-5.762,0,0.0772,0.000103,0.69,0.429,112.06,319053,4,Bridges To Bremen (Live)
+216,The Rolling Stones,Paint It Black - Live,57QkJpFsrUr9efIw1ujcjM,0.225,0.965,4,-4.575,0,0.0905,0,0.969,0.263,147.127,304907,4,Bridges To Bremen (Live)
+217,The Rolling Stones,Saint Of Me - Live,58csU3U0rIqEceSdUMVHLS,0.279,0.967,10,-4.809,1,0.28,0.0067,0.836,0.168,129.096,414613,4,Bridges To Bremen (Live)
+218,The Rolling Stones,Out Of Control - Live,5PsDynuzs0UMICL6PgUIpk,0.302,0.817,9,-5.634,1,0.104,0.00273,0.975,0.358,119.018,496733,4,Bridges To Bremen (Live)
+219,The Rolling Stones,Memory Motel - Live,6Qmbp7e6DgWUvzpcbXAsFf,0.301,0.732,5,-6.627,1,0.0654,1.06E-06,0.685,0.383,172.76,379600,4,Bridges To Bremen (Live)
+220,The Rolling Stones,Miss You - Live,1xELymSaqrPQjF1HUlCH84,0.429,0.919,9,-4.904,0,0.182,4.07E-06,0.796,0.31,116.807,981867,4,Bridges To Bremen (Live)
+221,The Rolling Stones,Thief In The Night - Live,5gp86m1BSjXePFNrMFWUv9,0.358,0.798,7,-5.706,1,0.053,0,0.914,0.472,95.254,404867,4,Bridges To Bremen (Live)
+222,The Rolling Stones,Wanna Hold You - Live,22hBZzeJcM7XaqlsrWzn3v,0.263,0.895,7,-3.409,1,0.0601,0.000256,0.966,0.544,140.363,298080,4,Bridges To Bremen (Live)
+223,The Rolling Stones,It's Only Rock 'N' Roll (But I Like It) - Live,4GPEbpULg5e1Sul9ffrOUo,0.439,0.982,4,-4.034,1,0.144,0.00958,0.835,0.416,141.422,277747,4,Bridges To Bremen (Live)
+224,The Rolling Stones,You Got Me Rocking - Live,2owb9R1M1XLopVP7boloee,0.383,0.953,7,-3.68,1,0.17,0.0349,0.53,0.283,136.241,222507,4,Bridges To Bremen (Live)
+225,The Rolling Stones,Like A Rolling Stone - Live,39tw8BHmcKSwh3ujO8OJGh,0.355,0.945,0,-3.504,1,0.13,0.00401,0.969,0.318,110.178,351533,4,Bridges To Bremen (Live)
+226,The Rolling Stones,Sympathy For The Devil - Live,36FBDrtdAjv4c36xr8nLMQ,0.582,0.973,9,-4.771,1,0.124,2.72E-06,0.893,0.357,108.996,519987,4,Bridges To Bremen (Live)
+227,The Rolling Stones,Tumbling Dice - Live,7cJ5WgcFbjfM6ZZWKsco3f,0.39,0.956,11,-3.449,1,0.0839,0.000126,0.968,0.486,109.49,330320,4,Bridges To Bremen (Live)
+228,The Rolling Stones,Honky Tonk Women - Live,1DVtM2KUN7MxZAQXoJBeCd,0.462,0.911,7,-3.932,1,0.0888,6.43E-05,0.872,0.596,110.192,282307,4,Bridges To Bremen (Live)
+229,The Rolling Stones,Start Me Up - Live,0XCEjoymU5mjVU4J2TlDnP,0.419,0.945,5,-3.609,1,0.0741,0.0476,0.97,,119.245,287387,4,Bridges To Bremen (Live)
+230,The Rolling Stones,Jumpin’ Jack Flash - Live,00hKh3kUrEgNSwPdfCmu2X,0.299,0.959,6,-3.51,0,0.119,0.122,0.935,0.338,126.374,431573,4,Bridges To Bremen (Live)
+231,The Rolling Stones,You Can't Always Get What You Want - Live,5w9aPPZv98kgoY3uAdYgic,0.242,0.865,5,-4.04,1,0.0744,0.00409,0.976,0.369,78.828,345413,4,Bridges To Bremen (Live)
+232,The Rolling Stones,Brown Sugar - Live,38T6IwDvXGaf3YdqoRlokG,0.362,0.965,0,-2.958,1,0.0744,0,0.76,0.322,131.353,449747,4,Bridges To Bremen (Live)
+233,The Rolling Stones,Living In A Ghost Town,2aQHcpFfrUoTc9CtxPGotZ,0.679,0.697,4,-5.369,0,0.0454,0.0119,0.124,0.776,110.558,247011,4,Honk (Deluxe)
+234,The Rolling Stones,Start Me Up,7CYSvrgGAee411gyGZ29PA,0.632,0.918,5,-4.717,1,0.037,0.112,0.0812,0.971,122.412,213007,4,Honk (Deluxe)
+235,The Rolling Stones,Doom And Gloom,0lO9vvpJdd2ZNAq61ga9wy,0.611,0.837,0,-4.558,1,0.0328,0.0169,0.173,0.783,131.599,238547,4,Honk (Deluxe)
+236,The Rolling Stones,Brown Sugar - 2009 Remaster,0t7ZUtJLGTx6WRJZajohxC,0.633,0.933,0,-3.572,1,0.0349,0.000161,0.072,0.965,128.588,230247,4,Honk (Deluxe)
+237,The Rolling Stones,Beast Of Burden,6ttUD7vz01HOy3hm9Kq3t5,0.781,0.844,1,-4.754,0,0.0305,0.00368,0.0518,0.902,100.709,265499,4,Honk (Deluxe)
+238,The Rolling Stones,Wild Horses - 2009 Mix,5jD2NdsrXz2QIHGhW9bA34,0.435,0.392,7,-6.501,1,0.0256,0.00906,0.069,0.169,136.884,342813,4,Honk (Deluxe)
+239,The Rolling Stones,Angie,4t8XxInDLymlhI5K77dfUM,0.434,0.546,9,-6.099,0,0.0294,0.000192,0.109,0.398,134.302,272440,4,Honk (Deluxe)
+240,The Rolling Stones,Miss You,4TXvJz4TmRI9Bzy4VWNUjl,0.794,0.71,9,-4.741,0,0.039,0.0141,0.179,0.829,109.685,288827,4,Honk (Deluxe)
+241,The Rolling Stones,Rocks Off,1kXhi1GzgxTHF5aQOdq07c,0.487,0.94,9,-4.4,1,0.0429,0.13,0.161,0.92,141.558,272653,4,Honk (Deluxe)
+242,The Rolling Stones,Don't Stop,3HNLA3ooLBSudG98ZVUuIZ,0.474,0.857,9,-5.36,1,0.0356,0.00278,0.193,0.727,127.003,239147,4,Honk (Deluxe)
+243,The Rolling Stones,Tumbling Dice,6GpoY3iuHJY7fcyonia60B,0.617,0.905,11,-4.585,1,0.0351,0.578,0.289,0.787,110.957,226240,4,Honk (Deluxe)
+244,The Rolling Stones,Ride 'Em On Down,0TzeXNspDRoaTzhnxgXG9X,0.508,0.943,4,-4.57,1,0.0926,0.00852,0.337,0.755,115.905,169680,4,Honk (Deluxe)
+245,The Rolling Stones,Rain Fall Down,2rtNvbGFyPcthRNxXw7wEO,0.657,0.844,9,-6.597,0,0.0559,0.00548,0.0638,0.528,98.016,294293,4,Honk (Deluxe)
+246,The Rolling Stones,Love Is Strong,0uFBtCRA9ZkL9KmElxz6Lt,0.526,0.851,2,-5.128,1,0.0458,0.251,0.111,0.499,110.104,227147,4,Honk (Deluxe)
+247,The Rolling Stones,Mixed Emotions,1UTvxim9T0Wl1iddE0rWZV,0.489,0.956,7,-3.989,1,0.0429,0.000524,0.822,0.827,137.074,278640,4,Honk (Deluxe)
+248,The Rolling Stones,Doo Doo Doo Doo Doo (Heartbreaker),6hj21oRxxCDYih9WXyq8ez,0.435,0.788,0,-5.72,1,0.0332,0.378,0.12,0.583,111.292,207680,4,Honk (Deluxe)
+249,The Rolling Stones,It's Only Rock'n'Roll (But I Like It),45aycSILYZTT5fc7u6nOQx,0.617,0.96,9,-3.971,1,0.0518,0.00109,0.138,0.786,128.396,308173,4,Honk (Deluxe)
+250,The Rolling Stones,Emotional Rescue,5At4b16uKSp3l3fJUgdee3,0.679,0.627,5,-5.297,1,0.0594,0.0704,0.0379,0.785,113.393,340480,4,Honk (Deluxe)
+251,The Rolling Stones,Waiting On A Friend,0J569qfRzrvr6cxM716sSm,0.605,0.776,0,-6.275,1,0.0282,0.0191,0.33,0.904,116.92,275467,4,Honk (Deluxe)
+252,The Rolling Stones,Just Your Fool,4PEamNI5gvkWl9ITQi86x1,0.533,0.898,2,-4.465,1,0.0586,0.327,0.233,0.818,116.193,138387,4,Honk (Deluxe)
+253,The Rolling Stones,Dancing With Mr. D,52TCAgRsrFAiBDNNf09eJI,0.56,0.9,2,-5.121,1,0.0352,0.733,0.22,,106.11,293253,4,Honk (Deluxe)
+254,The Rolling Stones,Streets Of Love,4JUEYZ2yBfHsB1W9yhJmDF,0.438,0.558,0,-6.479,1,0.031,5.41E-06,0.604,0.225,80.602,309280,4,Honk (Deluxe)
+255,The Rolling Stones,Fool To Cry,2ceSf31vu0bXkHTkidXcUB,0.384,0.448,5,-7.397,1,0.043,0.0561,0.114,0.27,135.128,305920,4,Honk (Deluxe)
+256,The Rolling Stones,Harlem Shuffle,24OfH4wnFqG3axUKDXdA5b,0.741,0.943,2,-3.682,1,0.0696,0.0561,0.18,0.746,121.752,205200,4,Honk (Deluxe)
+257,The Rolling Stones,Bitch - 2009 Mix,22Xiw64sBLQjPu8hLsBGFc,0.656,0.973,7,-3.479,1,0.0367,0.19,0.137,0.974,135.903,217707,4,Honk (Deluxe)
+258,The Rolling Stones,Hot Stuff,0nqhje0KL5GccsNDvPFd5r,0.784,0.827,4,-5.384,0,0.0582,0.000599,0.0585,0.866,100.1,321981,4,Honk (Deluxe)
+259,The Rolling Stones,Respectable,64dBhm4VRjXWTF0osNP5bt,0.452,0.985,9,-3.588,1,0.0532,0.81,0.0674,0.903,152.156,188467,4,Honk (Deluxe)
+260,The Rolling Stones,Undercover (Of The Night),2umCeOgJPgmfuEONmZa2lc,0.603,0.968,5,-5.021,0,0.178,0.00772,0.375,0.375,122.732,273427,4,Honk (Deluxe)
+261,The Rolling Stones,Hate To See You Go,3ZhhSS4ROx1S47BSqhRUjf,0.443,0.825,7,-5.216,1,0.118,0.497,0.143,0.378,184.656,202373,4,Honk (Deluxe)
+262,The Rolling Stones,Out Of Control,40F24g26mC0a8VI7YaoHga,0.743,0.562,9,-7.876,1,0.0422,0.0532,0.278,0.684,122.217,285493,4,Honk (Deluxe)
+263,The Rolling Stones,Rock And A Hard Place,3NUIzlRQkZXLReIPeBpLyV,0.596,0.96,9,-4.155,0,0.0493,0.000115,0.1,0.836,129.066,324880,4,Honk (Deluxe)
+264,The Rolling Stones,Happy,34OVMKNbZGdYT04LRMx5w9,0.552,0.894,4,-3.835,1,0.0292,0.938,0.515,0.968,131.71,185933,4,Honk (Deluxe)
+265,The Rolling Stones,Out Of Tears,71oNVBmZjD6dPGw2el0mJQ,0.393,0.448,2,-7.887,1,0.0291,0.00101,0.13,0.145,145.465,327640,4,Honk (Deluxe)
+266,The Rolling Stones,Rough Justice,7IRsleLXMCbLu7CSwaBr7X,0.412,0.869,7,-4.179,1,0.0581,6.90E-05,0.197,0.599,137.948,192267,4,Honk (Deluxe)
+267,The Rolling Stones,You Got Me Rocking,1w7TFzmtOJqk9D6lunUgaS,0.494,0.781,0,-4.527,1,0.0385,0.0444,0.305,0.658,126.163,215733,4,Honk (Deluxe)
+268,The Rolling Stones,Saint Of Me,1fFhfS6vWedtxaTA4xdHMX,0.678,0.912,7,-5.776,0,0.0503,0.0365,0.0903,,121.504,315894,4,Honk (Deluxe)
+269,The Rolling Stones,One More Shot,6HSMR3g3RNfIDUymhFSYiq,0.568,0.938,7,-4.737,1,0.0361,0.664,0.0579,0.684,122.804,182840,4,Honk (Deluxe)
+270,The Rolling Stones,"Get Off Of My Cloud - Live At Principality Stadium, Cardiff",7rQ8zAzXocecMbklkSSIcH,0.415,0.949,4,-4.453,1,0.0624,0.000855,0.7,0.719,127.167,200667,4,Honk (Deluxe)
+271,The Rolling Stones,"Dancing With Mr. D - Live At The Gelredome, Arnhem",1YhynJBF47awv9nphn3gd7,0.463,0.86,2,-5.475,1,0.0359,0.00502,0.697,0.666,106.678,276840,4,Honk (Deluxe)
+272,The Rolling Stones,"Beast Of Burden - Live At Arrowhead Stadium, Kansas",6kg6RUb6xjhxWIHT3lHe0U,0.584,0.84,4,-5.385,1,0.0286,0.000419,0.463,0.785,112.308,256400,4,Honk (Deluxe)
+273,The Rolling Stones,"She's A Rainbow - Live At U Arena, Paris",67eOiw9tprs6hAR88NFco0,0.437,0.793,10,-5.255,1,0.0299,4.88E-05,0.92,0.414,102.988,203067,4,Honk (Deluxe)
+274,The Rolling Stones,Wild Horses - Live At London Stadium,5IecDZiCvdqeN28NdEJbYs,0.425,0.734,7,-4.226,1,0.0318,2.77E-05,0.627,0.34,80.472,289387,4,Honk (Deluxe)
+275,The Rolling Stones,"Let's Spend The Night Together - Live At Old Trafford Stadium, Manchester / 5.6.18",4PuVHiy3WdyQwF8ed6urvM,0.416,0.908,7,-4.29,1,0.0587,6.66E-05,0.893,0.461,132.43,244933,4,Honk (Deluxe)
+276,The Rolling Stones,"Dead Flowers - Live At Wells Fargo Center, Philadelphia",3xesYGksubWd1EKLJ59iuZ,0.476,0.98,2,-3.714,1,0.0731,8.10E-06,0.914,0.634,132.913,324667,4,Honk (Deluxe)
+277,The Rolling Stones,"Shine A Light - Live At ArenA, Amsterdam",2hvhIvvLSDlVIxYsVdITkW,0.383,0.72,0,-5.925,1,0.0303,0.0595,0.845,0.581,80.884,251973,4,Honk (Deluxe)
+278,The Rolling Stones,Under My Thumb - Live At London Stadium,0Vus9rdcVHhodY4IsvgCjo,0.634,0.887,9,-5.286,1,0.0324,0.00462,0.605,0.85,124.832,270787,4,Honk (Deluxe)
+279,The Rolling Stones,"Bitch - Live At The Honda Center, Anaheim",7FRjOlIq5wes9zoLhQDwWx,0.351,0.977,4,-3.308,0,0.0618,0.627,0.898,0.485,137.389,315880,4,Honk (Deluxe)
+280,The Rolling Stones,Whoopi Goldberg Intro - Live,53ccq2vLuIz4HT3vAyBQDD,0.397,0.902,2,-12.418,1,0.624,0.367,0.94,0.0394,98.356,102748,4,Voodoo Lounge Uncut (Live)
+281,The Rolling Stones,Not Fade Away - Live,6YCOFkL6CC9gVXcqeRK9wQ,0.393,0.939,9,-8.853,1,0.271,0.544,0.965,0.446,101.056,258783,4,Voodoo Lounge Uncut (Live)
+282,The Rolling Stones,Tumbling Dice - Live,32QKwFLnGJRw5cMGHNXinF,0.434,0.915,11,-6.968,1,0.0761,0.0757,0.973,0.423,117.337,289170,4,Voodoo Lounge Uncut (Live)
+283,The Rolling Stones,You Got Me Rocking - Live,3Ik0KIlb9CVo4AUySsbnWA,0.455,0.916,7,-8.238,1,0.0878,0.0829,0.943,0.32,131.181,235624,4,Voodoo Lounge Uncut (Live)
+284,The Rolling Stones,Rocks Off - Live,5pVTwKgr4DywoYyXscQ2qE,0.286,0.935,4,-6.651,1,0.323,0.00439,0.808,0.279,148.049,326278,4,Voodoo Lounge Uncut (Live)
+285,The Rolling Stones,Sparks Will Fly - Live,1QkOdZrT2Oog8Ecu2zKTy6,0.32,0.954,7,-6.638,1,0.0986,0.00198,0.973,0.425,156.771,250987,4,Voodoo Lounge Uncut (Live)
+286,The Rolling Stones,Live With Me - Live,7BlrcoJB5r4VSeYnSUg69D,0.333,0.944,7,-8.327,1,0.238,0.00407,0.984,0.338,150.889,300758,4,Voodoo Lounge Uncut (Live)
+287,The Rolling Stones,(I Can't Get No) Satisfaction - Live,4x0bGTxDypBJaxxR20QPHY,0.312,0.961,9,-6.426,1,0.129,0.261,0.964,0.345,150.904,409792,4,Voodoo Lounge Uncut (Live)
+288,The Rolling Stones,Beast Of Burden - Live,0z1XJvvIzp9BM0eSCpDZ8x,0.643,0.811,4,-9.113,1,0.0578,0.014,0.913,0.647,106.932,346227,4,Voodoo Lounge Uncut (Live)
+289,The Rolling Stones,Angie - Live,0RIPA9OvjpJJ2vAiEtnkCL,0.361,0.6,7,-11.572,1,0.0833,7.88E-05,0.92,0.387,151.516,254474,4,Voodoo Lounge Uncut (Live)
+290,The Rolling Stones,Dead Flowers - Live,2DK0ElsbN7rfQUVQAh0mJt,0.492,0.844,2,-11.273,1,0.0553,0,0.965,0.567,135.145,250760,4,Voodoo Lounge Uncut (Live)
+291,The Rolling Stones,Sweet Virginia - Live,38SjxOt865yUkyDOdZ7XKA,0.295,0.74,4,-10.925,1,0.101,0.000341,0.978,0.357,104.294,347832,4,Voodoo Lounge Uncut (Live)
+292,The Rolling Stones,Doo Doo Doo Doo Doo (Heartbreaker) - Live,7p0YWBaWgHImmfoMqZDdV1,0.465,0.925,4,-7.673,0,0.165,0.0272,0.822,0.402,120.153,240197,4,Voodoo Lounge Uncut (Live)
+293,The Rolling Stones,It's All Over Now - Live,4jJZFfLN9tLHKl4hsd6MBe,0.34,0.922,7,-8.405,1,0.154,0.076,0.749,0.343,185.161,278412,4,Voodoo Lounge Uncut (Live)
+294,The Rolling Stones,Stop Breakin' Down Blues - Live,4YygmKIUEVYu6Qpd3pXpQ6,0.527,0.875,4,-7.516,0,0.0971,0.00015,0.892,0.438,95.731,333762,4,Voodoo Lounge Uncut (Live)
+295,The Rolling Stones,Who Do You Love? - Live,1Dn9Oh7mlrAwB2FJ2FrL5X,0.462,0.979,4,-5.804,1,0.166,0.00216,0.702,0.427,110.203,261157,4,Voodoo Lounge Uncut (Live)
+296,The Rolling Stones,I Go Wild - Live,2oxpkxdsgzb7GgkopulCiG,0.469,0.908,7,-7.268,1,0.0892,0.00815,0.989,0.286,113.583,448670,4,Voodoo Lounge Uncut (Live)
+297,The Rolling Stones,Miss You - Live,4vY5yKquZFqH9WYobmNgvu,0.451,0.895,9,-8.068,Minor,0.15,0.0111,0.981,0.354,113.836,815888,4,Voodoo Lounge Uncut (Live)
+298,The Rolling Stones,Honky Tonk Women - Live,6wTmmzOKVhFxAI0Ioec5Ew,0.507,0.937,7,-7.252,1,0.0708,0.109,0.938,0.58,116.137,277082,4,Voodoo Lounge Uncut (Live)
+299,The Rolling Stones,Before They Make Me Run - Live,55EjJP2LEP3CHMAvtUWqNB,0.335,0.906,7,-7.308,1,0.209,3.64E-05,0.959,0.386,133.843,284364,4,Voodoo Lounge Uncut (Live)
+300,The Rolling Stones,The Worst - Live,2BmLkEv8TsgNjVi1YUxJXM,0.317,0.397,2,-16.556,1,0.0516,0.00558,0.438,0.345,139.798,206991,4,Voodoo Lounge Uncut (Live)
+301,The Rolling Stones,Sympathy For The Devil - Live,6DFSZLFslYrYwKLUAF5JKn,0.548,0.87,4,-7.14,1,0.0666,0,0.977,0.524,109,385167,4,Voodoo Lounge Uncut (Live)
+302,The Rolling Stones,Monkey Man - Live,3EBGkzMOLwYSECyUWgq1ex,0.519,0.902,11,-7.42,1,0.0632,0.233,0.683,0.411,106.939,266581,4,Voodoo Lounge Uncut (Live)
+303,The Rolling Stones,Street Fighting Man - Live,1NtnPB89gIhtOJV6qvpkUK,0.3,0.909,6,-6.602,1,0.0553,0.324,0.729,0.364,128.105,310641,4,Voodoo Lounge Uncut (Live)
+304,The Rolling Stones,Start Me Up - Live,4epJ77bCv8JRbtQvNQP4SY,0.498,0.963,5,-6.179,1,0.0854,0.186,0.964,0.593,129.729,263519,4,Voodoo Lounge Uncut (Live)
+305,The Rolling Stones,It's Only Rock 'N' Roll (But I Like It) - Live,66W9Fch3kkqEaIocbZSyP6,0.49,0.933,4,-6.584,1,0.101,0.0323,0.79,0.558,135.737,319026,4,Voodoo Lounge Uncut (Live)
+306,The Rolling Stones,Brown Sugar - Live,57jwWTDezhJIA6H5YwfTle,0.399,0.967,0,-4.9,1,0.0831,0.189,0.97,0.362,137.466,378025,4,Voodoo Lounge Uncut (Live)
+307,The Rolling Stones,Jumpin’ Jack Flash - Live,1mIHsGFCIhnz9cIprOG0op,0.3,0.947,4,-5.257,1,0.102,0.647,0.95,0.402,139.709,374585,4,Voodoo Lounge Uncut (Live)
+308,The Rolling Stones,Whoopi Goldberg Intro - Live,4Q1mpLGl94xstgXlhoaCh5,0.397,0.902,2,-12.418,1,0.624,0.367,0.94,0.0394,98.356,102748,4,Voodoo Lounge Uncut (Live)
+309,The Rolling Stones,Not Fade Away - Live,1EdD9H50BlPO8eHD7oEXFC,0.393,0.939,9,-8.853,1,0.271,0.544,0.965,0.446,101.056,258783,4,Voodoo Lounge Uncut (Live)
+310,The Rolling Stones,Tumbling Dice - Live,3FuZ5q79RH7xrQmIUHjUSk,0.434,0.915,11,-6.968,1,0.0761,0.0757,0.973,0.423,117.337,289170,4,Voodoo Lounge Uncut (Live)
+311,The Rolling Stones,You Got Me Rocking - Live,6o8JXE4kaydZ1AqmXLE5ir,0.455,0.916,7,-8.238,1,0.0878,0.0829,0.943,0.32,131.181,235624,4,Voodoo Lounge Uncut (Live)
+312,The Rolling Stones,Rocks Off - Live,2ec5qFvc6NV42jpti6ZXIJ,0.286,0.935,4,-6.651,1,0.323,0.00439,0.808,0.279,148.049,326278,4,Voodoo Lounge Uncut (Live)
+313,The Rolling Stones,Sparks Will Fly - Live,4AQetxO0HU8AtQfmhGnMzp,0.32,0.954,7,-6.638,1,0.0986,0.00198,0.973,0.425,156.771,250987,4,Voodoo Lounge Uncut (Live)
+314,The Rolling Stones,Live With Me - Live,3C9tsXCZkf4TN7vGypIOpc,0.333,0.944,7,-8.327,1,0.238,0.00407,0.984,0.338,150.889,300758,4,Voodoo Lounge Uncut (Live)
+315,The Rolling Stones,(I Can't Get No) Satisfaction - Live,2RxLdgkHPUbUeK0XjkTxjq,0.312,0.961,9,-6.426,1,0.129,0.261,0.964,0.345,150.904,409792,4,Voodoo Lounge Uncut (Live)
+316,The Rolling Stones,Beast Of Burden - Live,03AbxguWXpMnkR7HnSlxKG,0.643,0.811,4,-9.113,1,0.0578,0.014,0.913,0.647,106.932,346227,4,Voodoo Lounge Uncut (Live)
+317,The Rolling Stones,Angie - Live,1YEVYmbnEoiBbZjrKbztEB,0.361,0.6,7,-11.572,1,0.0833,7.88E-05,0.92,0.387,151.516,254474,4,Voodoo Lounge Uncut (Live)
+318,The Rolling Stones,Dead Flowers - Live,1JWXoQOiXa7MTcoKanldTG,0.492,0.844,2,-11.273,1,0.0553,0,0.965,0.567,135.145,250760,4,Voodoo Lounge Uncut (Live)
+319,The Rolling Stones,Sweet Virginia - Live,6uyDqL59dMkpvQLsN8m87B,0.295,0.74,4,-10.925,1,0.101,0.000341,0.978,0.357,104.294,347832,4,Voodoo Lounge Uncut (Live)
+320,The Rolling Stones,Doo Doo Doo Doo Doo (Heartbreaker) - Live,2kKJunAgj3jOTICnVZIumd,0.465,0.925,4,-7.673,0,0.165,0.0272,0.822,0.402,120.153,240197,4,Voodoo Lounge Uncut (Live)
+321,The Rolling Stones,It's All Over Now - Live,2rFoyoRGNu5XiHngfVLpKL,0.34,0.922,7,-8.405,1,0.154,0.076,0.749,0.343,185.161,278412,4,Voodoo Lounge Uncut (Live)
+322,The Rolling Stones,Stop Breakin' Down Blues - Live,5yc3uGSKW0gQu2gGlmrfR6,0.527,0.875,4,-7.516,0,0.0971,0.00015,0.892,0.438,95.731,333762,4,Voodoo Lounge Uncut (Live)
+323,The Rolling Stones,Who Do You Love? - Live,4FB7tn0ja29JrVcCq4Uems,0.462,0.979,4,-5.804,1,0.166,0.00216,0.702,0.427,110.203,261157,4,Voodoo Lounge Uncut (Live)
+324,The Rolling Stones,I Go Wild - Live,6njn1Fgy02IKmPGSqP0LYX,0.469,0.908,7,-7.268,1,0.0892,0.00815,0.989,0.286,113.583,448670,4,Voodoo Lounge Uncut (Live)
+325,The Rolling Stones,Miss You - Live,36cUttPdHVwUERcPdJDQhG,0.451,0.895,9,-8.068,0,0.15,0.0111,0.981,0.354,113.836,815888,4,Voodoo Lounge Uncut (Live)
+326,The Rolling Stones,Honky Tonk Women - Live,0Qbw6yvRwExkoayLvneMZc,0.507,0.937,7,-7.252,1,0.0708,0.109,0.938,0.58,116.137,277082,4,Voodoo Lounge Uncut (Live)
+327,The Rolling Stones,Before They Make Me Run - Live,24PkL1dFz5nmFoZj3hctdG,0.335,0.906,7,-7.308,1,0.209,3.64E-05,0.959,0.386,133.843,284364,4,Voodoo Lounge Uncut (Live)
+328,The Rolling Stones,The Worst - Live,4x37eaT7Szgy16oIPidPxI,0.317,0.397,2,-16.556,1,0.0516,0.00558,0.438,0.345,139.798,206991,4,Voodoo Lounge Uncut (Live)
+329,The Rolling Stones,Sympathy For The Devil - Live,02uosCE5o2nrozzl6EazOj,0.548,0.87,4,-7.14,1,0.0666,0,0.977,0.524,109,385167,4,Voodoo Lounge Uncut (Live)
+330,The Rolling Stones,Monkey Man - Live,1rhAw5xFRNwxqUDSDJVqCO,0.519,0.902,11,-7.42,1,0.0632,0.233,0.683,0.411,106.939,266581,4,Voodoo Lounge Uncut (Live)
+331,The Rolling Stones,Street Fighting Man - Live,7sbdxg0JS1sOUSYIEcKg7p,0.3,0.909,6,-6.602,1,0.0553,0.324,0.729,0.364,128.105,310641,4,Voodoo Lounge Uncut (Live)
+332,The Rolling Stones,Start Me Up - Live,1QU1c3bPhPFsgNexuS8XGt,0.498,0.963,5,-6.179,1,0.0854,0.186,0.964,0.593,129.729,263519,4,Voodoo Lounge Uncut (Live)
+333,The Rolling Stones,It's Only Rock 'N' Roll (But I Like It) - Live,6kmS7z3RhvT3cZCBH8Ef2K,0.49,0.933,4,-6.584,1,0.101,0.0323,0.79,0.558,135.737,319026,4,Voodoo Lounge Uncut (Live)
+334,The Rolling Stones,Brown Sugar - Live,6fcNQmdqVkyZb9lXSQwPcs,0.399,0.967,0,-4.9,1,0.0831,0.189,0.97,0.362,137.466,378025,4,Voodoo Lounge Uncut (Live)
+335,The Rolling Stones,Jumpin’ Jack Flash - Live,0i7uGz7kX7ISHbOWW3CeUB,0.3,0.947,4,-5.257,1,0.102,0.647,0.95,0.402,139.709,374585,4,Voodoo Lounge Uncut (Live)
+336,The Rolling Stones,Jumpin’ Jack Flash - Live,6lhANuhEtlfI8tbu7JK9zY,0.298,0.976,9,-4.159,1,0.089,0.738,0.972,0.379,136.449,227880,4,From The Vault: No Security - San Jose 1999 (Live)
+337,The Rolling Stones,Bitch - Live,7xpqm6MDf9RsHQnelJPIVM,0.367,0.979,4,-3.459,0,0.189,0.219,0.928,0.331,141.009,302587,4,From The Vault: No Security - San Jose 1999 (Live)
+338,The Rolling Stones,You Got Me Rocking - Live,0jCvKMfgaIARwEZzO0tjPs,0.377,0.962,7,-4.787,1,0.161,0.0066,0.885,0.319,135.163,228960,4,From The Vault: No Security - San Jose 1999 (Live)
+339,The Rolling Stones,Respectable - Live,4Mot6dnCRYEU0WbaqqYIvZ,0.273,0.991,9,-4.201,1,0.137,0.0531,0.961,0.153,146.011,223613,4,From The Vault: No Security - San Jose 1999 (Live)
+340,The Rolling Stones,Honky Tonk Women - Live,5WGko0XPqpVg9KVoH62wVW,0.444,0.964,7,-4.739,1,0.106,0.00139,0.421,0.492,117.074,290453,4,From The Vault: No Security - San Jose 1999 (Live)
+341,The Rolling Stones,I Got The Blues - Live,0rbRmJij0CAEO9lGIAC37I,0.363,0.752,7,-6.694,1,0.0536,0.0449,0.942,0.353,76.132,227147,3,From The Vault: No Security - San Jose 1999 (Live)
+342,The Rolling Stones,Saint Of Me - Live,47jWLWOPCvw01CCLB748GF,0.33,0.949,10,-4.731,1,0.187,0.0225,0.794,0.316,127.695,347653,4,From The Vault: No Security - San Jose 1999 (Live)
+343,The Rolling Stones,Some Girls - Live,2qZICZ1FBFd8HBv88UJ2J8,0.217,0.943,4,-4.932,0,0.125,0.00373,0.929,0.497,164.175,306493,4,From The Vault: No Security - San Jose 1999 (Live)
+344,The Rolling Stones,Paint It Black - Live,44Bhe5iLqW9OmHwqs6PJlK,0.224,0.969,4,-5.205,1,0.22,0.000178,0.944,0.137,156.751,539027,4,From The Vault: No Security - San Jose 1999 (Live)
+345,The Rolling Stones,You Got The Silver - Live,79IYaYzdSGKufAQNoN2nPs,0.282,0.67,4,-7.767,1,0.0499,3.31E-06,0.945,0.476,78.098,280053,4,From The Vault: No Security - San Jose 1999 (Live)
+346,The Rolling Stones,Before They Make Me Run - Live,4BSZCOHySGSwBJlzM4qaAD,0.252,0.951,7,-3.631,1,0.0622,3.58E-05,0.934,0.525,140.389,236800,4,From The Vault: No Security - San Jose 1999 (Live)
+347,The Rolling Stones,Out Of Control - Live,6afU1pYAhsMCaUxvExIuSC,0.33,0.851,9,-4.562,1,0.0829,0.0222,0.978,0.348,121.496,441307,4,From The Vault: No Security - San Jose 1999 (Live)
+348,The Rolling Stones,Route 66 - Live,6asoECG1bujhCBItWqjYUR,0.416,0.977,2,-5.239,1,0.219,0.0739,0.905,0.387,144.845,193573,4,From The Vault: No Security - San Jose 1999 (Live)
+349,The Rolling Stones,Get Off Of My Cloud - Live,3PQBGP2sZ3qwdUqUYBuCiu,0.426,0.982,4,-4.4,1,0.143,0.0382,0.981,0.509,135.528,197880,4,From The Vault: No Security - San Jose 1999 (Live)
+350,The Rolling Stones,Midnight Rambler - Live,6x0uoqrntrFEMxlceTJ7Ns,0.334,0.936,4,-5.637,1,0.0859,0.733,0.969,0.393,143.72,733680,4,From The Vault: No Security - San Jose 1999 (Live)
+351,The Rolling Stones,Tumbling Dice - Live,1jHgdJgPAHBO6w6A882eKO,0.445,0.961,11,-4.963,1,0.0886,0.00256,0.988,0.473,119.199,277507,4,From The Vault: No Security - San Jose 1999 (Live)
+352,The Rolling Stones,It's Only Rock 'n Roll - Live,6frZjwqP8lefjrzFI55gMB,0.478,0.975,4,-4.751,1,0.113,0.023,0.683,0.42,137.074,336400,4,From The Vault: No Security - San Jose 1999 (Live)
+353,The Rolling Stones,Start Me Up - Live,4wdy9PVShHKMKIsxSvPrxW,0.44,0.971,5,-4.499,1,0.0777,0.731,0.914,0.698,131.139,244520,4,From The Vault: No Security - San Jose 1999 (Live)
+354,The Rolling Stones,Brown Sugar - Live,5aFATYgESmg4UYuOdKjyOr,0.372,0.978,7,-4.341,1,0.141,0.107,0.97,0.255,136.245,460933,4,From The Vault: No Security - San Jose 1999 (Live)
+355,The Rolling Stones,Sympathy For The Devil - Live,15AguQqrQk3A4MoyvzJgBO,0.561,0.958,9,-5.278,1,0.0617,0.000831,0.97,0.631,107.872,534573,4,From The Vault: No Security - San Jose 1999 (Live)
+356,The Rolling Stones,Come On - Saturday Club / 1963,7eswiDT4ywPVo55FkMvYfN,0.403,0.643,0,-10.393,1,0.0424,1.24E-05,0.266,0.847,170.037,122987,4,On Air
+357,The Rolling Stones,(I Can't Get No) Satisfaction - Saturday Club / 1965,1CEXp91Noj1h1lHBDP7xkQ,0.649,0.744,2,-8.279,1,0.0279,0.616,0.0758,0.77,136.687,226880,4,On Air
+358,The Rolling Stones,Roll Over Beethoven - Saturday Club / 1963,4fZm6xuSSR7fpgTpilKQdV,0.657,0.73,5,-10.723,1,0.0313,1.38E-06,0.321,0.927,97.839,139427,4,On Air
+359,The Rolling Stones,The Spider And The Fly - Yeah Yeah / 1965,74zFAG85kiVy31xUqowR9D,0.683,0.633,4,-10.846,1,0.109,0.782,0.109,0.892,111.757,194160,4,On Air
+360,The Rolling Stones,Cops And Robbers - Blues In Rhythm / 1964,4SwJn3vkg2MXwxF9Kxj4B6,0.692,0.538,11,-10.434,0,0.106,0.00269,0.446,0.464,113.791,224867,4,On Air
+361,The Rolling Stones,It's All Over Now - The Joe Loss Pop Show / 1964,65sv959lcEbPr88w7nxCaw,0.179,0.794,7,-8.237,1,0.0428,0.016,0.366,0.455,200.624,198787,4,On Air
+362,The Rolling Stones,Route 66 - Blues In Rhythm / 1964,73xMJvW0GQbJrVCHVvSuTb,0.572,0.653,2,-11.11,1,0.0672,0.00121,0.477,0.912,157.356,152467,4,On Air
+363,The Rolling Stones,"Memphis, Tennessee - Saturday Club / 1963",21MEgGQlLHFbL4HBEkK0N6,0.765,0.438,4,-11.582,1,0.0358,0,0.0837,0.948,96.359,142093,4,On Air
+364,The Rolling Stones,Down The Road Apiece - Top Gear / 1965,4Z7uQ0Yk8x2itRiND63i8T,0.618,0.812,2,-8.318,1,0.0598,0.809,0.0465,0.881,85.983,121787,4,On Air
+365,The Rolling Stones,The Last Time - Top Gear / 1965,4F5anLB9Q95wYWKZKrk77X,0.371,0.797,9,-8.968,1,0.0544,0.071,0.349,0.756,181.455,190573,4,On Air
+366,The Rolling Stones,Cry To Me - Saturday Club / 1965,3ltswlzOUT50lnSeBKHOAN,0.409,0.597,2,-9.651,1,0.0477,0.0227,0.106,0.839,186.877,187200,3,On Air
+367,The Rolling Stones,"Mercy, Mercy - Yeah Yeah / 1965",1iOVPVxuXZzKqmLDSahphI,0.711,0.636,9,-9.935,1,0.0457,0.674,0.0806,0.784,117.807,174653,4,On Air
+368,The Rolling Stones,Oh! Baby (We Got A Good Thing Goin’) - Saturday Club / 1965,6nsKGFoC9NGq5PCb6JuKuZ,0.51,0.716,11,-9.858,0,0.0457,0.12,0.296,0.947,152.378,109280,4,On Air
+369,The Rolling Stones,Around And Around - Top Gear / 1964,47WiJCfLnjBBmxJbuhBsfV,0.358,0.723,2,-8.688,1,0.0597,0.0691,0.0874,0.686,181.658,165627,4,On Air
+370,The Rolling Stones,Hi Heel Sneakers - Saturday Club / 1965,7BbRuiyDuayOVgWMSP7Z7F,0.277,0.813,7,-6.653,1,0.0413,0.0664,0.257,0.68,160.87,116560,4,On Air
+371,The Rolling Stones,Fannie Mae - Saturday Club / 1965,6OV7AFZ2xXU4hKyOnZe5Sn,0.543,0.7,7,-8.144,1,0.0306,0.867,0.108,0.944,142.334,131827,4,On Air
+372,The Rolling Stones,You Better Move On - Blues In Rhythm / 1964,6fmXseXCaHX20EB51e9zLf,0.758,0.358,4,-13.116,1,0.0454,0.0273,0.306,0.566,114.685,166480,4,On Air
+373,The Rolling Stones,Mona - Blues In Rhythm / 1964,6TxIjTiDxZdej5GWURCYeK,0.771,0.483,11,-11.341,1,0.0429,0.0873,0.683,0.502,110.622,178413,4,On Air
+374,The Rolling Stones,Come On - Saturday Club / 1963,3DOHaAnbepGzj86MePrU6Z,0.403,0.643,0,-10.393,1,0.0424,1.24E-05,0.266,0.847,170.037,122987,4,On Air (Deluxe)
+375,The Rolling Stones,(I Can't Get No) Satisfaction - Saturday Club / 1965,2aBM9gLAhJgaUIo7HVZ75j,0.649,0.744,2,-8.279,1,0.0279,0.616,0.0758,0.77,136.687,226880,4,On Air (Deluxe)
+376,The Rolling Stones,Roll Over Beethoven - Saturday Club / 1963,7ABz5DJmakiEuws6HbSlNr,0.657,0.73,5,-10.723,1,0.0313,1.38E-06,0.321,0.927,97.839,139427,4,On Air (Deluxe)
+377,The Rolling Stones,The Spider And The Fly - Yeah Yeah / 1965,49Js7VXTW5zl07AdwltJ7Z,0.683,0.633,4,-10.846,1,0.109,0.782,0.109,0.892,111.757,194160,4,On Air (Deluxe)
+378,The Rolling Stones,Cops And Robbers - Blues In Rhythm / 1964,7AsBINzb5kDcE7iVnytpzG,0.692,0.538,11,-10.434,0,0.106,0.00269,0.446,0.464,113.791,224867,4,On Air (Deluxe)
+379,The Rolling Stones,It's All Over Now - The Joe Loss Pop Show / 1964,3RFJ43T0gDkeryjBNaLj23,0.179,0.794,7,-8.237,1,0.0428,0.016,0.366,0.455,200.624,198787,4,On Air (Deluxe)
+380,The Rolling Stones,Route 66 - Blues In Rhythm / 1964,7hQ3gIPprZp08ygVc279Qj,0.572,0.653,2,-11.11,1,0.0672,0.00121,0.477,0.912,157.356,152467,4,On Air (Deluxe)
+381,The Rolling Stones,"Memphis, Tennessee - Saturday Club / 1963",6J5rLe0RZ700FDeFFNHMoK,0.765,0.438,4,-11.582,1,0.0358,0,0.0837,0.948,96.359,142093,4,On Air (Deluxe)
+382,The Rolling Stones,Down The Road Apiece - Top Gear / 1965,42EfCAeyjoVRx4CEoze6CN,0.618,0.812,2,-8.318,1,0.0598,0.809,0.0465,0.881,85.983,121787,4,On Air (Deluxe)
+383,The Rolling Stones,The Last Time - Top Gear / 1965,1rTHO0kSwk7biktDGCLUJq,0.371,0.797,9,-8.968,1,0.0544,0.071,0.349,0.756,181.455,190573,4,On Air (Deluxe)
+384,The Rolling Stones,Cry To Me - Saturday Club / 1965,3ydYsX8lJUltRCiL7AsXFY,0.409,0.597,2,-9.651,1,0.0477,0.0227,0.106,0.839,186.877,187200,3,On Air (Deluxe)
+385,The Rolling Stones,"Mercy, Mercy - Yeah Yeah / 1965",4EaHhUu7bZATp4W7IAwOqD,0.711,0.636,9,-9.935,1,0.0457,0.674,0.0806,0.784,117.807,174653,4,On Air (Deluxe)
+386,The Rolling Stones,Oh! Baby (We Got A Good Thing Goin’) - Saturday Club / 1965,6qoTBE0CCWUlfxCyfXA8PH,0.51,0.716,11,-9.858,0,0.0457,0.12,0.296,0.947,152.378,109280,4,On Air (Deluxe)
+387,The Rolling Stones,Around And Around - Top Gear / 1964,4fuSXL9NQq23d2c3vLt1HY,0.358,0.723,2,-8.688,1,0.0597,0.0691,0.0874,0.686,181.658,165627,4,On Air (Deluxe)
+388,The Rolling Stones,Hi Heel Sneakers - Saturday Club / 1965,1u0kS2ZMHHSuPiadDJ0eyk,0.277,0.813,7,-6.653,1,0.0413,0.0664,0.257,0.68,160.87,116560,4,On Air (Deluxe)
+389,The Rolling Stones,Fannie Mae - Saturday Club / 1965,58lPXUwwQImFwTbxJXcj9k,0.543,0.7,7,-8.144,1,0.0306,0.867,0.108,0.944,142.334,131827,4,On Air (Deluxe)
+390,The Rolling Stones,You Better Move On - Blues In Rhythm / 1964,4lDjQlDxGmSFrGQj4RYoil,0.758,0.358,4,-13.116,1,0.0454,0.0273,0.306,0.566,114.685,166480,4,On Air (Deluxe)
+391,The Rolling Stones,Mona - Blues In Rhythm / 1964,22cSLu8jK5rsUH4QkMLZMJ,0.771,0.483,11,-11.341,1,0.0429,0.0873,0.683,0.502,110.622,178413,4,On Air (Deluxe)
+392,The Rolling Stones,I Wanna Be Your Man - Saturday Club / 1964,6vQ7eX1j49Bb8hucYXGeL8,0.512,0.763,5,-6.923,1,0.0496,0.756,0.0983,0.695,82.189,112747,4,On Air (Deluxe)
+393,The Rolling Stones,Carol - Saturday Club / 1964,1jjQI8QadTlHh1xvflW107,0.613,0.863,0,-8.592,1,0.0836,0.000264,0.0931,0.945,84.547,151627,4,On Air (Deluxe)
+394,The Rolling Stones,I'm Moving On - The Joe Loss Pop Show / 1964,3r1c7Bc92O9tMJEoinBkzS,0.361,0.932,4,-6.849,1,0.0638,0.00182,0.359,0.783,163.586,126853,4,On Air (Deluxe)
+395,The Rolling Stones,If You Need Me - The Joe Loss Pop Show / 1964,4Pv8b114sGZcwpGNblFCls,0.181,0.705,7,-7.225,1,0.0366,3.03E-05,0.289,0.635,201.878,121227,3,On Air (Deluxe)
+396,The Rolling Stones,Walking The Dog - Saturday Club / 1964,5lDoJcPX7dCfzQW31x8fLP,0.692,0.52,2,-11.649,1,0.0386,0.687,0.137,0.695,126.58,179253,4,On Air (Deluxe)
+397,The Rolling Stones,Confessin' The Blues - The Joe Loss Pop Show / 1964,0MpP38XCvg6NBRTqcK7jTE,0.246,0.82,2,-7.372,0,0.0459,0.275,0.48,0.862,141.869,146240,4,On Air (Deluxe)
+398,The Rolling Stones,Everybody Needs Somebody To Love - Top Gear / 1965,3HSYXGbbyAYPzsRO92s7MF,0.452,0.733,9,-9.367,1,0.101,0.0338,0.467,0.475,78.456,214360,4,On Air (Deluxe)
+399,The Rolling Stones,Little By Little - The Joe Loss Pop Show / 1964,3YXP5xEzFqWooPLEdfBZr6,0.314,0.783,9,-7.59,1,0.0428,0.0254,0.559,0.838,175.967,150640,4,On Air (Deluxe)
+400,The Rolling Stones,Ain't That Loving You Baby - Rhythm And Blues / BBC World Service / 1964,3NWMRMD2Y04M11IKxmQ4Ew,0.708,0.636,11,-8.577,0,0.154,0.551,0.0777,0.749,82.327,115987,4,On Air (Deluxe)
+401,The Rolling Stones,Beautiful Delilah - Saturday Club / 1964,5qxXIICV82Z6WErDicHEzx,0.737,0.697,2,-8.819,1,0.0673,0.000219,0.106,0.962,108.819,130747,4,On Air (Deluxe)
+402,The Rolling Stones,Crackin' Up - Top Gear / 1964,3GJfeWke6zCUzJD2uvPxHq,0.617,0.571,4,-11.549,1,0.0411,0.0905,0.156,0.84,117.02,136760,4,On Air (Deluxe)
+403,The Rolling Stones,I Can't Be Satisfied - Top Gear / 1964,4ijsU5NkUfBJqVkv6sCfu9,0.563,0.568,0,-10.38,1,0.0249,0.000706,0.173,0.96,97.912,150653,4,On Air (Deluxe)
+404,The Rolling Stones,I Just Want To Make Love To You - Saturday Club / 1964,6oAfRCJrtwoaAS8UySiTo7,0.511,0.779,2,-7.122,0,0.0426,0.719,0.273,0.752,125.223,136000,4,On Air (Deluxe)
+405,The Rolling Stones,2120 South Michigan Avenue - Rhythm And Blues / BBC World Service / 1964,1E0umkUUHtmrVX7sgNMtTt,0.591,0.609,2,-10.012,1,0.036,0.811,0.119,0.733,141.994,227760,4,On Air (Deluxe)
+406,The Rolling Stones,Start Me Up - Live,4LaBUmsgavkHCvigR6fJUY,0.394,0.945,5,-3.806,1,0.0689,0.074,0.984,0.499,128.491,274493,4,Sticky Fingers Live At The Fonda Theatre
+407,The Rolling Stones,When The Whip Comes Down - Live,6BhlvPauirxShSGII64gRY,0.318,0.97,2,-4.007,1,0.0918,0.0821,0.981,0.413,141.093,250387,4,Sticky Fingers Live At The Fonda Theatre
+408,The Rolling Stones,All Down The Line - Live,4ueYPjRGPCbgbuqxVJbxA9,0.33,0.938,7,-3.834,1,0.0575,0.0613,0.963,0.505,141.378,297147,4,Sticky Fingers Live At The Fonda Theatre
+409,The Rolling Stones,Sway - Live,0hCZmVN8loABPxKWsOgExO,0.189,0.875,5,-3.521,1,0.0475,0.0191,0.735,0.59,174.684,211307,4,Sticky Fingers Live At The Fonda Theatre
+410,The Rolling Stones,Dead Flowers - Live,1VEGh373Jf1jaL5vlMrCIu,0.448,0.952,2,-4.349,1,0.0705,1.97E-05,0.935,0.618,132.442,254587,4,Sticky Fingers Live At The Fonda Theatre
+411,The Rolling Stones,Wild Horses - Live,0GhzPttY0cgrvi694uy2mt,0.364,0.702,7,-6.247,1,0.0293,4.43E-05,0.972,0.324,83.721,280840,4,Sticky Fingers Live At The Fonda Theatre
+412,The Rolling Stones,Sister Morphine - Live,6m81AWwIChF9vKcw4co7WN,0.233,0.756,9,-4.724,0,0.0558,0.00804,0.778,0.292,167.564,356547,4,Sticky Fingers Live At The Fonda Theatre
+413,The Rolling Stones,You Gotta Move - Live,75F2uIpHZAWolnnvzuWQyv,0.323,0.771,9,-6.199,0,0.059,0.000179,0.944,0.378,74.609,216613,4,Sticky Fingers Live At The Fonda Theatre
+414,The Rolling Stones,Bitch - Live,2Y3ZiT0koRQYn1hQUYn9be,0.377,0.985,4,-2.68,0,0.0548,0.0482,0.972,0.458,140.657,267253,4,Sticky Fingers Live At The Fonda Theatre
+415,The Rolling Stones,Can't You Hear Me Knocking - Live,0KL4ApWajaaENX9bMIyfOW,0.336,0.894,0,-3.829,1,0.0485,0.554,0.956,0.668,144.237,441147,4,Sticky Fingers Live At The Fonda Theatre
+416,The Rolling Stones,I Got The Blues - Live,3hWRTADmmOGK9vQyqABl0R,0.351,0.636,7,-5.228,1,0.0361,0.00122,0.962,0.301,140.082,269680,3,Sticky Fingers Live At The Fonda Theatre
+417,The Rolling Stones,Moonlight Mile - Live,7eIMXcmayO7IICrjBR2Vvw,0.31,0.652,7,-5.891,1,0.0303,0.0415,0.644,0.159,74.503,281227,4,Sticky Fingers Live At The Fonda Theatre
+418,The Rolling Stones,Brown Sugar - Live,738RID7Nw6ldnHex8fOGSa,0.372,0.967,0,-3.689,1,0.126,0.0142,0.973,0.312,136.477,490960,4,Sticky Fingers Live At The Fonda Theatre
+419,The Rolling Stones,Rock Me Baby - Live,1Il9vJbi6erMzewzmz1cie,0.393,0.913,5,-3.203,1,0.0574,0.00158,0.773,0.444,100.689,271480,4,Sticky Fingers Live At The Fonda Theatre
+420,The Rolling Stones,Jumpin’ Jack Flash - Live,3MpwiisYis0ojWHfmw0whE,0.273,0.974,11,-3.278,0,0.0672,0.223,0.904,0.456,137.997,287440,4,Sticky Fingers Live At The Fonda Theatre
+421,The Rolling Stones,I Can’t Turn You Loose - Live,71CaTm2R0SY0TcB4mQlnUr,0.407,0.966,0,-2.822,1,0.0594,0.0525,0.947,0.53,141.578,324667,4,Sticky Fingers Live At The Fonda Theatre
+422,The Rolling Stones,Intro - Live,7uq3GDkDHK9dpwIwKKuNtH,0.165,0.997,5,-10.224,0,0.132,0,0.913,0.0249,127.786,48000,3,Ladies & Gentlemen (Live)
+423,The Rolling Stones,Brown Sugar - Live,5XpbQXsog6NzuYocw2rsMP,0.384,0.86,0,-4.426,1,0.0339,2.98E-05,0.516,0.794,138.518,193733,4,Ladies & Gentlemen (Live)
+424,The Rolling Stones,Bitch - Live,4OLqHWo1pzyd6JZlo73Hfm,0.404,0.871,2,-5.118,1,0.0411,0,0.63,0.828,142.464,285867,4,Ladies & Gentlemen (Live)
+425,The Rolling Stones,Gimme Shelter - Live,6VVhdTGkSM7qvRshro3Bqv,0.394,0.866,1,-5.711,0,0.0371,9.93E-05,0.816,0.437,132.926,290493,4,Ladies & Gentlemen (Live)
+426,The Rolling Stones,Dead Flowers - Live,2cu1FrhmGzReVSaGNnTMaQ,0.45,0.785,2,-7.036,1,0.0318,0.000598,0.504,0.57,138.648,243053,4,Ladies & Gentlemen (Live)
+427,The Rolling Stones,Happy - Live,6mNlcv6vQzGfRI4kEkiSM5,0.356,0.816,4,-5.552,1,0.0491,0.000107,0.644,0.546,71.211,194600,4,Ladies & Gentlemen (Live)
+428,The Rolling Stones,Tumbling Dice - Live,1cPJhjmaQqI3ybmeT3BQDi,0.451,0.726,11,-6.991,1,0.0436,0.0144,0.223,0.412,111.422,321000,4,Ladies & Gentlemen (Live)
+429,The Rolling Stones,Love In Vain - Live,49NFwcYn4wESIHOHwheb7R,0.299,0.446,7,-8.859,1,0.0291,0.0147,0.613,0.346,125.708,377667,3,Ladies & Gentlemen (Live)
+430,The Rolling Stones,Sweet Virginia - Live,5gcHczuOpwQHA3HdrLvRFb,0.404,0.706,2,-6.276,1,0.0378,1.86E-06,0.77,0.567,112.202,285173,4,Ladies & Gentlemen (Live)
+431,The Rolling Stones,You Can’t Always Get What You Want - Live,7xw1s52gt0KJ4zHA6ccCTm,0.361,0.677,0,-5.996,1,0.0316,2.59E-05,0.313,0.169,144.788,446907,4,Ladies & Gentlemen (Live)
+432,The Rolling Stones,All Down The Line - Live,7EZyd1QpQA3D5x8KQG4xrq,0.311,0.893,7,-5.124,1,0.0548,0.616,0.385,0.423,148.583,286933,4,Ladies & Gentlemen (Live)
+433,The Rolling Stones,Midnight Rambler - Live,31g4VGd4slz0u5EVeX5C3l,0.22,0.8,4,-4.682,1,0.0628,4.33E-05,0.953,0.429,77.862,721760,4,Ladies & Gentlemen (Live)
+434,The Rolling Stones,Bye Bye Johnny - Live,6VPUQdR0Ts7FaqPwCGx6nU,0.367,0.872,11,-5.331,0,0.0725,1.31E-05,0.9,0.616,76.626,271853,4,Ladies & Gentlemen (Live)
+435,The Rolling Stones,Rip This Joint - Live,2Ca7aZVEP8fQvOmocm0BYP,0.396,0.866,11,-5.595,0,0.0416,0.412,0.732,0.804,99.532,152733,4,Ladies & Gentlemen (Live)
+436,The Rolling Stones,Jumpin' Jack Flash - Live,7EtMJSfdIsimgPEHTWg83U,0.275,0.812,11,-4.521,0,0.0352,0.00647,0.974,0.428,147.951,218880,4,Ladies & Gentlemen (Live)
+437,The Rolling Stones,Street Fighting Man - Live,7F4pBnbkKg3tFXg0s5h5sZ,0.247,0.903,11,-4.885,1,0.0487,4.25E-05,0.607,0.296,74.483,254760,4,Ladies & Gentlemen (Live)
+438,The Rolling Stones,Just Your Fool,2kNr8K2GKAmzJHNWO7iJUF,0.547,0.903,2,-3.832,1,0.0579,0.216,0.388,0.842,116.152,136427,4,Blue & Lonesome
+439,The Rolling Stones,Commit A Crime,5hWH3pUZccd9fiDvR19GJl,0.563,0.802,2,-4.496,1,0.0311,0.667,0.534,0.777,124.123,218307,4,Blue & Lonesome
+440,The Rolling Stones,Blue And Lonesome,1g7NuHCYVpOhRSCL6ujZOG,0.341,0.833,2,-3.986,0,0.0551,0.0674,0.355,0.594,57.772,187307,4,Blue & Lonesome
+441,The Rolling Stones,All Of Your Love,1sRuWDg7BRBs8Jq5FmMNyA,0.429,0.683,4,-5.046,0,0.0327,0.462,0.272,0.277,75.68,286680,4,Blue & Lonesome
+442,The Rolling Stones,I Gotta Go,3dLnl0OKTxQcRZlGcJzorK,0.579,0.872,2,-3.102,1,0.0795,0.00286,0.087,0.505,120.033,206173,4,Blue & Lonesome
+443,The Rolling Stones,Everybody Knows About My Good Thing,1ngG1sLe4vloTtxoP92eW4,0.28,0.84,7,-3.497,1,0.0728,0.228,0.366,0.476,199.771,270827,3,Blue & Lonesome
+444,The Rolling Stones,Ride 'Em On Down,3Nzr5sukBwt2dOfXFRXX3Z,0.508,0.949,4,-4.203,1,0.0866,0.0149,0.376,0.726,116.004,168987,4,Blue & Lonesome
+445,The Rolling Stones,Hate To See You Go,0EJCZM5mVoJjA1MxcoZE6O,0.418,0.828,7,-5.173,1,0.122,0.669,0.146,0.376,184.436,200787,4,Blue & Lonesome
+446,The Rolling Stones,Hoo Doo Blues,5KjA0ATN6otF7YV09c3SBq,0.461,0.74,7,-4.961,1,0.0387,0.138,0.301,0.597,70.003,156840,4,Blue & Lonesome
+447,The Rolling Stones,Little Rain,1RRXUq5Fhqcbtm02i5p68U,0.432,0.384,2,-6.894,1,0.0279,0.0471,0.102,0.168,94.38,212213,3,Blue & Lonesome
+448,The Rolling Stones,Just Like I Treat You,3gjKl0yWv2M1aPLu6FFm3a,0.59,0.905,2,-3.631,1,0.0424,0.00802,0.176,0.626,107.307,204653,4,Blue & Lonesome
+449,The Rolling Stones,I Can't Quit You Baby,5d48Ugz3zU2qfKdgKk4tL5,0.328,0.711,2,-5.037,1,0.0455,0.0172,0.0669,0.17,182.5,313040,3,Blue & Lonesome
+450,The Rolling Stones,Jumpin' Jack Flash - Live,2iJgSdIk6Re4tphu6E3GJT,0.316,0.969,9,-3.911,1,0.0757,0.421,0.921,0.252,129.598,286051,4,Havana Moon (Live)
+451,The Rolling Stones,It's Only Rock 'N Roll (But I Like It) - Live,2IFSEoQQSmZBMoGuJ4UqCm,0.496,0.964,6,-4.747,0,0.0671,0.00984,0.848,0.574,129.723,275410,4,Havana Moon (Live)
+452,The Rolling Stones,Tumbling Dice - Live,3JsWU9n9kRR3c6piMh2E3S,0.404,0.932,4,-5.215,1,0.0687,0.0188,0.964,0.441,119.163,303274,4,Havana Moon (Live)
+453,The Rolling Stones,Out Of Control - Live,7BYShr1wJjGJ0lxQ9pDzKV,0.476,0.787,9,-5.697,1,0.0533,0.0193,0.953,0.501,118.915,433286,4,Havana Moon (Live)
+454,The Rolling Stones,All Down The Line - Live,7fye7fxya9XBfmYAtlrqGM,0.38,0.944,7,-4.43,1,0.0721,0.234,0.985,0.524,132.361,322749,4,Havana Moon (Live)
+455,The Rolling Stones,Angie - Live,7Im4IUlD1OBIvrzQLm1XXt,0.318,0.69,9,-6.217,0,0.0305,0.000154,0.735,0.417,157.003,209800,4,Havana Moon (Live)
+456,The Rolling Stones,Paint It Black - Live,6AmvtTTlYRNMEXHFdaJZa6,0.293,0.938,4,-4.385,1,0.0625,0.159,0.968,0.397,137.09,332473,4,Havana Moon (Live)
+457,The Rolling Stones,Honky Tonk Women - Live,5xysTyNKpX7HnUykxNP0fb,0.476,0.975,7,-4.198,1,0.0757,0.0436,0.872,0.522,116.957,297111,4,Havana Moon (Live)
+458,The Rolling Stones,You Got The Silver - Live,1kHsnrZl224hlOWgdAKNo8,0.27,0.702,4,-8.098,1,0.0435,0,0.941,0.395,82.765,209368,4,Havana Moon (Live)
+459,The Rolling Stones,Before They Make Me Run - Live,2aSDLeZ2WTy5MGYONRMZ7R,0.39,0.937,0,-4.608,1,0.0602,0.000164,0.94,0.655,127.861,242210,4,Havana Moon (Live)
+460,The Rolling Stones,Midnight Rambler - Live,6OqrmslFQYvd2GOP9ERBVP,0.281,0.9,9,-5.72,1,0.0804,0.145,0.918,0.342,129.685,929458,4,Havana Moon (Live)
+461,The Rolling Stones,Miss You - Live,705STzhw6hbpB8VMPZRm8T,0.476,0.884,9,-5.513,0,0.0455,0.0606,0.589,0.638,115.307,500552,4,Havana Moon (Live)
+462,The Rolling Stones,Gimme Shelter - Live,4FlItJzB5XHT6mSEzJeaG0,0.457,0.872,1,-4.21,0,0.0339,0.0335,0.678,0.241,114.645,484999,4,Havana Moon (Live)
+463,The Rolling Stones,Start Me Up - Live,0sp7g00CMmfLXP4DWl4NRe,0.457,0.958,5,-3.563,1,0.0455,0.0405,0.979,0.783,120.624,261952,4,Havana Moon (Live)
+464,The Rolling Stones,Sympathy For The Devil - Live,7cSrZ9Uu1c4JImssIyqsvP,0.614,0.929,9,-5.471,1,0.0446,0.109,0.954,0.551,107.978,475218,4,Havana Moon (Live)
+465,The Rolling Stones,Brown Sugar - Live,4CZF7KwvFmUUDkl4P9lfYn,0.438,0.97,0,-4.286,0,0.0915,0.598,0.909,0.42,126.516,433033,4,Havana Moon (Live)
+466,The Rolling Stones,You Can’t Always Get What You Want - Live,36TXHtQ5NAe2cPGprUq9dR,0.221,0.808,0,-5.817,1,0.0579,0.00206,0.815,0.344,174.927,537562,4,Havana Moon (Live)
+467,The Rolling Stones,(I Can't Get No) Satisfaction - Live,6x7XTxs6pE1OuimqK7JJ7p,0.341,0.974,9,-4.155,1,0.0848,0.633,0.345,0.321,131.156,628947,4,Havana Moon (Live)
+468,The Rolling Stones,Honky Tonk Women - Live,4AHir3j8oYCxSBkZOXgqy6,0.401,0.984,7,-5.83,1,0.102,0.000855,0.97,0.466,115.993,283400,4,Totally Stripped - Brixton (Live)
+469,The Rolling Stones,Tumbling Dice - Live,5KpNaN2onUWE5ap1tJEb0M,0.37,0.957,11,-5.741,1,0.101,9.44E-05,0.964,0.365,119.247,281240,4,Totally Stripped - Brixton (Live)
+470,The Rolling Stones,You Got Me Rockin’ - Live,4z3nbTFJ52I3qhxTSLhNKE,0.375,0.96,0,-5.768,1,0.0851,0.0033,0.957,0.417,130.443,206040,4,Totally Stripped - Brixton (Live)
+471,The Rolling Stones,Live With Me - Live,44PK1Cm3mTgOLYgNYCwacB,0.342,0.982,7,-5.73,1,0.0827,0.000335,0.525,0.384,142.456,252240,4,Totally Stripped - Brixton (Live)
+472,The Rolling Stones,Black Limousine - Live,5hXl5OTCF7BJfjGndijZ9O,0.356,0.936,7,-6.378,1,0.137,0.00397,0.965,0.417,118.515,239267,4,Totally Stripped - Brixton (Live)
+473,The Rolling Stones,Dead Flowers - Live,7yTr94YYbySmuw6P5Hgr4m,0.456,0.958,2,-6.413,1,0.0671,0,0.895,0.539,136.371,258213,4,Totally Stripped - Brixton (Live)
+474,The Rolling Stones,Sweet Virginia - Live,5s8PoiUEeFhzqtN0scmhhR,0.385,0.901,9,-7.095,1,0.0886,2.88E-06,0.86,0.32,115.651,266213,4,Totally Stripped - Brixton (Live)
+475,The Rolling Stones,Faraway Eyes - Live,7ASfPodLK3rEKgUvyE8T87,0.385,0.73,5,-8.582,1,0.0418,1.94E-06,0.815,0.482,107.128,296120,4,Totally Stripped - Brixton (Live)
+476,The Rolling Stones,Love In Vain - Live,3JGBlKEOLFyNsH3Hb3pyeu,0.316,0.62,7,-9.47,1,0.0354,0.000535,0.895,0.355,173.292,311827,3,Totally Stripped - Brixton (Live)
+477,The Rolling Stones,Down In The Bottom - Live,6WldjfQQ1uKcEYYqiGDCcP,0.489,0.957,4,-6.391,1,0.0628,0.000587,0.945,0.7,119.84,208000,4,Totally Stripped - Brixton (Live)
+478,The Rolling Stones,Shine A Light - Live,3u85jMegJFzVuRBOI8i4Me,0.272,0.824,0,-6.699,1,0.0494,6.17E-05,0.768,0.414,84.185,281320,4,Totally Stripped - Brixton (Live)
+479,The Rolling Stones,Like A Rolling Stone - Live,42lZNU10LGveGqm6VyJjcf,0.123,0.936,0,-5.012,1,0.0753,0.000203,0.971,0.449,204.066,352680,4,Totally Stripped - Brixton (Live)
+480,The Rolling Stones,Monkey Man - Live,4PN6MNzFKUDsaYzvDN88mW,0.493,0.927,11,-5.094,1,0.0501,0.0586,0.606,0.286,107.904,263413,4,Totally Stripped - Brixton (Live)
+481,The Rolling Stones,I Go Wild - Live,2xBjpE0gh5FOa354s8cmtm,0.415,0.957,7,-5.422,1,0.0988,0.000133,0.895,0.373,113.367,397627,4,Totally Stripped - Brixton (Live)
+482,The Rolling Stones,Miss You - Live,4U6UFdau5bCCiquXGpekPm,0.458,0.93,9,-6.973,0,0.0929,0.00806,0.811,0.465,116.199,831960,4,Totally Stripped - Brixton (Live)
+483,The Rolling Stones,Connection - Live,40jTg5eNkgjUWmBvCoq7hd,0.248,0.945,0,-5.967,1,0.132,0,0.889,0.381,159.571,213627,4,Totally Stripped - Brixton (Live)
+484,The Rolling Stones,Slipping Away - Live,3sEWgRE8bVMsdGJHIPCzaC,0.438,0.839,9,-6.812,1,0.0374,1.99E-06,0.901,0.564,104.953,350293,4,Totally Stripped - Brixton (Live)
+485,The Rolling Stones,Midnight Rambler - Live,3c7D4xClLbpKuSdjNAlH63,0.302,0.905,4,-6.156,1,0.0698,0.0077,0.961,0.364,144.478,574947,4,Totally Stripped - Brixton (Live)
+486,The Rolling Stones,Rip This Joint - Live,6EA0ZXpRfGDFo7ej3Tfzuq,0.426,0.991,11,-4.112,0,0.114,2.60E-05,0.972,0.376,103.58,139440,4,Totally Stripped - Brixton (Live)
+487,The Rolling Stones,Start Me Up - Live,6ldqHzwY0JQoQC3du9qb2e,0.423,0.973,5,-4.911,1,0.0616,0.00145,0.983,0.73,134.512,244787,4,Totally Stripped - Brixton (Live)
+488,The Rolling Stones,Brown Sugar - Live,3XsM2EQq4WrUlxE0jn1kP8,0.377,0.973,0,-4.874,1,0.129,0.00604,0.977,0.393,139.801,321720,4,Totally Stripped - Brixton (Live)
+489,The Rolling Stones,Jumpin’ Jack Flash - Live,3nf7duO31qRQCtzIgw01No,0.274,0.978,4,-4.906,1,0.0913,0.125,0.948,0.358,142.601,338813,4,Totally Stripped - Brixton (Live)
+490,The Rolling Stones,Band Introductions - Live,06KxbhUQxW94BdHvjjvQzp,0.262,0.939,4,-9.269,0,0.222,0.00952,0.936,0.0317,79.42,284427,3,Licked Live In NYC
+491,The Rolling Stones,Thru And Thru - Live,1rXa5covpujMsZPzOadZRr,0.278,0.651,9,-7.024,1,0.0553,0.000425,0.893,0.334,95.853,432360,4,Licked Live In NYC
+492,The Rolling Stones,Happy - Live,0qr1oRKbG1EazVFjNGd1Li,0.322,0.947,2,-4.12,1,0.0602,0.163,0.955,0.498,136.149,222560,4,Licked Live In NYC
