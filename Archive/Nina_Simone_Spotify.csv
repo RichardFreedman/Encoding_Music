@@ -1,0 +1,51 @@
+,artist,album,track_name,track_id,danceability,energy,key,loudness,mode,speechiness,instrumentalness,liveness,valence,tempo,duration_ms,time_signature
+0,Nina Simone,I Put A Spell On You,Feeling Good,6Rqn2GFlmvmV4w9Ala0I1e,0.399,0.326,7,-9.239,0,0.0386,0,0.191,0.546,79.206,174000,4
+1,Nina Simone,Broadway-Blues-Ballads,Don't Let Me Be Misunderstood,7M9pPyt8Gr41THLhbz4NSB,0.388,0.501,11,-11.296,0,0.0731,0,0.305,0.532,158.348,166200,4
+2,Nina Simone,I Put A Spell On You,I Put A Spell On You,0sjxRg1VlYfx4YG7uxurrq,0.42,0.398,6,-9.13,0,0.0296,0.000537,0.172,0.364,88.897,155027,3
+3,Nina Simone,Pastel Blues,Sinnerman,5xRP5iyVdGglqlY4Vcjhkx,0.436,0.543,11,-13.351,0,0.0962,9.35e-06,0.0937,0.663,148.282,622000,4
+4,Nina Simone,Pastel Blues,Strange Fruit,2eKwjJkBUaeaGq5GA1wTwc,0.383,0.0248,11,-15.854,0,0.0673,0,0.0778,0.237,85.103,208933,3
+5,Nina Simone,I Put A Spell On You,Ne Me Quitte Pas,6illsnZ2rn1lCzXY9gBC28,0.412,0.244,4,-11.578,0,0.0433,4.78e-05,0.156,0.25,97.855,214533,4
+6,Nina Simone,Fodder On My Wings,Color Is A Beautiful Thing,027wIJmxOgCGvpI6qzHjj2,0.645,0.245,11,-9.864,1,0.0499,0,0.162,0.597,77.12,63627,4
+7,Nina Simone,Wild Is The Wind,Lilac Wine,3Hi4KlRtdgJbyIUpeFBckY,0.419,0.0758,6,-17.264,1,0.0398,1.34e-05,0.0939,0.231,129.806,253800,4
+8,Nina Simone,Pastel Blues,Be My Husband,4ZFwqrpTFL9dRMDSyIH262,0.582,0.36,10,-12.537,0,0.172,0,0.0504,0.382,80.424,200667,4
+9,Nina Simone,Here Comes The Sun (Expanded Edition),Here Comes the Sun,1x9ahz0ALGHgbN9wwDjmre,0.415,0.37,1,-12.805,1,0.0378,1.64e-05,0.0736,0.648,116.85,214093,4
+10,Nina Simone,Little Girl Blue (2013 Remastered Version),My Baby Just Cares for Me - 2013 Remastered Version,6VTbbVjKOC2qWagIDbkJrC,0.746,0.243,4,-15.134,0,0.123,1.02e-06,0.0905,0.425,118.578,215747,4
+11,Nina Simone,Folksy Nina,The Twelveth of Never,7F0YrCETWyKpprlNJpYfWi,0.351,0.00956,10,-23.98,1,0.0433,0.0152,0.663,0.241,110.204,207267,3
+12,Nina Simone,At Newport,"Li'l Liza Jane - Live at the Newport Jazz Festival, Newport, RI, June 30, 1960",59ergcrbjTOTKEetpTQJhI,0.497,0.317,11,-18.446,0,0.0834,0,0.786,0.3,75.523,273667,4
+13,Nina Simone,Silk & Soul (Expanded Edition),I Wish I Knew How It Would Feel to Be Free,5CKHhg31HcYYhwUeeGqvhq,0.687,0.51,10,-8.501,1,0.076,0,0.117,0.666,122.253,188613,4
+14,Nina Simone,Baltimore,Baltimore,39CyGKIFqMzSuynOR8uilD,0.638,0.28,9,-16.516,1,0.0673,0.439,0.0611,0.734,154.955,278867,4
+15,Nina Simone,A Single Woman (Expanded),The Times They Are A-Changin' - Outtake,159F1pdX35fbRevVBbjTFw,0.329,0.143,7,-12.385,1,0.0453,0,0.074,0.578,190.726,58427,4
+16,Nina Simone,To Love Somebody (Expanded Edition),To Love Somebody,7LZoKNMhsZ7qbP1lYGDva8,0.554,0.48,9,-10.925,1,0.0317,1.09e-05,0.165,0.626,91.311,158747,4
+17,Nina Simone,Let It All Out,Love Me Or Leave Me,2XzHou7MZzOBQBqjWw86Nt,0.572,0.398,0,-10.751,1,0.0376,4.59e-06,0.128,0.76,86.135,244867,4
+18,Nina Simone,Here Comes The Sun (Expanded Edition),Just Like a Woman,3LELTbDh9YCJrJIUERcj9p,0.457,0.379,6,-13.618,1,0.0342,0.000276,0.202,0.363,78.49,290080,3
+19,Nina Simone,Little Girl Blue (2013 Remastered Version),I Loves You Porgy - 2013 Remastered Version,0kDpFPQgQYeZ7t04Quiwkn,0.477,0.0494,4,-21.157,1,0.0652,2.21e-06,0.109,0.195,62.434,249782,4
+20,Nina Simone,Here Comes The Sun (Expanded Edition),Mr. Bojangles,5ywoRjfVIlcJiSAxwPT3Pt,0.461,0.304,6,-13.737,1,0.0332,2.18e-05,0.287,0.246,113.842,299213,4
+21,Nina Simone,Nina Simone Sings The Blues (Expanded Edition),I Want a Little Sugar In My Bowl,3NcJu9876GBJuNU6vJOrbb,0.626,0.312,6,-9.246,1,0.0332,2.94e-06,0.181,0.298,98.708,152107,3
+22,Nina Simone,Silk & Soul (Expanded Edition),The Look of Love,0EiGzshQIaM98eOXdKTGaD,0.626,0.304,7,-13.439,0,0.0309,0.000147,0.146,0.496,111.918,142613,4
+23,Nina Simone,I Put A Spell On You,Take Care Of Business,2YwjSPeznyCvkUYvqKbXa9,0.65,0.491,2,-8.532,0,0.0685,0,0.121,0.739,102.966,125960,4
+24,Nina Simone,Wild Is The Wind,Black Is The Color Of My True Love's Hair,33WjZmABjWk4zrerZiFLJ7,0.288,0.0534,9,-21.689,0,0.0443,0.00394,0.0945,0.125,136.902,204440,1
+25,Nina Simone,Nina Simone Sings The Blues (Expanded Edition),Do I Move You?,0aIcFRGr88cGtlEJBuDub6,0.386,0.511,4,-4.821,0,0.0375,0,0.2,0.548,162.693,164987,3
+26,Nina Simone,To Love Somebody (Expanded Edition),I Shall Be Released,32BTFbqhSvYKftE0e8a8d4,0.374,0.344,9,-10.654,1,0.0344,3.5e-05,0.0534,0.549,169.868,233000,3
+27,Nina Simone,"Forever Young, Gifted And Black: Songs Of Freedom And Spirit","To Be Young, Gifted and Black - 2005 Remix",67RKpDruBXMJgAmhJAivXr,0.563,0.341,0,-8.445,1,0.0309,0.000249,0.137,0.712,79.148,169840,3
+28,Nina Simone,Little Girl Blue (2013 Remastered Version),Plain Gold Ring - 2013 Remastered Version,1JDtis0DMrFexM4kfoIH98,0.442,0.0666,7,-21.231,1,0.0385,1.26e-05,0.189,0.581,165.317,228104,4
+29,Nina Simone,Silk & Soul (Expanded Edition),Save Me,395JOroUb1RLcDp5BCN7F5,0.707,0.708,0,-7.543,1,0.117,1.46e-05,0.0764,0.908,126.698,202053,4
+30,Nina Simone,High Priestess Of Soul,Work Song,628A54HsxBPfgJPShyD7gx,0.571,0.409,4,-9.16,0,0.0625,0,0.391,0.687,123.541,183667,4
+31,Nina Simone,Let It All Out,Mood Indigo,1BaAzMva4yf7cWeOGwp7H4,0.569,0.432,6,-11.012,0,0.0428,0,0.164,0.531,120.37,146627,4
+32,Nina Simone,To Love Somebody (Expanded Edition),Suzanne,1rsTANyQavJLIiPIFUgoiM,0.694,0.33,11,-12.434,1,0.0433,0,0.146,0.591,118.087,259867,4
+33,Nina Simone,Nina Simone & Piano (Expanded Edition),I Get Along Without You Very Well (Except Sometimes),6zYfEsNOhv5hd6CfwPXjIY,0.375,0.0357,11,-24.723,1,0.0434,0.000738,0.175,0.169,100.884,289080,4
+34,Nina Simone,Let It All Out,"Little Girl Blue - Live In New York, 1964",0Z6J3eMqewSwFvVuclFxwD,0.357,0.131,7,-17.882,1,0.0335,0.000453,0.167,0.255,143.469,152373,4
+35,Nina Simone,Broadway-Blues-Ballads,See-Line Woman,2vyIoVK6ggvXVNEvmIt1vs,0.787,0.724,11,-12.587,1,0.202,4.46e-06,0.21,0.686,119.28,155427,4
+36,Nina Simone,Here Comes The Sun (Expanded Edition),My Way,2Yg4GGGKqGwoqM5OgdhpAj,0.46,0.88,6,-10.02,1,0.0452,0.000457,0.0663,0.858,168.173,314840,4
+37,Nina Simone,Nina Simone Sings The Blues (Expanded Edition),Blues for Mama,2vY3XKWiQ3gb4o0aXRtHjY,0.407,0.406,4,-6.955,1,0.0314,0,0.184,0.501,182.426,235880,3
+38,Nina Simone,Nina Simone Sings The Blues (Expanded Edition),Since I Fell for You,0S8wQT9YkE41gHIGwXvgep,0.376,0.207,4,-11.719,1,0.03,2.68e-06,0.124,0.18,102.674,170320,4
+39,Nina Simone,Nina Simone & Piano (Expanded Edition),I Think It's Going to Rain Today,6GWLNfRviT4S82inkxvXV8,0.499,0.0647,8,-16.807,1,0.0537,0,0.086,0.451,133.766,200040,3
+40,Nina Simone,Wild Is The Wind,Wild Is The Wind,3muwYfpLZGYsvrrssEzrxF,0.311,0.153,9,-16.363,0,0.0403,0.0051,0.0518,0.157,123.0,416693,5
+41,Nina Simone,The Very Best Of Nina Simone 1967-1972 - Sugar In My Bowl,Do What You Gotta Do,1WP7Snm91AFyvhWb3s8UB8,0.311,0.463,6,-10.838,1,0.0601,2.15e-05,0.263,0.594,159.401,214893,4
+42,Nina Simone,Nina Simone Sings The Blues (Expanded Edition),Backlash Blues,2bdapwYVEGpGWxlx3iooAB,0.672,0.643,10,-5.361,1,0.0364,1.49e-05,0.0744,0.807,115.566,148827,3
+43,Nina Simone,A Single Woman (Expanded),If I Should Lose You - 2003 Remaster,78c7e7g2gNTO8kbLgzYiwu,0.259,0.195,9,-12.843,0,0.0288,8.5e-05,0.121,0.124,90.888,239400,3
+44,Nina Simone,Wild Is The Wind,Four Women,7urjzeGBtfHdwWmfYJjdAp,0.454,0.206,9,-14.855,0,0.0333,0.000108,0.067,0.336,167.169,264667,4
+45,Nina Simone,Little Girl Blue (2013 Remastered Version),Don't Smoke in Bed - 2013 Remastered Version,4m7pFEW1DUYIqDAxChidNt,0.346,0.0235,4,-19.584,0,0.0406,6.24e-05,0.0956,0.149,94.545,190370,5
+46,Nina Simone,I Put A Spell On You,Tomorrow Is My Turn,3cfz4PB3iCqG12StNkKvRo,0.348,0.325,7,-12.696,0,0.0382,6.63e-05,0.15,0.625,59.618,168307,4
+47,Nina Simone,Pastel Blues,Nobody Knows You When You're Down And Out,5yMRZqh2HCo5NFbLNt6sD1,0.482,0.328,9,-12.076,1,0.0401,0,0.0827,0.436,116.687,158200,1
+48,Nina Simone,A Single Woman (Expanded),"No Woman, No Cry - Outtake",3SmTSujkbFtr7OKhHhheQi,0.607,0.381,9,-10.821,1,0.0735,2.43e-05,0.105,0.703,167.42,195933,4
+49,Nina Simone,At Town Hall,The Other Woman - Live Version - Sept. 1959,2kvYMbijT2djq5C0MnMI6h,0.416,0.219,7,-16.297,0,0.0385,0.000421,0.788,0.285,59.94,181173,4
