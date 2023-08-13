@@ -1,8 +1,20 @@
 # Statistical Charts
 
+
+## Table of Contents:
+
+- [Statistical Charts](#statistical-charts)
+  - [Table of Contents:](#table-of-contents)
+  - [Bar Charts](#bar-charts)
+  - [Histograms](#histograms)
+  - [Scatter Plots](#scatter-plots)
+  - [Correlation Plots](#correlation-plots)
+  - [Correlation does not equal causation](#correlation-does-not-equal-causation)
+  
+   
 In this lesson, we will explore various statistical charts commonly used in data analysis. These charts provide visual representations of data and help us gain insights and draw conclusions. We'll cover how to generate each chart using Plotly, Matplotlib, and Altair. Let's dive in!
 
-## Bar Charts
+## <a name="bar-Charts"></a>Bar Charts
 
 Bar charts are used to display categorical data. They consist of vertical or horizontal bars that represent different categories and their corresponding values. Bar charts are excellent for comparing data across different categories.
 
@@ -34,7 +46,7 @@ plt.show()
 ```
 ![Alt text](images/bar_chart_matplotlib.svg)
 
-## Histograms
+## <a name="histograms"></a>Histograms
 Histograms are used to display the distribution of numerical data. They consist of a series of adjacent rectangles (bins) that represent the frequency or proportion of data falling within specific intervals. Histograms help us understand the shape and spread of data.
 
 Here's an example of a histogram displaying the distribution of exam scores:
@@ -69,7 +81,7 @@ plt.show()
 ![Alt text](images/histogram_matplotlib.svg)
 
 
-## Scatterplots
+## <a name="scatterplots"></a>Scatter Plots
 Scatter plots are used to display the relationship between two numerical variables. Each point on the plot represents the values of the variables. Scatter plots are useful for identifying patterns, trends, and outliers in the data.
 
 Here's an example of a scatter plot showing the relationship between study hours and exam scores:
@@ -104,7 +116,7 @@ plt.show()
 
 [See More Info on Regressions, here](Regressions.md)
 
-## Correlation Plots
+## <a name="correlation-plots"></a>Correlation Plots
 Correlation plots are used to visualize the strength and direction of the relationship between two numerical variables. They provide a numerical measure called the correlation coefficient, which ranges from -1 to 1. A value close to -1 indicates a strong negative correlation, a value close to 1 indicates a strong positive correlation, and a value close to 0 indicates no or weak correlation.
 
 Here's an example of a correlation plot:
