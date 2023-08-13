@@ -194,7 +194,6 @@ plt.show()
 
 
 ### Axis Scaling and Text Rotation
-Explaining how to modify the scale of the axes is important, especially when dealing with data that spans a wide range. Whether it's adjusting logarithmic scales or specifying custom ranges, including guidance on axis scaling can make charts more informative.
 #### Plotly Example:
 ```python
 import plotly.graph_objects as go
