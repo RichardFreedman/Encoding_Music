@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1000;
+            height: 800;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "#fffff", "group": 0, "id": "The Beatles", "label": "The Beatles", "shape": "dot", "value": 80}, {"group": 1, "id": "John Lennon", "label": "John Lennon", "shape": "dot", "value": 66}, {"group": 2, "id": "George Harrison", "label": "George Harrison", "shape": "dot", "value": 64}, {"group": 3, "id": "Paul McCartney", "label": "Paul McCartney", "shape": "dot", "value": 68}, {"group": 4, "id": "The Beach Boys", "label": "The Beach Boys", "shape": "dot", "value": 70}, {"group": 5, "id": "The Kinks", "label": "The Kinks", "shape": "dot", "value": 64}, {"group": 1, "id": "Ringo Starr", "label": "Ringo Starr", "shape": "dot", "value": 47}, {"group": 1, "id": "Harry Nilsson", "label": "Harry Nilsson", "shape": "dot", "value": 57}, {"group": 2, "id": "Traveling Wilburys", "label": "Traveling Wilburys", "shape": "dot", "value": 58}, {"group": 2, "id": "Wings", "label": "Wings", "shape": "dot", "value": 63}, {"group": 3, "id": "Badfinger", "label": "Badfinger", "shape": "dot", "value": 52}, {"group": 4, "id": "The Monkees", "label": "The Monkees", "shape": "dot", "value": 61}, {"group": 4, "id": "The Lovin\u0027 Spoonful", "label": "The Lovin\u0027 Spoonful", "shape": "dot", "value": 56}, {"group": 4, "id": "The Mamas \u0026 The Papas", "label": "The Mamas \u0026 The Papas", "shape": "dot", "value": 65}, {"group": 4, "id": "The Hollies", "label": "The Hollies", "shape": "dot", "value": 61}, {"group": 4, "id": "The Zombies", "label": "The Zombies", "shape": "dot", "value": 57}, {"group": 5, "id": "Small Faces", "label": "Small Faces", "shape": "dot", "value": 43}, {"group": 5, "id": "The Animals", "label": "The Animals", "shape": "dot", "value": 63}, {"group": 5, "id": "Donovan", "label": "Donovan", "shape": "dot", "value": 54}]);
+        edges = new vis.DataSet([{"from": "The Beatles", "to": "John Lennon"}, {"from": "The Beatles", "to": "George Harrison"}, {"from": "The Beatles", "to": "Paul McCartney"}, {"from": "The Beatles", "to": "The Beach Boys"}, {"from": "The Beatles", "to": "The Kinks"}, {"from": "John Lennon", "to": "George Harrison"}, {"from": "John Lennon", "to": "Ringo Starr"}, {"from": "John Lennon", "to": "Paul McCartney"}, {"from": "John Lennon", "to": "Harry Nilsson"}, {"from": "George Harrison", "to": "Ringo Starr"}, {"from": "George Harrison", "to": "Traveling Wilburys"}, {"from": "George Harrison", "to": "Wings"}, {"from": "George Harrison", "to": "Paul McCartney"}, {"from": "Paul McCartney", "to": "Ringo Starr"}, {"from": "Paul McCartney", "to": "Wings"}, {"from": "Paul McCartney", "to": "Badfinger"}, {"from": "The Beach Boys", "to": "The Monkees"}, {"from": "The Beach Boys", "to": "The Lovin\u0027 Spoonful"}, {"from": "The Beach Boys", "to": "The Mamas \u0026 The Papas"}, {"from": "The Beach Boys", "to": "The Hollies"}, {"from": "The Beach Boys", "to": "The Zombies"}, {"from": "The Kinks", "to": "The Zombies"}, {"from": "The Kinks", "to": "Small Faces"}, {"from": "The Kinks", "to": "The Animals"}, {"from": "The Kinks", "to": "Donovan"}, {"from": "The Kinks", "to": "The Lovin\u0027 Spoonful"}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

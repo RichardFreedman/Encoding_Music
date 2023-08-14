@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1000;
+            height: 800;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "#fffff", "group": 0, "id": "Ben E. King: Stand by Me", "label": "Ben E. King: Stand by Me", "shape": "dot", "value": 83}, {"group": 1, "id": "Elvis Presley: Can\u0027t Help Falling in Love", "label": "Elvis Presley: Can\u0027t Help Falling in Love", "shape": "dot", "value": 81}, {"group": 2, "id": "Wayne Douglas: If I Saw You In Heaven", "label": "Wayne Douglas: If I Saw You In Heaven", "shape": "dot", "value": 24}, {"group": 3, "id": "Phil Collins: You Can\u0027t Hurry Love - 2016 Remaster", "label": "Phil Collins: You Can\u0027t Hurry Love - 2016 Remaster", "shape": "dot", "value": 80}, {"group": 1, "id": "DJ Drive: I Keep Dancing on My Own", "label": "DJ Drive: I Keep Dancing on My Own", "shape": "dot", "value": 35}, {"group": 1, "id": "Vamp: Tir n\u0027a Noir", "label": "Vamp: Tir n\u0027a Noir", "shape": "dot", "value": 50}, {"group": 1, "id": "Phil Collins: Two Worlds", "label": "Phil Collins: Two Worlds", "shape": "dot", "value": 61}, {"group": 2, "id": "Jonathan Ansell: I Wanna Know What Love Is", "label": "Jonathan Ansell: I Wanna Know What Love Is", "shape": "dot", "value": 33}, {"group": 2, "id": "The Real Thing: You To Me Are Everything", "label": "The Real Thing: You To Me Are Everything", "shape": "dot", "value": 65}, {"group": 2, "id": "Kim Wilde: You Came - Single Version", "label": "Kim Wilde: You Came - Single Version", "shape": "dot", "value": 57}, {"group": 3, "id": "Queen: A Kind Of Magic - Remastered 2011", "label": "Queen: A Kind Of Magic - Remastered 2011", "shape": "dot", "value": 74}, {"group": 3, "id": "Milow: You And Me (In My Pocket)", "label": "Milow: You And Me (In My Pocket)", "shape": "dot", "value": 45}, {"group": 3, "id": "Alicia Keys: If I Ain\u0027t Got You", "label": "Alicia Keys: If I Ain\u0027t Got You", "shape": "dot", "value": 82}]);
+        edges = new vis.DataSet([{"from": "Ben E. King: Stand by Me", "to": "Elvis Presley: Can\u0027t Help Falling in Love"}, {"from": "Ben E. King: Stand by Me", "to": "Wayne Douglas: If I Saw You In Heaven"}, {"from": "Ben E. King: Stand by Me", "to": "Phil Collins: You Can\u0027t Hurry Love - 2016 Remaster"}, {"from": "Elvis Presley: Can\u0027t Help Falling in Love", "to": "DJ Drive: I Keep Dancing on My Own"}, {"from": "Elvis Presley: Can\u0027t Help Falling in Love", "to": "Vamp: Tir n\u0027a Noir"}, {"from": "Elvis Presley: Can\u0027t Help Falling in Love", "to": "Phil Collins: Two Worlds"}, {"from": "Wayne Douglas: If I Saw You In Heaven", "to": "Jonathan Ansell: I Wanna Know What Love Is"}, {"from": "Wayne Douglas: If I Saw You In Heaven", "to": "The Real Thing: You To Me Are Everything"}, {"from": "Wayne Douglas: If I Saw You In Heaven", "to": "Kim Wilde: You Came - Single Version"}, {"from": "Phil Collins: You Can\u0027t Hurry Love - 2016 Remaster", "to": "Queen: A Kind Of Magic - Remastered 2011"}, {"from": "Phil Collins: You Can\u0027t Hurry Love - 2016 Remaster", "to": "Milow: You And Me (In My Pocket)"}, {"from": "Phil Collins: You Can\u0027t Hurry Love - 2016 Remaster", "to": "Alicia Keys: If I Ain\u0027t Got You"}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
