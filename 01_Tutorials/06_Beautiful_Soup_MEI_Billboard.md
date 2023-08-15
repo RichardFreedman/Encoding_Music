@@ -42,8 +42,6 @@ dir(bs)
 ```
 
 
-
-
     ['ASCII_SPACES',
      'DEFAULT_BUILDER_FEATURES',
      'DEFAULT_INTERESTING_STRING_TYPES',
@@ -232,7 +230,7 @@ Once you've imported a file, you should be able to **convert it into a Beautiful
 
 
 ```python
-soup = bs(xml_document, 'xml')
+my_soup_file = bs(xml_document, 'xml')
 ```
 
 ____________________
@@ -244,12 +242,12 @@ The **MEI** framework tends to be easy to understand (as it is meant to be human
 First, let's take a look at the document as a whole. Make the cell below **print the "pretty"** version of your MEI file:
 
 ```python
-print(soup.prettify())
+print(my_soup_file.prettify())
 ```
 
 
 ```python
-print(soup.prettify())
+print(my_soup_file.prettify())
 ```
 
 This is just the start ...
@@ -283,7 +281,25 @@ This is just the start ...
        </titleStmt>
 
 ----
-## Family Matters:  More Work with Children, Siblings, and Parents 
+
+## Searching Elements and Attributes
+
+The `find()` and `find(all)` methods are key ways of returning one or more tags in your XML file.  
+
+`my_soup_file.persName()`, for example, will return the first instance of the `persName` tag in the MEI document we previously imported and named as the `my_soup_file` object. But it is also possible to do this in several other ways, with varied results:
+
+- `my_soup_file.find('persName')` will find *the first* instance of a tag with that name.
+- `my_soup_file.find_all('persName')` will find *all* the tags with that name and return them as a Python `list` object, across which you can iterate
+- It is also possible to pass in lists (to return several different tags), regular expressions (to return tags matching various conditions), and even a dictionary (to match attributes of tags). Read more in the [Beautiful Soup documentation](https://tedboy.github.io/bs4_doc/6_searching_the_tree.html).
+- We can *edit* tags and their attributes, and even *add or delete* tags.  For instance we might want to change or add the name of an editor in a certain file, or to update information about copyright in a folder of files.  Read more in the [Beautiful Soup documentation](https://tedboy.github.io/bs4_doc/7_modifying_the_tree.html).
+- We can report the entire tag, or get just the text associated with it, then use that information in some subsequent report or process.  For instance, we could return a list of editors or sources for one or more files.  Or we could collect information about clefs and key signatures across a corpus of files, and 
+
+As explained in the following section of this tutorial, these same basic concepts can be applied across the XML tree to look for children, parents and siblings of various tags.
+
+
+
+----
+## Family Matters:  Working with Children, Siblings, and Parents 
 
 As you have probably noticed by now, MEI (and XML, generally) files follow a **tree-like structure**. Any document has its elements defined recursively, as its children. Intuitively, **children** are elements contained within a broader element (think section), also known as **parent**.  And **children** of the same parent tag are **siblings**.
 
@@ -292,31 +308,29 @@ In a way, the Title Statement ("\<titleStmt>") element is a wrapper for all thin
 
     
 ```python
-print(soup.titleStmt.prettify())
+print(my_soup_file.titleStmt.prettify())
 ```
 
 It's possible to return these in turn, by chaining the elements together:
     
 ```python
-print(soup.titleStmt.title.prettify())
+print(my_soup_file.titleStmt.title.prettify())
 ```
 
 Or
     
     
 ```python
-print(soup.titleStmt.respStmt.prettify())
+print(my_soup_file.titleStmt.respStmt.prettify())
 ```
     
 Or
   
 ```python
-print(soup.titleStmt.respStmt.persName.prettify())
+print(my_soup_file.titleStmt.respStmt.persName.prettify())
 ```
     
 But once we reach `persName` we are stuck, since there are in fact several such tags, and the chained method will only return the **first instance** of each.  We need another way. This is where the **find_all** methods of Beautiful Soup come in.
-
-
 
 ### Looking Down:  Children
 
@@ -324,7 +338,7 @@ But once we reach `persName` we are stuck, since there are in fact several such 
 
 
 ```python
-children_of_title = soup_mei.titleStmt.findChildren()
+children_of_title = my_soup_file.titleStmt.findChildren()
 for child in children_of_title:
     print(child.prettify())
 ```
@@ -333,7 +347,7 @@ Here it's plain that the names of the individuals are in fact stated twice--once
 
 
 ```python
-children_of_title = soup_mei.titleStmt.findChildren()
+children_of_title = my_soup_file.titleStmt.findChildren()
 for child in children_of_title:
     print(child.prettify())
 ```
@@ -384,7 +398,7 @@ for child in children_of_title:
 
 Siblings are tags of the *same type* as a given tag.  
 
-Thus `first_person = soup_mei.titleStmt.persName` will find the **first element** of the `persName` type.
+Thus `first_person = my_soup_file.titleStmt.persName` will find the **first element** of the `persName` type.
 
 To find all the subsequent *siblings of the same type*, we use `findNextSiblings`:
 
@@ -394,13 +408,13 @@ To find all the subsequent *siblings of the same type*, we use `findNextSiblings
 We could also do this in one line of code:
 
 ```python
-sib_names = soup_mei.titleStmt.persName.findNextSiblings()
+sib_names = my_soup_file.titleStmt.persName.findNextSiblings()
 sib_names
 ```
 
 
 ```python
-first_person = soup_mei.titleStmt.persName
+first_person = my_soup_file.titleStmt.persName
 first_person.findNextSiblings()
 ```
 
@@ -412,20 +426,34 @@ first_person.findNextSiblings()
      <persName role="editor">Vincent Besson</persName>,
      <persName role="editor">Richard Freedman</persName>]
 
-
-
-### Looking Up:  Parents
-
-Here we can find the tags going up from the **bottom level** of `note`:
+`findNext` will find the next element of the same type:
 
 ```python
-for parent in soup_mei.note.find_parents():
+first_person = my_soup_file.titleStmt.persName
+first_person.findNext()
+```
+
+And this could be chained together with additional requests to `findNext`:
+
+
+```python
+second_person = my_soup_file.titleStmt.persName.findNext()
+second_person
+```
+
+    <persName role="editor">Marco Gurrieri</persName>
+### Looking Up:  Parents
+
+Here we can find the tags going up from some lower level to find out the `parent` tag (and in turn discover other children of that parent), or parents of the parents.  For example here we find all the `parents` of one `note` in our mei file. **bottom level** of `note`:
+
+```python
+for parent in my_soup_file.note.find_parents():
     print(parent.name)
 ```
 
 
 ```python
-for parent in soup_mei.note.find_parents():
+for parent in my_soup_file.note.find_parents():
     print(parent.name)
 ```
 
@@ -445,27 +473,27 @@ Knowing the **parent** of a given tag allows you to **add a sibling** of the sam
 
 ```python
 # The parent tag of persName 
-people_involved_parent = soup_mei.find("persName").parent
+people_involved_parent = my_soup_file.find("persName").parent
 # create a new tag that will have the role of 'analyst':
-new_person_tag = soup_mei.new_tag("persName", role="Analyst")
+new_person_tag = my_soup_file.new_tag("persName", role="Analyst")
 # populate the text of that new tag with a string:
 new_person_tag.string = "Oleh Shostak"
 # add the new tag to the original parent found above
 people_involved_parent.append(new_person_tag)
 # and show the result
-soup_mei.find_all("persName")
+my_soup_file.find_all("persName")
 ```
 
 
 
 
 ```python
-people_involved_parent = soup_mei.find("persName").parent
-new_person_tag = soup_mei.new_tag("persName", role="Analyst")
+people_involved_parent = my_soup_file.find("persName").parent
+new_person_tag = my_soup_file.new_tag("persName", role="Analyst")
 new_person_tag.string = "Oleh Shostak"
 people_involved_parent.append(new_person_tag)
 
-soup_mei.find_all("persName")
+my_soup_file.find_all("persName")
 ```
 
 
@@ -486,7 +514,7 @@ soup_mei.find_all("persName")
 By default, adding `children` to the request will **find all of the children** associated with that parent tag.  It returns them as a *list* (not as a slice of XML), and so to see them we need to iterate over them:
 
 ```python
-for item in soup.titleStmt.children:
+for item in my_soup_file.titleStmt.children:
     print(item.prettify())
 ```
 
@@ -500,7 +528,7 @@ Other attributes are possible with the tag, as we see in the case of the compose
 
 
 ```python
-for item in soup.titleStmt.children:
+for item in my_soup_file.titleStmt.children:
     print(item.prettify())
 ```
 
@@ -531,18 +559,18 @@ We can **find all the tags of a specific type**, too, regardless of their 'paren
 * Note that in an XML document you can specify some part of the tree on the way to the individual child tag, or go directly to those tags.  This could be useful if some element is reused at different places in your XML schema.
 
 ```python
-soup_mei.titleStmt.find_all("persName")```
+my_soup_file.titleStmt.find_all("persName")```
 
 or
 
 ```python
-soup_mei.find_all("persName")```
+my_soup_file.find_all("persName")```
 
 Note that in the case of `find_all` BS will return a "list" of the relevant tags. 
 
 
 ```python
-soup_mei.titleStmt.find_all("persName")
+my_soup_file.titleStmt.find_all("persName")
 
 ```
 
@@ -566,11 +594,11 @@ And filter for those with a certain **attribute value**.
 Here for instance are all the `persName` tags with the string "editor" in the `role` attribute:
 
 ```python
-soup_mei.find_all("persName", {"role": "editor"})```
+my_soup_file.find_all("persName", {"role": "editor"})```
 
 
 ```python
-soup_mei.find_all("persName", {"role": "editor"})
+my_soup_file.find_all("persName", {"role": "editor"})
 ```
 
 
@@ -589,7 +617,7 @@ soup_mei.find_all("persName", {"role": "editor"})
 Sometimes, you might be working for scraping/analysis tools and would want to access the **contents (text)** of individual tags:
 
 ```python
-for tag in soup_mei.find_all("persName", {"role": "editor"}):
+for tag in my_soup_file.find_all("persName", {"role": "editor"}):
     print(tag.text.strip())
 ```
     
@@ -597,14 +625,14 @@ The `.strip()` function assures that we remove whitespace and other useless code
 
 Note that the 'text' of a tag is not the same as its 'name':
 
-`print(soup.titleStmt.persName.name)` will return the 'name' of the tag itself, in this case simply 'title'
+`print(my_soup_file.titleStmt.persName.name)` will return the 'name' of the tag itself, in this case simply 'title'
 
-`print(soup.titleStmt.persName.text)` will return the 'contents' of the tag itself, in this case simply 'Ave Maria'
+`print(my_soup_file.titleStmt.persName.text)` will return the 'contents' of the tag itself, in this case simply 'Ave Maria'
 
 
 ```python
 
-for tag in soup_mei.find_all("persName", {"role": "editor"}):
+for tag in my_soup_file.find_all("persName", {"role": "editor"}):
     print(tag.text.strip())
 ```
 
@@ -619,7 +647,7 @@ Similarly, we can easily access the composer:
 
 ```python
 # the text of the composer element:
-for tag in soup_mei.find_all("persName", {"role": "composer"}):
+for tag in my_soup_file.find_all("persName", {"role": "composer"}):
     print(tag.text.strip())
 ```
 
@@ -632,7 +660,7 @@ And the title:
 
 ```python
 # the text of the title element, more directly:
-soup_mei.title.text.strip()
+my_soup_file.title.text.strip()
 ```
 
 
@@ -648,19 +676,19 @@ soup_mei.title.text.strip()
 
 MEI (XML) files are normally thought of as rich encodings of musical scores and the editorial and source critical information that surround their production. But they can also be interrogated for music data.  This is despite the fact that those in Common Music Notation (the standard in use since the 18th century) are encoded 'measure by measure' and so it can be rather tricky to take stock of events that (for instance) are occuring at the same time in different staves.  
 
-Advanced analysis of musical patterns is probably best done with Music21 or CRIM Intervals.  But a surprising among of relevant data about notes and editorial practice can be found with Beautiful Soup.
+Advanced analysis of musical patterns is probably best done with Music21 or CRIM Intervals.  But a surprising among of relevant data about notes and editorial practice can be found with Beautiful my_soup_file.
 
 ### Staves
 
 Information about the staves are contained in the `staffDef` tag. First, let's look at just the **first staff**:
 
 ```python
-print(soup_mei.staffDef.prettify())
+print(my_soup_file.staffDef.prettify())
 ```
 
 
 ```python
-print(soup_mei.staffDef.prettify())
+print(my_soup_file.staffDef.prettify())
 ```
 
     <staffDef clef.line="2" clef.shape="G" key.sig="1f" label="Superius" lines="5" n="1" xml:id="m-30">
@@ -677,13 +705,13 @@ Next, **find all staves** with `find_all`:
 * Notice that these are returned as a **list** object, so we can easily also run this with a **for** loop.  
 
 ```python
-soup_mei.find_all("staffDef")
+my_soup_file.find_all("staffDef")
 ```
 
-* Beautiful Soup responses are "list ready".  Thus the first staff is `soup_mei.find_all("staffDef")[0]`.  The last staff is `soup_mei.find_all("staffDef")[-1]`.
+* Beautiful Soup responses are "list ready".  Thus the first staff is `my_soup_file.find_all("staffDef")[0]`.  The last staff is `my_soup_file.find_all("staffDef")[-1]`.
 
 ```python
-soup_mei.find_all("staffDef")
+my_soup_file.find_all("staffDef")
 ```
 
 
@@ -719,7 +747,7 @@ We can use the collection of Staves to figure out **what voices** are used in a 
 
 ```python
 # get all G-clef staves:
-staves = soup_mei.find_all("staffDef", {'clef.shape': "G"})
+staves = my_soup_file.find_all("staffDef", {'clef.shape': "G"})
 # print cleaned-up text of those tags--just the names
 for staff in staves:
     print(staff.text.strip())
@@ -729,7 +757,7 @@ for staff in staves:
 ```python
 
 # Get all G-clef staves:
-staves = soup_mei.find_all("staffDef", {'clef.shape': "G"})
+staves = my_soup_file.find_all("staffDef", {'clef.shape': "G"})
 
 # print cleaned-up text of those tags--just the names
 for staff in staves:
@@ -750,7 +778,7 @@ for staff in staves:
 We already know how to find the first note (of the first staff in the first bar):
 
 ```python
-soup_mei.note.get('pname')
+my_soup_file.note.get('pname')
 ```
 
 But we can also:
@@ -759,7 +787,7 @@ But we can also:
 
 ```python
 # gets just the first pitch
-soup_mei.note.get('pname')
+my_soup_file.note.get('pname')
 ```
 
 
@@ -772,7 +800,7 @@ soup_mei.note.get('pname')
 
 ```python
 # how many notes?
-len(soup_mei.find_all('note'))
+len(my_soup_file.find_all('note'))
 ```
 
 
@@ -785,7 +813,7 @@ len(soup_mei.find_all('note'))
 
 ```python
 # find all the notes and print pitch names
-for note in soup_mei.find_all(name='note'):
+for note in my_soup_file.find_all(name='note'):
     print(note.get('pname'))
 ```
 
@@ -2729,7 +2757,7 @@ Using some of the familiar techniques, we can count **pitches** and put them in 
 
 ```python
 # counts pitches all voices, now as dictionary
-pitches = [n.get('pname') for n in soup_mei.find_all('note')]
+pitches = [n.get('pname') for n in my_soup_file.find_all('note')]
 counted = Counter(pitches)
 
 
@@ -2800,10 +2828,10 @@ counted_notes
 ```python
 # count pitches in one voice:
 
-measures = soup_mei.find_all('measure')
+measures = my_soup_file.find_all('measure')
 pitches = []
 # here we assume the superius is the first staff
-superius_bars = [soup_mei.find_all('staff', {"n": "1"}) for measure in measures]
+superius_bars = [my_soup_file.find_all('staff', {"n": "1"}) for measure in measures]
 for superius in superius_bars[0]:
     notes = superius.find_all('note')
     for note in notes:
@@ -2900,7 +2928,7 @@ It is oftentimes useful to look at **measures** – either all at once or specif
 
 ```python
 # last pitch in last measure, for each voice
-measures = soup_mei.find_all('measure')
+measures = my_soup_file.find_all('measure')
 last_measure = measures[-1]
 for staff in last_measure.find_all('staff'):
         note = staff.find_all('note')[-1]
@@ -2919,7 +2947,7 @@ Working with **Score Definitions** (scoreDef), it is possible to search for cert
 
 
 ```python
-scoredefs = soup_mei.find_all('scoreDef')
+scoredefs = my_soup_file.find_all('scoreDef')
 for scoredef in scoredefs:
     print(scoredef.get('meter.count'))
     print(scoredef.get('meter.unit'))
@@ -2945,12 +2973,12 @@ Finally, we can look for some very specific things, like **all notes with a part
 
 * Use dictionary of key/value pairs to specify particular attributes.
 
->`soup_mei.find_all('note', {'dur': "4", 'pname': "g", 'oct': '3'})`
+>`my_soup_file.find_all('note', {'dur': "4", 'pname': "g", 'oct': '3'})`
 
 
 ```python
 
-soup_mei.find_all('note', {'dur': "4", 'pname': "g", 'oct': '3'})
+my_soup_file.find_all('note', {'dur': "4", 'pname': "g", 'oct': '3'})
 ```
 
 
