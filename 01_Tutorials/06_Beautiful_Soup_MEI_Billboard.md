@@ -923,13 +923,12 @@ plt.xticks(rotation = 0)
 plt.xlabel("Tone")
 plt.ylabel("Count")
 plt.show()
-
 ```
 
 
-    
-![png](output_47_0.png)
-    
+![Alt text](images/bs_1.png)
+
+
 
 
 #### Working with Measures
@@ -984,11 +983,12 @@ Finally, we can look for some very specific things, like **all notes with a part
 
 * Use dictionary of key/value pairs to specify particular attributes.
 
->`my_soup_file.find_all('note', {'dur': "4", 'pname': "g", 'oct': '3'})`
+```python
+my_soup_file.find_all('note', {'dur': "4", 'pname': "g", 'oct': '3'})
+```
 
 
 ```python
-
 my_soup_file.find_all('note', {'dur': "4", 'pname': "g", 'oct': '3'})
 ```
 
@@ -1111,170 +1111,6 @@ for c in range(1, count + 1):
     music = tk.renderToSVG(c)
     display(SVG(music))
 ```
-
-    [Warning] Unsupported data.PERCENT '100'
-    [Warning] Unsupported data.PERCENT '100'
-    [Warning] Unsupported data.PERCENT '100'
-    [Warning] Unsupported data.PERCENT '100'
-    [Warning] Unsupported data.PERCENT '100'
-    [Warning] Unsupported '<line>' within <measure>
-    [Warning] Unsupported '<line>' within <measure>
-
-
-
-    
-![svg](output_55_1.svg)
-    
-
-
-
-    
-![svg](output_55_2.svg)
-    
-
-
-
-    
-![svg](output_55_3.svg)
-    
-
-
-
-    
-![svg](output_55_4.svg)
-    
-
-
-
-    
-![svg](output_55_5.svg)
-    
-
-
-
-    
-![svg](output_55_6.svg)
-    
-
-
-
-    
-![svg](output_55_7.svg)
-    
-
-
-
-    
-![svg](output_55_8.svg)
-    
-
-
-
-    
-![svg](output_55_9.svg)
-    
-
-
-
-    
-![svg](output_55_10.svg)
-    
-
-
-
-    
-![svg](output_55_11.svg)
-    
-
-
-
-    
-![svg](output_55_12.svg)
-    
-
-
-
-    
-![svg](output_55_13.svg)
-    
-
-
-
-    
-![svg](output_55_14.svg)
-    
-
-
-
-    
-![svg](output_55_15.svg)
-    
-
-
-
-    
-![svg](output_55_16.svg)
-    
-
-
-
-    
-![svg](output_55_17.svg)
-    
-
-
-
-    
-![svg](output_55_18.svg)
-    
-
-
-
-    
-![svg](output_55_19.svg)
-    
-
-
-
-    
-![svg](output_55_20.svg)
-    
-
-
-
-    
-![svg](output_55_21.svg)
-    
-
-
-
-    
-![svg](output_55_22.svg)
-    
-
-
-
-    
-![svg](output_55_23.svg)
-    
-
-
-
-    
-![svg](output_55_24.svg)
-    
-
-
-
-    
-![svg](output_55_25.svg)
-    
-
-
-
-    
-![svg](output_55_26.svg)
-    
 
 
 ### 5.0 Save Revised XML document
