@@ -303,51 +303,45 @@ As explained in the following section of this tutorial, these same basic concept
 
 As you have probably noticed by now, MEI (and XML, generally) files follow a **tree-like structure**. Any document has its elements defined recursively, as its children. Intuitively, **children** are elements contained within a broader element (think section), also known as **parent**.  And **children** of the same parent tag are **siblings**.
 
-In a way, the Title Statement ("\<titleStmt>") element is a wrapper for all things that define a Title Statement. Mainly, a typical MEI Title Statement describes the piece's title and the people involved with the piece in some capacity. It contains tags labelled `title`, and `respStmt` (which in turn contains a number of `persName` tags).
+In a way, the **Title Statement** ("\<titleStmt>") element is a wrapper for all things that define a Title Statement. Mainly, a typical MEI Title Statement describes the piece's title and the people involved with the piece in some capacity. It contains tags labelled `title`, and `respStmt` (which in turn contains a number of `persName` tags).
     
-
     
 ```python
 print(my_soup_file.titleStmt.prettify())
 ```
 
-It's possible to return these in turn, by chaining the elements together:
+It's possible to return each of these children these in turn, by chaining the elements together.  Since we already know that the `titleStmt` contains the `title`, we can return the latter this way:
     
 ```python
 print(my_soup_file.titleStmt.title.prettify())
 ```
 
-Or
+Or the the complete `respStmt`:
     
     
 ```python
 print(my_soup_file.titleStmt.respStmt.prettify())
 ```
     
-Or
+The `respStmt` contains several `persName` tags (for the composer, editors, etc).  Here is the first of those:
   
 ```python
 print(my_soup_file.titleStmt.respStmt.persName.prettify())
 ```
     
-But once we reach `persName` we are stuck, since there are in fact several such tags, and the chained method will only return the **first instance** of each.  We need another way. This is where the **find_all** methods of Beautiful Soup come in.
+To **find all** of the `persName` children of the `respStmt`, however, we will need to use a new method. See the next section for how.
 
 ### Looking Down:  Children
 
-* First, let's find all **children** of the title Statement. The results are similar to what we found with other methods, but in this case we are searching for _all_ the elements nested within the titleStmt.
+* First, let's find all **children** of the `titleStmt`. The results are similar to what we found with other methods, but in this case we are going to see  _all_ the elements nested within the parent:  `my_soup_file.titleStmt.findChildren()`.  This method returns a `list`.  We can then inspect each of these in turn.
+
+One thing we learn from this is that the `persName` repeat:  each individual appears twice--once as part of the nested `restStmt` and again as part of the remainder of the `titleStmt`.  This is part of the MEI standard.  And so if we do any editing of these tags we will need to be on the look out for all instances of a given name.
 
 
 ```python
+# find all the children in the titleStmt, and save as a variable
 children_of_title = my_soup_file.titleStmt.findChildren()
-for child in children_of_title:
-    print(child.prettify())
-```
-
-Here it's plain that the names of the individuals are in fact stated twice--once as part of the nested `restStmt` and again as part of the remainder of the `titleStmt`.  This is part of the MEI standard.
-
-
-```python
-children_of_title = my_soup_file.titleStmt.findChildren()
+# iterate through the list to see each child and print
 for child in children_of_title:
     print(child.prettify())
 ```
@@ -400,40 +394,26 @@ Siblings are tags of the *same type* as a given tag.
 
 Thus `first_person = my_soup_file.titleStmt.persName` will find the **first element** of the `persName` type.
 
-To find all the subsequent *siblings of the same type*, we use `findNextSiblings`:
-
-
-`first_person.findNextSiblings()` will find all the siblings within that parent *after* the first element.
-
-We could also do this in one line of code:
+To **find the first sibling of this tag, we use `findNextSibling`, or even just `findNext`.  If the **first sibling** was the composer, then `findNext` or `findNextSibling` will be one of the editors:
 
 ```python
-sib_names = my_soup_file.titleStmt.persName.findNextSiblings()
-sib_names
+very_next_sibling = my_soup_file.titleStmt.persName.findNextSibling()
+very_next_sibling
+
 ```
+    <persName role="editor">Marco Gurrieri</persName>
 
 
-```python
-first_person = my_soup_file.titleStmt.persName
-first_person.findNextSiblings()
-```
+Another way to **find the very next siblings** afer the current one is with `findNext`.  
 
-
-
-
-    [<persName role="editor">Marco Gurrieri</persName>,
-     <persName role="editor">Bonnie Blackburn</persName>,
-     <persName role="editor">Vincent Besson</persName>,
-     <persName role="editor">Richard Freedman</persName>]
-
-`findNext` will find the next element of the same type:
+Find the first `persName`:
 
 ```python
 first_person = my_soup_file.titleStmt.persName
 first_person.findNext()
 ```
 
-And this could be chained together with additional requests to `findNext`:
+And append `findNext` to find the second person tag.
 
 
 ```python
@@ -442,14 +422,23 @@ second_person
 ```
 
     <persName role="editor">Marco Gurrieri</persName>
-### Looking Up:  Parents
 
-Here we can find the tags going up from some lower level to find out the `parent` tag (and in turn discover other children of that parent), or parents of the parents.  For example here we find all the `parents` of one `note` in our mei file. **bottom level** of `note`:
+To **find ALL the subsequent siblings** of a given element, we use `findNextSiblings` [note the plural!].  Here we take the `my_soup_file`, and get the `titleStmt`, then the first `persName` in that tag, and finally all the siblings of that tag with `findNextSiblings()`.  The result is a `list` of all of the `persName` tags *except* the first:
+
 
 ```python
-for parent in my_soup_file.note.find_parents():
-    print(parent.name)
+sibling_names = my_soup_file.titleStmt.persName.findNextSiblings()
+
 ```
+
+    [<persName role="editor">Marco Gurrieri</persName>,
+     <persName role="editor">Bonnie Blackburn</persName>,
+     <persName role="editor">Vincent Besson</persName>,
+     <persName role="editor">Richard Freedman</persName>]
+
+### Looking Up:  Parents
+
+Here we can find the tags going up from some lower level to find out the `parent` tag (and in turn discover other children of that parent), or parents of the parents. For example here we find all the `parents` of one `note` in our mei file. We are in effect "looking up" from the lowest level of the tree through all those elements that contain it:
 
 
 ```python
@@ -468,151 +457,7 @@ for parent in my_soup_file.note.find_parents():
     mei
     [document]
 
-
-Knowing the **parent** of a given tag allows you to **add a sibling** of the same type:
-
-```python
-# The parent tag of persName 
-people_involved_parent = my_soup_file.find("persName").parent
-# create a new tag that will have the role of 'analyst':
-new_person_tag = my_soup_file.new_tag("persName", role="Analyst")
-# populate the text of that new tag with a string:
-new_person_tag.string = "Oleh Shostak"
-# add the new tag to the original parent found above
-people_involved_parent.append(new_person_tag)
-# and show the result
-my_soup_file.find_all("persName")
-```
-
-
-
-
-```python
-people_involved_parent = my_soup_file.find("persName").parent
-new_person_tag = my_soup_file.new_tag("persName", role="Analyst")
-new_person_tag.string = "Oleh Shostak"
-people_involved_parent.append(new_person_tag)
-
-my_soup_file.find_all("persName")
-```
-
-
-
-
-    [<persName auth="VIAF" auth.uri="http://viaf.org/viaf/42035469" role="composer">Johannes Lupi</persName>,
-     <persName role="editor">Marco Gurrieri</persName>,
-     <persName role="editor">Bonnie Blackburn</persName>,
-     <persName role="editor">Vincent Besson</persName>,
-     <persName role="editor">Richard Freedman</persName>,
-     <persName role="Analyst">Oleh Shostak</persName>,
-     <persName auth="VIAF" auth.uri="http://viaf.org/viaf/42035469" role="composer">Johannes Lupi</persName>,
-     <persName auth="VIAF" auth.uri="http://viaf.org/viaf/59135590">Pierre Attaingnant</persName>]
-
-
-
-
-By default, adding `children` to the request will **find all of the children** associated with that parent tag.  It returns them as a *list* (not as a slice of XML), and so to see them we need to iterate over them:
-
-```python
-for item in my_soup_file.titleStmt.children:
-    print(item.prettify())
-```
-
-Here we see that the `titleStmt` contains both a `title` (the title of the work) and a `respStmt` (with the names of individuals and their roles:  composer and editors in this case.  
-
-Each person in the `respStmt` is encoded with their own element (tag).  
-
-The `role` attribute in each tag conveys the part each person played in this piece (and text).  
-
-Other attributes are possible with the tag, as we see in the case of the composer, for whom we also have an `auth` file to identify them via a public key (the `auth.uri`).
-
-
-```python
-for item in my_soup_file.titleStmt.children:
-    print(item.prettify())
-```
-
-    <title>
-     Ave Maria
-    </title>
-    
-    <respStmt>
-     <persName auth="VIAF" auth.uri="http://viaf.org/viaf/100226284" role="composer">
-      Josquin Des Prés
-     </persName>
-     <persName role="editor">
-      Marco Gurrieri
-     </persName>
-     <persName role="editor">
-      Vincent Besson
-     </persName>
-     <persName role="editor">
-      Richard Freedman
-     </persName>
-    </respStmt>
-
-
-## Finding All Tags of a Specific Type
-
-We can **find all the tags of a specific type**, too, regardless of their 'parentage'.
-
-* Note that in an XML document you can specify some part of the tree on the way to the individual child tag, or go directly to those tags.  This could be useful if some element is reused at different places in your XML schema.
-
-```python
-my_soup_file.titleStmt.find_all("persName")```
-
-or
-
-```python
-my_soup_file.find_all("persName")```
-
-Note that in the case of `find_all` BS will return a "list" of the relevant tags. 
-
-
-```python
-my_soup_file.titleStmt.find_all("persName")
-
-```
-
-
-
-
-    [<persName auth="VIAF" auth.uri="http://viaf.org/viaf/42035469" role="composer">Johannes Lupi</persName>,
-     <persName role="editor">Marco Gurrieri</persName>,
-     <persName role="editor">Bonnie Blackburn</persName>,
-     <persName role="editor">Vincent Besson</persName>,
-     <persName role="editor">Richard Freedman</persName>]
-
-
-
-## Finding Tags by Attribute
-
-And filter for those with a certain **attribute value**. 
-
-* Note that the values are specified as a dictionary:  `{'your_key': 'your_value'}` along with the tag name.
-
-Here for instance are all the `persName` tags with the string "editor" in the `role` attribute:
-
-```python
-my_soup_file.find_all("persName", {"role": "editor"})```
-
-
-```python
-my_soup_file.find_all("persName", {"role": "editor"})
-```
-
-
-
-
-    [<persName role="editor">Marco Gurrieri</persName>,
-     <persName role="editor">Bonnie Blackburn</persName>,
-     <persName role="editor">Vincent Besson</persName>,
-     <persName role="editor">Richard Freedman</persName>]
-
-
-
 ## Return the Text of a Tag
-
 
 Sometimes, you might be working for scraping/analysis tools and would want to access the **contents (text)** of individual tags:
 
@@ -668,7 +513,100 @@ my_soup_file.title.text.strip()
 
     'Veni speciosam'
 
------
+
+## Edit (or Update) a Tag
+
+We can also **update or edit** the text of a tag using `my_tag.string.replace_with('the_new_string')`:
+
+```python
+# find the first editor (which is second `persName` tag):
+very_next_sibling = my_soup_file.titleStmt.persName.findNextSibling()
+# update the 'string' of that tag with 'replace_with'
+very_next_sibling.string.replace_with('Kévin Roger')
+# return the updated tag
+my_soup_file.titleStmt.persName.findNextSibling()
+```
+
+    <persName role="editor">Kévin Roger</persName>
+
+## Add a Tag
+
+One way to add a tag is to find a sibling of the same type as your new tag, then look the parent, and finally add a tag to it:
+
+```python
+# The parent tag of persName 
+people_involved_parent = my_soup_file.find("persName").parent
+# create a new tag that will have the role of 'analyst':
+new_person_tag = my_soup_file.new_tag("persName", role="Analyst")
+# populate the text of that new tag with a string:
+new_person_tag.string = "Oleh Shostak"
+# add the new tag to the original parent found above
+people_involved_parent.append(new_person_tag)
+# and show the revised result
+my_soup_file.find_all("persName")
+```
+
+
+
+    [<persName auth="VIAF" auth.uri="http://viaf.org/viaf/42035469" role="composer">Johannes Lupi</persName>,
+     <persName role="editor">Marco Gurrieri</persName>,
+     <persName role="editor">Bonnie Blackburn</persName>,
+     <persName role="editor">Vincent Besson</persName>,
+     <persName role="editor">Richard Freedman</persName>,
+     <persName role="Analyst">Oleh Shostak</persName>,
+     <persName auth="VIAF" auth.uri="http://viaf.org/viaf/42035469" role="composer">Johannes Lupi</persName>,
+     <persName auth="VIAF" auth.uri="http://viaf.org/viaf/59135590">Pierre Attaingnant</persName>]
+
+
+
+## Finding Attributes within Tags
+
+
+Tags can also contain **attributes**.  In the case of the `persName` tag in MEI files, for instance, attributes include:
+
+- `role`, which differentiates 'composer' from 'editor' (for example).
+- `auth`, which records the authority file for biographical entities (such as 'VIAF')
+- `auth.uri`, which is the identifier used by the `auth` (such as 'http://viaf.org/viaf/100226284')
+
+
+```python
+for item in my_soup_file.titleStmt.children:
+    print(item.prettify())
+```
+
+    <title>
+     Ave Maria
+    </title>
+    
+    <respStmt>
+     <persName auth="VIAF" auth.uri="http://viaf.org/viaf/100226284" role="composer">
+      Josquin Des Prés
+     </persName>
+     <persName role="editor">
+      Marco Gurrieri
+     </persName>
+     <persName role="editor">
+      Vincent Besson
+     </persName>
+     <persName role="editor">
+      Richard Freedman
+     </persName>
+    </respStmt>
+
+
+We can easily filter these tags according to **attribute key and value pairs** by passing a dictionary (such as `{'my_key': 'my_value'}`) to the `find_all` method:
+
+Here for instance are all the `persName` tags with the string "editor" in the `role` attribute:
+
+
+```python
+my_soup_file.find_all("persName", {"role": "editor"})
+```
+
+    [<persName role="editor">Marco Gurrieri</persName>,
+     <persName role="editor">Bonnie Blackburn</persName>,
+     <persName role="editor">Vincent Besson</persName>,
+     <persName role="editor">Richard Freedman</persName>]
 
 
 -----
@@ -713,9 +651,6 @@ my_soup_file.find_all("staffDef")
 ```python
 my_soup_file.find_all("staffDef")
 ```
-
-
-
 
     [<staffDef clef.line="2" clef.shape="G" key.sig="1f" label="Superius" lines="5" n="1" xml:id="m-30">
      <label>Superius</label>
@@ -771,8 +706,6 @@ for staff in staves:
     Bassus
 
 
-
-
 ### Counting Notes
 
 We already know how to find the first note (of the first staff in the first bar):
@@ -790,9 +723,6 @@ But we can also:
 my_soup_file.note.get('pname')
 ```
 
-
-
-
     'g'
 
 
@@ -802,9 +732,6 @@ my_soup_file.note.get('pname')
 # how many notes?
 len(my_soup_file.find_all('note'))
 ```
-
-
-
 
     1933
 
@@ -817,1940 +744,24 @@ for note in my_soup_file.find_all(name='note'):
     print(note.get('pname'))
 ```
 
-    g
-    d
-    d
-    c
-    d
-    f
-    d
-    e
-    d
-    c
-    a
-    g
-    f
-    b
-    d
-    c
-    b
-    g
-    b
-    a
-    g
-    b
-    a
-    g
-    b
-    a
-    g
-    f
-    d
-    e
-    f
-    g
-    a
-    g
-    d
-    b
-    c
-    a
-    a
-    d
-    g
-    f
-    d
-    c
-    d
-    f
-    d
-    g
-    b
-    a
-    g
-    f
-    d
-    f
-    e
-    d
-    c
-    a
-    g
-    f
-    a
-    g
-    a
-    e
-    d
-    e
-    f
-    e
-    b
-    d
-    c
-    g
-    b
-    a
-    g
-    f
-    g
-    a
-    g
-    d
-    c
-    b
-    a
-    b
-    g
-    d
-    f
-    e
-    f
-    g
-    g
-    d
-    g
-    f
-    e
-    f
-    a
-    g
-    a
-    d
-    c
-    d
-    f
-    e
-    d
-    e
-    f
-    g
-    d
-    c
-    d
-    f
-    a
-    a
-    f
-    g
-    a
-    d
-    e
-    d
-    a
-    b
-    c
-    b
-    a
-    b
-    e
-    d
-    c
-    a
-    d
-    a
-    e
-    d
-    e
-    f
-    g
-    f
-    e
-    d
-    a
-    b
-    c
-    c
-    a
-    c
-    a
-    b
-    a
-    a
-    g
-    e
-    f
-    b
-    d
-    a
-    d
-    c
-    d
-    e
-    a
-    f
-    g
-    a
-    f
-    a
-    g
-    f
-    e
-    d
-    d
-    b
-    c
-    d
-    c
-    b
-    f
-    d
-    e
-    d
-    d
-    a
-    g
-    f
-    e
-    d
-    a
-    d
-    e
-    d
-    e
-    f
-    g
-    a
-    e
-    f
-    d
-    d
-    b
-    c
-    d
-    c
-    b
-    a
-    d
-    d
-    b
-    c
-    d
-    f
-    a
-    g
-    a
-    b
-    f
-    e
-    d
-    a
-    c
-    b
-    d
-    f
-    e
-    e
-    d
-    d
-    b
-    a
-    g
-    f
-    g
-    g
-    a
-    b
-    c
-    d
-    e
-    d
-    b
-    c
-    d
-    c
-    b
-    d
-    c
-    b
-    c
-    d
-    a
-    c
-    b
-    f
-    d
-    e
-    d
-    a
-    g
-    g
-    a
-    b
-    c
-    d
-    c
-    g
-    f
-    d
-    e
-    g
-    a
-    d
-    b
-    c
-    c
-    b
-    g
-    a
-    f
-    g
-    e
-    d
-    c
-    g
-    f
-    d
-    e
-    d
-    b
-    a
-    b
-    c
-    d
-    a
-    a
-    b
-    c
-    d
-    f
-    g
-    e
-    d
-    d
-    g
-    a
-    g
-    a
-    b
-    b
-    a
-    b
-    c
-    a
-    d
-    d
-    e
-    f
-    g
-    g
-    f
-    e
-    d
-    g
-    d
-    c
-    b
-    d
-    c
-    d
-    c
-    a
-    g
-    f
-    g
-    c
-    b
-    e
-    d
-    a
-    g
-    b
-    a
-    g
-    d
-    f
-    e
-    g
-    a
-    b
-    c
-    d
-    c
-    g
-    f
-    d
-    e
-    a
-    b
-    a
-    g
-    e
-    d
-    d
-    c
-    a
-    g
-    a
-    b
-    c
-    c
-    b
-    g
-    a
-    f
-    g
-    e
-    f
-    d
-    g
-    f
-    f
-    e
-    d
-    c
-    d
-    g
-    a
-    b
-    c
-    a
-    d
-    c
-    d
-    g
-    d
-    c
-    b
-    a
-    b
-    g
-    b
-    a
-    b
-    c
-    d
-    g
-    g
-    d
-    g
-    g
-    d
-    d
-    g
-    d
-    d
-    c
-    b
-    a
-    b
-    g
-    f
-    e
-    f
-    g
-    a
-    f
-    d
-    c
-    d
-    f
-    a
-    d
-    d
-    a
-    g
-    f
-    e
-    f
-    e
-    d
-    c
-    d
-    a
-    g
-    f
-    a
-    g
-    a
-    c
-    d
-    a
-    b
-    c
-    d
-    e
-    f
-    d
-    e
-    d
-    c
-    g
-    b
-    a
-    g
-    c
-    b
-    a
-    a
-    g
-    f
-    e
-    d
-    f
-    d
-    c
-    d
-    d
-    f
-    f
-    g
-    d
-    e
-    f
-    g
-    a
-    c
-    d
-    a
-    a
-    e
-    f
-    e
-    d
-    c
-    d
-    a
-    b
-    c
-    b
-    a
-    d
-    a
-    g
-    e
-    d
-    c
-    d
-    a
-    f
-    e
-    d
-    c
-    a
-    b
-    d
-    c
-    d
-    f
-    a
-    c
-    b
-    a
-    e
-    d
-    e
-    f
-    g
-    c
-    a
-    g
-    f
-    e
-    d
-    c
-    d
-    g
-    a
-    e
-    g
-    a
-    d
-    c
-    b
-    a
-    b
-    c
-    b
-    g
-    c
-    a
-    b
-    c
-    a
-    b
-    a
-    b
-    f
-    e
-    d
-    a
-    d
-    c
-    d
-    f
-    a
-    e
-    f
-    d
-    c
-    d
-    e
-    d
-    d
-    a
-    g
-    a
-    e
-    d
-    c
-    d
-    e
-    g
-    f
-    d
-    c
-    d
-    a
-    d
-    a
-    e
-    d
-    a
-    b
-    g
-    a
-    b
-    g
-    f
-    e
-    d
-    g
-    d
-    a
-    c
-    b
-    a
-    c
-    b
-    g
-    f
-    g
-    f
-    e
-    c
-    d
-    g
-    a
-    b
-    g
-    a
-    g
-    a
-    g
-    e
-    d
-    e
-    g
-    f
-    e
-    a
-    d
-    c
-    d
-    e
-    c
-    f
-    d
-    e
-    g
-    d
-    g
-    b
-    a
-    b
-    c
-    d
-    f
-    e
-    d
-    e
-    c
-    g
-    f
-    e
-    a
-    f
-    g
-    c
-    d
-    d
-    c
-    d
-    f
-    e
-    d
-    d
-    a
-    g
-    c
-    b
-    a
-    b
-    c
-    d
-    e
-    c
-    c
-    d
-    c
-    c
-    g
-    a
-    b
-    g
-    a
-    g
-    d
-    g
-    f
-    c
-    b
-    a
-    c
-    b
-    a
-    g
-    f
-    e
-    c
-    e
-    d
-    c
-    g
-    g
-    d
-    e
-    f
-    g
-    c
-    b
-    a
-    g
-    d
-    g
-    f
-    e
-    a
-    b
-    a
-    g
-    d
-    e
-    g
-    b
-    c
-    d
-    g
-    c
-    a
-    b
-    d
-    g
-    f
-    g
-    d
-    d
-    a
-    g
-    b
-    d
-    g
-    f
-    d
-    c
-    b
-    a
-    g
-    c
-    g
-    b
-    c
-    f
-    g
-    e
-    b
-    a
-    g
-    f
-    g
-    d
-    e
-    c
-    b
-    g
-    b
-    g
-    a
-    b
-    c
-    d
-    e
-    d
-    d
-    c
-    b
-    g
-    d
-    f
-    g
-    g
-    a
-    f
-    g
-    d
-    c
-    b
-    c
-    d
-    a
-    a
-    e
-    d
-    d
-    d
-    a
-    d
-    g
-    a
-    d
-    d
-    c
-    d
-    c
-    a
-    b
-    g
-    f
-    g
-    e
-    a
-    d
-    g
-    g
-    f
-    g
-    d
-    c
-    b
-    a
-    g
-    d
-    d
-    d
-    c
-    d
-    f
-    e
-    d
-    e
-    f
-    g
-    a
-    c
-    c
-    b
-    b
-    c
-    b
-    a
-    b
-    a
-    g
-    f
-    d
-    f
-    g
-    d
-    g
-    d
-    c
-    d
-    e
-    d
-    f
-    g
-    e
-    a
-    d
-    g
-    g
-    f
-    d
-    d
-    c
-    d
-    e
-    d
-    d
-    c
-    a
-    a
-    g
-    a
-    g
-    g
-    f
-    e
-    a
-    c
-    b
-    a
-    d
-    a
-    b
-    c
-    a
-    f
-    f
-    e
-    d
-    e
-    d
-    c
-    a
-    a
-    d
-    d
-    c
-    d
-    b
-    a
-    g
-    f
-    d
-    f
-    e
-    d
-    g
-    d
-    c
-    b
-    b
-    d
-    g
-    a
-    a
-    b
-    b
-    e
-    f
-    e
-    d
-    e
-    c
-    c
-    b
-    a
-    g
-    g
-    f
-    g
-    a
-    g
-    a
-    b
-    c
-    d
-    f
-    d
-    g
-    f
-    c
-    b
-    a
-    g
-    d
-    d
-    f
-    e
-    d
-    d
-    c
-    d
-    g
-    e
-    d
-    e
-    g
-    g
-    b
-    c
-    b
-    c
-    g
-    g
-    a
-    b
-    c
-    a
-    b
-    g
-    b
-    f
-    f
-    e
-    d
-    e
-    c
-    c
-    b
-    a
-    g
-    f
-    g
-    a
-    g
-    f
-    f
-    d
-    e
-    f
-    e
-    d
-    c
-    c
-    b
-    a
-    g
-    d
-    d
-    f
-    e
-    d
-    g
-    d
-    g
-    c
-    c
-    g
-    b
-    d
-    e
-    e
-    c
-    g
-    b
-    g
-    a
-    b
-    g
-    c
-    g
-    d
-    e
-    g
-    g
-    e
-    c
-    d
-    g
-    c
-    b
-    e
-    e
-    g
-    e
-    d
-    c
-    e
-    f
-    g
-    e
-    c
-    g
-    d
-    g
-    b
-    g
-    d
-    d
-    c
-    d
-    g
-    d
-    f
-    g
-    g
-    f
-    e
-    d
-    c
-    b
-    a
-    g
-    g
-    g
-    d
-    c
-    b
-    b
-    a
-    g
-    a
-    d
-    f
-    g
-    f
-    e
-    f
-    g
-    a
-    b
-    a
-    d
-    d
-    e
-    d
-    c
-    a
-    g
-    g
-    f
-    c
-    d
-    b
-    a
-    b
-    g
-    d
-    g
-    g
-    b
-    d
-    d
-    g
-    g
-    d
-    c
-    c
-    b
-    a
-    g
-    f
-    e
-    f
-    e
-    d
-    f
-    g
-    a
-    b
-    g
-    f
-    g
-    d
-    d
-    d
-    d
-    c
-    b
-    a
-    g
-    d
-    g
-    b
-    a
-    d
-    a
-    a
-    g
-    c
-    d
-    f
-    e
-    d
-    c
-    b
-    a
-    g
-    f
-    g
-    f
-    e
-    d
-    c
-    d
-    a
-    a
-    d
-    f
-    a
-    g
-    a
-    b
-    c
-    a
-    d
-    e
-    f
-    g
-    a
-    f
-    d
-    c
-    d
-    g
-    e
-    f
-    e
-    d
-    c
-    b
-    b
-    c
-    a
-    f
-    g
-    a
-    d
-    e
-    a
-    f
-    g
-    a
-    b
-    c
-    a
-    b
-    f
-    e
-    d
-    e
-    f
-    g
-    a
-    d
-    d
-    a
-    b
-    a
-    g
-    f
-    g
-    f
-    d
-    e
-    d
-    d
-    b
-    c
-    d
-    c
-    b
-    a
-    b
-    a
-    g
-    d
-    g
-    d
-    b
-    c
-    g
-    f
-    g
-    e
-    d
-    b
-    c
-    f
-    e
-    f
-    g
-    a
-    b
-    g
-    c
-    d
-    e
-    d
-    c
-    d
-    e
-    g
-    c
-    b
-    a
-    b
-    g
-    e
-    d
-    c
-    g
-    e
-    c
-    e
-    d
-    c
-    b
-    g
-    d
-    f
-    e
-    b
-    g
-    a
-    a
-    d
-    c
-    b
-    c
-    a
-    f
-    e
-    d
-    e
-    f
-    g
-    a
-    d
-    a
-    f
-    g
-    a
-    d
-    d
-    b
-    c
-    d
-    e
-    f
-    b
-    a
-    b
-    a
-    g
-    f
-    d
-    e
-    d
-    b
-    c
-    d
-    g
-    f
-    a
-    g
-    f
-    c
-    b
-    c
-    d
-    e
-    d
-    e
-    d
-    c
-    b
-    d
-    f
-    g
-    a
-    b
-    d
-    e
-    f
-    d
-    d
-    c
-    b
-    a
-    g
-    a
-    b
-    c
-    b
-    d
-    g
-    f
-    g
-    b
-    a
-    g
-    f
-    e
-    f
-    e
-    d
-    b
-    c
-    a
-    g
-    d
-    g
-    c
-    d
-    c
-    d
-    g
-    g
-    g
-    d
-    c
-    b
-    g
-    e
-    c
-    g
-    f
-    e
-    g
-    f
-    e
-    c
-    d
-    c
-    a
-    d
-    d
-    c
-    d
-    e
-    f
-    d
-    e
-    b
-    g
-    a
-    g
-    a
-    b
-    g
-    a
-    b
-    d
-    a
-    b
-    c
-    d
-    c
-    c
-    g
-    f
-    c
-    d
-    e
-    d
-    d
-    a
-    g
-    f
-    d
-    c
-    b
-    c
-    a
-    d
-    c
-    b
-    e
-    c
-    d
-    d
-    c
-    b
-    c
-    d
-    e
-    a
-    g
-    f
-    e
-    f
-    d
-    a
-    f
-    g
-    a
-    b
-    c
-    d
-    f
-    e
-    d
-    f
-    g
-    a
-    b
-    d
-    e
-    f
-    g
-    d
-    c
-    b
-    g
-    c
-    e
-    d
-    d
-    a
-    a
-    e
-    c
-    f
-    g
-    a
-    g
-    f
-    e
-    d
-    d
-    c
-    d
-    a
-    d
-    a
-    c
-    b
-    a
-    e
-    d
-    a
-    d
-    d
-    g
-    d
-    f
-    e
-    d
-    d
-    c
-    a
-    d
-    a
-    c
-    b
-    d
-    g
-    b
-    a
-    g
-    g
-    f
-    g
-    f
-    e
-    g
-    b
-    g
-    d
-    g
-    a
-    g
-    d
-    c
-    b
-    c
-    b
-    d
-    d
-    b
-    c
-    d
-    e
-    f
-    g
-    g
-    b
-    a
-    g
-    a
-    b
-    c
-    d
-    g
-    d
-    f
-    e
-    d
-    g
-    f
-    g
-    d
-    c
-    d
-    c
-    b
-    b
-    d
-    c
-    a
-    b
-    b
-    a
-    d
-    g
-    f
-    g
-    f
-    e
-    d
-    d
-    f
-    g
-    a
-    b
-    c
-    d
-    c
-    c
-    d
-    d
-    a
-    g
-    f
-    d
-    e
-    c
-    g
-    b
-    e
-    d
-    g
-    g
-    a
-    b
-    g
-    f
-    d
-    f
-    e
-    c
-    f
-    g
-    a
-    f
-    g
-    f
-    a
-    f
-    c
-    b
-    a
-    d
-    e
-    d
-    c
-    g
-    f
-    e
-    d
-    c
-    b
-    e
-    c
-    g
-    f
-    g
-    c
-    c
-    g
-    f
-    e
-    d
-    c
-    a
-    g
-    b
-    a
-    g
-    e
-    f
-    g
-    c
-    b
-    g
-    b
-    c
-    d
-    b
-    g
-    a
-    c
-    d
-    c
-    a
-    c
-    g
-    f
-    d
-    f
-    g
-    g
-    a
-    d
-    c
-    c
-    b
-    g
-    g
-    f
-    g
-    e
-    d
-    d
-    f
-    d
-    f
-    g
-    d
-    g
-    b
-    c
-    b
-    a
-    g
-    d
-    c
-    a
-    c
-    d
-    e
-    a
-    g
-    f
-    e
-    g
-    f
-    e
-    d
-    a
-    a
-    b
-    b
-    a
-    f
-    d
-    c
-    d
-    e
-    f
-    g
-    a
-    f
-    g
-    f
-    e
-    b
-    g
-    d
-    e
-    d
-    f
-    e
-    d
-    e
-    f
-    a
-    g
-    f
-    g
-    a
-    b
-    c
-    d
-    f
-    e
-    c
-    f
-    d
-    d
-    c
-    a
-    e
-    d
-    c
-    b
-    c
-    b
-    a
-    g
-    e
-    f
-    d
-    c
-    d
-    b
-    c
-    a
-    e
-    e
-    e
-    f
-    e
-    a
-    e
-    f
-    a
-    f
-    e
-    c
-    d
-    c
-    d
-    e
-    a
-    a
-    e
-    c
-    d
-    e
-    e
-    d
-    c
-    b
-    a
-    g
-    f
-    e
-    d
-    a
-    b
-    a
-    a
-    d
-    c
-    a
-    b
-    a
-    c
-    d
-    b
-    c
-    e
-    f
-    e
-    a
-    f
-    g
-    a
-    d
-    f
-    e
-    d
-    c
-    d
-    f
-    g
-    a
-    d
-    a
-    a
-    b
-    d
-    d
-    d
-    c
-    b
-    a
-    b
-    g
-    g
-    f
-    a
-    f
-    g
-    a
-    d
-    e
-    d
-    b
-    d
-    b
-    a
-    g
-    f
-    b
-    g
-    d
-    g
-    a
-    b
-    c
-    d
-    b
-    c
-    d
-    e
-    d
-    b
-    b
-    a
-    g
-    f
-    d
-    e
-    d
-    d
-    c
-    b
-    a
-    g
-    d
-    b
-    c
-    d
-    g
-    b
-    c
-    d
-    g
-    a
-    g
-    e
-    d
-    b
-    c
-    g
-    g
-    b
-    c
-    d
-    b
-    e
-    g
-    d
-    g
-    a
-    b
-    g
-    c
-    g
-    c
-    g
-    e
-    d
-    e
-    d
-    g
-    c
-    b
-    c
-    e
-    g
-    c
-    d
-    g
-    c
-    b
-    e
-    g
-    e
-    d
-    c
-    e
-    f
-    g
-    e
-    c
-    g
-    d
-    g
-    b
-    g
+Shortened output:
 
+    g
+    d
+    d
+    c
+    d
+    f
+    d
+    e
+    d
+    c
+    a
+    g
+    f
+    b
+    d
+    
 
 Using some of the familiar techniques, we can count **pitches** and put them in a **series** or **DataFrame**:
 
