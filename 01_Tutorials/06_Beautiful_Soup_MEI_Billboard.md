@@ -282,21 +282,31 @@ This is just the start ...
 
 ----
 
-## Searching Elements and Attributes
+## Finding Elements and Attributes
+
 
 The `find()` and `find(all)` methods are key ways of returning one or more tags in your XML file.  
 
 `my_soup_file.persName()`, for example, will return the first instance of the `persName` tag in the MEI document we previously imported and named as the `my_soup_file` object. But it is also possible to do this in several other ways, with varied results:
 
-- `my_soup_file.find('persName')` will find *the first* instance of a tag with that name.
-- `my_soup_file.find_all('persName')` will find *all* the tags with that name and return them as a Python `list` object, across which you can iterate
+- The **first instance** of the `persName` tag: `my_soup_file.find('persName')` 
+- **All** the tags of the `persName` tag: `my_soup_file.find_all('persName')`, in this case returned as a Python `list` object, across which you can 
+
+## Matching  Text Strings in Elements 
+
+It's possible to return all the tags of a given type that **match a particular text string or even substring**.
+
+
+- All the instances of the `persName` tag that **match a certain text string**:  `my_soup_file.find_all("persName", string="Vincent Besson")`.
+- All the instances of the `persName` tag that contain **a substring anywhere in the text of the tag**:  `my_soup_file(lambda tag: tag.name == "persName" and "Vin" in tag.text)`.  In this case we are simply matching "Vin".
+
+## More About Finding and Matching Tag Strings
+
 - It is also possible to pass in lists (to return several different tags), regular expressions (to return tags matching various conditions), and even a dictionary (to match attributes of tags). Read more in the [Beautiful Soup documentation](https://tedboy.github.io/bs4_doc/6_searching_the_tree.html).
 - We can *edit* tags and their attributes, and even *add or delete* tags.  For instance we might want to change or add the name of an editor in a certain file, or to update information about copyright in a folder of files.  Read more in the [Beautiful Soup documentation](https://tedboy.github.io/bs4_doc/7_modifying_the_tree.html).
-- We can report the entire tag, or get just the text associated with it, then use that information in some subsequent report or process.  For instance, we could return a list of editors or sources for one or more files.  Or we could collect information about clefs and key signatures across a corpus of files, and 
+- We can report the **entire tag**, or **get just the text string associated with it**, then use that information in some subsequent report or process.  For instance, below we show ways of finding, matching, and updating information about editors in one or more files.  We also show ways of colleting information about clefs and key signatures across a corpus of files
 
 As explained in the following section of this tutorial, these same basic concepts can be applied across the XML tree to look for children, parents and siblings of various tags.
-
-
 
 ----
 ## Family Matters:  Working with Children, Siblings, and Parents 
@@ -508,9 +518,6 @@ And the title:
 my_soup_file.title.text.strip()
 ```
 
-
-
-
     'Veni speciosam'
 
 
@@ -607,6 +614,29 @@ my_soup_file.find_all("persName", {"role": "editor"})
      <persName role="editor">Bonnie Blackburn</persName>,
      <persName role="editor">Vincent Besson</persName>,
      <persName role="editor">Richard Freedman</persName>]
+
+## Edit an Attribute
+
+Sometimes it's necessary to change the contents of an attribute.  For instance here is a list of 'editors':
+
+    `my_soup_file.find_all("persName", {"role": "editor"})``
+
+    [<persName role="editor">Marco Gurrieri</persName>,
+    <persName role="editor">Vincent Besson</persName>,
+    <persName role="editor">Richard Freedman</persName>]
+
+
+Here is a way call them 'analysts' instead:
+
+```python
+tags_to_edit = my_soup_file.find_all("persName", {"role": "editor"})
+for tag in tags_to_edit:
+  tag['role'] = 'analyst'
+tags_to_edit
+```
+    [<persName role="analyst">Marco Gurrieri</persName>,
+    <persName role="analyst">Vincent Besson</persName>,
+    <persName role="analyst">Richard Freedman</persName>]
 
 
 -----
@@ -953,30 +983,82 @@ for staff in last_measure.find_all('staff'):
     g
 
 
-Working with **Score Definitions** (scoreDef), it is possible to search for certain **events** within the piece. For example, find out where a **Time Signature change** occurs:
+Working with **Score Definitions** (scoreDef), it is possible to search for certain **events** within the piece. For example, find out where a **Time Signature change** occurs.  The results are saved to a dataframe for further analysis or reporting:
+
+
 
 
 ```python
+# find all the scoredefs (which are places where time signatures change)
 scoredefs = my_soup_file.find_all('scoreDef')
+# create an empty list for the dictionaries
+ts_dict_list = []
+# iterate through the score defs, creating dictionary of each new time signature and its location
 for scoredef in scoredefs:
-    print(scoredef.get('meter.count'))
-    print(scoredef.get('meter.unit'))
     next_measure = scoredef.find_next('measure', )
-    print("The first bar with this TS is " + next_measure.get('n'))
+    ts_dict = {'m_count' : scoredef.get('meter.count'),
+               'unit_count' : scoredef.get('meter.unit'),
+               'measure' : next_measure.get('n')}
+    ts_dict_list.append(ts_dict)
+# pass the list of dictionaries to the new dataframe
+df = pd.DataFrame(ts_dict_list)
+df
 ```
 
-    4
-    2
-    The first bar with this TS is 1
-    8
-    2
-    The first bar with this TS is 71
-    4
-    2
-    The first bar with this TS is 72
-    8
-    2
-    The first bar with this TS is 134
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>m_count</th>
+      <th>unit_count</th>
+      <th>measure</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4</td>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>1</td>
+      <td>93</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>2</td>
+      <td>109</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>8</td>
+      <td>2</td>
+      <td>150</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
 
 
 Finally, we can look for some very specific things, like **all notes with a particular duration, pitch, and octave**:
