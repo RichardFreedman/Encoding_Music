@@ -9,9 +9,9 @@ In the case of music files, the common encoding standard is **MEI**, which stand
 
 **Beautiful Soup** is a Python library that allows us to interact with XML files--finding elements (the 'tags') and their attributes. Documentation: [here](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) and [here](https://tedboy.github.io/bs4_doc/index.html).
 
-**Beautiful Soup** can be a good way to scrape data from web pages (especially tabular data).  It can also be a good way to learn about the structure of MEI files.
+**Beautiful Soup** can also be a good way to learn about the structure of MEI files.
 
-In this tutorial we will explore both possibilities.
+In this tutorial we will explore the possibilities.
 
 ------
 ## Setup: Importing Python Libraries
@@ -218,12 +218,14 @@ def getXML(url):
     return response.text
 ```
 
-**read in your file** and store it in the "xml_document" variable:
-
+**read in your file** and store it in the "xml_document" variable.  We can also get the original file_name at this point for later use with export.
 
 
 ```python
-xml_document = getXML('https://crimproject.org/mei/CRIM_Model_0008.mei')
+url = 'https://crimproject.org/mei/CRIM_Model_0008.mei'
+xml_document = getXML(url)
+file_name = os.path.basename(url)
+
 ```
 
 Once you've imported a file, you should be able to **convert it into a Beautiful Soup Object**:
@@ -639,6 +641,20 @@ tags_to_edit
     <persName role="analyst">Richard Freedman</persName>]
 
 
+
+##  Save Revised XML document
+
+Here we use the file_name from the url, created at the time of import above.
+
+It would also be possible to split the base file name from the extension, and add 'rev', etc.
+
+basename = os.path.splitext(os.path.basename(filepath))[0]
+extension = os.path.splitext(os.path.basename(filepath))[-1]
+
+```python
+with open(file_name, 'w') as f:
+    f.write(str(my_soup_file))
+```
 -----
 ## Working with MEI `music`:  Measures, Staves, Notes
 
@@ -1059,6 +1075,40 @@ df
 </div>
 
 
+Finding clef and key signature information for each voice part, along with the lowest final tone of the piece.  This could serve as an indication of key or modality:
+
+```python
+# the empty list
+list_dicts = []
+
+# get composer and title from mei file
+composer = my_soup_file.find("persName", {"role": "composer"})
+title = my_soup_file.find('title')
+
+measures = my_soup_file.find_all('measure')
+last_measure = measures[-1]
+last_staff =  last_measure.find_all('staff')[-1]
+last_note = last_staff.find_all('note')[-1]
+
+# iterate through the staves, making a temporary dictionary for each, consisting of composer, title, voice, clef shape, clef line, key signature, and last note
+for staff in my_soup_file.find_all('staffDef'):
+    temp_dict = {"Composer": composer.text,
+                 "Title": title.text,
+                 "Voice_Name": staff.text.strip(),
+                 "Clef_Shape": staff.get('clef.shape'),
+                 "Clef_Line": staff.get('clef.line'),
+                 "Key_Signature": staff.get('key.sig'),
+                 "Last_Lowest_Note": last_note.get('pname')}
+# add each temp dict to the list
+    list_dicts.append(temp_dict)
+
+# pass the list of temp dicts to make a df
+df = pd.DataFrame.from_dict(list_dicts)
+df
+```
+
+
+![Alt text](images/bs_2.png)
 
 
 Finally, we can look for some very specific things, like **all notes with a particular duration, pitch, and octave**:
@@ -1168,41 +1218,6 @@ my_soup_file.find_all('note', {'dur': "4", 'pname': "g", 'oct': '3'})
 
 
 
-### 4.0 Display your MEI with Verovio
-
-* Verovio will render your piece directly in the Notebook.  It's the same library we use for CRIM.
 
 
-```python
 
-
-my_piece_url
-response = requests.get(my_piece_url)
-fetched_mei_string = response.text
-# start the verovio toolkit and load the file there
-tk = verovio.toolkit()
-tk.loadData(fetched_mei_string)
-tk.setScale(30)
-tk.setOption( "pageHeight", "1500" )
-tk.setOption( "pageWidth", "3000" )
-
-tk.redoLayout()
-# get the number of pages and display the music
-count = tk.getPageCount()
-for c in range(1, count + 1):
-    music = tk.renderToSVG(c)
-    display(SVG(music))
-```
-
-
-### 5.0 Save Revised XML document
-
-
-```python
-# regular expression to get CRIM Piece Id from URL:
-title = re.findall("[^\\|/]+$", my_piece_url)[0]
-# Save with that CRIM ID as part of title
-f = open(title + '_' + 'rev' + '.mei', "w")
-f.write(str(soup_mei))
-f.close()
-```
