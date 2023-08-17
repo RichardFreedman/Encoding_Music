@@ -227,34 +227,36 @@ response = requests.get(url)
 soup = bs(response.text, 'html.parser')
 
 
-
 ```
 
 ## Scraping Tabular Data
 
 Scraping tabular data from pages of the sort created by Billboard requires some careful attention to the structure of the XML.  Billoard has a lot of distracting ads, so a first step is to hide as many of those as possible.
 
-![bs_3.png](bs_3.png)
+![Alt text](images/bs_3.png)
 
 Now with the clean view, use your browser menu to find the "inspect elements" option in your View or Developer tools.  This will show you the blocks of HTML that correspond to what you are seeing in the table.
 
 The individual rows will be one HTML 'class' or identifier.  Take note of the name.  In the case of Billoard Artist View, it's called `o-chart-results-list-row`.
 
-![bs_4.png](bs_4.png)
+![Alt text](images/bs_4.png)
 
 Hover over each of the columns you want to capture (such as "This Week", or "Last Week", or the "Artist Name" or "Track Title"). As you do, take note of the class. 
 
  - The artist and title are 'h3' tags
  - The ranking and date information columns are of the class `o-chart-results-list__item`.  
 
+![Alt text](images/bs_5.png)
 
-![bs_5.png](bs_5.png)
 
 We now translate each of these into Beautiful Soup requests. 
 
 Each song will begin with a tag of that has the class attribute 'o-chart-results-list-row'.  So a list of all songs would be:
 
-`all_songs = soup.find_all(attrs={'class' : 'o-chart-results-list-row'})`
+```python
+all_songs = soup.find_all(attrs={'class' : 'o-chart-results-list-row'})
+```
+
 
 We iterate over all the songs in the chart, saving each row/cell as a variable:
 
