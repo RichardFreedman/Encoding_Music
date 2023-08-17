@@ -243,8 +243,8 @@ The individual rows will be one HTML 'class' or identifier.  Take note of the na
 
 Hover over each of the columns you want to capture (such as "This Week", or "Last Week", or the "Artist Name" or "Track Title"). As you do, take note of the class. 
 
- - The artist and title are 'h3' tags
- - The ranking and date information columns are of the class `o-chart-results-list__item`.  
+ - The artist and title are `h3` tags.  We can treat these as siblings, and use the `find_next` method to locate successive `h3` tags.
+ - The ranking and date information columns are of the class `o-chart-results-list__item`.  Here we can use `find_all` (thus a list of items) and then work through them in succession to return the required values using `find_next`.
 
 ![Alt text](images/bs_5.png)
 
@@ -256,8 +256,6 @@ Each song will begin with a tag of that has the class attribute 'o-chart-results
 ```python
 all_songs = soup.find_all(attrs={'class' : 'o-chart-results-list-row'})
 ```
-
-
 We iterate over all the songs in the chart, saving each row/cell as a variable:
 
 ```python
