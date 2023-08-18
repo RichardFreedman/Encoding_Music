@@ -4,6 +4,10 @@
 
 SPARQL (SPARQL Protocol and RDF Query Language) is a standardized query language used for querying and manipulating data stored in RDF (Resource Description Framework) format. RDF is a flexible and extensible data model for representing information in the form of subject-predicate-object triples. In this lesson, we will explore the basics of SPARQL queries and how they can be used to retrieve specific information from RDF datasets.
 
+### What is a Schema?
+
+In the context of SPARQL queries, a schema provides a structured way to define the structure and relationships of data elements within an RDF dataset. It helps in organizing and categorizing different types of data by associating them with meaningful classes and properties. The schema namespace, often indicated by prefixes like `schema:`, allows us to reference these classes and properties in our queries.
+
 ## SPARQL Query Basics
 
 SPARQL queries consist of several essential components:
@@ -15,6 +19,10 @@ SPARQL queries consist of several essential components:
 3. **WHERE**: The WHERE keyword is used to specify the patterns or conditions that must be satisfied by the RDF data in order to retrieve the desired information. It allows you to specify the subject-predicate-object triples or patterns that should match the data.
 
 4. **FILTER**: The FILTER keyword is used to further refine the query results based on specified conditions. It allows you to include or exclude data based on certain criteria, such as comparing values or checking for specific patterns.
+
+### Understanding Placeholders
+
+In the query examples, you might notice the use of placeholders such as `?s`, `?p`, and `?o`. These placeholders are used to represent different parts of the RDF triples. For instance, `?s` represents the subject, `?p` represents the predicate, and `?o` represents the object. They are placeholders that will be replaced with actual RDF entities when the query is executed.
 
 ## Example SPARQL Queries
 
