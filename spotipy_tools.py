@@ -1,6 +1,20 @@
 import pandas as pd
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
+import numpy as np
+import random
+import altair as alt
+import requests
+import inspect
+import networkx as nx
+import networkx.algorithms.community as nx_comm
+import matplotlib.cm as cm
+import matplotlib.pyplot as plt
+import pyvis
+from pyvis import network as net
+from itertools import combinations
+from community import community_louvain
+from copy import deepcopy
 
 # Replace with your own Spotify API credentials
 client_id = 'your_client_id'
@@ -59,3 +73,21 @@ def get_all_user_tracks(username):
         list_of_dataframes.append(current_playlist_audio)
 
     return pd.concat(list_of_dataframes)
+
+def createRadarElement(row, feature_cols):
+    return go.Scatterpolar(
+        r = row[feature_cols].values.tolist(), 
+        theta = feature_cols, 
+        mode = 'lines', 
+        name = row['track_name'])
+
+def get_radar_plot(playlist_id, features_list):
+    current_playlist_audio_df = get_audio_features_df(pd.DataFrame(sp.playlist_items(playlist_id)))
+    current_data = list(current_playlist_audio_df.apply(createRadarElement, axis=1, args=(features_list, )))  
+    fig = go.Figure(current_data, )
+    fig.show(renderer='iframe')
+    fig.write_image(playlist_id + '.png', width=1200, height=800)
+    
+def get_radar_plots(playlist_id_list, features_list):
+    for item in playlist_id_list:
+        get_radar_plot(item, features_list)
