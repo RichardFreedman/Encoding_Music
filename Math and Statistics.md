@@ -1,4 +1,4 @@
-# Regressions: Understanding and Interpreting Data
+# Math and Statistics
 
 ## Introduction to Regressions
 
@@ -47,6 +47,130 @@ The correlation coefficient is a statistical measure of the strength of the rela
 ![Alt text](images/r-values.png)
 [Image Source](https://www.cuemath.com/data/how-to-calculate-correlation-coefficient/)
 
+
+## Standard Deviation
+
+The **standard deviation** is a statistical measure that quantifies the amount of variation or dispersion in a set of data points. It indicates how spread out the values in a dataset are around the mean (average) value. A higher standard deviation suggests greater variability, while a lower standard deviation indicates less variability. It is calculated using the following formula:
+
+σ = √(Σ(xi - μ)² / N)
+
+Where:
+- σ (sigma) is the standard deviation.
+- Σ is the sum symbol.
+- xi represents individual data points.
+- μ (mu) is the mean of the dataset.
+- N is the total number of data points.
+
+```python
+import pandas as pd
+import numpy as np
+
+# Create a sample DataFrame
+data = {'value': [12, 15, 18, 20, 22, 25, 28, 30, 50, 100]}
+df = pd.DataFrame(data)
+
+# Calculate the mean and standard deviation
+mean_value = df['value'].mean()
+std_deviation = df['value'].std()
+
+print(f"Mean: {mean_value:.2f}")
+print(f"Standard Deviation: {std_deviation:.2f}")
+```
+
+## Outliers
+
+**Outliers** are data points that significantly deviate from the rest of the dataset. They can distort statistical analyses and lead to inaccurate conclusions. Outliers can occur due to various reasons, such as measurement errors, data entry mistakes, or genuinely anomalous observations. It's important to identify and handle outliers appropriately.
+
+Common methods for identifying outliers include:
+- **Z-Score**: Measures how many standard deviations a data point is away from the mean.
+- **IQR (Interquartile Range)**: The range between the first quartile (25th percentile) and the third quartile (75th percentile). Data points beyond a certain threshold from this range are considered outliers.
+- **Visualization**: Creating scatter plots, box plots, or histograms can help visually identify data points that are far from the rest.
+
+Outliers can be treated by either removing them if they are due to errors or extreme values, or by applying appropriate transformations to make them conform to the rest of the data.
+
+```python
+import pandas as pd
+import numpy as np
+
+# Create a sample DataFrame
+data = {'value': [12, 15, 18, 20, 22, 25, 28, 30, 50, 100]}
+df = pd.DataFrame(data)
+
+# Calculate Z-scores
+z_scores = (df['value'] - mean_value) / std_deviation
+
+# Identify outliers using Z-score method
+outliers_zscore = df[abs(z_scores) > 2]  # Threshold of 2 standard deviations
+
+print("\nOutliers using Z-score:")
+print(outliers_zscore)
+
+# Calculate IQR (Interquartile Range)
+q1 = df['value'].quantile(0.25)
+q3 = df['value'].quantile(0.75)
+iqr = q3 - q1
+
+# Identify outliers using IQR method
+lower_bound = q1 - 1.5 * iqr
+upper_bound = q3 + 1.5 * iqr
+outliers_iqr = df[(df['value'] < lower_bound) | (df['value'] > upper_bound)]
+
+print("\nOutliers using IQR:")
+print(outliers_iqr)
+
+```
+## Visualize the Outliers
+![Alt text](images/Outlier_Zscore.png)
+![Alt text](images/OutlierIQR.png)
+<Details>
+
+<Summary>Code to Produce Graphs</Summary>
+
+```python
+import pandas as pd
+import numpy as np
+import plotly.express as px
+
+# Create a sample DataFrame
+data = {'value': [12, 15, 18, 20, 22, 25, 28, 30, 50, 100]}
+df = pd.DataFrame(data)
+
+# Calculate the mean and standard deviation
+mean_value = df['value'].mean()
+std_deviation = df['value'].std()
+
+# Calculate Z-scores
+z_scores = (df['value'] - mean_value) / std_deviation
+
+# Identify outliers using Z-score method
+df['is_outlier_zscore'] = abs(z_scores) > 2  # Threshold of 2 standard deviations
+
+# Create a scatter plot to visualize the outliers
+fig = px.scatter(df, x='value', title='Outliers Visualization', color='is_outlier_zscore')
+
+# Show the plot
+fig.show()
+
+# Calculate IQR (Interquartile Range)
+q1 = df['value'].quantile(0.25)
+q3 = df['value'].quantile(0.75)
+iqr = q3 - q1
+
+# Identify outliers using IQR method
+lower_bound = q1 - 1.5 * iqr
+upper_bound = q3 + 1.5 * iqr
+df['is_outlier_iqr'] = (df['value'] < lower_bound) | (df['value'] > upper_bound)
+
+
+# Create a scatter plot to visualize the outliers
+fig = px.scatter(df, x='value', title='Outliers Visualization', color="is_outlier_iqr")
+
+
+# Show the plot
+fig.show()
+```
+
+</Details>
 
 ## Conclusion
 

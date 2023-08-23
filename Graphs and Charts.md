@@ -25,13 +25,15 @@ Here's an example of a bar chart showing the sales of different products:
 ```python
 # Plotly
 import plotly.graph_objects as go
+import pandas as pd
+# Create a DataFrame for bar chart
+bar_data = {'categories': ['Product A', 'Product B', 'Product C'],
+            'sales': [100, 150, 120]}
+df_bar = pd.DataFrame(bar_data)
 
-categories = ['Product A', 'Product B', 'Product C']
-sales = [100, 150, 120]
-
-fig = go.Figure(data=[go.Bar(x=categories, y=sales)])
-
-fig.show()
+# Plotly Bar Chart
+fig_bar = go.Figure(data=[go.Bar(x=df_bar['categories'], y=df_bar['sales'])])
+fig_bar.show()
 ```
 
 ![Alt text](images/bar_chart_plotly.svg)
@@ -39,11 +41,14 @@ fig.show()
 ```python
 # Matplotlib
 import matplotlib.pyplot as plt
+import pandas as pd
+# Create a DataFrame for bar chart
+bar_data = {'categories': ['Product A', 'Product B', 'Product C'],
+            'sales': [100, 150, 120]}
+df_bar = pd.DataFrame(bar_data)
 
-categories = ['Product A', 'Product B', 'Product C']
-sales = [100, 150, 120]
-
-plt.bar(categories, sales)
+# Matplotlib Bar Chart
+plt.bar(df_bar['categories'], df_bar['sales'])
 plt.show()
 ```
 ![Alt text](images/bar_chart_matplotlib.svg)
@@ -54,29 +59,31 @@ Histograms are used to display the distribution of numerical data. They consist 
 Here's an example of a histogram displaying the distribution of exam scores:
 
 ```python
-# Plotly
+import pandas as pd
 import plotly.graph_objects as go
-import numpy as np
 
-np.random.seed(0)
-scores = np.random.normal(70, 10, 100)
+# Create a DataFrame for histogram
+hist_data = {'scores': [80, 85, 90, 70, 75, 88, 82, 95, 92, 78, 87, 80, 85, 90, 73, 79, 83]}
+df_hist = pd.DataFrame(hist_data)
 
-fig = go.Figure(data=[go.Histogram(x=scores)])
-
-fig.show()
+# Plotly Histogram
+fig_hist = go.Figure(data=[go.Histogram(x=df_hist['scores'])])
+fig_hist.show()
 ```
 
 ![Alt text](images/histogram_plotly.svg)
 
 ```python
 # Matplotlib
+import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 
-np.random.seed(0)
-scores = np.random.normal(70, 10, 100)
+# Create a DataFrame for histogram
+hist_data = {'scores': [80, 85, 90, 70, 75, 88, 82, 95, 92, 78, 87, 80, 85, 90, 73, 79, 83]}
+df_hist = pd.DataFrame(hist_data)
 
-plt.hist(scores)
+# Matplotlib Histogram
+plt.hist(df_hist['scores'])
 plt.show()
 ```
 
@@ -90,26 +97,35 @@ Here's an example of a scatter plot showing the relationship between study hours
 
 ```python
 # Plotly
+import pandas as pd
 import plotly.graph_objects as go
 
-study_hours = [3, 4, 2, 5, 6, 5, 3, 4, 2, 6]
-exam_scores = [70, 80, 65, 90, 95, 85, 75, 80, 70, 90]
+# Create a DataFrame for scatter plot
+scatter_data = {'study_hours': [3, 4, 2, 5, 6, 5, 3, 4, 2, 6],
+                'exam_scores': [70, 80, 65, 90, 95, 85, 75, 80, 70, 90]}
+df_scatter = pd.DataFrame(scatter_data)
 
-fig = go.Figure(data=go.Scatter(x=study_hours, y=exam_scores, mode='markers'))
+# Plotly Scatter Plot
+fig_scatter = go.Figure(data=go.Scatter(x=df_scatter['study_hours'], y=df_scatter['exam_scores'], mode='markers'))
+fig_scatter.show()
 
-fig.show()
 ```
 ![Alt text](images/scatter_plot_plotly.svg)
 
 ```python
 # Matplotlib
+import pandas as pd
 import matplotlib.pyplot as plt
 
-study_hours = [3, 4, 2, 5, 6, 5, 3, 4, 2, 6]
-exam_scores = [70, 80, 65, 90, 95, 85, 75, 80, 70, 90]
+# Create a DataFrame for scatter plot
+scatter_data = {'study_hours': [3, 4, 2, 5, 6, 5, 3, 4, 2, 6],
+                'exam_scores': [70, 80, 65, 90, 95, 85, 75, 80, 70, 90]}
+df_scatter = pd.DataFrame(scatter_data)
 
-plt.scatter(study_hours, exam_scores)
+# Matplotlib Scatter Plot
+plt.scatter(df_scatter['study_hours'], df_scatter['exam_scores'])
 plt.show()
+
 ```
 
 ![Alt text](images/scatter_plot_matplotlib.svg)
@@ -124,17 +140,19 @@ Correlation plots are used to visualize the strength and direction of the relati
 Here's an example of a correlation plot:
 ```python
 # Plotly
-import plotly.graph_objects as go
+import pandas as pd
 import numpy as np
+import plotly.graph_objects as go
 
-np.random.seed(0)
-x = np.random.rand(100)
-y = np.random.rand(100)
+# Create a DataFrame for correlation plot
+corr_data = {'variable_X': [2, 3, 5, 7, 8, 10, 12, 15, 17, 20],
+             'variable_Y': [4, 6, 9, 11, 12, 14, 17, 19, 22, 23]}
+df_corr = pd.DataFrame(corr_data)
 
-correlation_matrix = np.corrcoef(x, y)
+correlation_matrix = df_corr.corr().values
 correlation = correlation_matrix[0, 1]
 
-fig = go.Figure(data=go.Heatmap(z=correlation_matrix, x=['Variable X', 'Variable Y'], y=['Variable X', 'Variable Y']))
+fig = go.Figure(data=go.Heatmap(z=correlation_matrix, x=df_corr.columns, y=df_corr.columns))
 fig.update_layout(title=f'Correlation: {correlation:.2f}')
 fig.show()
 ```
@@ -143,18 +161,20 @@ fig.show()
 
 ```python
 # Matplotlib
+import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 
-np.random.seed(0)
-x = np.random.normal(0, 1, 100)
-y = np.random.normal(0, 1, 100)
+# Create a DataFrame for correlation plot
+corr_data = {'variable_X': [2, 3, 5, 7, 8, 10, 12, 15, 17, 20],
+             'variable_Y': [4, 6, 9, 11, 12, 14, 17, 19, 22, 23]}
+df_corr = pd.DataFrame(corr_data)
 
-plt.scatter(x, y)
+plt.scatter(df_corr['variable_X'], df_corr['variable_Y'])
 plt.xlabel('Variable X')
 plt.ylabel('Variable Y')
 plt.title('Correlation Plot')
 plt.show()
+
 ```
 
 ![Alt text](images/correlation_plot_matplotlib.svg)
