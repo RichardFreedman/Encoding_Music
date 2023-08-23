@@ -206,7 +206,7 @@ dir(bs)
 
 As your first and perhaps most important step, you'll have to go find some data. For this homework assignment, we will work with *these files*, which you can access *here*. Once you've picked your file and copied its URL, use the function provided below to **import it as a JSON object**.
 
-The following function extras text as a JSON:
+The following function extracts text as a JSON:
 
 
 ```python
