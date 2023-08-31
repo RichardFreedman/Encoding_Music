@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 900;
+            height: 900;
+            background-color: white;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"font": {"color": "black"}, "group": 7, "id": 5472509200, "label": "measure (n=66)", "level": 7, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 81}, {"font": {"color": "black"}, "group": 8, "id": 5472509712, "label": "staff (n=1)", "level": 8, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 18}, {"font": {"color": "black"}, "group": 8, "id": 5472516752, "label": "staff (n=2)", "level": 8, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 22}, {"font": {"color": "black"}, "group": 8, "id": 5472572112, "label": "staff (n=3)", "level": 8, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 24}, {"font": {"color": "black"}, "group": 8, "id": 5472579280, "label": "staff (n=4)", "level": 8, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 8}, {"font": {"color": "black"}, "group": 9, "id": 5472510224, "label": "layer (n=1)", "level": 9, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 15}, {"font": {"color": "black"}, "group": 10, "id": 5472511248, "label": "note (dur=4\ndur.ppq=256 oct=4\npname=a pnum=69\nstem.dir=up)", "level": 10, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 0}, {"font": {"color": "black"}, "group": 10, "id": 5472512336, "label": "note (dur=4\ndur.ppq=256 oct=4\npname=g pnum=67\nstem.dir=up)", "level": 10, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 0}, {"font": {"color": "black"}, "group": 10, "id": 5472513552, "label": "note (dur=1\ndur.ppq=1024 oct=4\npname=g pnum=67\nstem.dir=up)", "level": 10, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 0}, {"font": {"color": "black"}, "group": 10, "id": 5472514576, "label": "note (dur=2\ndur.ppq=512 oct=4\npname=f pnum=66\nstem.dir=up)", "level": 10, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 6}, {"font": {"color": "black"}, "group": 11, "id": 5472515216, "label": "supplied\n(reason=edit)", "level": 11, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 3}, {"font": {"color": "black"}, "group": 12, "id": 5472516048, "label": "accid (accid=s\nfunc=edit\nplace=above)", "level": 12, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 0}, {"font": {"color": "black"}, "group": 9, "id": 5472517264, "label": "layer (n=1)", "level": 9, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 19}, {"font": {"color": "black"}, "group": 10, "id": 5472567504, "label": "note (dur=1\ndur.ppq=1024 oct=4\npname=e pnum=64\nstem.dir=up)", "level": 10, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 7}, {"font": {"color": "black"}, "group": 10, "id": 5472570000, "label": "note (dur=1\ndur.ppq=1024 oct=4\npname=d pnum=62\nstem.dir=up)", "level": 10, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 7}, {"font": {"color": "black"}, "group": 11, "id": 5472568080, "label": "verse (n=1)", "level": 11, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 4}, {"font": {"color": "black"}, "group": 12, "id": 5472568720, "label": "syl (con=d\nwordpos=i)", "level": 12, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 1}, {"font": {"color": "black"}, "group": 11, "id": 5472570512, "label": "verse (n=1)", "level": 11, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 4}, {"font": {"color": "black"}, "group": 12, "id": 5472571152, "label": "syl (con=d\nwordpos=m)", "level": 12, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 1}, {"font": {"color": "black"}, "group": 9, "id": 5472572624, "label": "layer (n=1)", "level": 9, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 21}, {"font": {"color": "black"}, "group": 10, "id": 5472573648, "label": "note (dur=2\ndur.ppq=512 oct=4\npname=c pnum=48\nstem.dir=down)", "level": 10, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 0}, {"font": {"color": "black"}, "group": 10, "id": 5472574736, "label": "note (dur=2\ndur.ppq=512 oct=3\npname=b pnum=47\nstem.dir=down)", "level": 10, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 7}, {"font": {"color": "black"}, "group": 10, "id": 5472577296, "label": "note (dur=1\ndur.ppq=1024 oct=3\npname=a pnum=45\nstem.dir=up)", "level": 10, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 7}, {"font": {"color": "black"}, "group": 11, "id": 5472575312, "label": "verse (n=1)", "level": 11, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 4}, {"font": {"color": "black"}, "group": 12, "id": 5472575952, "label": "syl (con=d\nwordpos=i)", "level": 12, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 1}, {"font": {"color": "black"}, "group": 11, "id": 5472577808, "label": "verse (n=1)", "level": 11, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 4}, {"font": {"color": "black"}, "group": 12, "id": 5472578448, "label": "syl (con=d\nwordpos=m)", "level": 12, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 1}, {"font": {"color": "black"}, "group": 9, "id": 5472579792, "label": "layer (n=1)", "level": 9, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 5}, {"font": {"color": "black"}, "group": 10, "id": 5472580816, "label": "note (dur=1\ndur.ppq=1024 oct=3\npname=c pnum=48\nstem.dir=up)", "level": 10, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 0}, {"font": {"color": "black"}, "group": 10, "id": 5472581904, "label": "note (dur=1\ndur.ppq=1024 oct=3\npname=d pnum=50\nstem.dir=down)", "level": 10, "scaling": {"label": {"enabled": true}}, "shape": "dot", "size": 10, "value": 0}]);
+        edges = new vis.DataSet([{"arrows": "to", "from": 5472509200, "id": "5472509200_measure|5472509712_staff", "to": 5472509712, "weight": 1}, {"arrows": "to", "from": 5472509200, "id": "5472509200_measure|5472516752_staff", "to": 5472516752, "weight": 1}, {"arrows": "to", "from": 5472509200, "id": "5472509200_measure|5472572112_staff", "to": 5472572112, "weight": 1}, {"arrows": "to", "from": 5472509200, "id": "5472509200_measure|5472579280_staff", "to": 5472579280, "weight": 1}, {"arrows": "to", "from": 5472509712, "id": "5472509712_staff|5472510224_layer", "to": 5472510224, "weight": 1}, {"arrows": "to", "from": 5472510224, "id": "5472510224_layer|5472511248_note", "to": 5472511248, "weight": 1}, {"arrows": "to", "from": 5472510224, "id": "5472510224_layer|5472512336_note", "to": 5472512336, "weight": 1}, {"arrows": "to", "from": 5472510224, "id": "5472510224_layer|5472513552_note", "to": 5472513552, "weight": 1}, {"arrows": "to", "from": 5472510224, "id": "5472510224_layer|5472514576_note", "to": 5472514576, "weight": 1}, {"arrows": "to", "from": 5472514576, "id": "5472514576_note|5472515216_supplied", "to": 5472515216, "weight": 1}, {"arrows": "to", "from": 5472515216, "id": "5472515216_supplied|5472516048_accid", "to": 5472516048, "weight": 1}, {"arrows": "to", "from": 5472516752, "id": "5472516752_staff|5472517264_layer", "to": 5472517264, "weight": 1}, {"arrows": "to", "from": 5472517264, "id": "5472517264_layer|5472567504_note", "to": 5472567504, "weight": 1}, {"arrows": "to", "from": 5472517264, "id": "5472517264_layer|5472570000_note", "to": 5472570000, "weight": 1}, {"arrows": "to", "from": 5472567504, "id": "5472567504_note|5472568080_verse", "to": 5472568080, "weight": 1}, {"arrows": "to", "from": 5472568080, "id": "5472568080_verse|5472568720_syl", "to": 5472568720, "weight": 1}, {"arrows": "to", "from": 5472570000, "id": "5472570000_note|5472570512_verse", "to": 5472570512, "weight": 1}, {"arrows": "to", "from": 5472570512, "id": "5472570512_verse|5472571152_syl", "to": 5472571152, "weight": 1}, {"arrows": "to", "from": 5472572112, "id": "5472572112_staff|5472572624_layer", "to": 5472572624, "weight": 1}, {"arrows": "to", "from": 5472572624, "id": "5472572624_layer|5472573648_note", "to": 5472573648, "weight": 1}, {"arrows": "to", "from": 5472572624, "id": "5472572624_layer|5472574736_note", "to": 5472574736, "weight": 1}, {"arrows": "to", "from": 5472572624, "id": "5472572624_layer|5472577296_note", "to": 5472577296, "weight": 1}, {"arrows": "to", "from": 5472574736, "id": "5472574736_note|5472575312_verse", "to": 5472575312, "weight": 1}, {"arrows": "to", "from": 5472575312, "id": "5472575312_verse|5472575952_syl", "to": 5472575952, "weight": 1}, {"arrows": "to", "from": 5472577296, "id": "5472577296_note|5472577808_verse", "to": 5472577808, "weight": 1}, {"arrows": "to", "from": 5472577808, "id": "5472577808_verse|5472578448_syl", "to": 5472578448, "weight": 1}, {"arrows": "to", "from": 5472579280, "id": "5472579280_staff|5472579792_layer", "to": 5472579792, "weight": 1}, {"arrows": "to", "from": 5472579792, "id": "5472579792_layer|5472580816_note", "to": 5472580816, "weight": 1}, {"arrows": "to", "from": 5472579792, "id": "5472579792_layer|5472581904_note", "to": 5472581904, "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
