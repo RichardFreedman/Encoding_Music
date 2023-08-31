@@ -784,7 +784,10 @@ As expected, there are some corresponding statistical observations:
 * user_1's Standard Deviation (std) is 0.161 whereas User_2 is 0.221 (corresponding to the spread)
 * user_1's average "energy" (mean) is 0.653 whereas User_2 is 0.473 (lower average, as expected)
 <br>
+
 ----
+
+
 ## **Part 4a: Networks**
 In the field of data science, networks (also known as graphs) are powerful tools used to represent and study relationships between entities. A network is composed of **nodes** (also called vertices) and **edges** (also called links). Each node represents an entity, while each edge represents a relationship between two entities.
 
