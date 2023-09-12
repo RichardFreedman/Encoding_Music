@@ -18,21 +18,20 @@ There are several ways to run, edit, and create notebooks. Students in Encoding 
 
 ![Alt text](<images/nb 1.png>)
 
-Your screen will probably look like this on first log in.  You can simply close the initial tab (see the 'x').
+Your screen should  look like this on first log in.  You will always use the Encoding Music kernel (which is our Environment, including all required Python libraries)
 
-
+![Alt text](<images/nb 23.png>)
 
 You can also run the Notebooks in a local installation of Jupyter or VS Code on your own computer.  See [this guide](https://github.com/RichardFreedman/Encoding_Music/blob/main/01_Tutorials/02_VS_Code_Google_Collab.md) to learn how.
-
 
 
 ## First Steps:  Create a Folder, Create Your First NB
 
 There will be times when we share certain draft Notebooks that you can adapt. These can be uploaded into this space from your computer or a URL link.
 
-But in general you will create your own notebook, adding modular code found in the Encoding Music tutorials.
+But in general you will **create your own notebook**, adding modular code found in the Encoding Music tutorials.
 
-When you first 
+
 
 ## The Kernel
 
@@ -47,6 +46,20 @@ If your notebook will not work after opening it, you might want to **double chec
 ![Alt text](<images/nb 8.png>)
 
 If your Notebook becomes unresponsive, or you are simply stuck in some other way, one solution is to "Restart the Kernel" and begin again from the top.  Look for the "Kernel" menu or function.
+
+## Make a Folder, Create a Notebook
+
+You will want to make a folder for your work, and perhaps different folders for different assignments or projects.  Right+click to rename, delete, etc.
+
+![Alt text](<images/nb 24.png>)
+
+Now you can create a Notebook within that Folder.  Right+click will also allow you to move, rename, and export.
+
+![Alt text](<images/nb 25.png>)
+
+### Remember:  Always use the Encoding Music Kernel!
+
+![Alt text](<images/nb 26.png>)
 
 ## Viewing and Saving Charts and Graphics
 
