@@ -14,31 +14,25 @@ It is also good practice to **copy and rename** any notebook you work on in orde
 
 ## Run the Notebooks in a Browser or VS Code
 
-There are several ways to run, edit, and create notebooks. Students in Encoding Music can use the [Jupyter Hub](https://encodingmusic.haverford.edu/) created especially for this course. Log on with your full Haverford user id (including @haverford.edu and password--students from Bryn Mawr College will be given a special user account).  You *must* be on the Haverford College network, or VPN!
+There are several ways to run, edit, and create notebooks. Students in Encoding Music can use the [Jupyter Hub](https://encodingmusic.haverford.edu/) created especially for this course. Log on with your **full Haverford user id** (including @haverford.edu and password--students from Bryn Mawr College will be given a special user account).  You *must* be on the Haverford College network, or VPN!
 
 ![Alt text](<images/nb 1.png>)
 
+Your screen will probably look like this on first log in.  You can simply close the initial tab (see the 'x').
+
+
+
 You can also run the Notebooks in a local installation of Jupyter or VS Code on your own computer.  See [this guide](https://github.com/RichardFreedman/Encoding_Music/blob/main/01_Tutorials/02_VS_Code_Google_Collab.md) to learn how.
 
-## Where to Find the Notebooks
 
-Class notebooks are published on the [Encoding Music Github](https://github.com/RichardFreedman/Encoding_Music) repository. 
 
-If you plan to use the class [Jupyter Hub](https://encodingmusic.haverford.edu/) follow [this link](https://encodingmusic.haverford.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2FRichardFreedman%2FEncoding_Music&urlpath=tree%2FEncoding_Music%2F&branch=main). 
+## First Steps:  Create a Folder, Create Your First NB
 
-If you are already logged in to the Encoding Music Jupyter Hub, your notebooks will load (then log out and back in again!). If you are not yet logged in to the Jupyter Hub, do so when prompted (and then log out and back in).
+There will be times when we share certain draft Notebooks that you can adapt. These can be uploaded into this space from your computer or a URL link.
 
-![Alt text](<images/nb 3.png>)
+But in general you will create your own notebook, adding modular code found in the Encoding Music tutorials.
 
-If you use Github you can "clone" the repository to your own space, then open the relevant folder of notebooks (a copy of which will now be on your own machine), and then navigate to them in the Encoding Music Juptyer Hub. If you are collaborating with a classmate, this might be the best way to share Notebooks and other code (with several branches on the same GitHub repository). Ask if you need help with this.
-
-## Basic Navigation
-
-If you're using the class Jupyter Hub, this is how you will open a notebook:
-
-![Alt text](<images/nb 4.png>)
-
-Opening a notebook in VS Code or Jupyter in your local machine might look slightly different, but the basic concept is the same:  the folder of files is to the left; the active notebooks are to the right.  You can run more than one at a time (each it its own tab).
+When you first 
 
 ## The Kernel
 
