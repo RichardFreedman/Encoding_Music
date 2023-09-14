@@ -104,9 +104,13 @@ beatles_spotify = pd.read_csv(beatles_spotify_csv)
 
 It's a good idea to make a Copy of your Notebook before you run or edit it.  Rename with "_dev" at the end, for instance, so you can distinguish it from the original.
 
+### Download ipynb File from Jupyter Hub (Encoding Music)
+
 In the **Encoding Music** hub version of Jupyter, `right-click` on the NB file, then pick "Duplicate".  Note that you can follow the same menu to `Download` your Notebook as ipynb to share or submit.
 
 ![Alt text](<images/nb 12.png>)
+
+### Download ipynb File from Your Local Anaconda Installation
 
 If you are running notebooks **locally in Anaconda Jupyter**, then `File>DownloadAs>Notebook`:
 
@@ -118,15 +122,22 @@ In a local **Anaconda VS-Code** you can simply find the ipynb file on your compu
 
 Saving your Notebook as HTML or PDF is the only way to share your work outside of the Jupyter environment. The process of creating HTML or PDF is slightly different (but equally tedious) in each platform.
 
-From the **Encoding Music** hub or **Local Jupyter (on Anaconda)**, follow `File>Download` (or `File>DownloadAs`) and select **HTML** as the format.  Be sure to select HTML and *not* any of the PDF formats, which will not work! This will be saved to the 'downloads' area on your computer. Next,open the file in a browser, then use the `Print` dialogue to save it as PDF.  Be sure to name it according to the conventions!
+
+### HTML to PDF from Jupyter Hub (Encoding Music)
+From the **Encoding Music** hub or **Local Jupyter (on Anaconda)**, follow `File>Download` (or `File>DownloadAs`) and select **HTML** as the format.  Be sure to select HTML and *not* any of the PDF formats, which will not work! This will be saved to the 'downloads' area on your computer. 
+
+Next, **open the file in a browser, then use the `Print` dialogue to save it as PDF**.  Be sure to name it according to the conventions!
 
 
 ![Alt text](<images/nb 14.png>)
 
+### HTML to PDF from Local Anaconda
+
 From Local VS-Code (on Anaconda), look for the 'three dots' at the top right of your Notebook, then pick `Export`:
 
-
 ![Alt text](<images/nb 15.png>)
+
+
 
 Now from the Export menu select 'HTML' (PDF will not work!). The HTML will be saved to the 'downloads' area on your computer. Open the file in a browser, then use the `Print` dialogue to save it as PDF.  Be sure to name it according to the conventions!
 
