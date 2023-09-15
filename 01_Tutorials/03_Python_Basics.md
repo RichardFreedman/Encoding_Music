@@ -60,7 +60,9 @@ Depending on the data type, it's possible to perform various **operations** on t
 
 * You **can** add/subtract **integers** and **floats** to each other
 * You **cannot** add an **integer** to **text or a Boolean**
-* Many other kinds of operators can be used to compare items, test for thresholds, etc.  
+* Many other kinds of operators can be used to compare items, test for thresholds, etc. 
+
+
 
 **Integers** and **floats** can be used with various mathematical tests:
 
@@ -87,7 +89,17 @@ Read about [operators at the w3school site](https://www.w3schools.com/python/pyt
 
 See more [about strings at w3schools](https://www.w3schools.com/python/python_strings_methods.asp).
 
+## Converting One Datatype to Another
 
+Thus sometimes you will need to 'evaluate' a given string, float, or integer as another datatype.
+
+For instance:
+
+- `int("1")` will return the string "1" as the integer 1.
+
+- `str(10)` will return the integer 10 as a string
+
+![Alt text](images/convertType.png)
 
 ## Collections:  Lists, Dictionaries, Sets, and Tuples
 
@@ -222,7 +234,42 @@ my_concert['work_1']['work_title']
 ```
 my_concert['work_1']["librettist"] = 'Schickaneder'
 ```
+### From CSV to Dictionary
 
+CSV means 'comma separated values' and is a common interchange standard for tabular information.  You can easily obtain a CSV from Excel or Google Sheets.
+
+As we will learn, it is actually very simple to build a Pandas dataframe from a CSV file, or from a Dictionary.
+
+But it's also possible to build Python dictionaries from CSV files.  In this case you will obtain a _list_ of dictionaries---you can imagine each dictionary as the row of your original spreadsheet.
+
+You will need to import a new library, 'csv', in order to make this work.  Note that you will need to upload your csv file to the same folder where your current notebook resides, and change the `sample.csv` in the code below to the name of your file.  Of course you can also load this from some URL or space on your computer, but in that case will need the file path.
+
+```
+import csv
+
+with open('sample.csv', 'r') as data:
+    dict_reader = csv.DictReader(data)
+    list_of_dict = list(dict_reader)
+    
+print(list_of_dict)
+
+```
+
+
+
+
+
+
+Here is the first row of a CSV file with three columns.  There is a pair of 'works', and a 'percentage' of their relatedness:
+
+![Alt text](images/csv_sample.png)
+
+
+It's possible to _search_ and _filter) this sort of list to return items that match a particular condition.  See more below.
+
+Depending on the length of your csv, the output of the print statement might be _very long_.  So you might want to print just one entry instead.  The '0' item in the list is the first.  Of course Python will allow to 'slice' lists like this in lots of different ways.  Look up the documentation via w3schools.
+
+`print(list_of_dict)[0]`
 
 [More about dictionaries from w3schools](https://www.w3schools.com/python/python_dictionaries.asp).
 
@@ -301,6 +348,31 @@ b_list = [x for x in genres if x.startswith("B")]
 More about **list comprehension** [here](https://www.w3schools.com/python/python_lists_comprehension.asp).
 
 
+## For Loops with Simple Dictionaries
+
+It's not hard to create a test that will search through a list of dictionaries, returning the items that match certain conditions.  Using our imported sample csv file above (with keys for two works and a percentage of their relatedness), we can return only the items (dictionaries) that match a given condition, for example the % of relatedness.
+
+Create the dictionaries from a csv:
+
+```
+import csv
+
+with open('sample.csv', 'r') as data:
+    dict_reader = csv.DictReader(data)
+    list_of_dict = list(dict_reader)
+    
+print(list_of_dict[0])
+```
+
+Filter it for the percentage threshold.  Note that since the value for percentage in the original CSV (and dictionary) is a `string`, we must *evaluate that string as a float* in order use `>` as a comparator to make the test:
+
+```
+for item in list_of_dict:
+    if float(item['Percentage']) > 80:
+        print(item)
+```
+
+![Alt text](images/threshold_test.png)
 ---
 
 ## For Loops with Nested Dictionaries
