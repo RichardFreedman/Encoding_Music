@@ -351,7 +351,7 @@ You can read more about Merging [here](https://pandas.pydata.org/docs/reference/
 
 We can merge the two Beatles data frame on the basis of some shared columns.  It is not necessary for the columns to have the same name, but they need to share the same items (like 'songs')
 
-* In this case the **Published_In** column in the emblems list corresponds to the **Book_Id**
+* In this case the **song** column in the **Spotify data** corresponds to the **Title** column in the **Billboard data**
 * In Pandas, the two frames to be joined are called "left" and "right"
 * The "suffixes" argument tells Pandas how to handle fields are otherwise named identically in the source files
 
