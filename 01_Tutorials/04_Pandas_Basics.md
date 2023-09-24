@@ -295,9 +295,6 @@ beatles_spotify
 
 Sometimes, a simple True/False ranking isn't enough. For example, the "tempo" column provides the Beat Per Minute musical tempo value for a given track; this value typically ranges between 1 and ~500 bpm. While it is possible to classify tracks into Slow and Not Slow, it might be more useful to, for example, categorize them into "Slow", "Medium", and "Fast". 
 
-Similarly to the previous task, use the space below to **come up with two relative thresholds** that would separate tempo into Slow, Medium, and Fast:
-
-
 
 ### Subset of Rows of Columns
 
