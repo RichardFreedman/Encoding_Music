@@ -50,10 +50,6 @@ beatles_billboard_csv = 'https://raw.githubusercontent.com/inteligentni/Class-05
 beatles_billboard = pd.read_csv(beatles_billboard_csv)
 ```
 
-The outputs of the `notes()`, `melodic()`, and `harmonic()` functions are all in the format of a pandas DataFrame. Therefore, they can each be manipulated by the functions built into pandas for this purpose. A cheat sheet of pandas DataFrame operations can be [found here](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf). For the following examples, we can assume that some piece has been imported, and define a variable "mel" as the melodic intervals DataFrame for that piece:  
-
-    mel = piece.melodic()  
-
 ## Inspect the Data Frame
 
 A quick look at the file as a dataframe:
@@ -84,7 +80,7 @@ By default Pandas shows only the first and last five rows of any data frame.  Th
 
 ### Selecting Rows:  `loc` and `iloc` 
 
-`df.loc`` and `dc.iloc`` are _not_ the same!
+`df.loc` and `dc.iloc` are _not_ the same!
 
 * **iloc** to select rows by **index number** (the left-hand column) use `iloc`. The syntax puts rows before columns, as in `beatles_spotify.iloc[startrow:endrow, startcolumn:endcolumn]`.  Thus rows 10-15 (and all columns) of our dataframe would be `beatles_spotify.iloc[10:15, :]`.  Note:  the first number is *inclusive* but the second is *exclusive*.  So `10:15` will yield rows 10, 11, 12, 13, 14, but *not* 15.
 * **loc** to select rows by **label** of the left-hand column (as when you might have an index of strings), use `loc`.  This is useful when our index is a string rather than a number.  It is especially useful for working with columns.
