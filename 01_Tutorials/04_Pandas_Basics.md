@@ -217,7 +217,7 @@ You will first want to understand all the values you are trying to correct.  So 
 
 `set(df["Artist"])`
 
-Now that you know what the problem values are, write a **function** that corrects `John Lenin` to `John Lennon`.  If you don't recall **functions** see **Python Basic Noteboo**!
+Now that you know what the problem values are, write a **function** that corrects `John Lenin` to `John Lennon`.  If you don't recall **functions** see **Python Basic Notebook**!
 ```
 
 def name_check:
