@@ -326,9 +326,11 @@ beatles_billboard[~(beatles_billboard['Year'] > 1964)]
 
 #### Testing for Strings and SubStrings
 
-Note the differences between **`str.contains()`** (matches **full contents of cell**) and **isin(["sub_string_1", "sub_string_2"])** (which matches any number of shorter strings within a cell).
+Note the differences between `str.contains()`, which matches **full contents of cell** and `isin(["sub_string_1", "sub_string_2"])`, which matches **any number of shorter strings** within a cell.
 
-The **`str.contains("some text here")`** method will work if the text matches the **full contents** of the cell. For example here we filter to tracks with "unreleased" in the `Album.debut` column. The **items within "[]" become a Boolean series**:
+#### `The str.contains()`` Method
+
+For example here we filter to tracks with "unreleased" in the `Album.debut` column. The **items within "[]" become a Boolean series**:
 
 ```
 [beatles_billboard['Album.debut'].str.contains("unreleased")]
@@ -351,6 +353,7 @@ Or we can **filter with two conditions** (the above, plus "Year < 1965".  Notice
 ```
 beatles_billboard[(beatles_billboard['Album.debut'].str.contains("unreleased")) & (beatles_billboard['Year'] < 1965)]
 ```
+#### The `isin()` Method
 
 The **isin()** method works if you are looking for *one or more substrings in a given cell*.  Note that the strings must be presented as a "list", thus **`isin(["substring_1", "substring_2"])`**.  For example, this, which returns either "Lennon" OR "McCartney" (in any context within that column):
 
