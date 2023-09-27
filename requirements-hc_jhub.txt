@@ -22,6 +22,7 @@ comm==0.1.2
 commonmark==0.9.1
 contourpy==1.0.6
 cryptography==37.0.4
+crim_intervals==2.0.12
 cycler==0.11.0
 dash==2.6.1
 dash-bootstrap-components==1.2.1
@@ -65,7 +66,6 @@ idna==3.1
 igraph==0.10.1
 ImageHash==4.2.1
 importlib-metadata==4.12.0
-intervals @ git+https://github.com/HCDigitalScholarship/intervals.git@4b1f654a721aeb13b4c729a28d3d90b9dd1921f3
 ipykernel==6.19.4
 ipython==8.7.0
 ipython-genutils==0.2.0
