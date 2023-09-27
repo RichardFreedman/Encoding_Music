@@ -302,7 +302,31 @@ It is also possible to **select some subset of rows or columns** by name or inde
 
 ### Filter Rows
 
-**Filter rows based on some logical condition or string** in one or more columns.  There are several possibilities.  Note the differences between **`str.contains()`** (matches full contents of cell) and **isin(["sub_string_1", "sub_string_2"])** (which matches any number of shorter strings within a cell).
+**Filter rows based on some logical condition or string** in one or more columns.  There are several possibilities.  
+
+#### Logical Tests and Boolean Series
+
+Testing a single column for a logical condition returns a Boolean series of True/False values for all 'rows':
+
+```
+beatles_billboard['Year'] > 1969
+```
+
+It is then possible to apply this Boolean series as a kind of 'mask' against the entire dataframe.  In effect we are asking for a slice of the dataframe where the given column is  `True`:
+
+```
+beatles_billboard[beatles_billboard['Year'] > 1969]
+```
+
+We can even *reverse* the Boolean values, thus returning a dataframe that matches everything *except* the rows matching the given condition (note the extra parenthesis to clarify the syntax):
+
+```
+beatles_billboard[~(beatles_billboard['Year'] > 1964)]
+```
+
+#### Testing for Strings and SubStrings
+
+Note the differences between **`str.contains()`** (matches **full contents of cell**) and **isin(["sub_string_1", "sub_string_2"])** (which matches any number of shorter strings within a cell).
 
 The **`str.contains("some text here")`** method will work if the text matches the **full contents** of the cell. For example here we filter to tracks with "unreleased" in the `Album.debut` column. The **items within "[]" become a Boolean series**:
 
@@ -333,11 +357,6 @@ The **isin()** method works if you are looking for *one or more substrings in a 
 ```
 beatles_billboard[beatles_billboard['Songwriter'].isin(["Lennon", "McCartney"])]
 ```
-## Bins
-
-Another important tool is being able to categorize data. Oftentimes, this is done through "binning" -- assigning the entry to one of several discrete categories based on some continuous value. In our specific example, we will use the values in the "danceability" column (expressed as floats ranging from 0 to 1) to classify a track as a Dance Tune (0 => Not a Dance Tune; 1 => Definitely a Dance Tune). 
-
-First, you need to think about picking a certain threshold value. Is Get Back by the Beatles (0.628 danceability rating) a Dance Tune? How about Doctor Robert (0.392 danceability score)? Use the code cell below to **pick your danceability threshold value** and save it as a variable. 
 
 ## Combining, Joining, and Merging DataFrames
 
