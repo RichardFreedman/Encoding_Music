@@ -354,7 +354,7 @@ beatles_billboard[beatles_billboard['Duration_Category'] == 'long']
 ```
 
 
-#### Searching for Strings and SubStrings
+## Searching for Strings and SubStrings
 
 Note the differences between `str.contains()`, which matches **full contents of cell** and `isin(["sub_string_1", "sub_string_2"])`, which matches **any number of shorter strings** within a cell.
 
