@@ -260,7 +260,7 @@ beatles_billboard_sorted.head()
 
 You can think of some others!
 
-## Count, Sort, and Filter
+## Sort, Count and Filter
 
 Pandas affords many ways to take stock of your data, with built-in functions counts of values, means, averages, and other statistical information.  Many of these are detailed on the [Pandas Cheat Sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf).  But the following will be useful for us:
 
@@ -279,26 +279,9 @@ beatles_spotify.sort_values("danceability")
 beatles_billboard["Album.debut"].value_counts()
 ```
 
-### Bins 
+### Subset or Slice of Rows or Columns
 
-Another important tool is being able to categorize data. Oftentimes, this is done through "binning" -- assigning the entry to one of several discrete categories based on some continuous value. In our specific example, we will use the values in the "danceability" column (expressed as floats ranging from 0 to 1) to classify a track as a Dance Tune (0 => Not a Dance Tune; 1 => Definitely a Dance Tune). 
-
-First, you need to think about picking a certain threshold value. Is Get Back by the Beatles (0.628 danceability rating) a Dance Tune? How about Doctor Robert (0.392 danceability score)? Use the code cell below to **pick your danceability threshold value** and save it as a variable. 
-
-```
-beatles_spotify.loc[beatles_spotify["danceability"].astype(float).between(0.000, 0.500, "right"), "Dance Tune"] = 0
-beatles_spotify.loc[beatles_spotify["danceability"].astype(float).between(0.510, 1.000, "right"), "Dance Tune"] = 1
-beatles_spotify
-```
-
-### Categorical Binning
-
-Sometimes, a simple True/False ranking isn't enough. For example, the "tempo" column provides the Beat Per Minute musical tempo value for a given track; this value typically ranges between 1 and ~500 bpm. While it is possible to classify tracks into Slow and Not Slow, it might be more useful to, for example, categorize them into "Slow", "Medium", and "Fast". 
-
-
-### Subset of Rows of Columns
-
-It is also possible to **select some subset of rows or columns** by name or index position.  See above, and the Pandas Cheat Sheet.
+It is also possible to **select some slice of rows or columns** by name or index position using `df.loc()`, or `df.iloc()`.  See above, and the Pandas Cheat Sheet.
 
 ### Filter Rows
 
@@ -324,7 +307,54 @@ We can even *reverse* the Boolean values, thus returning a dataframe that matche
 beatles_billboard[~(beatles_billboard['Year'] > 1964)]
 ```
 
-#### Testing for Strings and SubStrings
+
+## Bins 
+
+Another important tool is being able to categorize data. Oftentimes, this is done through "binning" -- assigning the entry to one of several discrete categories based on some continuous value. 
+
+### Boolean Bins
+
+In the following example, we will use the values in the "danceability" column (expressed as floats ranging from 0 to 1) to classify a track as a Dance Tune (0 => Not a Dance Tune; 1 => Definitely a Dance Tune). 
+
+Here we are using the *Beatles_Spotify* data:
+
+First, you need to think about picking a certain threshold value. Is Get Back by the Beatles (0.628 danceability rating) a Dance Tune? How about Doctor Robert (0.392 danceability score)? Use the code cell below to **pick your danceability threshold value** and save it as a variable. 
+
+```
+beatles_spotify.loc[beatles_spotify["danceability"].astype(float).between(0.000, 0.500, "right"), "Dance Tune"] = 0
+beatles_spotify.loc[beatles_spotify["danceability"].astype(float).between(0.510, 1.000, "right"), "Dance Tune"] = 1
+beatles_spotify
+```
+
+### Categorical Bins
+
+Sometimes, a simple True/False ranking isn't enough. For example, the "tempo" column provides the Beat Per Minute musical tempo value for a given track; this value typically ranges between 1 and ~500 bpm. While it is possible to classify tracks into Slow and Not Slow, it might be more useful to, for example, categorize them into "Slow", "Medium", and "Fast". 
+
+Pandas and Python can easily do this with the `cut` method, which allows you to set the boundaries and labels of the bins either automatically:
+
+```
+# find the minimum and maximum value in the given column:
+min_value = beatles_billboard['Duration'].min()
+max_value = beatles_billboard['Duration'].max()
+# create labels for the bins
+labels = ['short', 'medium', 'long']
+
+# Use the cut function to create three bins, and assign the results to a new column
+beatles_billboard['Duration_Category'] = pd.cut(beatles_billboard['Duration'], bins=3, labels=labels, include_lowest=True)
+beatles_billboard['Duration_Category']
+0       short
+1      medium
+2       short
+```
+Or filter the results according to a logical condition:
+
+```
+beatles_billboard[beatles_billboard['Duration_Category'] == 'long']
+
+```
+
+
+#### Searching for Strings and SubStrings
 
 Note the differences between `str.contains()`, which matches **full contents of cell** and `isin(["sub_string_1", "sub_string_2"])`, which matches **any number of shorter strings** within a cell.
 
@@ -359,6 +389,39 @@ The **isin()** method works if you are looking for *one or more substrings in a 
 
 ```
 beatles_billboard[beatles_billboard['Songwriter'].isin(["Lennon", "McCartney"])]
+```
+
+
+
+## Combining and Spliting Columns
+
+Sometimes it is necessary to combine related columns into a new column, with values stored as a *list*.  Conversely sometimes it might be necessary to take split values stored as a long string into a list of values.  This is easily done with Pandas and Python.
+
+### Split String into List
+
+The column contains a list (just showing one cell for brevity):
+
+```beatles_billboard['Genre'][1]
+'Psychedelic Rock, Art Rock, Pop/Rock'
+```
+
+Split it (just showing one cell for brevity):
+
+```
+beatles_billboard['Genre'] = beatles_billboard['Genre'].str.split(', ')
+beatles_billboard['Genre'][1]
+['Psychedelic Rock', 'Art Rock', 'Pop/Rock']
+```
+
+### Combine Two Columns as String
+
+Two columns can be combined into a single one with a lambda function and `apply` (which runs the function on each row in turn):
+
+```
+combine_cols = lambda row: row['Songwriter'] + ": "  + row['Title'] 
+beatles_billboard['Author-Title'] = beatles_billboard.apply(combine_cols, axis=1)
+beatles_billboard['Author-Title'][0]
+'Lennon, McCartney, Harrison and Starkey: 12-Bar Original'
 ```
 
 ## Combining, Joining, and Merging DataFrames
@@ -396,6 +459,7 @@ top_50.tail()
 ```
 
 ![Alt text](<images/pd 5.png>)
+
 
 
 # Groupby Functions
