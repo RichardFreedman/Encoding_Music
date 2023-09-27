@@ -328,7 +328,7 @@ beatles_billboard[~(beatles_billboard['Year'] > 1964)]
 
 Note the differences between `str.contains()`, which matches **full contents of cell** and `isin(["sub_string_1", "sub_string_2"])`, which matches **any number of shorter strings** within a cell.
 
-#### `The str.contains()`` Method
+#### `The str.contains()` Method
 
 For example here we filter to tracks with "unreleased" in the `Album.debut` column. The **items within "[]" become a Boolean series**:
 
