@@ -23,6 +23,12 @@ Indeed, Pandas can easily import spreadsheets in **CSV** (comma separated values
 
 Pandas can export as well as import these formats (among others).
 
+## Create a Notebook and Load the Pandas library
+
+```
+import pandas as pd
+```
+
 ## Meet the Beatles
 
 The Pandas library has a vast array of tools for sorting, filtering, grouping, analyzing, and even visualizing tabluar data of various kinds:  strings, booleans, integers, floats, dates, and so on.  We begin with data about the albums and songs issued by the Beatles. The data are drawn from two sources:
@@ -80,12 +86,14 @@ By default Pandas shows only the first and last five rows of any data frame.  Th
 
 ### Selecting Rows:  `loc` and `iloc` 
 
-`df.loc` and `dc.iloc` are _not_ the same!
+`df.loc` and `df.iloc` are _not_ the same!
 
 #### iloc for Index-based slices
 * **iloc** to select rows by **index number** (the left-hand column) use `iloc`. A good way to remember this is that `iloc` will correspond to the *integer* value of the index (which starts with zero). The syntax puts rows before columns, as in `beatles_spotify.iloc[startrow:endrow, startcolumn:endcolumn]`.  Thus rows 10-15 (and all columns) of our dataframe would be `beatles_spotify.iloc[10:15, :]`.  
 
 Note:  the first number is *inclusive* but the second is *exclusive*.  So `10:15` will yield rows 10, 11, 12, 13, 14, but *not* 15.
+
+
 
 #### loc for Label-based slices
 * **loc** to select rows by **label** of the left-hand column (as when you might have an index of strings), use `loc`.  This is useful when our index is a string rather than a number.  It is especially useful for working with columns.
@@ -104,6 +112,8 @@ We now start to look more closely the columns.
 #### iloc for Index-based slices
 
 It's possible to select colulmns with `iloc`, as shown above for rows. The syntax puts rows before columns, as in `beatles_spotify.iloc[startrow:endrow, startcolumn:endcolumn]`.  The first column (and all rows) would be `beatles_spotify.iloc[:, 0]`. Thus the first `five` columns (and all rows) of our dataframe would be `beatles_spotify.iloc[:, 0:6]`.  Note:  the first number is *inclusive* but the second is *exclusive*.
+
+Want to count from the *end*?  `-1` is the *last* column. So `beatles_spotify.iloc[:, -1]`
 
 
 #### Working with Columns by Name (or 'label')
