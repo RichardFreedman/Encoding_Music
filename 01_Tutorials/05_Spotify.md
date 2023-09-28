@@ -31,7 +31,7 @@ ______
 
 You will need the following libraries:
 ```
-python
+
 import pandas as pd
 import numpy as np
 import random
@@ -39,7 +39,6 @@ import altair as alt
 import requests
 import inspect
 import spotipy
-import spotipy_tools
 from spotipy.oauth2 import SpotifyClientCredentials
 import networkx as nx
 import networkx.algorithms.community as nx_comm
@@ -86,7 +85,6 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 
 ```
-python
 AUTH_URL = 'https://accounts.spotify.com/api/token'
 
 # POST
@@ -120,10 +118,12 @@ Both playlist ID and User ID **can be found in a web browser** when accessing th
 * for example, Spotify's featured Pop Mix playlist can be found at: "https://open.spotify.com/playlist/37i9dQZF1EQncLwOalG3K7", and you can find the Playlist ID ater "...playlist/", meaning "37i9dQZF1EQncLwOalG3K7"
 
 ### Tracks in a Playlist
-```python
-# playlist_tracks(user_id: String, playlist_id: String): json_dict
-# sx47r9lq4dwrjx1r0ct9f9m09
-playlist_tracks = pd.DataFrame(sp.user_playlist_tracks("sx47r9lq4dwrjx1r0ct9f9m09", "7KfWEjHxpcOIkqvDqMW5RV"))
+```
+# specify the name of the user who created the list
+user_id = "my_user_name"
+# and the id of the playlist (this will be everything after the last "/" in the url of the list)
+play_list_id = "some_string_of_numbers_letters" 
+playlist_tracks = pd.DataFrame(sp.user_playlist_tracks(user_id, play_list_id))
 # playlist_tracks
 ```
 
@@ -133,7 +133,7 @@ playlist_tracks = pd.DataFrame(sp.user_playlist_tracks("sx47r9lq4dwrjx1r0ct9f9m0
 We can take a look at an **individual track** here:
 
 
-```python
+```
 sample_track = playlist_tracks.iloc[1]["items"]["track"]
 sample_track
 ```
@@ -148,7 +148,7 @@ As you can notice, tracks are stored as **JSON objects** (think Dictionaries), w
 While this information is already a lot (!), we can extract some perhaps-more-interesting features of tracks via the Audio Features method. Using *sp.audio_features(track_id)*, we easily get track's audio features (by track_id):
 
 
-```python
+```
 sample_track_audio_features = pd.DataFrame(sp.audio_features(sample_track["id"]))
 sample_track_audio_features
 ```
@@ -166,12 +166,12 @@ Note:  this function is available to you via the spotipy_tools library.  The cod
 
 To call the function on a playlist, simply create a cell with:
 
-```python
+```
 get_audio_features_df(playlist)
 ```
 
 
-```python
+```
 # This function is created based on Max Hilsdorf's article
 # Source: https://towardsdatascience.com/how-to-create-large-music-datasets-using-spotipy-40e7242cc6a6
 def get_audio_features_df(playlist):
@@ -205,7 +205,7 @@ def get_audio_features_df(playlist):
 Note: the **@playlist parameter** (that is passed in to the get_audio_features_df() method) should be a **DataFrame consisting of several track objects**. In our case, we have one such collection stored in **playlist_tracks**, which we got from calling sp.user_playlist_tracks() on a playlist and storing it as a Pandas DataFrame. Running the get_audio_features_df() method on our tracks will return the **audio features DataFrame** for the tracks in **playlist_tracks**.
 
 
-```python
+```
 audio_features_df = get_audio_features_df(playlist_tracks)
 audio_features_df.head()
 ```
@@ -215,7 +215,7 @@ audio_features_df.head()
 
 ### Save these as CSV for later, if you like:
 
-```python
+```
 audio_features_df.to_csv("Miles_Davis_Spotify.csv")
 ```
 
@@ -232,7 +232,7 @@ To illustrate this concept, we will use **Altair's scatterplot** to chart **each
 Here's our chart:
 
 
-```python
+```
 alt.Chart(audio_features_df).mark_point().encode(
     x="track_name",
     y='tempo'
@@ -260,7 +260,7 @@ You can read more about Altair's scatterplots [here](https://altair-viz.github.i
 In the example below, we are using **audio_features_df** as the data source, **"energy"** as the x (horizontal variable) and **"loudness"** as the y (vertical variable). Let's take a look at the result:
 
 
-```python
+```
 alt.Chart(audio_features_df).mark_point().encode(
     x='energy',
     y='loudness'
@@ -278,7 +278,7 @@ Learn [more about correlations](https://www.washington.edu/assessment/scanning-s
 Using Pandas' built-in *pandas.Series.corr()* method, it is extremely easy to obtain the **Correlation Coefficient** for the two variables:
 
 
-```python
+```
 audio_features_df['energy'].corr(audio_features_df['loudness'])
 ```
 
@@ -298,7 +298,7 @@ While there is a multitude of aspects to correlation (including test types, samp
 This function is available via the spotipy_tools.py library, so the following is just for purposes of explanation (or if you want to adapt it in some way):
 
 
-```python
+```
 feature_columns = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "valence", "danceability"]
 def createRadarElement(row, feature_cols):
     return go.Scatterpolar(
@@ -320,7 +320,7 @@ def get_radar_plots(playlist_id_list, features_list):
 ```
 
 
-```python
+```
 playlist_id = "1NppEwvZhkjeG3ZTYoOwVM"
 get_radar_plot(playlist_id, feature_columns)
 ```
@@ -340,7 +340,7 @@ This can be easily done using Pandas and NumPy's [np.where method](https://numpy
 Here's how to do it:
 
 
-```python
+```
 feature_based_tracks = audio_features_df.copy() # make a copy of the DataFrame
 feature_based_tracks["dance_tune"] = np.where(feature_based_tracks['danceability'] >= 0.75, True, False)
 feature_based_tracks.head()
@@ -355,7 +355,7 @@ You can learn more about Altair's bar charts [here](https://altair-viz.github.io
 Here's how to do it:
 
 
-```python
+```
 alt.Chart(feature_based_tracks).mark_bar().encode(
     x='dance_tune',
     y='count()'
@@ -374,7 +374,7 @@ As you can see, our data indicates that out of 16 songs in the playlist, 13 are 
 If we were looking to make our lives even more complicated, we could **bin "energy"** based on a 0.75 "energy" score threshold:
 
 
-```python
+```
 feature_based_tracks["energy_tune"] = np.where(feature_based_tracks['energy'] >= 0.75, True, False)
 feature_based_tracks.head()
 ```
@@ -390,7 +390,7 @@ Based on this information, we can **analyze the composition** of our modified Da
 Here's a way to find out using Altair:
 
 
-```python
+```
 bars = alt.Chart().mark_bar().encode(
     x=alt.X('energy_tune', title=""),
     y=alt.Y('count()', title='Count'),
@@ -414,7 +414,7 @@ You can learn more about binning and histograms in Altair [here](https://altair-
 Here's an example:
 
 
-```python
+```
 alt.Chart(feature_based_tracks).mark_bar().encode(
     alt.X("danceability", bin=True),
     y='count()',
@@ -428,7 +428,7 @@ alt.Chart(feature_based_tracks).mark_bar().encode(
 Another extremely useful tool is **sorting a DataFrame** based on one or many columns. As an example, we can sort our brand new DataFrame by the Tracks' "energy":
 
 
-```python
+```
 my_sorted_df = feature_based_tracks.sort_values(['energy'], ascending=[True])
 my_sorted_df.head()
 ```
@@ -445,7 +445,7 @@ Things to note here:
 Let's **chart the Tracks' "energy" based on our new DataFrame**:
 
 
-```python
+```
 alt.Chart(my_sorted_df).mark_point().encode(
     x=alt.X("track_name", sort=None),
     y="energy"
@@ -468,7 +468,7 @@ Building onto Max Hilsdorf's code, we can create a function that would **produce
 Note that this function is included in the `spotipy_tools.py` library, so you only need to run it below.  The code here is just for purposes of explanation.
 
 
-```python
+```
 # preserve the name of the playlist in the dataframe
 def get_all_user_tracks(username):
   all_my_playlists = pd.DataFrame(sp.user_playlists(username))
@@ -493,7 +493,7 @@ Or simply:
 Using this function, we can get **all tracks contained in user_1's followed public playlists** and **produce an Audio Features DataFrame** for them:
 
 
-```python
+```
 # Getting the current_user's all tracks
 all_my_tracks = get_all_user_tracks(my_username)
 all_my_tracks["Author"] = "user_1" # noting where the tracks came from
@@ -510,7 +510,7 @@ As you can see, our new DataFrame consists of 267 tracks – which are pretty mu
 Specifically, we can **color** the data points **based on the playlist** they are in:
 
 
-```python
+```
 alt.Chart(all_my_tracks).mark_point().encode(
     x="liveness",
     y="danceability",
@@ -529,7 +529,7 @@ Another useful chart would be **charting every track's energy and color-coding t
 Here's how to do it:
 
 
-```python
+```
 alt.Chart(all_my_tracks).mark_point().encode(
     x=alt.X("track_name", sort=None),
     y='energy',
@@ -550,7 +550,7 @@ Mathematically, we can **describe** each playlist as a subset of the overall Dat
 Here's how to get the **description detail for a particular Playlist**:
 
 
-```python
+```
 all_my_tracks[all_my_tracks["playlist_name"] == "Alternative & Indie"].describe()
 ```
 
@@ -564,7 +564,7 @@ Now, let's compare user_1's tracks to another listener! For example, we could **
 Here's how to do it:
 
 
-```python
+```
 user_2_playlist_df = pd.DataFrame(sp.playlist_items("3tt4ET474Xr1uOPgNz8jAY"))
 user_2_playlist_df.head()
 ```
@@ -573,7 +573,7 @@ user_2_playlist_df.head()
 Similarly to what we have done earlier, we can **construct an Audio Features DataFrame** for this playlist:
 
 
-```python
+```
 user_2_audio_features_df = get_audio_features_df(user_2_playlist_df)
 user_2_audio_features_df["Author"] = "user_2"
 user_2_audio_features_df.head()
@@ -590,7 +590,7 @@ After constructing the playlist DataFrame, we will concatenate the two individua
 Here's how to do it:
 
 
-```python
+```
 # Getting one of user_1's playlists
 gs_playlist_tracks = pd.DataFrame(sp.user_playlist_tracks("sx47r9lq4dwrjx1r0ct9f9m09", "47VfnY1RsMOadBdy9MCDYW"))
 gs_playlist_tracks_audio_df = get_audio_features_df(gs_playlist_tracks)
@@ -610,7 +610,7 @@ Finally, we can **chart the two playlist side by side**.
 In this example, we color the entries based on the Author column and sort them exactly the way they appear in the original playlist (by setting sort=None). We will color User_2 tracks blue and user_1's tracks yellow. Some trends are very visible from the plot:
 
 
-```python
+```
 alt.Chart(two_playlists_combined).mark_point().encode(
     x=alt.X("track_name", sort=None),
     y='energy',
@@ -636,7 +636,7 @@ Note a few things here:
 We can support our conclusions mathematically, by exploring Pandas' **descriptions** of the "energy" column for the two sub-DataFrames: 
 
 
-```python
+```
 print("user_1's data: \n", two_playlists_combined[two_playlists_combined["Author"] == "user_1"]["energy"].describe(), "\n")
 print("User_2 data: \n", two_playlists_combined[two_playlists_combined["Author"] == "ava"]["energy"].describe())
 ```
@@ -675,7 +675,7 @@ As expected, there are some corresponding statistical observations:
 Instead of comparing just two playlists, we can compare many! As an example, we'll load **8 of User_2 favorite playlists**:
 
 
-```python
+```
 list_of_user_2_playlists = []
 user_2_export_playlists_list = ["3tt4ET474Xr1uOPgNz8jAY",
                               "69bvktIqRHFk56zJLFu3ms", 
@@ -700,7 +700,7 @@ user_2_eight_playlists.head()
 Here we got the 218 songs User_2 listens to in total! And, similarly, we'll **chart them side by side**:
 
 
-```python
+```
 alt.Chart(user_2_eight_playlists).mark_point().encode(
     x=alt.X("track_name", sort=None),
     y='energy',
@@ -716,7 +716,7 @@ alt.Chart(user_2_eight_playlists).mark_point().encode(
 Then, we can create our **shared DataFrame of all the tracks** obtained from user_1's and User_2 Spotify profiles:
 
 
-```python
+```
 two_people_dataframe = pd.concat([user_2_eight_playlists, all_my_tracks], ignore_index=True)
 two_people_dataframe
 ```
@@ -726,7 +726,7 @@ two_people_dataframe
 The combined DataFrame consists of 485 songs that these two people listen to in totality. Let's **chart out the "energy" values** for these songs to see how the two compare:
 
 
-```python
+```
 alt.Chart(two_people_dataframe).mark_point().encode(
     x=alt.X("track_name", sort=None),
     y='energy',
@@ -752,7 +752,7 @@ Just as noted earlier (when comparing just two playlists), there are some import
 We can similarly support our conclusions mathematically, by exploring Pandas' **descriptions** of the "energy" column for the two sub-DataFrames: 
 
 
-```python
+```
 print("user_1's data: \n", two_people_dataframe[two_people_dataframe["Author"] == "user_1"]["energy"].describe(), "\n")
 print("User_2 data: \n", two_people_dataframe[two_people_dataframe["Author"] == "ava"]["energy"].describe())
 ```
@@ -850,7 +850,7 @@ You can learn more about [Network Theory](https://en.wikipedia.org/wiki/Network_
 Here's how to **build, populate, and show a simple Network Graph** using Networkx and Pyvis:
 
 
-```python
+```
 # Creating a Network
 g = net.Network(notebook=True, width=1000, height = 800)
 
@@ -874,7 +874,7 @@ As you can see, in this example we created two nodes "John" and "Paul" and conne
 Using these tools, we can **check if a node is in a network**:
 
 
-```python
+```
 # checking
 "John" in g.get_nodes()
 ```
@@ -891,7 +891,7 @@ Building onto these tools, we can create something more advanced – for example
 Here's how to do it:
 
 
-```python
+```
 # Creating a Network with one center Node
 playlists_network = net.Network(notebook=True, width=1000, height = 800)
 playlists_network.add_node("user_1's Spotify", color="#fffff")
@@ -935,7 +935,7 @@ Reflecting this method, Spotipy conveniently has *sp.artist_related_artists*, wh
 Here's what such a function could look like:
 
 
-```python
+```
 def add_related_artists(starting_artist_name, starting_artist_id, existing_graph, limit, order_group=None):
     # get artists related to the current artist
     current_artist_related = pd.DataFrame(sp.artist_related_artists(starting_artist_id)["artists"])
@@ -955,7 +955,7 @@ def add_related_artists(starting_artist_name, starting_artist_id, existing_graph
 ### Get Artist Albums
 
 
-```python
+```
 
 headers = {
     'Authorization': 'Bearer {token}'.format(token=access_token)
@@ -980,7 +980,7 @@ In the cell below, we will make use of the function we just defined. Using this 
 As noted, we will start with Beatles (Artist ID = "3WrFJ7ztbogyGnTHbHJFl2", Name = "The Beatles")
 
 
-```python
+```
 ## First, we need to record the information about The Beatles
 center_artist_id = "3WrFJ7ztbogyGnTHbHJFl2"
 center_artist_name = "The Beatles"
@@ -1023,7 +1023,7 @@ artist_network.show("artist_example.html")
 In order to further complicate our lives, we can **add one more generation of related artists** (think friends of friends):
 
 
-```python
+```
 # Running through the once-related artists
 for i in range(limit):
     add_related_artists(center_artist_related.loc[i]["name"], center_artist_related.loc[i]["id"], artist_network, limit, (i+1))
@@ -1053,7 +1053,7 @@ You can read more about Spotify's Recommendations [here](https://developer.spoti
 This method is mirrored by Spotipy – specifically, in the *sp.recommendations* method. One could think of a function that would **get a generation of recommended songs and add them to a Network Graph** (scaled by popularity):
 
 
-```python
+```
 def add_related_songs(starting_song_name, starting_artist_name, starting_song_id, existing_graph, limit, first_gen=True, order_group=None):
     current_song_related = pd.DataFrame(sp.recommendations(seed_tracks=[starting_song_id])["tracks"])
     for i in range(limit):
@@ -1071,7 +1071,7 @@ In the cell below, we will make use of the function we just defined. Using this 
 As noted, we will start with Stand By Me (Song ID = "3SdTKo2uVsxFblQjpScoHy")
 
 
-```python
+```
 # First, we need to record the information about Stand By Me
 center_song = sp.track("3SdTKo2uVsxFblQjpScoHy")
 # Or Mahler 1
@@ -1110,7 +1110,7 @@ song_network.show("song_network_short.html")
 Similarly to Related Artists, we will further complicate our lives by **adding one more generation of recommended songs** (with no extra seed knowledge):
 
 
-```python
+```
 # Getting the second generation of Recommended songs
 for i in range(limit):
     add_related_songs(recommended_songs.loc[i]["name"], recommended_songs.loc[i]["artists"][0]["name"], recommended_songs.loc[i]["id"], song_network, limit, False, (i+1))
@@ -1134,7 +1134,7 @@ Interestingly, Spotify's recommendations for songs **change every time you run y
 Finally, we can make one very slight tweak to our add_related_songs method. Previously, we only included one track as a seed track for running the GET Recommendations method. In the function below, we will define a new function that will essentially do the same thing as the one above, except it will **pass 5 random tracks (out of the tracks in the graph) as the recommendation seed** into the Recommendation function:
 
 
-```python
+```
 def add_related_songs_gen(starting_song_name, starting_artist_name, starting_song_id, existing_graph, limit, first_gen=True, order_group=None):
     current_song_related = pd.DataFrame(sp.recommendations(seed_tracks=starting_song_id)["tracks"]).loc[0:(limit - 1)]
     for i in range(limit):
@@ -1150,7 +1150,7 @@ def add_related_songs_gen(starting_song_name, starting_artist_name, starting_son
 We will run this function for **two generations** for the same song (Stand By Me by Ben E. King):
 
 
-```python
+```
 # Start the network
 song_network = net.Network(notebook=False, width=1000, height=800)
 song_network.add_node(str(center_song_artist + ": " + center_song_name), value=center_song_popularity, color="#fffff", group=0)
@@ -1196,7 +1196,7 @@ At first, let's **pick 5 playlists** centered around a common theme. For example
 Let's **put these playlists in a DataFrame**:
 
 
-```python
+```
 # Three Model Lists.  Two of them share only one.  Two of them share all except one.  
 # What do we expect?
 rock_playlists_dfs_list = []
@@ -1233,7 +1233,7 @@ rock_playlists_df
 Our new Rock Playlists DataFrame contains 400 tracks gathered across the 5 playlists. As we don't want to overwhelm our Network, we will **choose a random sample** of 100 tracks out of this DataFrame:
 
 
-```python
+```
 # also take sample
 
 input_data_rock_df = rock_playlists_df.reset_index()
@@ -1248,7 +1248,7 @@ Now, let's **define the Louvain Community Algorithm methods**.
 First, we need a method to **create nodes** (courtesy of Daniel Russo Batterham and Richard Freedman):
 
 
-```python
+```
 # Creating an HTML node
 def create_node_html(node: str, source_df: pd.DataFrame, node_col: str):
     rows = source_df.loc[source_df[node_col] == node].itertuples()
@@ -1264,7 +1264,7 @@ def create_node_html(node: str, source_df: pd.DataFrame, node_col: str):
 Then, a method to **add nodes from edge list** (courtesy of Daniel Russo Batterham and Richard Freedman):
 
 
-```python
+```
 # Adding nodes from an Edgelist
 def add_nodes_from_edgelist(edge_list: list, 
                                source_df: pd.DataFrame, 
@@ -1280,7 +1280,7 @@ def add_nodes_from_edgelist(edge_list: list,
 Then, the **Louvain Community Builder method** (courtesy of Daniel Russo Batterham and Richard Freedman):
 
 
-```python
+```
 # Adding Louvain Communities
 def add_communities(G):
     G = deepcopy(G)
@@ -1292,7 +1292,7 @@ def add_communities(G):
 Finally, we need a method to **produce a Network of pairs**, which we'll run the add_communities method on, marking the Louvain communities:
 
 
-```python
+```
 def choose_network(df, chosen_word, file_name):
     
     # creating unique pairs
@@ -1320,14 +1320,14 @@ def choose_network(df, chosen_word, file_name):
 Now, let's run our algorithm to **detect Louvain communities** of artists within the playlists they belong to:
 
 
-```python
+```
 louvain_network = choose_network(input_data_rock_df.sample(100), 'artist', 'modified_rock.html')
 louvain_network.show("modified_rock.html")
 
 ![Alt text](images/spot_32.png)
 
 
-```python
+```
 output_grouped = input_data_rock_df.groupby(['playlist_name'])['artist'].apply(set).reset_index()
 pairs = output_grouped['artist'].apply(lambda x: list(combinations(x, 2)))
 pairs2 = pairs.explode().dropna()
@@ -1338,7 +1338,7 @@ unique_pairs = pairs.explode().dropna().unique()
 ### First Let's Look at the "Grouped" Playlists
 
 
-```python
+```
 output_grouped
 ```
 
@@ -1392,7 +1392,7 @@ output_grouped
 ### And the "Pairs" in each List
 
 
-```python
+```
 pairs[0]
 ```
 
@@ -1448,7 +1448,7 @@ pairs[0]
 
 
 
-```python
+```
 # pairs are produced via combinations of all items in a set:
 
 list(combinations(["paul", "john", 'george'], 2))
@@ -1462,7 +1462,7 @@ list(combinations(["paul", "john", 'george'], 2))
 
 
 
-```python
+```
 # note the same thing as permutations (which considers all orderings)
 
 from itertools import permutations
@@ -1482,7 +1482,7 @@ list(permutations(["paul", "john", 'george'], 3))
 
 
 
-```python
+```
 # each item in series is a list of tuples. the tuples will be the edges!
 pairs
 ```
@@ -1498,7 +1498,7 @@ pairs
 
 
 
-```python
+```
 pairs.shape
 ```
 
@@ -1512,7 +1512,7 @@ pairs.shape
 ### Explode will unnest the lists.  Now the len is 856!
 
 
-```python
+```
 
 pairs.explode().apply(sorted)
 ```
@@ -1541,7 +1541,7 @@ pairs.explode().apply(sorted)
 
 
 
-```python
+```
 
 # pairs2 = pairs.explode().dropna()
 
@@ -1640,11 +1640,11 @@ unique_pairs
 
 
 
-### Python can count Tuples, so this would help us make a dict of value counts
+###  can count Tuples, so this would help us make a dict of value counts
 ###  These could be edge weights in the graph
 
 
-```python
+```
 
 pairs.explode().value_counts()
 ```
@@ -1714,19 +1714,19 @@ What are your **observations**?
 Image Source: [“Warm Fuzzy Feeling” Playlist by Spotify from Medium Article](https://miro.medium.com/v2/resize:fit:1400/1*P9nEAoRKqybJ4qiORrN7xA.png)
 
 #### From the image above, we get the following:
-```python
+```
 creator_id = "spotify"
 ```
 ![Alt text](images/Spotify_Playlist_URL.webp)
 Image Source: [“Warm Fuzzy Feeling” Playlist URL from Medium Article](https://miro.medium.com/v2/resize:fit:1106/format:webp/1*RARQekRU6bKakcNTIJo4bQ.png)
 #### From the image above, we get the following:
-```python
+```
 playlist_id = "37i9dQZF1DX5IDTimEWoTd"
 ```
 ---
 #### Now that we know both the creator username and the playlist ID, we can call the  function <span style="color:olive">analyze_playlist</span> to return a dataframe of the analysis of the playlist:
 
-```python
+```
 playlist_data_frame = analyze_playlist(creator_id, playlist_id) #Stores the resulting data frame as the variable: playlist_data_frame
 playlist_data_frame.head() #Displays the first n rows of the data frame 
 ```
@@ -1741,7 +1741,7 @@ playlist_data_frame.head() #Displays the first n rows of the data frame
 <Details>
 <Summary>Full Code</Summary>
 
-```python
+```
 def analyze_playlist(creator, playlist_id):
 # source: Max Hilsdorf (https://towardsdatascience.com/how-to-create-large-music-datasets-using-spotipy-40e7242cc6a6)
 
@@ -1780,12 +1780,12 @@ def analyze_playlist(creator, playlist_id):
 #### This function returns the same data frame as the function from above, but allows you to analyze multiple playlists.
 ---
 #### To use this function, you need to create a dictionary of playlists. To do so, see the example code below.
-```python
+```
 playlist_dict = {
     "PLAYLIST NAME HERE": ("CREATOR_ID HERE", "PLAYLIST_ID HERE")
 }
 ```
-```python
+```
 playlist_dict = {
     "warm_fuzzy_feeling" : ("spotify", "37i9dQZF1DX5IDTimEWoTd"), 
     #Follow the same format to add more playlists
@@ -1793,7 +1793,7 @@ playlist_dict = {
 ```
 ---
 #### Now that we have created our playlist dictionary, we can call the function <span style="color:olive">analyze_playlist_dict</span> to analyze the audio features of the songs in multiple playlists.
-```python
+```
 multiple_playlist_data_frame = analyze_playlist_dict(playlist_dict)
 multiple_playlist_data_frame.head()
 ```
@@ -1807,7 +1807,7 @@ multiple_playlist_data_frame.head()
 <Details>
 <Summary>Full Code</Summary>
 
-```python
+```
 def analyze_playlist_dict(playlist_dict):
     
     # Loop through every playlist in the dict and analyze it
@@ -1833,7 +1833,7 @@ def analyze_playlist_dict(playlist_dict):
 ---
 
 #### To use this function, you need to have the Spotify username of the user you want to analyze the tracks from.
-```python
+```
 my_username = "spotify"
 ```
 
@@ -1841,7 +1841,7 @@ my_username = "spotify"
 
 #### Now that we have the user's Spotify username, we can call the function <span style="color:olive">get_all_user_tracks</span> to analyze all tracks.
 
-```python
+```
 all_user_tracks = get_all_user_tracks(my_username)
 all_user_tracks.head()
 ```
@@ -1856,7 +1856,7 @@ all_user_tracks.head()
 <Details>
 <Summary>Full Code</Summary>
 
-```python
+```
 def get_all_user_tracks(username):
   all_my_playlists = pd.DataFrame(sp.user_playlists(username))
   list_of_dataframes = []
