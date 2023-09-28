@@ -82,7 +82,12 @@ By default Pandas shows only the first and last five rows of any data frame.  Th
 
 `df.loc` and `dc.iloc` are _not_ the same!
 
-* **iloc** to select rows by **index number** (the left-hand column) use `iloc`. The syntax puts rows before columns, as in `beatles_spotify.iloc[startrow:endrow, startcolumn:endcolumn]`.  Thus rows 10-15 (and all columns) of our dataframe would be `beatles_spotify.iloc[10:15, :]`.  Note:  the first number is *inclusive* but the second is *exclusive*.  So `10:15` will yield rows 10, 11, 12, 13, 14, but *not* 15.
+#### iloc for Index-based slices
+* **iloc** to select rows by **index number** (the left-hand column) use `iloc`. A good way to remember this is that `iloc` will correspond to the *integer* value of the index (which starts with zero). The syntax puts rows before columns, as in `beatles_spotify.iloc[startrow:endrow, startcolumn:endcolumn]`.  Thus rows 10-15 (and all columns) of our dataframe would be `beatles_spotify.iloc[10:15, :]`.  
+
+Note:  the first number is *inclusive* but the second is *exclusive*.  So `10:15` will yield rows 10, 11, 12, 13, 14, but *not* 15.
+
+#### loc for Label-based slices
 * **loc** to select rows by **label** of the left-hand column (as when you might have an index of strings), use `loc`.  This is useful when our index is a string rather than a number.  It is especially useful for working with columns.
 
 Pandas Cheat Sheet:  [here](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf).
@@ -95,6 +100,13 @@ Try:
 
 
 We now start to look more closely the columns.
+
+#### iloc for Index-based slices
+
+It's possible to select colulmns with `iloc`, as shown above for rows. The syntax puts rows before columns, as in `beatles_spotify.iloc[startrow:endrow, startcolumn:endcolumn]`.  The first column (and all rows) would be `beatles_spotify.iloc[:, 0]`. Thus the first `five` columns (and all rows) of our dataframe would be `beatles_spotify.iloc[:, 0:6]`.  Note:  the first number is *inclusive* but the second is *exclusive*.
+
+
+#### Working with Columns by Name (or 'label')
 
 
 * **column names** as a list:  `beatles_spotify.columns`
@@ -110,7 +122,9 @@ column_list = ['Title', 'Year', 'Album.debut', 'Genre','Songwriter', 'Top.50.Bil
 beatles_billboard_short = beatles_billboard[column_list]
 beatles_billboard_short
 ```
+Note that this could also be done using the `index` values for the columns.
 
+#### A Column is a Series
 
 An individual column is called a **series**
 * **One column**:  `beatles_spotify["year"]`
@@ -118,7 +132,6 @@ An individual column is called a **series**
 * Count the **number of entries** for each value in a column:  `beatles_spotify["album"].value_counts()`
 
 Pandas Cheat Sheet:  [here](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf).
-
 
 Show the columns of our df:
 
