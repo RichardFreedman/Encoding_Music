@@ -1,27 +1,3 @@
-import pandas as pd
-import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
-import numpy as np
-import random
-import altair as alt
-import requests
-import inspect
-import networkx as nx
-import networkx.algorithms.community as nx_comm
-import matplotlib.cm as cm
-import matplotlib.pyplot as plt
-import pyvis
-from pyvis import network as net
-from itertools import combinations
-from community import community_louvain
-from copy import deepcopy
-
-# Replace with your own Spotify API credentials
-client_id = 'your_client_id'
-client_secret = 'your_client_secret'
-
-# Initialize Spotipy client
-sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id, client_secret))
 
 def analyze_playlist(creator, playlist_id):
     playlist_features_list = ["artist", "album", "track_name", "track_id", 
