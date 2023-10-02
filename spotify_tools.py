@@ -63,9 +63,9 @@ def analyze_playlist(creator, playlist_id, spotipy_client):
         
     return playlist_df
 
-def analyze_playlist_dict(playlist_dict):
+def analyze_playlist_dict(playlist_dict, spotipy_client):
     for i, (key, val) in enumerate(playlist_dict.items()):
-        playlist_df = analyze_playlist(*val)
+        playlist_df = spotipy_client.analyze_playlist(*val, spotipy_client=spotipy_client)
         playlist_df["playlist"] = key
         
         if i == 0:
