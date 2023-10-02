@@ -1,3 +1,16 @@
+# These functions are used with the Spotify API and Spotipy by Max Hilsdorf to work with audio feature data
+
+# import the following libraries
+
+import pandas as pd
+import plotly.graph_objects as go
+
+# Replace with your own Spotify API credentials
+# client_id = 'your_client_id'
+# client_secret = 'your_client_secret'
+
+# Initialize Spotipy client
+# sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id, client_secret))
 
 def analyze_playlist(creator, playlist_id):
     playlist_features_list = ["artist", "album", "track_name", "track_id", 
