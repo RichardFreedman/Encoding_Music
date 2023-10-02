@@ -72,8 +72,7 @@ We can share a common login for use by students in Encoding Music.  But to creat
 
 Enter your tokens and username below:
 
-```
-python
+```python
 # storing the credentials:
 #
 CLIENT_ID = "MY_ID"
