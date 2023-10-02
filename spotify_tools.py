@@ -81,7 +81,7 @@ def get_all_user_tracks(username, spotipy_client):
 
     for playlist in all_my_playlists.index:
         current_playlist = pd.DataFrame(spotipy_client.user_playlist_tracks(username, all_my_playlists["items"][playlist]["id"]))
-        current_playlist_audio = get_audio_features_df(current_playlist)
+        current_playlist_audio = get_audio_features_df(current_playlist, spotipy_client)
         if all_my_playlists["items"][playlist]["name"]:
             current_playlist_audio["playlist_name"] = all_my_playlists["items"][playlist]["name"]
         else:
