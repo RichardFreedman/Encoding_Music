@@ -33,8 +33,8 @@ Note that as part of the **Encoding Music** course, we have created a special `s
 ##  <span style="color:olive"> Import Libraries </span> <a name="import-libraries"></a>
 
 You will need the following libraries:
-```
 
+```
 import pandas as pd
 import numpy as np
 import random
