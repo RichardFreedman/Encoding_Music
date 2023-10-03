@@ -52,6 +52,7 @@ import networkx as nx
 import networkx.algorithms.community as nx_comm
 import matplotlib.cm as cm
 import matplotlib.pyplot as plt
+import plotly.express as px
 import pyvis
 from pyvis import network as net
 from itertools import combinations
@@ -89,6 +90,8 @@ client_credentials_manager = SpotifyClientCredentials(client_id=CLIENT_ID, clien
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 ```
 
+
+The following is needed only if you are using direct requests with the API.   It is NOT needed for the Spotify Tools used in this documentation.
 
 ```
 AUTH_URL = 'https://accounts.spotify.com/api/token'
@@ -393,9 +396,51 @@ Note: by default, Altair will sort the tracks alphabetically. If you prefer to k
 
 You can read more about **Altair's axis sorting** [here](https://altair-viz.github.io/user_guide/generated/channels/altair.X.html). 
 
-### Adding Multiple Variables: Plotting Correlations
+### Correlation Matrix and Heatmap
 
-While there are many available charts, one useful way to visually illustrate a correlation between two variables (think DataFrame columns) is **constructing a scatterplot using two data ranges**. 
+
+It is surprisingly easy to produce a quick and overview of the correlations among *all* of the numerical variables in any dataframe.  These can in turn easily be plotted in an interactive graphical form (with the option to hover over individual items to view the underlying correlations).
+
+Note that it is also possible to apply different standard correlation measurements to the data.
+
+To run the correlation matrix on your data frame.  For example:
+
+```python
+playlist_audio_features.corr()
+
+```
+
+
+<Details>
+<Summary>Image of Sample Output</Summary>
+
+![Alt text](images/spot_corr.png)
+
+</Details>
+
+<br>
+
+
+
+And then you can render a graphical heatmap with plotly. Note that in our Juypyter Hub installation you will need to *save* the resulting file as HTML, then view it via the folder on the left of your browser.  It when you open this, the system might prompt you to 'trust html'.  Accept that!
+
+```python
+fig=px.imshow(playlist_audio_features.corr())
+fig.write_html('my_heatmnap_file.html')
+```
+
+<Details>
+<Summary>Image of Sample Output</Summary>
+
+![Alt text](images/spot_heat.png)
+
+</Details>
+
+<br>
+
+### Exploring Pairs of Variables via Scatterplots
+
+Another ne useful way to visually illustrate a correlation between two variables (think DataFrame columns) is **constructing a scatterplot using two data ranges**. 
 
 In general, a Scatterplot requires **two variables (data ranges)** that will be mapped according to their corresponding values. For example, consider **"energy"** and **"loudness"**.  The chart shows how these compare for each song.
 
