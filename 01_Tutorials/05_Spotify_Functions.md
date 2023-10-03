@@ -198,7 +198,7 @@ creator_id = "rich6833spot"
 This is the last string of characters following the "/":
 
 ```python
-playlist_id = "75OAYmyh848DuB16eLqBtk""
+playlist_id = "75OAYmyh848DuB16eLqBtk"
 ```
 
 #### Call the Analyze Playlist function <span style="color:olive">analyze_playlist</span>
