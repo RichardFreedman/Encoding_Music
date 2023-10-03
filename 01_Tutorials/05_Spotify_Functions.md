@@ -530,6 +530,32 @@ get_radar_plot(playlist_id, feature_columns, sp)
 
 To categorize your tracks, you would sometimes need to map their values from a continuous range onto a discrete range. Typically, we call this process **"binning"**. Binning usually involves creating a new column within the existing (or in a new) DataFrame such that the new column's values correspond to the discretely defined categories of the item (based on some threshold value). Read more about [continuous and discrete variables](https://en.wikipedia.org/wiki/Continuous_or_discrete_variable).
 
+### Automatic Bins and Charts with Altair
+
+The Altair library for Python and Pandas makes it quite easy to create a chart based on a given column that has any number of specified bins for the range of data in at hand. This is typically useful when creating a Histogram. You can learn more about binning and histograms in Altair [here](https://altair-viz.github.io/gallery/simple_histogram.html).
+
+Pass in the name of your dataframe and set the number of bins with the `maxbins` parameter.
+
+
+```python
+chart = alt.Chart(feature_based_tracks).mark_bar().encode(
+    alt.X('danceability', bin=alt.Bin(maxbins=10)),
+    y='count()',
+)
+chart
+```
+
+<Details>
+<Summary>Image of Sample Output</Summary>
+
+![Alt text](images/spot_bins.png)
+
+</Details>
+
+<br>
+
+### Defining Your Own Thresholds for Bins
+
 For example, consider **"danceability"** – a continuous variable with values ranging from 0 to 1. In order to **"bin"** our tracks, we will classify everything with a "danceability" score of 0.75 and higher as a dance tune. For this, we'll create a new column – "dance_tune", and if a track's "danceability" score is equal to or above 0.75, its "dance_tune" value should be True; otherwise, it should be set to False.
 
 This can be easily done using Pandas and NumPy's [np.where method](https://numpy.org/doc/stable/reference/generated/numpy.where.html).
@@ -538,7 +564,7 @@ Here's how to do it:
 
 
 ```python
-feature_based_tracks = current_playlist_audio_df.copy() # make a copy of the DataFrame
+feature_based_tracks = playlist_audio_features.copy() # make a copy of the DataFrame
 feature_based_tracks["dance_tune"] = np.where(feature_based_tracks['danceability'] >= 0.75, True, False)
 feature_based_tracks
 ```
@@ -596,6 +622,8 @@ feature_based_tracks.head()
 
 <br>
 
+
+
 Based on this information, we can **analyze the composition** of our modified DataFrame using Altair. For example, one could think: out of the dance tunes, are most high energy or low energy? 
 
 Here's a way to find out using Altair:
@@ -622,26 +650,7 @@ alt.layer(bars, data=feature_based_tracks).facet(
 
 <br>
 
-Alternatively, we can use **Altair's built-in bin method** of the Chart object to produce more standard binning. This is typically useful when creating a Histogram. You can learn more about binning and histograms in Altair [here](https://altair-viz.github.io/gallery/simple_histogram.html).
 
-Here's an example:
-
-
-```python
-alt.Chart(feature_based_tracks).mark_bar().encode(
-    alt.X("danceability", bin=True),
-    y='count()',
-)
-```
-
-<Details>
-<Summary>Image of Sample Output</Summary>
-
-![Alt text](images/spot_12.png)
-
-</Details>
-
-<br>
 
 ##  <span style="color:olive"> Sorting Dataframes </span> <a name="sorting"></a>
 
@@ -716,6 +725,7 @@ Here's how to **build, populate, and show a simple Network Graph** using Network
 
 ```
 # Creating a Network
+# Note that you can change the width and height to allow for easier scrolling in your Notebook!
 g = net.Network(notebook=True, width=1000, height = 800)
 
 # Adding nodes
