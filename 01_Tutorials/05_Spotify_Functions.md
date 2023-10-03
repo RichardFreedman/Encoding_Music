@@ -39,6 +39,7 @@ import pandas as pd
 import numpy as np
 import random
 import altair as alt
+import plotly.graph_objects as go
 import requests
 import inspect
 import spotipy
@@ -55,7 +56,7 @@ from community import community_louvain
 from copy import deepcopy
 ```
 
-##  <span style="color:olive"> Analyze a Single Playlist </span> <a name="establish-credentials"></a>
+##  <span style="color:olive"> Establish Credentials for the Spotify API</span> <a name="establish-credentials"></a>
 
 In order to utilize the functionality of Spotify's API, you'll need to establish a connection between the local endpoint (your laptop) and the API (cloud). To do that, you'll need to create a **web client** (read more [here](https://en.wikipedia.org/wiki/Client_(computing))).
 
@@ -79,7 +80,7 @@ CLIENT_ID = "MY_ID"
 CLIENT_SECRET = "MY_SECRET"
 my_username = "my_spotify_name"
 
-# instantiating the client
+# instantiating the client.  This 'sp' version of the client is used repeatedly below
 # source: Max Hilsdorf (https://towardsdatascience.com/how-to-create-large-music-datasets-using-spotipy-40e7242cc6a6)
 client_credentials_manager = SpotifyClientCredentials(client_id=CLIENT_ID, client_secret=CLIENT_SECRET)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
@@ -105,7 +106,50 @@ access_token = auth_response_data['access_token']
 
 At this point, you should be perfectly able to access the API! Hence, we move on to scraping and analyzing music metadata.
 
-##  <span style="color:olive"> Analyze a Single Playlist </span> <a name="analyze-a-single-playlist"></a>
+##  <span style="color:olive"> Getting the Full Range of Metadata for One or More Tracks</span> <a name="full-metadata"></a>
+
+The Spotify API returns a rather large range of metadata, including not only Audio Features (more on that below) but also information about the artist, release dates, countries of availability, albumn art, and so on.
+
+The spotipy client can return these as shown below. To use this function, you need the creator username of the playlist and the playlist ID. 
+
+For example: [Our Voyager Playlist](https://open.spotify.com/playlist/75OAYmyh848DuB16eLqBtk)
+
+#### Get the `creator_id`:
+
+This is the id of the user who made the playlist. It's not the same as the client_id for the Spotify API above.
+
+```python
+creator_id = "rich6833spot"
+```
+
+#### And the `playlist_id`
+
+This is the last string of characters following the "/":
+
+```python
+playlist_id = "75OAYmyh848DuB16eLqBtk""
+```
+
+#### And now the spotipy client function to return the full metadata
+```python
+# playlist_tracks(user_id: String, playlist_id: String): json_dict
+playlist_tracks = pd.DataFrame(sp.user_playlist_tracks("rich6833spot", "75OAYmyh848DuB16eLqBtk"))
+playlist_tracks
+```
+![Alt text](images/spot_one_list_all.png)
+
+
+#### And for an individual track from this list, returned as a JSON object:
+
+```python
+sample_track = playlist_tracks.iloc[0]["items"]["track"]
+sample_track
+```
+![Alt text](images/spot_one_track_all.png)
+
+##  <span style="color:olive"> Get the Audio Features Only for a Single Playlist </span> <a name="analyze-a-single-playlist"></a>
+
+The spotify_tools.py (created by Edgar Leon and Oleh Shostak at Haverford College) simplify this complex JSON, return only the audio features, in this case as a Pandas dataframe.
 
 #### This function is used to get the audio features of a Spotify playlist such as: 
 - Artist
@@ -131,6 +175,8 @@ For example: [Our Voyager Playlist](https://open.spotify.com/playlist/75OAYmyh84
 
 #### Get the `creator_id`:
 
+This is the id of the user who made the playlist. It's not the same as the client_id for the Spotify API above.
+
 ```python
 creator_id = "rich6833spot"
 ```
@@ -145,12 +191,22 @@ playlist_id = "75OAYmyh848DuB16eLqBtk""
 
 #### Call the Analyze Playlist function <span style="color:olive">analyze_playlist</span>
 
-This function is based on [Max Hilsdorf's article](https://towardsdatascience.com/how-to-create-large-music-datasets-using-spotipy-40e7242cc6a6), and  returns a dataframe showing all the audio features of the given playlist.  
+This function is based on [Max Hilsdorf's article](https://towardsdatascience.com/how-to-create-large-music-datasets-using-spotipy-40e7242cc6a6), and  returns a dataframe showing *just* the audio features of the given playlist.  
+
+
+#### Audio Only Features for One Playlist
+```python
+playlist_audio_features = spotify_tools.analyze_playlist(creator_id, playlist_id, sp) #Stores the resulting data frame as the variable: playlist_data_frame
+playlist_audio_features.head() #Displays the first n rows of the data frame 
+```
+
+#### Audio Features for One Track from that List
 
 ```python
-playlist_data_frame = analyze_playlist(creator_id, playlist_id, spotipy_client) #Stores the resulting data frame as the variable: playlist_data_frame
-playlist_data_frame.head() #Displays the first n rows of the data frame 
+sample_track = playlist_audio_features.iloc[1]
+sample_track
 ```
+
 <Details>
 <Summary>Image of Sample Output</Summary>
 
@@ -164,33 +220,26 @@ playlist_data_frame.head() #Displays the first n rows of the data frame
 
 ```python
 def analyze_playlist(creator, playlist_id, spotipy_client):
-# source: Max Hilsdorf (https://towardsdatascience.com/how-to-create-large-music-datasets-using-spotipy-40e7242cc6a6)
-
-    # Create empty dataframe
     playlist_features_list = ["artist", "album", "track_name", "track_id", 
                              "danceability", "energy", "key", "loudness", "mode", "speechiness",
                              "instrumentalness", "liveness", "valence", "tempo", "duration_ms", "time_signature"]
-    playlist_df = pd.DataFrame(columns = playlist_features_list)
+    playlist_df = pd.DataFrame(columns=playlist_features_list)
     
-    # Create empty dict
     playlist_features = {}
     
-    # Loop through every track in the playlist, extract features and append the features to the playlist df
     playlist = spotipy_client.user_playlist_tracks(creator, playlist_id)["items"]
     for track in playlist:
-        # Get metadata
         playlist_features["artist"] = track["track"]["album"]["artists"][0]["name"]
         playlist_features["album"] = track["track"]["album"]["name"]
         playlist_features["track_name"] = track["track"]["name"]
         playlist_features["track_id"] = track["track"]["id"]
-        # Get audio features
+        
         audio_features = spotipy_client.audio_features(playlist_features["track_id"])[0]
         for feature in playlist_features_list[4:]:
             playlist_features[feature] = audio_features[feature]
         
-        # Concat the dfs
-        track_df = pd.DataFrame(playlist_features, index = [0])
-        playlist_df = pd.concat([playlist_df, track_df], ignore_index = True)
+        track_df = pd.DataFrame(playlist_features, index=[0])
+        playlist_df = pd.concat([playlist_df, track_df], ignore_index=True)
         
     return playlist_df
 ```
@@ -202,11 +251,16 @@ We can take a look at an **individual track** here:
 
 
 ```
-sample_track = playlist_tracks.iloc[1]["items"]["track"]
+sample_track = playlist_data_frame.iloc[1]["items"]["track"]
 sample_track
 ```
+<Details>
+<Summary>Image of Sample Output</Summary>
 
 ![Alt text](images/spot_2.png)
+
+</Details>
+
 
 
 As you can notice, tracks are stored as **JSON objects** (think Dictionaries), which you can read more about [here](https://developer.mozilla.org/en-US/docs/Web/Juser_2cript/Reference/Global_Objects/JSON). Each Track object has many attributes, including "album", "artists", "id", "duration", "popularity", "name" etc. Some of these are extremely useful to us! You can learn more about Spotify's Track features [here](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-track).
@@ -238,7 +292,8 @@ playlist_dict = {
 ```
 ```python
 playlist_dict = {
-    "warm_fuzzy_feeling" : ("spotify", "37i9dQZF1DX5IDTimEWoTd"), 
+    "voyager" : ("rich6833spot", "75OAYmyh848DuB16eLqBtk"), 
+    "phrygian" : ("rich6833spot", "3LssUmwJxSBf3WoEz4aJuC")
     #Follow the same format to add more playlists
 }
 ```
@@ -246,13 +301,13 @@ playlist_dict = {
 Now that we have created our playlist dictionary, we can call the function <span style="color:olive">analyze_playlist_dict</span> to analyze the audio features of the songs in multiple playlists.
 
 ```python
-multiple_playlist_data_frame = analyze_playlist_dict(playlist_dict)
+multiple_playlist_data_frame = spotify_tools.analyze_playlist_dict(playlist_dict, sp)
 multiple_playlist_data_frame.head()
 ```
 <Details>
 <Summary>Image of Sample Output</Summary>
 
-![Alt text](images/Spotify_Multiple_Playlist_Head.png)
+![Alt text](images/spot_multi_list.png)
 
 
 </Details>
@@ -260,18 +315,15 @@ multiple_playlist_data_frame.head()
 <Summary>Full Code</Summary>
 
 ```python
-def analyze_playlist_dict(playlist_dict):
-    
-    # Loop through every playlist in the dict and analyze it
+def analyze_playlist_dict(playlist_dict, spotipy_client):
     for i, (key, val) in enumerate(playlist_dict.items()):
-        playlist_df = analyze_playlist(*val)
-        # Add a playlist column so that we can see which playlist a track belongs too
+        playlist_df = analyze_playlist(*val, spotipy_client=spotipy_client)
         playlist_df["playlist"] = key
-        # Create or concat df
+        
         if i == 0:
             playlist_dict_df = playlist_df
         else:
-            playlist_dict_df = pd.concat([playlist_dict_df, playlist_df], ignore_index = True)
+            playlist_dict_df = pd.concat([playlist_dict_df, playlist_df], ignore_index=True)
             
     return playlist_dict_df
 ```
@@ -291,7 +343,7 @@ my_username = "spotify"
 Now that we have the user's Spotify username, we can call the function <span style="color:olive">get_all_user_tracks</span> to analyze all tracks.
 
 ```python
-all_user_tracks = get_all_user_tracks(my_username)
+all_user_tracks = spotify_tools.get_all_user_tracks(my_username, sp)
 all_user_tracks.head()
 ```
 
@@ -306,20 +358,20 @@ all_user_tracks.head()
 <Summary>Full Code</Summary>
 
 ```python
-def get_all_user_tracks(username):
-  all_my_playlists = pd.DataFrame(spotipy_client.user_playlists(username))
-  list_of_dataframes = []
+def get_all_user_tracks(username, spotipy_client):
+    all_my_playlists = pd.DataFrame(spotipy_client.user_playlists(username))
+    list_of_dataframes = []
 
-  for playlist in all_my_playlists.index:
-    current_playlist = pd.DataFrame(spotipy_client.user_playlist_tracks(username, all_my_playlists["items"][playlist]["id"]))
-    current_playlist_audio = get_audio_features_df(current_playlist)
-    if all_my_playlists["items"][playlist]["name"]:
-      current_playlist_audio["playlist_name"] = all_my_playlists["items"][playlist]["name"]
-    else:
-       current_playlist_audio["playlist_name"] = None
-    list_of_dataframes.append(current_playlist_audio)
+    for playlist in all_my_playlists.index:
+        current_playlist = pd.DataFrame(spotipy_client.user_playlist_tracks(username, all_my_playlists["items"][playlist]["id"]))
+        current_playlist_audio = get_audio_features_df(current_playlist, spotipy_client)
+        if all_my_playlists["items"][playlist]["name"]:
+            current_playlist_audio["playlist_name"] = all_my_playlists["items"][playlist]["name"]
+        else:
+            current_playlist_audio["playlist_name"] = None
+        list_of_dataframes.append(current_playlist_audio)
 
-  return pd.concat(list_of_dataframes)
+    return pd.concat(list_of_dataframes)
 ```
 </Details>
 
@@ -328,13 +380,13 @@ As we now have a collection of data points that represent different feature valu
 
 ### A Scatterplot of a Playlist (based on one audio feature)
 
-To illustrate this concept, we will use **Altair's scatterplot** to chart **each track's tempo**. This could be done by setting the Chart's data source to **audio_features_df**, it's **x** variable to **track_name** and it's **y** variable to **tempo**.
+To illustrate this concept, we will use **Altair's scatterplot** to chart **each track's tempo**. This could be done by setting the Chart's data source to **playlist_data_frame**, it's **x** variable to **track_name** and it's **y** variable to **tempo**.
 
 Here's our chart:
 
 
 ```python
-alt.Chart(audio_features_df).mark_point().encode(
+alt.Chart(playlist_audio_features).mark_point().encode(
     x="track_name",
     y='tempo'
 )
@@ -351,7 +403,7 @@ You can read more about **Altair's axis sorting** [here](https://altair-viz.gith
 
 While there are many available charts, one useful way to visually illustrate a correlation between two variables (think DataFrame columns) is **constructing a scatterplot using two data ranges**. 
 
-In general, a Scatterplot requires **two variables (data ranges)** that will be mapped according to their corresponding values. For example, consider **"energy"** and **"loudness"**. Our first track (Shaggy: Boombastic) has an "energy" score of 0.538 and a "loudness" score of -16.183, which together make one of the points on the scatterplot: (0.538, -16.183); the second track (Ini Kamoze: Here Comes The Hotstepper) makes up the (0.454, -8.598) datapoint – hopefully, you can see where this is going.
+In general, a Scatterplot requires **two variables (data ranges)** that will be mapped according to their corresponding values. For example, consider **"energy"** and **"loudness"**.  The chart shows how these compare for each song.
 
 You can read more about Altair's scatterplots [here](https://altair-viz.github.io/gallery/scatter_tooltips.html).
 
@@ -359,7 +411,7 @@ In the example below, we are using **audio_features_df** as the data source, **"
 
 
 ```python
-alt.Chart(audio_features_df).mark_point().encode(
+alt.Chart(playlist_audio_features).mark_point().encode(
     x='energy',
     y='loudness'
 )
@@ -377,7 +429,7 @@ Using Pandas' built-in *pandas.Series.corr()* method, it is extremely easy to ob
 
 
 ```python
-audio_features_df['energy'].corr(audio_features_df['loudness'])
+playlist_audio_features['energy'].corr(playlist_audio_features['loudness'])
 ```
 
 
@@ -403,7 +455,7 @@ def createRadarElement(row, feature_cols):
         mode = 'lines', 
         name = row['track_name'])
 
-def get_radar_plot(playlist_id, features_list):
+def get_radar_plot(playlist_id, features_list, spotipy_client):
     current_playlist_audio_df = get_audio_features_df(pd.DataFrame(spotipy_client.playlist_items(playlist_id)))
     current_data = list(current_playlist_audio_df.apply(createRadarElement, axis=1, args=(features_list, )))  
     fig = go.Figure(current_data, )
@@ -435,7 +487,12 @@ Here's how to do it:
 
 
 ```python
-feature_based_tracks = audio_features_df.copy() # make a copy of the DataFrame
+feature_based_tracks = def get_radar_plot(playlist_id, features_list, spotipy_client):
+    current_playlist_audio_df = get_audio_features_df(pd.DataFrame(spotipy_client.playlist_items(playlist_id)))
+    current_data = list(current_playlist_audio_df.apply(createRadarElement, axis=1, args=(features_list, )))  
+    fig = go.Figure(current_data, )
+    fig.show(renderer='iframe')
+    fig.write_image(playlist_id + '.png', width=1200, height=800).copy() # make a copy of the DataFrame
 feature_based_tracks["dance_tune"] = np.where(feature_based_tracks['danceability'] >= 0.75, True, False)
 feature_based_tracks.head()
 ```
@@ -627,14 +684,14 @@ Building onto these tools, we can create something more advanced – for example
 Here's how to do it (add this code to your Notebook)
 
 
-```
+```python
 # Creating a Network with one center Node
 playlists_network = net.Network(notebook=True, width=1000, height = 800)
 playlists_network.add_node("user_1's Spotify", color="#fffff")
 
 # As we want to record both playlist names and corresponding sizes, we need a Dictionary:
 user_1_playlist_dictionary = {}
-user_1s_playlists = pd.DataFrame(spotipy_client.user_playlists(my_username)["items"])
+user_1s_playlists = pd.DataFrame(sp.user_playlists(my_username)["items"])
 
 # Iterating over the playlists and recording Names and Sizes
 for i in range(len(user_1s_playlists)):
@@ -672,7 +729,7 @@ Here's what such a function could look like (add this to your Notebok):
 
 
 ```
-def add_related_artists(starting_artist_name, starting_artist_id, existing_graph, limit, order_group=None):
+def add_related_artists(starting_artist_name, starting_artist_id, existing_graph, limit, spotipy_client, order_group=None):
     # get artists related to the current artist
     current_artist_related = pd.DataFrame(spotipy_client.artist_related_artists(starting_artist_id)["artists"])
     # loop through the related artists, add nodes and edges
@@ -761,7 +818,7 @@ In order to further complicate our lives, we can **add one more generation of re
 ```
 # Running through the once-related artists
 for i in range(limit):
-    add_related_artists(center_artist_related.loc[i]["name"], center_artist_related.loc[i]["id"], artist_network, limit, (i+1))
+    add_related_artists(center_artist_related.loc[i]["name"], center_artist_related.loc[i]["id"], artist_network, limit, sp, (i+1))
 
 # Showing the Network Graph
 artist_network.show("artist_example.html")
@@ -779,7 +836,7 @@ As you can see, the Network Graph above provides some very interesting informati
 
 <br>
 
-#### A Network of Songs
+### Complex Networks:  A Network of Songs
 
 Similarly to Related Artists, Spotify API has a way of **recommending songs** based on a "seed" of tracks. Acording to the API Documentation, "recommendations **are generated based on the available information for a given seed entity and matched against similar artists and tracks**".
 
@@ -790,9 +847,9 @@ This method is mirrored by Spotipy – specifically, in the *sp.recommendations*
 Add this to your Notebook:
 
 
-```
-def add_related_songs(starting_song_name, starting_artist_name, starting_song_id, existing_graph, limit, first_gen=True, order_group=None):
-    current_song_related = pd.DataFrame(sp.recommendations(seed_tracks=[starting_song_id])["tracks"])
+```python
+def add_related_songs(starting_song_name, starting_artist_name, starting_song_id, existing_graph, limit, spotipy_client, first_gen=True, order_group=None):
+    current_song_related = pd.DataFrame(spotipy_client.recommendations(seed_tracks=[starting_song_id])["tracks"])
     for i in range(limit):
         if str(current_song_related.loc[i]["artists"][0]["name"] + ": " + current_song_related.loc[i]["name"]) not in existing_graph.get_nodes():
             if order_group:
@@ -833,7 +890,7 @@ song_network = net.Network(notebook=True, width=1000, height=800)
 song_network.add_node(str(center_song_artist + ": " + center_song_name), value=center_song_popularity, color="#fffff", group=0)
 
 # Getting the first circle of related artists:
-recommended_songs = add_related_songs(center_song_name, center_song_artist, center_song_id, song_network, limit)
+recommended_songs = add_related_songs(center_song_name, center_song_artist, center_song_id, song_network, limit, sp)
 
 # Showing the Network
 song_network.show("song_network_short.html")
@@ -850,7 +907,16 @@ Similarly to Related Artists, we will further complicate our lives by **adding o
 ```
 # Getting the second generation of Recommended songs
 for i in range(limit):
-    add_related_songs(recommended_songs.loc[i]["name"], recommended_songs.loc[i]["artists"][0]["name"], recommended_songs.loc[i]["id"], song_network, limit, False, (i+1))
+    add_related_songs(starting_song_name=recommended_songs.loc[i]["name"], 
+                      starting_artist_name=recommended_songs.loc[i]["artists"][0]["name"], 
+                      starting_song_id=recommended_songs.loc[i]["id"], 
+                      existing_graph=song_network, 
+                      limit=limit, 
+                      spotipy_client=sp, 
+                      first_gen=False, 
+                      order_group=(i+1))
+                      
+
 
 # Showing the network
 song_network.show("song_network.html")
@@ -874,8 +940,8 @@ Finally, we can make one very slight tweak to our add_related_songs method. Prev
 Add this to your Notebook:
 
 
-```
-def add_related_songs_gen(starting_song_name, starting_artist_name, starting_song_id, existing_graph, limit, first_gen=True, order_group=None):
+```python
+def add_related_songs_gen(starting_song_name, starting_artist_name, starting_song_id, existing_graph, limit, spotipy_client, first_gen=True, order_group=None):
     current_song_related = pd.DataFrame(sp.recommendations(seed_tracks=starting_song_id)["tracks"]).loc[0:(limit - 1)]
     for i in range(limit):
         if str(current_song_related.loc[i]["artists"][0]["name"] + ": " + current_song_related.loc[i]["name"]) not in existing_graph.get_nodes():
