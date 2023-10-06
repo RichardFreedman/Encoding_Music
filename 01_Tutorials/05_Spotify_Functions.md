@@ -471,7 +471,6 @@ Learn [more about correlations](https://www.washington.edu/assessment/scanning-s
 
 Using Pandas' built-in *pandas.Series.corr()* method, it is extremely easy to obtain the **Correlation Coefficient** for the two variables:
 
-
 ```python
 playlist_audio_features['energy'].corr(playlist_audio_features['loudness'])
 ```
@@ -480,6 +479,54 @@ playlist_audio_features['energy'].corr(playlist_audio_features['loudness'])
 
 
     0.5252140232410945
+
+
+### Comparing Playlists with Scatterplots
+
+As shown above, we can easily combine audio feature data from multiple playlists into a single dataframe (that is, from a dictionary of selected playlists, or all the playlists of a given user).  Here we make scatterplot data of pairs of variables, and color-code the data from each playlist distinctively:
+
+```python
+alt.Chart(all_my_tracks).mark_point().encode(
+    x="liveness",
+    y="danceability",
+    color="playlist_name"
+)
+```
+
+The result will look like this:
+
+
+![Alt text](images/spot_multi_chart.png)
+
+
+
+Bigger sample sizes prompt stronger observations! If you have noticed a trend when looking at just the 16 Tracks of the initial playlist, you are much more likely to witness a similar trend as the **sample size increases**.
+
+Another useful chart would be **charting every track's energy and color-coding the data points** based on what playlist they are in.
+
+Here's how to do it (notice the **tooltip** argument for the altair Chart function--this allows the user to hover over the individual data points and see the track name, artist, and playlist name; you could add any other relevant metadata here from the original dataframe)
+
+```python
+alt.Chart(all_my_tracks).mark_point().encode(
+    x=alt.X("track_name", sort=None),
+    y='energy',
+    color="playlist_name",
+    tooltip=["artist", "track_name", "playlist_name"]
+).properties(
+    width=1200
+)
+```
+
+
+
+As you can see in the chart above, these sample playlists tend to follow a certain "energy" trend (typically upward) as the playlist progresses. This likely corresponds with how many of you listen to your own playlists: start with less energetic songs and move on to more energetic ones.
+
+
+![Alt text](images/spot-multi-trend.png)
+
+
+---
+
 
 ### Radar Plots
 
