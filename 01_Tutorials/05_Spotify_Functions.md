@@ -14,9 +14,10 @@ Thanks to [Max Hilsdorf](https://towardsdatascience.com/how-to-create-large-musi
 
 Note that as part of the **Encoding Music** course, we have created a special `spotipy_tools.py` library that includes all of the key functions explained below.  If you install that library along with the others shown below.
 
-## 
+
 
 ## Table of Contents: The Spotify Tools at a Glance
+0. [Option for Google Colab](#google-colab)
 1. [Import Libraries](#import-libraries)
 2. [Establish Credentials for the Spotify API](#establish-credentials)
 3. [Getting the Full Range of Metadata for One or More Tracks](#full-metadata)
@@ -32,6 +33,24 @@ Note that as part of the **Encoding Music** course, we have created a special `s
 13. [Complex Networks:  Related Artists](#artist_networks)
 14. [Complex Networks:  Song Network](#song-network)
 15. [Louvain Community Detection:  The Ghost in the Machine](#louvain)
+
+##  <span style="color:olive"> Using Google Colab (Alternative to Encoding Music) </span> <a name="google-colab"></a>
+
+If you have gmail, you can alternatively use all this code on Google Colab, which will avoid some of the Max Retries errors we have encountered.
+
+1. Log in to your Google Account (HC students can just proceed as usual)
+2. Visit Google Colab and "Start New Notebook".  Name the notebook, and then you will see it saved in a folder in your Gdrive called Colab Notebooks, where you can find it again later
+
+3. Before you Import Libraries, you will first need to *install* a few of them that are not already active on Google Colab put the following in a new cell at the top of your Notebook:
+
+```python
+!pip install spotipy
+!pip install git+https://github.com/RichardFreedman/Encoding_Music.git
+!pip install pyvis
+```
+4. Now follow the **Import Libraries** and **Establish Credential** steps below.
+
+
 
 ##  <span style="color:olive"> Import Libraries </span> <a name="import-libraries"></a>
 
@@ -59,6 +78,7 @@ from itertools import combinations
 from community import community_louvain
 from copy import deepcopy
 ```
+
 
 ##  <span style="color:olive"> Establish Credentials for the Spotify API</span> <a name="establish-credentials"></a>
 
@@ -111,6 +131,7 @@ access_token = auth_response_data['access_token']
 ```
 
 At this point, you should be perfectly able to access the API! Hence, we move on to scraping and analyzing music metadata.
+
 
 ##  <span style="color:olive"> Getting the Full Range of Metadata for One or More Tracks</span> <a name="full-metadata"></a>
 
