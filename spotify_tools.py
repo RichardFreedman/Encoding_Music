@@ -90,6 +90,12 @@ def get_all_user_tracks(username, spotipy_client):
 
     return pd.concat(list_of_dataframes)
 
+# Radar Plot Functions
+# Be sure to pecify the audio features.  Note that with Radar plots the first and last item in the following list must be the same (in order to complete the plot!)
+# features_list = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "valence", "danceability"]
+
+# This plots the Radar Elements
+
 def createRadarElement(row, feature_cols):
     return go.Scatterpolar(
         r = row[feature_cols].values.tolist(), 
@@ -97,13 +103,24 @@ def createRadarElement(row, feature_cols):
         mode = 'lines', 
         name = row['track_name'])
 
-def get_radar_plot(playlist_id, features_list, spotipy_client):
-    current_playlist_audio_df = get_audio_features_df(pd.DataFrame(spotipy_client.playlist_items(playlist_id)))
+# This builds the plot for ONE playlist. Note that by default the function expects a playlist_id, which is then passed to the Spotify API to return the audio features.  But the optional offline_df parameter makes it possible to pass in a dataframe of audio features that you have already built, filtered or otherwise customized in your notebook.  In this case simply call  `get_radar_plot(offline_df=my_audio_df)`.
+
+def get_radar_plot_local(features_list, local_df=None):
+    current_data = list(local_df.apply(createRadarElement, axis=1, args=(feature_columns, )))  
+    fig = go.Figure(current_data, )
+    fig.show(renderer='iframe')
+    fig.write_image('radar_plot.png', width=1200, height=800)
+    
+# This is for loading audio features for one playlist directly from Spotify
+
+def get_radar_plot_spotify(playlist_id, features_list, spotipy_client):
+    current_playlist_audio_df = spotify_tools.get_audio_features_df(pd.DataFrame(spotipy_client.playlist_items(playlist_id)), spotipy_client)
     current_data = list(current_playlist_audio_df.apply(createRadarElement, axis=1, args=(features_list, )))  
     fig = go.Figure(current_data, )
     fig.show(renderer='iframe')
     fig.write_image(playlist_id + '.png', width=1200, height=800)
     
-def get_radar_plots(playlist_id_list, features_list):
+# The following is used with multiple playlist ids, which are then passed to Spotify API 
+def get_radar_plots(playlist_id_list, feature_columns):
     for item in playlist_id_list:
-        get_radar_plot(item, features_list)
+        get_radar_plot_local(item, feature_columns)
