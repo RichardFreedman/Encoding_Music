@@ -39,7 +39,7 @@ Note that as part of the **Encoding Music** course, we have created a special `s
 If you have gmail, you can alternatively use all this code on Google Colab, which will avoid some of the Max Retries errors we have encountered.
 
 1. Log in to your Google Account (HC students can just proceed as usual)
-2. Visit Google Colab and "Start New Notebook".  Name the notebook, and then you will see it saved in a folder in your Gdrive called Colab Notebooks, where you can find it again later
+2. Visit [Google Colab](https://colab.google/) and "Start New Notebook".  Name the notebook, and then you will see it saved in a folder in your Gdrive called Colab Notebooks, where you can find it again later
 
 3. Before you Import Libraries, you will first need to *install* a few of them that are not already active on Google Colab put the following in a new cell at the top of your Notebook:
 
