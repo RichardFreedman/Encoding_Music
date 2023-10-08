@@ -47,10 +47,9 @@ If you have gmail, you can alternatively use all this code on Google Colab, whic
 !pip install spotipy
 !pip install git+https://github.com/RichardFreedman/Encoding_Music.git
 !pip install pyvis
+!pip install time
 ```
 4. Now follow the **Import Libraries** and **Establish Credential** steps below.
-
-
 
 ##  <span style="color:olive"> Import Libraries </span> <a name="import-libraries"></a>
 
@@ -77,6 +76,7 @@ from pyvis import network as net
 from itertools import combinations
 from community import community_louvain
 from copy import deepcopy
+import time
 ```
 
 
@@ -111,7 +111,7 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 ```
 
 
-The following is needed only if you are using direct requests with the API.   It is NOT needed for the Spotify Tools used in this documentation.
+The following is needed **only if you are using direct requests with the API**.   It is NOT needed for the Spotify Tools used in this documentation.
 
 ```
 AUTH_URL = 'https://accounts.spotify.com/api/token'
@@ -228,37 +228,34 @@ This function is based on [Max Hilsdorf's article](https://towardsdatascience.co
 
 
 #### Now, Audio Only Features for One Playlist
+
+Note that you must pass in the **playlist tracks** obtained above, the **time delay** (normally `2`, since this is needed to prevent errors from Spotify), and the **spotify client** created above ( `sp`)
 ```python
-playlist_audio_features = spotify_tools.analyze_playlist(creator_id, playlist_id, sp) #Stores the resulting data frame as the variable: playlist_data_frame
+playlist_audio_features = spotify_tools.get_audio_features_slowly(playlist_tracks, 2, sp) #Stores the resulting data frame as the variable: playlist_data_frame
 playlist_audio_features.head() #Displays the first n rows of the data frame 
 ```
 <Details>
-<Summary>Full Code</Summary>
+<Summary>Full Code from Spotify Tools for Reference</Summary>
 
 ```python
-def analyze_playlist(creator, playlist_id, spotipy_client):
-    playlist_features_list = ["artist", "album", "track_name", "track_id", 
-                             "danceability", "energy", "key", "loudness", "mode", "speechiness",
-                             "instrumentalness", "liveness", "valence", "tempo", "duration_ms", "time_signature"]
-    playlist_df = pd.DataFrame(columns=playlist_features_list)
-    
-    playlist_features = {}
-    
-    playlist = spotipy_client.user_playlist_tracks(creator, playlist_id)["items"]
-    for track in playlist:
-        playlist_features["artist"] = track["track"]["album"]["artists"][0]["name"]
-        playlist_features["album"] = track["track"]["album"]["name"]
-        playlist_features["track_name"] = track["track"]["name"]
-        playlist_features["track_id"] = track["track"]["id"]
-        
-        audio_features = spotipy_client.audio_features(playlist_features["track_id"])[0]
-        for feature in playlist_features_list[4:]:
-            playlist_features[feature] = audio_features[feature]
-        
-        track_df = pd.DataFrame(playlist_features, index=[0])
-        playlist_df = pd.concat([playlist_df, track_df], ignore_index=True)
-        
-    return playlist_df
+def get_audio_features_slowly(playlist_tracks, time_delay, sp):
+    track_info = playlist_tracks.apply(lambda row: row["items"]["track"], axis=1).to_list()
+    track_dict_list = []
+    for track in track_info:
+        try:
+            time.sleep(time_delay)
+            this_track_dict = {
+                'track_id' : track['id'],
+                'track_title' : track['name'],
+                'artist_name' : track['artists'][0]['name']}
+            audio_features_temp = sp.audio_features(track['id'])[0]
+            # test for missing values
+            this_track_dict.update(audio_features_temp)
+            track_dict_list.append(this_track_dict)
+        except Exception as e:
+            print(e, track['id'])
+    audio_features = pd.DataFrame(track_dict_list)
+    return audio_features
 ```
 </Details>
 
@@ -309,10 +306,14 @@ playlist_dict = {
 }
 ```
 ---
+
+Note that the "NAME" field above will appear as a separate column in the resulting combined dataframe, thus identifying the data from each original playlist.
+
+Now pass that **playlist dictionary**, the **time delay** (`2` is good) and the **spotify client** established above to the function.
 Now that we have created our playlist dictionary, we can call the function <span style="color:olive">analyze_playlist_dict</span> to analyze the audio features of the songs in multiple playlists.
 
 ```python
-multiple_playlist_data_frame = spotify_tools.analyze_playlist_dict(playlist_dict, sp)
+multiple_playlist_data_frame = spotify_tools.get_multiple_audio_features_slowly(playlist_dict, 2, sp)
 multiple_playlist_data_frame.head()
 ```
 <Details>
@@ -325,20 +326,26 @@ multiple_playlist_data_frame.head()
 
 
 <Details>
-<Summary>Full Code</Summary>
+<Summary>Full Code from Spotify Tools for Reference</Summary>
 
 ```python
-def analyze_playlist_dict(playlist_dict, spotipy_client):
-    for i, (key, val) in enumerate(playlist_dict.items()):
-        playlist_df = analyze_playlist(*val, spotipy_client=spotipy_client)
-        playlist_df["playlist"] = key
-        
-        if i == 0:
-            playlist_dict_df = playlist_df
-        else:
-            playlist_dict_df = pd.concat([playlist_dict_df, playlist_df], ignore_index=True)
-            
-    return playlist_dict_df
+def get_multiple_audio_features_slowly(playlist_dict, time_delay, sp):
+    list_of_audio_dfs = []
+    for playlist_name, value in playlist_dict.items():
+        time.sleep(30)
+        print(f"Getting tracks for playlist {playlist_name}")
+        playlist_tracks = pd.DataFrame(sp.user_playlist_tracks(value[0], value[1]))
+        if playlist_tracks is None:
+            continue
+        try:
+            audio_features_this_playlist = spotify_tools.get_audio_features_slowly(playlist_tracks, time_delay, sp)
+            audio_features_this_playlist["playlist_title"] = playlist_name
+            audio_features_this_playlist.to_csv(f"{playlist_name}.csv")
+            list_of_audio_dfs.append(audio_features_this_playlist)
+        except Exception as e:
+            print(e)
+    combined_audio_features = pd.concat(list_of_audio_dfs)
+    return combined_audio_features
 ```
 </Details>
 
@@ -350,15 +357,17 @@ This function allows you to obtain and analyze all the tracks from a user's foll
 
 
 ```python
-my_username = "spotify"
+my_username = 'rich6833spot'
 ```
 
 Now that we have the user's Spotify username, we can call the function <span style="color:olive">get_all_user_tracks</span> to analyze all tracks.
 
 ```python
-all_user_tracks = spotify_tools.get_all_user_tracks(my_username, sp)
-all_user_tracks.head()
+spotify_tools.get_user_playlists(my_username, spotify_client)
 ```
+This will return a dictionary of playlists, as shown above, which in turn can be used with `get_multiple_audio_features_slowly`
+
+
 
 <Details>
 <Summary>Image of Sample Output</Summary>
@@ -368,23 +377,16 @@ all_user_tracks.head()
 
 </Details>
 <Details>
-<Summary>Full Code</Summary>
+<Summary>Full Code from Spotify_Tools for Reference</Summary>
 
 ```python
-def get_all_user_tracks(username, spotipy_client):
-    all_my_playlists = pd.DataFrame(spotipy_client.user_playlists(username))
-    list_of_dataframes = []
+def get_user_playlists(user_id, spotify_client):
+    playlists = spotify_client.user_playlists(user_id)
+    playlist_dictionary = {}
+    for playlist in playlists['items']:
+        playlist_dictionary[playlist['name']] = (user_id, playlist['id'])
+    return playlist_dictionary
 
-    for playlist in all_my_playlists.index:
-        current_playlist = pd.DataFrame(spotipy_client.user_playlist_tracks(username, all_my_playlists["items"][playlist]["id"]))
-        current_playlist_audio = get_audio_features_df(current_playlist, spotipy_client)
-        if all_my_playlists["items"][playlist]["name"]:
-            current_playlist_audio["playlist_name"] = all_my_playlists["items"][playlist]["name"]
-        else:
-            current_playlist_audio["playlist_name"] = None
-        list_of_dataframes.append(current_playlist_audio)
-
-    return pd.concat(list_of_dataframes)
 ```
 </Details>
 
@@ -557,59 +559,39 @@ While there is a multitude of aspects to correlation (including test types, samp
 
 This function is available via the spotipy_tools.py library, so the following is just for purposes of explanation (or if you want to adapt it in some way):
 
-
-```python
-# specify the audio features.  Note that with Radar plots the first and last item in the following list must be the same (in order to complete the plot!)
-features_list = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "valence", "danceability"]
-
-# This plots the Radar Elements
-
-def createRadarElement(row, feature_cols):
-    return go.Scatterpolar(
-        r = row[feature_cols].values.tolist(), 
-        theta = feature_cols, 
-        mode = 'lines', 
-        name = row['track_name'])
-
-# This builds the plot for ONE playlist. Note that by default the function expects a playlist_id, which is then passed to the Spotify API to return the audio features.  But the optional offline_df parameter makes it possible to pass in a dataframe of audio features that you have already built, filtered or otherwise customized in your notebook.  In this case simply call  `get_radar_plot(offline_df=my_audio_df)`.
-
-def get_radar_plot_local(features_list, local_df=None):
-    current_data = list(local_df.apply(createRadarElement, axis=1, args=(feature_columns, )))  
-    fig = go.Figure(current_data, )
-    fig.show(renderer='iframe')
-    fig.write_image('radar_plot.png', width=1200, height=800)
-    
-# This is for loading audio features for one playlist directly from Spotify
-
-def get_radar_plot_spotify(playlist_id, features_list, spotipy_client):
-    current_playlist_audio_df = spotify_tools.get_audio_features_df(pd.DataFrame(spotipy_client.playlist_items(playlist_id)), spotipy_client)
-    current_data = list(current_playlist_audio_df.apply(createRadarElement, axis=1, args=(features_list, )))  
-    fig = go.Figure(current_data, )
-    fig.show(renderer='iframe')
-    fig.write_image(playlist_id + '.png', width=1200, height=800)
-    
-# The following is used with multiple playlist ids, which are then passed to Spotify API 
-def get_radar_plots(playlist_id_list, feature_columns):
-    for item in playlist_id_list:
-        get_radar_plot_local(item, feature_columns)
-```
+Be sure to specify the audio features.  Note that with Radar plots the first and last item in the following list must be the same (in order to complete the plot!)
 
 Typical usage:
 
-*with a playlist_id and using Spotify API*
-
 ```python
-playlist_id = "75OAYmyh848DuB16eLqBtk"
-get_radar_plot_spotify(playlist_id, features_list, sp)
-```
-or
-
-*with a local dataframe of audio features previously compiled*
-
-```python
-get_radar_plot_local(features_list, local_df=our_data)
+feature_columns = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "valence", "danceability"]
+get_radar_plot(features_columns, our_data)
 ```
 
+
+<Details>
+<Summary>Full Code from Spotify Tools for Reference</Summary>
+
+```python
+def createRadarElement(row, feature_list):
+    return go.Scatterpolar(
+        r = row[feature_list].values.tolist(), 
+        theta = feature_list, 
+        mode = 'lines', 
+        name = row['track_name'])
+```
+# This builds the plot for ONE playlist audio feature dataframe.
+# Note that you can pass in a custom name for your file
+
+```python
+def get_radar_plot(feature_list, local_df, file_name='Radar Plot of Audio Features'):
+    current_data = list(local_df.apply(createRadarElement, axis=1, args=(feature_list, )))  
+    fig = go.Figure(current_data, )
+    fig.layout.title=file_name
+    fig.show(renderer='iframe')
+    fig.write_image(file_name + ".png", width=1200, height=800)
+```
+</Details>
 
 <Details>
 <Summary>Image of Sample Output</Summary>
