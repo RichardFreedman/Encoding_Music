@@ -107,19 +107,19 @@ def get_user_playlists(user_id, spotify_client):
 
 # This plots the Radar Elements
 
-def createRadarElement(row, feature_list):
+def createRadarElement(row, feature_list, chosen_column_to_plot):
     return go.Scatterpolar(
         r = row[feature_list].values.tolist(), 
         theta = feature_list, 
         mode = 'lines', 
-        name = row['track_name'])
+        name = row[chosen_column_to_plot])
 
 # This builds the plot for ONE playlist audio feature dataframe.
 # Note that you can pass in a custom name for your file
 
 
-def get_radar_plot(feature_list, local_df, file_name='Radar Plot of Audio Features'):
-    current_data = list(local_df.apply(createRadarElement, axis=1, args=(feature_list, )))  
+def get_radar_plot(feature_list, local_df, chosen_column_to_plot, file_name='Radar Plot of Audio Features'):
+    current_data = list(local_df.apply(createRadarElement, axis=1, args=(feature_list, chosen_column_to_plot)))  
     fig = go.Figure(current_data, )
     fig.layout.title=file_name
     fig.show(renderer='iframe')
@@ -127,5 +127,5 @@ def get_radar_plot(feature_list, local_df, file_name='Radar Plot of Audio Featur
 
 # Typical useage
 
-# get_radar_plot(features_columns, our_data)
+# get_radar_plot(feature_columns, our_data, chosen_column_to_plot="track_title", file_name='Radar Plot of Audio Features')
 

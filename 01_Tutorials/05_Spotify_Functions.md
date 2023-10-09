@@ -559,13 +559,13 @@ While there is a multitude of aspects to correlation (including test types, samp
 
 This function is available via the spotipy_tools.py library, so the following is just for purposes of explanation (or if you want to adapt it in some way):
 
-Be sure to specify the audio features.  Note that with Radar plots the first and last item in the following list must be the same (in order to complete the plot!)
+Be sure to specify the audio features.  Note that with Radar plots the first and last item in the following list must be the same (in order to complete the plot!).  You will also need to specify the column from the dataframe you want to plot, and the output filename, as shown below
 
 Typical usage:
 
 ```python
 feature_columns = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "valence", "danceability"]
-get_radar_plot(features_columns, our_data)
+get_radar_plot(feature_columns, our_data, chosen_column_to_plot="track_title", file_name='Radar Plot of Audio Features')
 ```
 
 
@@ -573,19 +573,19 @@ get_radar_plot(features_columns, our_data)
 <Summary>Full Code from Spotify Tools for Reference</Summary>
 
 ```python
-def createRadarElement(row, feature_list):
+def createRadarElement(row, feature_list, chosen_column_to_plot):
     return go.Scatterpolar(
         r = row[feature_list].values.tolist(), 
         theta = feature_list, 
         mode = 'lines', 
-        name = row['track_name'])
+        name = row[chosen_column_to_plot])
 ```
 # This builds the plot for ONE playlist audio feature dataframe.
 # Note that you can pass in a custom name for your file
 
 ```python
-def get_radar_plot(feature_list, local_df, file_name='Radar Plot of Audio Features'):
-    current_data = list(local_df.apply(createRadarElement, axis=1, args=(feature_list, )))  
+def get_radar_plot(feature_list, local_df, chosen_column_to_plot, file_name='Radar Plot of Audio Features'):
+    current_data = list(local_df.apply(createRadarElement, axis=1, args=(feature_list, chosen_column_to_plot)))  
     fig = go.Figure(current_data, )
     fig.layout.title=file_name
     fig.show(renderer='iframe')
