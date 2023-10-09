@@ -630,6 +630,96 @@ chart
 
 <br>
 
+### Automatic Bins with Pandas `cut` and `qcut` methods
+
+### Categorical Bins
+
+Sometimes, a simple True/False ranking isn't enough. For example, the "tempo" column provides the Beat Per Minute musical tempo value for a given track; this value typically ranges between 1 and ~500 bpm. While it is possible to classify tracks into Slow and Not Slow, it might be more useful to, for example, categorize them into "Slow", "Medium", and "Fast". 
+
+#### `cut` and `qcut`:  Creating Categorical Bins Automatically
+
+Pandas provides two powerful methods for putting scalar data into bins, and (in turn) labeling the bins as part of the dataframe.
+
+The `cut` method will divide your scalar data into "n" bins, with each bin representing an **equal segment of your original range**.  There are several parameters and options that allow you do deal with special cases. In the code below, we set `include_lowest=True` so that the 'items representing the lowest' of each bin boundary are include in the relevant bin.  Read the  [Pandas Cut Documentation](https://pandas.pydata.org/docs/reference/api/pandas.cut.html)
+
+The bins are of equal size, but contain different numbers of items:
+ 
+```python
+binned_data = pd.cut(our_data["danceability"], bins=4)
+binned_data.value_counts().sort_index()
+```
+
+![Alt text](images/bins.png)
+
+
+The `qcut` method takes the distribution (and not just the range) of your data into account.  With this method, Pandas will create categories in which there is are an **equal number of items** in each range.  For example if we asked for 5 bins, and if 80% of your values are equally distributed in the lowest 40% of your range, we might expect to see four 'bands' for that range, and only one band for the remaining band (that is: five bands in all, each with the same number of items in it).
+
+Here the bins are of different size, but contain equal numbers of items:
+
+```python
+# each bin will have the same proportion of items in it
+q_binned = pd.qcut(our_data["danceability"], q=4)
+q_binned.value_counts().sort_index()
+```
+
+![Alt text](images/bins_q.png)
+
+
+#### Adding Labels to the Bins
+
+It's also possible to add labels to each of these bins.
+
+With `cut` method:
+
+```python
+# specify a list of columns to be binned and labeled
+binned_cols = ['danceability',
+ 'energy',
+ 'key',
+ 'loudness',
+ 'speechiness',
+ 'liveness',
+ 'valence',
+ 'tempo',
+ 'duration_ms']
+# now make a copy 
+our_data_binned = our_data.copy()
+# label the bins and count the number of labels for use below
+labels = ['l', 'm', 'h', 's']
+bin_count = len(labels)
+# loop over the columns and 'cut' the data, returning new columns with the individual rows labeled
+for column in binned_cols:
+    our_data_binned[f"{column}_binned"] = pd.cut(our_data_binned[column], bins=bin_count, labels=labels)
+```
+
+
+With `qcut` method:
+
+```python
+# specify a list of columns to be binned and labeled
+binned_cols = ['danceability',
+ 'energy',
+ 'key',
+ 'loudness',
+ 'speechiness',
+ 'liveness',
+ 'valence',
+ 'tempo',
+ 'duration_ms']
+# now make a copy of the dataframe
+our_data_q_binned = our_data.copy()
+# label the bins and count the number of labels for use below
+labels = ['l', 'm', 'h', 's']
+bin_count = len(labels)
+# loop over the columns and 'cut' the data, returning new columns with the individual rows labeled
+# note that here we need to `drop` items that might be duplicated across bins
+for column in binned_cols:
+    our_data_q_binned[f"{column}_q_binned"] = pd.qcut(our_data_q_binned[column], 
+                                                 q=bin_count,
+                                                labels = labels,
+                                                 duplicates='drop')
+```
+
 ### Defining Your Own Thresholds for Bins
 
 For example, consider **"danceability"** – a continuous variable with values ranging from 0 to 1. In order to **"bin"** our tracks, we will classify everything with a "danceability" score of 0.75 and higher as a dance tune. For this, we'll create a new column – "dance_tune", and if a track's "danceability" score is equal to or above 0.75, its "dance_tune" value should be True; otherwise, it should be set to False.
