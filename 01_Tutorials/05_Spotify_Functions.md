@@ -1304,7 +1304,11 @@ You can learn more about the mathematics behind the Louvain algorithm [here](htt
 ### Why Modularity Matters
 Modularity measures how well a network is divided into communities. Higher modularity values indicate better community structures. The Louvain algorithm aims to maximize the modularity by rearranging nodes into communities where they are more densely connected with each other and less connected with nodes in other communities.
 
-In our example, we will **identify Louvain communities of artists** within the playlists they belong to.
+
+
+### Example A:  Network of Artists Shared Among Five Related Spotify Playlists
+
+In our first example, we will **identify Louvain communities of artists** within the playlists they belong to.  This approach is simply tracing common artists--it does not involve Spotify Audio Feature data.
 
 <br>
 
@@ -1319,8 +1323,10 @@ At first, let's **pick 5 playlists** centered around a common theme. For example
 
 Let's **put these playlists in a DataFrame**:
 
+<Details>
+<Summary>See the Code (and Copy to Your Notebook)</Summary>
 
-```
+```python
 # Three Model Lists.  Two of them share only one.  Two of them share all except one.  
 # What do we expect?
 rock_playlists_dfs_list = []
@@ -1332,7 +1338,6 @@ PL_5 = '37i9dQZF1DX09NvEVpeM77'
 
 rock_playlists_ids_list = [PL_1, PL_2, PL_3]
 
-
 # # Create a list of playlists
 # rock_playlists_dfs_list = []
 # rock_playlists_ids_list = ["37i9dQZF1DWXRqgorJj26U",
@@ -1342,6 +1347,7 @@ rock_playlists_ids_list = [PL_1, PL_2, PL_3]
 #                           "37i9dQZF1DX09NvEVpeM77"]
 
 # Looping through the items and producing Audio Features DataFrames
+
 for item in rock_playlists_ids_list:
   temp_playlist_df = pd.DataFrame(sp.playlist_items(item))
   temp_playlist_audio = spotify_tools.get_audio_features_df(temp_playlist_df, sp)
@@ -1351,26 +1357,25 @@ for item in rock_playlists_ids_list:
 # Concatenating the Audio Features DataFrames
 rock_playlists_df = pd.concat(rock_playlists_dfs_list)
 rock_playlists_df
-```
 
-
-Our new Rock Playlists DataFrame contains 400 tracks gathered across the 5 playlists. As we don't want to overwhelm our Network, we will **choose a random sample** of 100 tracks out of this DataFrame:
-
-
-```
-# also take sample
+# Our new Rock Playlists DataFrame contains 400 tracks gathered across the 5 playlists. As we don't want to overwhelm our Network, we will **choose a random sample** of 100 tracks out of this DataFrame:
 
 input_data_rock_df = rock_playlists_df.reset_index()
-input_data_rock_df.head()
+our_sample = input_data_rock_df.sample(100)
 ```
 
+</Details>
+
+<br>
 
 Now, let's **define the Louvain Community Algorithm methods**.
 
-First, we need a method to **create nodes** (courtesy of Daniel Russo Batterham and Richard Freedman):
+**Create nodes** (courtesy of Daniel Russo Batterham and Richard Freedman).  See the code below, or just run this with the `rock_playlists_df`
 
+<Details>
+<Summary>See the Code (and Copy to Your Notebook)</Summary>
 
-```
+```python
 # Creating an HTML node
 def create_node_html(node: str, source_df: pd.DataFrame, node_col: str):
     rows = source_df.loc[source_df[node_col] == node].itertuples()
@@ -1383,10 +1388,16 @@ def create_node_html(node: str, source_df: pd.DataFrame, node_col: str):
     return html_ul
 ```
 
-Then, a method to **add nodes from edge list** (courtesy of Daniel Russo Batterham and Richard Freedman):
+</Details>
 
+<br>
 
-```
+**Add nodes from edge list** (courtesy of Daniel Russo Batterham and Richard Freedman):
+
+<Details>
+<Summary>See the Code (and Copy to Your Notebook)</Summary>
+
+```python
 # Adding nodes from an Edgelist
 def add_nodes_from_edgelist(edge_list: list, 
                                source_df: pd.DataFrame, 
@@ -1399,10 +1410,15 @@ def add_nodes_from_edgelist(edge_list: list,
     return graph
 ```
 
-Then, the **Louvain Community Builder method** (courtesy of Daniel Russo Batterham and Richard Freedman):
+</Details>
+<br>
 
+**Find Louvain Communities** (courtesy of Daniel Russo Batterham and Richard Freedman):
 
-```
+<Details>
+<Summary>See the Code (and Copy to Your Notebook)</Summary>
+
+```python
 # Adding Louvain Communities
 def add_communities(G):
     G = deepcopy(G)
@@ -1410,43 +1426,54 @@ def add_communities(G):
     nx.set_node_attributes(G, partition, "group")
     return G
 ```
+</Details>
+<br>
 
-Finally, we need a method to **produce a Network of pairs**, which we'll run the add_communities method on, marking the Louvain communities:
+**Produce a Network of pairs**, which we'll run the add_communities method on, marking the Louvain communities:
 
+<Details>
+<Summary>See the Code (and Copy to Your Notebook)</Summary>
 
-```
-def choose_network(df, chosen_word, file_name):
+```python
+def choose_network(df, chosen_word, output_file_name, output_width=800):
     
     # creating unique pairs
-    output_grouped = df.groupby(['playlist_name'])[chosen_word].apply(list).reset_index()
+    output_grouped = df.groupby(['tags'])[chosen_word].apply(list).reset_index()
     pairs = output_grouped[chosen_word].apply(lambda x: list(combinations(x, 2)))
     pairs2 = pairs.explode().dropna()
     unique_pairs = pairs.explode().dropna().unique()
     
     # creating a new Graph
-    pyvis_graph = net.Network(notebook=True, width="1000", height="1000", bgcolor="black", font_color="white")
+    pyvis_graph = net.Network(notebook=True, width=output_width, height="1000", bgcolor="black", font_color="white")
     G = nx.Graph()
-    
+    # adding nodes
     try:
-        G = add_nodes_from_edgelist(edge_list=unique_pairs, source_df=input_data_rock_df, graph=G, node_col=chosen_word)
+        G = add_nodes_from_edgelist(edge_list=unique_pairs, source_df=df, graph=G, node_col=chosen_word)
     except Exception as e:
         print(e)
-    
-    # add edges and find communities
+    # add edges
     G.add_edges_from(unique_pairs)
+    # find communities
     G = add_communities(G)
     pyvis_graph.from_nx(G)
-    return pyvis_graph
+    pyvis_graph.show(output_file_name)
 ```
 
-Now, let's run our algorithm to **detect Louvain communities** of artists within the playlists they belong to:
+</Details>
+<br>
 
+**Detect Louvain Communities** of artists within the playlists they belong to:
 
-```
+<Details>
+<Summary>See the Code (and Copy to Your Notebook)</Summary>
+
+```python
 louvain_network = choose_network(input_data_rock_df.sample(50), 'artist', 'modified_rock.html')
 louvain_network.show("modified_rock.html")
-
 ```
+
+</Details>
+<br>
 
 <Details>
 <Summary>Image of Sample Output</Summary>
@@ -1456,10 +1483,136 @@ louvain_network.show("modified_rock.html")
 
 </Details>
 
-#### How the Edges and Nodes are Formed: The "Grouped" Playlists
 
+### Example B:  Networks Using Audio Feature Data 
+
+In our second example, we will **identify Louvain communities of using Spotify Audio Feature data**.  We do this in several steps:
+
+**Create Categorical Bins from Scalar Audio Feature Data.**
+
+Spotify Audio Feature data are of course scalars.  And so to find 'similar' tracks it is helpful to transform these as categorical data types (for instance:  `low, middle, high, very high` for `danceability`).  This is easily done with Pandas `cut` and `qcut` methods.  Here we use the latter, creating four bins, each with its own label:
+
+<Details>
+<Summary>Code to Use</Summary>
+
+```python
+
+# select the columns to categorize:
+binned_cols = ['danceability',
+ 'energy',
+ 'key',
+ 'loudness',
+ 'speechiness',
+ 'liveness',
+ 'valence',
+ 'tempo',
+ 'duration_ms']
+
+# copy the original dataframe, define labels and create new binned/categorized columns based on the originals
+our_data_q_binned = our_data.copy()
+labels = ['l', 'm', 'h', 's']
+bin_count = len(labels)
+for column in binned_cols:
+    our_data_q_binned[f"{column}_q_binned"] = pd.qcut(our_data_q_binned[column], 
+                                                 q=bin_count,
+                                                labels = labels,
+                                                 duplicates='drop')
+```
+</Details>
+
+<br>
+
+**Create 'Tags' that Combine Categories as Distinctive Types**.  Using python `join` we next link up the various categorical labels into distinctive 'tags' (like `L_L_M_H_L` which represent the values for several different Audio Features at once.
+
+<Details>
+<Summary>Code to Use</Summary>
+
+```python
+# select some useful set of columns to combine
+q_bin_tag_cols = ['danceability_q_binned',
+ 'energy_q_binned',
+ 'speechiness_q_binned',
+ 'liveness_q_binned',
+ 'valence_q_binned']
+
+# join them into a new column:
+
+our_data_q_binned['tags'] = our_data_q_binned[q_bin_tag_cols].apply(lambda row : "_".join(row), axis='columns')
+```
+
+</Details>
+
+<br>
+
+**Create the Louvain Communities Networks from the Binned and Tagged Audio Feature Data**.  Below we detail the functions used to create the Louvain Communnities Network:
+
+
+<Details>
+<Summary>Code to use in Notebooks</Summary>
+
+```python
+# Adding nodes from an Edgelist
+def add_nodes_from_edgelist(edge_list: list, 
+                               source_df: pd.DataFrame, 
+                               graph: nx.Graph,
+                               node_col: str):
+    graph = deepcopy(graph)
+    node_list = pd.Series(edge_list).apply(pd.Series).stack().unique()
+    for n in node_list:
+        graph.add_node(n, source_df, node_col), spring_length=1000)
+    return graph
+# Adding Louvain Communities
+def add_communities(G):
+    G = deepcopy(G)
+    partition = community_louvain.best_partition(G)
+    nx.set_node_attributes(G, partition, "group")
+    return G
+
+def choose_network(df, chosen_word, output_file_name, output_width=800):
+    
+    # creating unique pairs
+    output_grouped = df.groupby(['tags'])[chosen_word].apply(list).reset_index()
+    pairs = output_grouped[chosen_word].apply(lambda x: list(combinations(x, 2)))
+    pairs2 = pairs.explode().dropna()
+    unique_pairs = pairs.explode().dropna().unique()
+    
+    # creating a new Graph
+    pyvis_graph = net.Network(notebook=True, width=output_width, height="1000", bgcolor="black", font_color="white")
+    G = nx.Graph()
+    # adding nodes
+    try:
+        G = add_nodes_from_edgelist(edge_list=unique_pairs, source_df=df, graph=G, node_col=chosen_word)
+    except Exception as e:
+        print(e)
+    # add edges
+    G.add_edges_from(unique_pairs)
+    # find communities
+    G = add_communities(G)
+    pyvis_graph.from_nx(G)
+    pyvis_graph.show(output_file_name)
 
 ```
+
+</Details>
+
+</br>
+
+**Create the Network**.  With all the code above in place, create the network:
+
+```python
+louvain_network = choose_network(our_data_q_binned, 'artist_name', 'artist_net.html')
+```
+
+The Result Tells us How Tracks (or Artists, or Playlists) are connected according to Audio Features:
+
+
+![Alt text](images/louvain_audio.png)
+
+
+#### Background on the Louvain Network is Created: How the Edges and Nodes are Formed: The "Grouped" Playlists
+
+
+```python
 output_grouped = input_data_rock_df.groupby(['playlist_name'])['artist'].apply(set).reset_index()
 pairs = output_grouped['artist'].apply(lambda x: list(combinations(x, 2)))
 pairs2 = pairs.explode().dropna()
@@ -1489,12 +1642,7 @@ Pairs are produced via combinations of all items in a set:
 
 list(combinations(["paul", "john", 'george'], 2))
 ```
-
-
-
-
     [('paul', 'john'), ('paul', 'george'), ('john', 'george')]
-
 
 ```
 Note the same thing as permutations (which considers all orderings)
@@ -1560,10 +1708,6 @@ The key thing is that **Louvain does NOT know about the lists**!  It creates the
 unique_pairs = pairs.explode().unique()
 unique_pairs
 ```
-
-
-
-
     array([('Jimi Hendrix', 'Ben E. King'),
            ('Jimi Hendrix', 'Aretha Franklin'),
            ('Jimi Hendrix', "Howlin' Wolf"),
@@ -1577,75 +1721,8 @@ unique_pairs
            ('Ben E. King', 'The Temptations'), ('Ben E. King', 'Sam Cooke'),
            ('Ben E. King', 'Donovan'), ('Ben E. King', 'Jefferson Airplane'),
            ('Ben E. King', 'Leonard Cohen'),
-           ('Ben E. King', 'Simon & Garfunkel'),
-           ('Aretha Franklin', "Howlin' Wolf"),
-           ('Aretha Franklin', 'The Temptations'),
-           ('Aretha Franklin', 'Sam Cooke'), ('Aretha Franklin', 'Donovan'),
-           ('Aretha Franklin', 'Jefferson Airplane'),
-           ('Aretha Franklin', 'Leonard Cohen'),
-           ('Aretha Franklin', 'Simon & Garfunkel'),
-           ("Howlin' Wolf", 'The Temptations'), ("Howlin' Wolf", 'Sam Cooke'),
-           ("Howlin' Wolf", 'Donovan'),
-           ("Howlin' Wolf", 'Jefferson Airplane'),
-           ("Howlin' Wolf", 'Leonard Cohen'),
-           ("Howlin' Wolf", 'Simon & Garfunkel'),
-           ('The Temptations', 'Sam Cooke'), ('The Temptations', 'Donovan'),
-           ('The Temptations', 'Jefferson Airplane'),
-           ('The Temptations', 'Leonard Cohen'),
-           ('The Temptations', 'Simon & Garfunkel'), ('Sam Cooke', 'Donovan'),
-           ('Sam Cooke', 'Jefferson Airplane'),
-           ('Sam Cooke', 'Leonard Cohen'), ('Sam Cooke', 'Simon & Garfunkel'),
-           ('Donovan', 'Jefferson Airplane'), ('Donovan', 'Leonard Cohen'),
-           ('Donovan', 'Simon & Garfunkel'),
-           ('Jefferson Airplane', 'Leonard Cohen'),
-           ('Jefferson Airplane', 'Simon & Garfunkel'),
-           ('Leonard Cohen', 'Simon & Garfunkel'),
-           ('Jimi Hendrix', 'Otis Redding'), ('Ben E. King', 'Otis Redding'),
-           ('Aretha Franklin', 'Otis Redding'),
-           ('Otis Redding', "Howlin' Wolf"),
-           ('Otis Redding', 'The Temptations'), ('Otis Redding', 'Sam Cooke'),
-           ('Otis Redding', 'Donovan'), ('Otis Redding', 'Leonard Cohen'),
-           ('Otis Redding', 'Simon & Garfunkel'),
-           ('Etta James', 'Patsy Cline'), ('Etta James', 'The Byrds'),
-           ('Etta James', 'Smokey Robinson & The Miracles'),
-           ('Etta James', 'Led Zeppelin'), ('Etta James', 'The Temptations'),
-           ('Etta James', 'Janis Joplin'), ('Etta James', 'Ella Fitzgerald'),
-           ('Etta James', 'Louis Armstrong'), ('Etta James', 'Frank Sinatra'),
-           ('Patsy Cline', 'The Byrds'),
-           ('Patsy Cline', 'Smokey Robinson & The Miracles'),
-           ('Patsy Cline', 'Led Zeppelin'),
-           ('Patsy Cline', 'The Temptations'),
-           ('Patsy Cline', 'Janis Joplin'),
-           ('Patsy Cline', 'Ella Fitzgerald'),
-           ('Patsy Cline', 'Louis Armstrong'),
-           ('Patsy Cline', 'Frank Sinatra'),
-           ('The Byrds', 'Smokey Robinson & The Miracles'),
-           ('The Byrds', 'Led Zeppelin'), ('The Byrds', 'The Temptations'),
-           ('The Byrds', 'Janis Joplin'), ('The Byrds', 'Ella Fitzgerald'),
-           ('The Byrds', 'Louis Armstrong'), ('The Byrds', 'Frank Sinatra'),
-           ('Smokey Robinson & The Miracles', 'Led Zeppelin'),
-           ('Smokey Robinson & The Miracles', 'The Temptations'),
-           ('Smokey Robinson & The Miracles', 'Janis Joplin'),
-           ('Smokey Robinson & The Miracles', 'Ella Fitzgerald'),
-           ('Smokey Robinson & The Miracles', 'Louis Armstrong'),
-           ('Smokey Robinson & The Miracles', 'Frank Sinatra'),
-           ('Led Zeppelin', 'The Temptations'),
-           ('Led Zeppelin', 'Janis Joplin'),
-           ('Led Zeppelin', 'Ella Fitzgerald'),
-           ('Led Zeppelin', 'Louis Armstrong'),
-           ('Led Zeppelin', 'Frank Sinatra'),
-           ('The Temptations', 'Janis Joplin'),
-           ('The Temptations', 'Ella Fitzgerald'),
-           ('The Temptations', 'Louis Armstrong'),
-           ('The Temptations', 'Frank Sinatra'),
-           ('Janis Joplin', 'Ella Fitzgerald'),
-           ('Janis Joplin', 'Louis Armstrong'),
-           ('Janis Joplin', 'Frank Sinatra'),
-           ('Ella Fitzgerald', 'Louis Armstrong'),
-           ('Ella Fitzgerald', 'Frank Sinatra'),
-           ('Louis Armstrong', 'Frank Sinatra')], dtype=object)
-
-
+           ('Ben E. King', 'Simon & Garfunkel')])
+          
 
 ### Adding Weighted Edges
 
@@ -1653,12 +1730,8 @@ We can count Tuples, which are the edges, so this would help us make a dict of v
 
 
 ```
-
 pairs.explode().value_counts()
 ```
-
-
-
 
     (Jimi Hendrix, Aretha Franklin)                      2
     (Aretha Franklin, The Temptations)                   2
@@ -1672,7 +1745,6 @@ pairs.explode().value_counts()
     (Otis Redding, Howlin' Wolf)                         1
     (Patsy Cline, Ella Fitzgerald)                       1
     Name: artist, Length: 99, dtype: int64
-
 
 
 In the Network Graph above, you can see the 3 **communities** of artists that are detected based on what playlist they belong to. Note: *we didn't pass the playlist information into the Network*!
