@@ -1559,7 +1559,7 @@ def add_nodes_from_edgelist(edge_list: list,
     graph = deepcopy(graph)
     node_list = pd.Series(edge_list).apply(pd.Series).stack().unique()
     for n in node_list:
-        graph.add_node(n, source_df, node_col), spring_length=1000)
+        graph.add_node(n, spring_length=1000)
     return graph
 # Adding Louvain Communities
 def add_communities(G):
