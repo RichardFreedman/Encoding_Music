@@ -20,19 +20,18 @@ Note that as part of the **Encoding Music** course, we have created a special `s
 0. [Option for Google Colab](#google-colab)
 1. [Import Libraries](#import-libraries)
 2. [Establish Credentials for the Spotify API](#establish-credentials)
-3. [Getting the Full Range of Metadata for One or More Tracks](#full-metadata)
-4. [Get Just the Audio Features for a Single Playlist (or Song)](#playlist_audio)
+3. [Get Basic Metadata for One or More Tracks](#full-metadata)
+4. [Get Audio Features for a Single Playlist (or Song)](#playlist_audio)
 5. [Get Audio from Multiple Playlists](#audio_multiple_playlists)
-6. [Analyze Multiple Playlists](#analyze-multiple-playlists)
-7. [Analyze a User's Tracks](#analyze-user-tracks)
-8. [Charting Data:  Scatterplots, Correlations and Radar Plots](#charting-data)
-9. [Categories and Bins:  From Continuous to Discrete Variable](#categories)
-10. [Sorting Dataframes](#sorting)
-11. [Networks:  Basic Concepts and Methods](#networks)
-12. [Networks with Spotify Data](#networks-spotify)
-13. [Complex Networks:  Related Artists](#artist_networks)
-14. [Complex Networks:  Song Network](#song-network)
-15. [Louvain Community Detection:  The Ghost in the Machine](#louvain)
+6. [Get All of a Particular User's Tracks](#analyze-user-tracks)
+7. [Charting Data:  Scatterplots, Correlations and Radar Plots](#charting-data)
+8. [Categories and Bins:  From Continuous to Discrete Variable](#categories)
+9. [Sorting Dataframes](#sorting)
+10. [Networks:  Basic Concepts and Methods](#networks)
+11. [Networks with Spotify Data](#networks-spotify)
+12. [Complex Networks:  Related Artists](#artist_networks)
+13. [Complex Networks:  Song Network](#song-network)
+14. [Louvain Community Detection:  The Ghost in the Machine](#louvain)
 
 ##  <span style="color:olive"> Using Google Colab (Alternative to Encoding Music) </span> <a name="google-colab"></a>
 
@@ -133,7 +132,7 @@ access_token = auth_response_data['access_token']
 At this point, you should be perfectly able to access the API! Hence, we move on to scraping and analyzing music metadata.
 
 
-##  <span style="color:olive"> Getting the Full Range of Metadata for One or More Tracks</span> <a name="full-metadata"></a>
+##  <span style="color:olive"> Get Basic Metadata for One or More Tracks</span> <a name="full-metadata"></a>
 
 The Spotify API returns a rather large range of metadata, including not only Audio Features (more on that below) but also information about the artist, release dates, countries of availability, albumn art, and so on.
 
@@ -180,7 +179,7 @@ sample_track
 As you can notice, tracks are stored as **JSON objects** (think Dictionaries), which you can read more about [here](https://developer.mozilla.org/en-US/docs/Web/Juser_2cript/Reference/Global_Objects/JSON). Each Track object has many attributes, including "album", "artists", "id", "duration", "popularity", "name" etc. Some of these are extremely useful to us! You can learn more about Spotify's Track features [here](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-track).
 
 
-##  <span style="color:olive"> Get Just the Audio Features for a Single Playlist </span> <a name="playlist_audio"></a>
+##  <span style="color:olive"> Get Audio Features for a Single Playlist </span> <a name="playlist_audio"></a>
 
 The spotify_tools.py (created by Edgar Leon and Oleh Shostak at Haverford College) simplify this complex JSON, return only the audio features, in this case as a Pandas dataframe.
 
@@ -351,7 +350,7 @@ def get_multiple_audio_features_slowly(playlist_dict, time_delay, sp):
 
 ---
 
-##  <span style="color:olive"> Analyze All of a User's Tracks </span> <a name="analyze-user-tracks"></a>
+##  <span style="color:olive"> Get All of a Particular User's Tracks </span> <a name="analyze-user-tracks"></a>
 
 This function allows you to obtain and analyze all the tracks from a user's followed public playlists. To use this function, you need to have the **Spotify username** of the user whose tracks you want to analyze.
 
