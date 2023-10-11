@@ -882,9 +882,9 @@ Determining the strength of the relationship between two nodes depends on the co
 
 At first, we will illustrate the basics of Pyvis-based **Network Graphs**. Generally speaking, a Network Graph is a visual structure designed to emphasize connections between discrete entities. It consists of Nodes and Edges, which represent a system of connected or related elements, and is largely studied within Network Theory. 
 
-You can learn more about [Network Theory](https://en.wikipedia.org/wiki/Network_theory) and explore Network Grahps [here](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)).
+You can learn more about [Network Theory](https://en.wikipedia.org/wiki/Network_theory) and explore Network Graphs [here](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)).
 
-Here's how to **build, populate, and show a simple Network Graph** using Networkx and Pyvis.  Add this the code below to your notebook to try it yourself:
+Here's how to **build, populate, and show a simple Network Graph** using **Networkx** and **Pyvis**.  See the excellent [tutorial for NetworkX](https://networkx.org/documentation/stable/tutorial.html) for more assistance. Add this the code below to your notebook to try it yourself:
 
 
 ```
