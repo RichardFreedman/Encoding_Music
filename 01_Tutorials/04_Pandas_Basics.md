@@ -438,7 +438,10 @@ for column in binned_cols:
 ```
 ## Searching for Strings and SubStrings
 
-Note the differences between `str.contains()`, which matches **full contents of cell** and `isin(["sub_string_1", "sub_string_2"])`, which matches **any number of shorter strings** within a cell.
+Note the differences between:
+
+*  `str.contains()`, which matches **any substring in that cell** and
+*  `isin(["sub_string_1", "sub_string_2"])`, which checks whether any of the complete items in the list matches the full cell contents
 
 #### `The str.contains()` Method
 
