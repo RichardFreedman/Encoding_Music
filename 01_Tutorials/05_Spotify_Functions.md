@@ -878,13 +878,13 @@ Edges can have an associated **weight**. The weight of an edge represents the st
 ### How are two things more related than others?
 Determining the strength of the relationship between two nodes depends on the context of the network. For example, in a social network, the frequency and duration of interactions, mutual friends, and common interests can help establish the strength of friendships. In other cases, such as a transportation network, the distance between nodes could be a factor in determining the weight of the edges.
 
-### Pyvis and Network Graphs:  Python Tools for Networks
+### Pyvis and NetworkX:  Python Tools for Networks
 
-At first, we will illustrate the basics of Pyvis-based **Network Graphs**. Generally speaking, a Network Graph is a visual structure designed to emphasize connections between discrete entities. It consists of Nodes and Edges, which represent a system of connected or related elements, and is largely studied within Network Theory. 
+At first, we will illustrate the basics of **Pyvis-based network graphs**. Generally speaking, a network graph is a visual structure designed to emphasize connections between discrete entities. It consists of Nodes and Edges, which represent a system of connected or related elements, and is largely studied within Network Theory. 
 
 You can learn more about [Network Theory](https://en.wikipedia.org/wiki/Network_theory) and explore Network Graphs [here](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)).
 
-Here's how to **build, populate, and show a simple Network Graph** using **Networkx** and **Pyvis**.  See the excellent [tutorial for NetworkX](https://networkx.org/documentation/stable/tutorial.html) for more assistance. Add this the code below to your notebook to try it yourself:
+Here's how to **build, populate, and show a simple Network Graph** using **NetworkX** and **Pyvis**.  See the excellent [tutorial for NetworkX](https://networkx.org/documentation/stable/tutorial.html) for more assistance. Add this the code below to your notebook to try it yourself:
 
 
 ```
