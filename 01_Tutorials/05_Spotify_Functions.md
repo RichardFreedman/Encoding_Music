@@ -878,58 +878,11 @@ Edges can have an associated **weight**. The weight of an edge represents the st
 ### How are two things more related than others?
 Determining the strength of the relationship between two nodes depends on the context of the network. For example, in a social network, the frequency and duration of interactions, mutual friends, and common interests can help establish the strength of friendships. In other cases, such as a transportation network, the distance between nodes could be a factor in determining the weight of the edges.
 
-### Pyvis and NetworkX:  Python Tools for Networks
-
-At first, we will illustrate the basics of **Pyvis-based network graphs**. Generally speaking, a network graph is a visual structure designed to emphasize connections between discrete entities. It consists of Nodes and Edges, which represent a system of connected or related elements, and is largely studied within Network Theory. 
-
+### More About Network Theory
 You can learn more about [Network Theory](https://en.wikipedia.org/wiki/Network_theory) and explore Network Graphs [here](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)).
 
-Here's how to **build, populate, and show a simple Network Graph** using **NetworkX** and **Pyvis**.  See the excellent [tutorial for NetworkX](https://networkx.org/documentation/stable/tutorial.html) for more assistance. Add this the code below to your notebook to try it yourself:
+#### An Example:  A Network of Students
 
-
-```
-# Creating a Network
-# Note that you can change the width and height to allow for easier scrolling in your Notebook!
-g = net.Network(notebook=True, width=1000, height = 800)
-
-# Adding nodes
-g.add_node("John")
-g.add_node("Paul")
-
-# Adding an edge
-g.add_edge("John", "Paul")
-
-# Showing the network
-g.show("example.html")
-```
-
-<Details>
-<Summary>Image of Sample Output</Summary>
-
-![Alt text](images/spot_35.png)
-
-</Details>
-
-<br>
-
-As you can see, in this example we created two nodes "John" and "Paul" and connected them. We are able to **add nodes** to an existing network by calling *net.Network.add_node()* and **add edges** to the same network by calling *net.Network.add_edge()*. It is also possible to **get all nodes** by calling *net.Network.get_edges()*.
-
-Using these tools, we can **check if a node is in a network**:
-
-
-```
-# checking
-"John" in g.get_nodes()
-```
-
-
-
-
-    True
-
-
-
-### An Example:  A Network of Students
 ![Network Example of Students](images/Network_resized.png)
 In the Network graph above, the highlighted characteristics represent the differences between Haverford student A and every other student. We see that Haverford student A & B only have one difference, so the edge weight is strong and the nodes are closer together. Haverford student B and Bryn Mawr student A have two differences, so the edge weight is _relatively_ weaker. We also see a node in our graph that has no connection and has no similarity to the other three nodes.
 
@@ -940,6 +893,77 @@ Bryn Mawr student A watches horror movies and Haverford student B also watches h
 
 #### Reason Two (less obvious without context)
 Haverford and Bryn Mawr are part of the tri-co! Often in network graphs and in data science, machines find an abstract connection between vast amounts of data, often clustering data or nodes together, but that may not always mean that it is directly evident as to what these clusters or connections represent. For example, none of our node bullet points have "_is part of the tri-co_" as a characteristic, but perhaps there is some underlying bias or evidence that may not be evident to us that _is_ evident to machines which allows them to cluster or connect otherwise "different" data. 
+
+## Pyvis and NetworkX:  Python Tools for Networks
+
+Generally speaking, a network graph is a visual structure designed to emphasize connections between discrete entities. It consists of Nodes and Edges, which represent a system of connected or related elements, and is largely studied within Network Theory. 
+
+Here we show how to build the network with **NetworkX** (ee the excellent [tutorial for NetworkX](https://networkx.org/documentation/stable/tutorial.html) for more assistance).  And then we will show how to display this network with **Pyvis**.  The two libraries are often used together in this way.
+
+Here's how to **build, populate, and show a simple Network Graph** using **NetworkX** and **Pyvis**.  . Add this the code below to your notebook to try it yourself.  Here is a sample network consisting of just two nodes and one edge to connect them.
+
+```
+#python
+# import libraries
+import pyvis
+from pyvis import network as net
+import networkx as nx
+
+# create empty graph
+G = nx.Graph()
+
+# add nodes
+G.add_nodes_from(["John", "Paul"])
+
+# add edges
+G.add_edge("John", "Paul")
+
+# render with pyvis
+pyvis_graph = net.Network(notebook=True, width=800, height="1000", bgcolor="white", font_color="black")
+pyvis_graph.from_nx(G)
+pyvis_graph.show('my_graph.html')
+```
+
+<Details>
+<Summary>Image of Sample Output</Summary>
+
+![Alt text](images/network_sample_1.png)
+
+</Details>
+
+<br>
+
+You could add any number of new nodes and edges to a given network using the same approach.  But in fact it's possible to add nodes *at the same time you add the edges*, simply by passing in a list of tuples that represent the edges.  For example:
+
+```python
+# define a list of tuples for the nodes and edges
+# notice that repeating a node is fine; doing so simply adds another edge to the given node
+my_edge_list = [("John", "Paul"), ("John", "Ringo"), ("John", "George")]
+
+# create empty graph
+G = nx.Graph()
+
+# add the nodes and edges
+G.add_edges_from(my_edge_list)
+
+# render with pyvis
+pyvis_graph = net.Network(notebook=True, width=800, height="1000", bgcolor="white", font_color="black")
+pyvis_graph.from_nx(G)
+pyvis_graph.show('my_graph.html')
+```
+
+<Details>
+<Summary>Image of Sample Output</Summary>
+
+![Alt text](images/network_sample2.png)
+
+</Details>
+
+<br>
+
+And so with `add_edges_from()` it should be possible to easily transform tabular data (for instance, a pair of values in each row) as a list of tuples, and pass these directly to NetworkX 
+
+For additional information on adding attributes to nodes and edges (such as color, size, or pop ups, see the NetworkX documentation cited above.)
 
 ----
 ##  <span style="color:olive">Networks with Spotify Data </span> <a name="networks-spotify"></a>
