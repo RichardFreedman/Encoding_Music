@@ -894,7 +894,7 @@ Bryn Mawr student A watches horror movies and Haverford student B also watches h
 #### Reason Two (less obvious without context)
 Haverford and Bryn Mawr are part of the tri-co! Often in network graphs and in data science, machines find an abstract connection between vast amounts of data, often clustering data or nodes together, but that may not always mean that it is directly evident as to what these clusters or connections represent. For example, none of our node bullet points have "_is part of the tri-co_" as a characteristic, but perhaps there is some underlying bias or evidence that may not be evident to us that _is_ evident to machines which allows them to cluster or connect otherwise "different" data. 
 
-## Pyvis and NetworkX:  Python Tools for Networks
+### Pyvis and NetworkX:  Python Tools for Networks
 
 Generally speaking, a network graph is a visual structure designed to emphasize connections between discrete entities. It consists of Nodes and Edges, which represent a system of connected or related elements, and is largely studied within Network Theory. 
 
