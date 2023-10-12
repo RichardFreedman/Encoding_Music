@@ -900,7 +900,7 @@ Generally speaking, a network graph is a visual structure designed to emphasize 
 
 Here we show how to build the network with **NetworkX** (ee the excellent [tutorial for NetworkX](https://networkx.org/documentation/stable/tutorial.html) for more assistance).  And then we will show how to display this network with **Pyvis**.  The two libraries are often used together in this way.
 
-Here's how to **build, populate, and show a simple Network Graph** using **NetworkX** and **Pyvis**.  . Add this the code below to your notebook to try it yourself.  Here is a sample network consisting of just two nodes and one edge to connect them.
+Here's how to **build, populate, and show a simple Network Graph** using **NetworkX** and **Pyvis**.  Here is a sample network consisting of just two nodes and one edge to connect them.
 
 ```
 #python
@@ -919,7 +919,7 @@ G.add_nodes_from(["John", "Paul"])
 G.add_edge("John", "Paul")
 
 # render with pyvis
-pyvis_graph = net.Network(notebook=True, width=800, height="1000", bgcolor="white", font_color="black")
+pyvis_graph = net.Network(notebook=True, width="800", height="800", bgcolor="white", font_color="black")
 pyvis_graph.from_nx(G)
 pyvis_graph.show('my_graph.html')
 ```
@@ -933,7 +933,9 @@ pyvis_graph.show('my_graph.html')
 
 <br>
 
-You could add any number of new nodes and edges to a given network using the same approach.  But in fact it's possible to add nodes *at the same time you add the edges*, simply by passing in a list of tuples that represent the edges.  For example:
+#### Adding Nodes and Edges in One Step
+
+You could add any number of new nodes and edges to a given network using the same approach.  But in fact it's possible to add nodes *at the same time you add the edges*, simply by passing a list of tuples that represent the edges to `G.add_edges_from()`.  For example:
 
 ```python
 # define a list of tuples for the nodes and edges
@@ -947,7 +949,7 @@ G = nx.Graph()
 G.add_edges_from(my_edge_list)
 
 # render with pyvis
-pyvis_graph = net.Network(notebook=True, width=800, height="1000", bgcolor="white", font_color="black")
+pyvis_graph = net.Network(notebook=True, width="800", height="800", bgcolor="white", font_color="black")
 pyvis_graph.from_nx(G)
 pyvis_graph.show('my_graph.html')
 ```
