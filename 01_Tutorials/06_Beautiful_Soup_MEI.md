@@ -18,186 +18,132 @@ In this tutorial we will explore the possibilities.
 
 
 ```python
+i%config IPCompleter.greedy=True
+import pandas as pd
+import matplotlib.pyplot as plt
 import os
-from bs4 import BeautifulSoup as bs
-import optparse
-import sys
+import bs4
+from bs4 import BeautifulSoup
+
 from pathlib import Path
 import requests
-import pandas as pd
-from lxml import etree
-import re
+import plotly.express as px
+import plotly.graph_objects as go
 from collections import Counter
-import glob
-import verovio
-from IPython.display import SVG, HTML
-import matplotlib.pyplot as plt
+import math
+import numpy as np
+
+# Visualisation dependencies
+import textwrap
+import networkx as nx
+from pyvis.network import Network
+import seaborn as sns
 ```
 
 A list of all Beautiful Soup methods.  The most important for our work will be those that "find" elements and that 'get' the strings associated with various attributes and tags.
 
 
 ```python
-dir(bs)
+[m for m in dir(BeautifulSoup) if m[0].islower()]
 ```
 
 
-    ['ASCII_SPACES',
-     'DEFAULT_BUILDER_FEATURES',
-     'DEFAULT_INTERESTING_STRING_TYPES',
-     'NO_PARSER_SPECIFIED_WARNING',
-     'ROOT_TAG_NAME',
-     '__bool__',
-     '__call__',
-     '__class__',
-     '__contains__',
-     '__copy__',
-     '__delattr__',
-     '__delitem__',
-     '__dict__',
-     '__dir__',
-     '__doc__',
-     '__eq__',
-     '__format__',
-     '__ge__',
-     '__getattr__',
-     '__getattribute__',
-     '__getitem__',
-     '__getstate__',
-     '__gt__',
-     '__hash__',
-     '__init__',
-     '__init_subclass__',
-     '__iter__',
-     '__le__',
-     '__len__',
-     '__lt__',
-     '__module__',
-     '__ne__',
-     '__new__',
-     '__reduce__',
-     '__reduce_ex__',
-     '__repr__',
-     '__setattr__',
-     '__setitem__',
-     '__sizeof__',
-     '__str__',
-     '__subclasshook__',
-     '__unicode__',
-     '__weakref__',
-     '_all_strings',
-     '_decode_markup',
-     '_feed',
-     '_find_all',
-     '_find_one',
-     '_is_xml',
-     '_lastRecursiveChild',
-     '_last_descendant',
-     '_linkage_fixer',
-     '_markup_is_url',
-     '_markup_resembles_filename',
-     '_popToTag',
-     '_should_pretty_print',
-     'append',
-     'childGenerator',
-     'children',
-     'clear',
-     'decode',
-     'decode_contents',
-     'decompose',
-     'decomposed',
-     'default',
-     'descendants',
-     'encode',
-     'encode_contents',
-     'endData',
-     'extend',
-     'extract',
-     'fetchNextSiblings',
-     'fetchParents',
-     'fetchPrevious',
-     'fetchPreviousSiblings',
-     'find',
-     'findAll',
-     'findAllNext',
-     'findAllPrevious',
-     'findChild',
-     'findChildren',
-     'findNext',
-     'findNextSibling',
-     'findNextSiblings',
-     'findParent',
-     'findParents',
-     'findPrevious',
-     'findPreviousSibling',
-     'findPreviousSiblings',
-     'find_all',
-     'find_all_next',
-     'find_all_previous',
-     'find_next',
-     'find_next_sibling',
-     'find_next_siblings',
-     'find_parent',
-     'find_parents',
-     'find_previous',
-     'find_previous_sibling',
-     'find_previous_siblings',
-     'format_string',
-     'formatter_for_name',
-     'get',
-     'getText',
-     'get_attribute_list',
-     'get_text',
-     'handle_data',
-     'handle_endtag',
-     'handle_starttag',
-     'has_attr',
-     'has_key',
-     'index',
-     'insert',
-     'insert_after',
-     'insert_before',
-     'isSelfClosing',
-     'is_empty_element',
-     'new_string',
-     'new_tag',
-     'next',
-     'nextGenerator',
-     'nextSibling',
-     'nextSiblingGenerator',
-     'next_elements',
-     'next_siblings',
-     'object_was_parsed',
-     'parentGenerator',
-     'parents',
-     'parserClass',
-     'popTag',
-     'prettify',
-     'previous',
-     'previousGenerator',
-     'previousSibling',
-     'previousSiblingGenerator',
-     'previous_elements',
-     'previous_siblings',
-     'pushTag',
-     'recursiveChildGenerator',
-     'renderContents',
-     'replaceWith',
-     'replaceWithChildren',
-     'replace_with',
-     'replace_with_children',
-     'reset',
-     'select',
-     'select_one',
-     'setup',
-     'smooth',
-     'string',
-     'string_container',
-     'strings',
-     'stripped_strings',
-     'text',
-     'unwrap',
-     'wrap']
+['append', 'childGenerator', 'children', 'clear', 'decode',
+'decode_contents',
+ decompose',
+ 'decomposed',
+ 'default',
+ 'descendants',
+ 'encode',
+ 'encode_contents',
+ 'endData',
+ 'extend',
+ 'extract',
+ 'fetchNextSiblings',
+ 'fetchParents',
+ 'fetchPrevious',
+ 'fetchPreviousSiblings',
+ 'find',
+ 'findAll',
+ 'findAllNext',
+ 'findAllPrevious',
+ 'findChild',
+ 'findChildren',
+ 'findNext',
+ 'findNextSibling',
+ 'findNextSiblings',
+ 'findParent',
+ 'findParents',
+ 'findPrevious',
+ 'findPreviousSibling',
+ 'findPreviousSiblings',
+ 'find_all',
+ 'find_all_next',
+ 'find_all_previous',
+ 'find_next',
+ 'find_next_sibling',
+ 'find_next_siblings',
+ 'find_parent',
+ 'find_parents',
+ 'find_previous',
+ 'find_previous_sibling',
+ 'find_previous_siblings',
+ 'format_string',
+ 'formatter_for_name',
+ 'get',
+ 'getText',
+ 'get_attribute_list',
+ 'get_text',
+ 'handle_data',
+ 'handle_endtag',
+ 'handle_starttag',
+ 'has_attr',
+ 'has_key',
+ 'index',
+ 'insert',
+ 'insert_after',
+ 'insert_before',
+ 'isSelfClosing',
+ 'is_empty_element',
+ 'new_string',
+ 'new_tag',
+ 'next',
+ 'nextGenerator',
+ 'nextSibling',
+ 'nextSiblingGenerator',
+ 'next_elements',
+ 'next_siblings',
+ 'object_was_parsed',
+ 'parentGenerator',
+ 'parents',
+ 'parserClass',
+ 'popTag',
+ 'prettify',
+ 'previous',
+ 'previousGenerator',
+ 'previousSibling',
+ 'previousSiblingGenerator',
+ 'previous_elements',
+ 'previous_siblings',
+ 'pushTag',
+ 'recursiveChildGenerator',
+ 'renderContents',
+ 'replaceWith',
+ 'replaceWithChildren',
+ 'replace_with',
+ 'replace_with_children',
+ 'reset',
+ 'select',
+ 'select_one',
+ 'setup',
+ 'smooth',
+ 'string',
+ 'string_container',
+ 'strings',
+ 'stripped_strings',
+ 'text',
+ 'unwrap',
+ 'wrap']
 
 
 
@@ -222,9 +168,7 @@ def getXML(url):
 
 
 ```python
-url = 'https://crimproject.org/mei/CRIM_Model_0008.mei'
-xml_document = getXML(url)
-file_name = os.path.basename(url)
+xml_document = getXML('https://crimproject.org/mei/CRIM_Model_0019.mei')
 
 ```
 
@@ -247,13 +191,9 @@ First, let's take a look at the document as a whole. Make the cell below **print
 print(my_soup_file.prettify())
 ```
 
+<Details>
 
-```python
-print(my_soup_file.prettify())
-```
-
-This is just the start ...
-
+<Summary>View Beginning of XML File</Summary>
 
 
     <?xml version="1.0" encoding="utf-8"?>
@@ -282,7 +222,7 @@ This is just the start ...
         </respStmt>
        </titleStmt>
 
-----
+</Details>
 
 ## Finding Elements and Attributes
 
@@ -315,6 +255,16 @@ As explained in the following section of this tutorial, these same basic concept
 
 As you have probably noticed by now, MEI (and XML, generally) files follow a **tree-like structure**. Any document has its elements defined recursively, as its children. Intuitively, **children** are elements contained within a broader element (think section), also known as **parent**.  And **children** of the same parent tag are **siblings**.
 
+<Details>
+
+<Summary> View Chart of Children Siblings, and Parents in XML</Summary>
+
+![Alt text](images/xml_parents.png)
+
+</Details>
+
+<br>
+
 In a way, the **Title Statement** ("\<titleStmt>") element is a wrapper for all things that define a Title Statement. Mainly, a typical MEI Title Statement describes the piece's title and the people involved with the piece in some capacity. It contains tags labelled `title`, and `respStmt` (which in turn contains a number of `persName` tags).
     
     
@@ -345,7 +295,7 @@ To **find all** of the `persName` children of the `respStmt`, however, we will n
 
 ### Looking Down:  Children
 
-* First, let's find all **children** of the `titleStmt`. The results are similar to what we found with other methods, but in this case we are going to see  _all_ the elements nested within the parent:  `my_soup_file.titleStmt.findChildren()`.  This method returns a `list`.  We can then inspect each of these in turn.
+First, let's find all **children** of the `titleStmt`. The results are similar to what we found with other methods, but in this case we are going to see  _all_ the elements nested within the parent:  `my_soup_file.titleStmt.findChildren()`.  This method returns a `list`.  We can then inspect each of these in turn.
 
 One thing we learn from this is that the `persName` repeat:  each individual appears twice--once as part of the nested `restStmt` and again as part of the remainder of the `titleStmt`.  This is part of the MEI standard.  And so if we do any editing of these tags we will need to be on the look out for all instances of a given name.
 
