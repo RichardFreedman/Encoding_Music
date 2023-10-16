@@ -844,7 +844,7 @@ fig.show()
 <Details>
 <Summary>Image of Sample Output</Summary>
 
-![Alt text](images/spot_11.png)
+![Alt text](images/spot_11b.png)
 
 </Details>
 
