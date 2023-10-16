@@ -394,29 +394,57 @@ As we now have a collection of data points that represent different feature valu
 
 ### A Scatterplot of a Playlist (based on one audio feature)
 
-To illustrate this concept, we will use **Altair's scatterplot** to chart **each track's tempo**. This could be done by setting the Chart's data source to **playlist_data_frame**, it's **x** variable to **track_name** and it's **y** variable to **tempo**.
-
-Here's our chart:
+To illustrate this concept, we will use the *scatter* chart feature of Plotly Express to show the tempo of each track:
 
 
 ```python
-alt.Chart(playlist_audio_features).mark_point().encode(
-    x="track_name",
-    y='tempo'
-)
+import pandas as pd
+import plotly.express as px
+
+# create the figure using selected columns
+fig = px.scatter(sample_df,
+                 x="track_title", y='tempo')
+
+# update layout for track titles
+fig.update_xaxes(tickangle=45)
+fig.show()
 ```
 <Details>
 <Summary>Image of Sample Output</Summary>
 
-![Alt text](images/spot_5.png)
+![Alt text](images/spot_scatter.png)
 
 </Details>
 
 <br>
 
-Note: by default, Altair will sort the tracks alphabetically. If you prefer to keep the original sorting or sort them some particular way, you should toggle the **sort** attribute on the axis of interest. Specifically, we will set up our **x** variable this way: *x=alt.X("track_name", sort=None)* instead of *x="track_name"*. 
+Note: by default Plotly Express preserves the original order of the items in the dataframe.  But we can easily sort them another way. For instance, here we sort the track titles alphabetically.  Of course you could also sort the dataframe some other way *in advance* of making the chart.
 
-You can read more about **Altair's axis sorting** [here](https://altair-viz.github.io/user_guide/generated/channels/altair.X.html). 
+```python
+import pandas as pd
+import plotly.express as px
+
+# create figure using selected columns from the dataframe
+fig = px.scatter(sample_df,
+                 x="track_title", y='tempo')
+
+# update layout of title labels for the x axis
+fig.update_xaxes(tickangle=45)
+
+# sort the titles alphabetically
+fig.update_xaxes(categoryorder='category ascending')
+
+fig.show()
+```
+<Details>
+<Summary>Image of Sample Output</Summary>
+
+![Alt text](images/spot_scatter_sort.png)
+
+</Details>
+
+<br>
+
 
 ### Correlation Matrix and Heatmap
 
@@ -444,7 +472,9 @@ playlist_audio_features.corr()
 
 
 
-And then you can render a graphical heatmap with plotly. Note that in our Juypyter Hub installation you will need to *save* the resulting file as HTML, then view it via the folder on the left of your browser.  It when you open this, the system might prompt you to 'trust html'.  Accept that!
+And then you can render a graphical **heatmap** with Plotly Express. Learn more at [Plotly Express](https://plotly.com/python/splom/)
+
+Note that in the Encoding Music Juypyter Hub installation you will need to *save* the resulting file as HTML, then view it via the folder on the left of your browser.  It when you open this, the system might prompt you to 'trust html'.  Accept that!
 
 ```python
 fig=px.imshow(playlist_audio_features.corr())
@@ -466,22 +496,22 @@ Another ne useful way to visually illustrate a correlation between two variables
 
 In general, a Scatterplot requires **two variables (data ranges)** that will be mapped according to their corresponding values. For example, consider **"energy"** and **"loudness"**.  The chart shows how these compare for each song.
 
-You can read more about Altair's scatterplots [here](https://altair-viz.github.io/gallery/scatter_tooltips.html).
-
 In the example below, we are using **audio_features_df** as the data source, **"energy"** as the x (horizontal variable) and **"loudness"** as the y (vertical variable). Let's take a look at the result:
 
 
 ```python
-alt.Chart(playlist_audio_features).mark_point().encode(
-    x='energy',
-    y='loudness'
-)
+import pandas as pd
+import plotly.express as px
+fig = px.scatter(selected_artists,
+                x='track_title', y = 'energy')
+
+fig.show()
 ```
 
 <Details>
 <Summary>Image of Sample Output</Summary>
 
-![Alt text](images/spot_6.png)
+![Alt text](images/scatter_spot.png)
 
 </Details>
 
@@ -505,47 +535,53 @@ playlist_audio_features['energy'].corr(playlist_audio_features['loudness'])
 
 ### Comparing Playlists with Scatterplots
 
-As shown above, we can easily combine audio feature data from multiple playlists into a single dataframe (that is, from a dictionary of selected playlists, or all the playlists of a given user).  Here we make scatterplot data of pairs of variables, and color-code the data from each playlist distinctively:
+Here we plot the energy for each title in a selection of playlists, which turn are marked with distinctive colors.  
 
 ```python
-alt.Chart(all_my_tracks).mark_point().encode(
-    x="liveness",
-    y="danceability",
-    color="playlist_name"
-)
+import pandas as pd
+import plotly.express as px
+
+# make figure, passing in df and selecting columns and colors for playlist titles
+fig = px.scatter(selected_artists,
+                x='track_title', y = 'energy', 
+                color = 'playlist_title')
+
+fig.show()
 ```
 
-The result will look like this:
+<Details>
+<Summary>Image of Sample Output</Summary>
 
 
-![Alt text](images/spot_multi_chart.png)
+![Alt text](images/spot_multi_list.png)
 
-
+</Details>
 
 Bigger sample sizes prompt stronger observations! If you have noticed a trend when looking at just the 16 Tracks of the initial playlist, you are much more likely to witness a similar trend as the **sample size increases**.
 
 Another useful chart would be **charting every track's energy and color-coding the data points** based on what playlist they are in.
 
-Here's how to do it (notice the **tooltip** argument for the altair Chart function--this allows the user to hover over the individual data points and see the track name, artist, and playlist name; you could add any other relevant metadata here from the original dataframe)
+Add the `hover_data` parameter and list of columns to show selected metadata about each track when the user pauses over the individual point.  Here we display the track name, artist, and playlist name; you could add any other relevant metadata here from the original dataframe.
 
 ```python
-alt.Chart(all_my_tracks).mark_point().encode(
-    x=alt.X("track_name", sort=None),
-    y='energy',
-    color="playlist_name",
-    tooltip=["artist", "track_name", "playlist_name"]
-).properties(
-    width=1200
-)
+import pandas as pd
+import plotly.express as px
+
+# make figure, passing in df and selecting columns and colors for playlist titles
+fig = px.scatter(selected_artists,
+                x='track_title', y = 'energy', 
+                color = 'playlist_title',
+                hover_data = ['artist_name', 'track_title', 'track_id'])
+
+fig.show()
 ```
 
+<Details>
+<Summary>Image of Sample Output</Summary>
 
+![Alt text](images/spot_multi_hover.png)
 
-As you can see in the chart above, these sample playlists tend to follow a certain "energy" trend (typically upward) as the playlist progresses. This likely corresponds with how many of you listen to your own playlists: start with less energetic songs and move on to more energetic ones.
-
-
-![Alt text](images/spot-multi-trend.png)
-
+</Details>
 
 ---
 
@@ -604,19 +640,21 @@ def get_radar_plot(feature_list, local_df, chosen_column_to_plot, file_name='Rad
 
 To categorize your tracks, you would sometimes need to map their values from a continuous range onto a discrete range. Typically, we call this process **"binning"**. Binning usually involves creating a new column within the existing (or in a new) DataFrame such that the new column's values correspond to the discretely defined categories of the item (based on some threshold value). Read more about [continuous and discrete variables](https://en.wikipedia.org/wiki/Continuous_or_discrete_variable).
 
-### Automatic Bins and Charts with Altair
+### Automatic Bins and Charts with Plotly Express
 
-The Altair library for Python and Pandas makes it quite easy to create a chart based on a given column that has any number of specified bins for the range of data in at hand. This is typically useful when creating a Histogram. You can learn more about binning and histograms in Altair [here](https://altair-viz.github.io/gallery/simple_histogram.html).
+The Plotly Express library makes it quite easy to create a chart based on a given column that has any number of specified bins for the range of data in at hand. This is typically useful when creating a Histogram. You can learn more about binning and histograms in 
 
-Pass in the name of your dataframe and set the number of bins with the `maxbins` parameter.
+
+Pass in the name of your dataframe and set the number of bins with the `bins` parameter.
 
 
 ```python
-chart = alt.Chart(feature_based_tracks).mark_bar().encode(
-    alt.X('danceability', bin=alt.Bin(maxbins=10)),
-    y='count()',
-)
-chart
+import pandas as pd
+import plotly.express as px
+
+fig = px.histogram(data_df, x="energy", 
+                    nbins=10)
+fig.show()
 ```
 
 <Details>
@@ -742,34 +780,35 @@ feature_based_tracks
 
 <br>
 
-At this point, you should be able to see which tunes are "Dance Tunes" based on our categorization threshold. Excitingly, Altair provides an easy way to visualize our findings using a **bar chart**.
+At this point, you should be able to see which tunes are "Dance Tunes" based on our categorization threshold. Excitingly, Plotly Express provides an easy way to visualize our findings using a **bar chart**.  Learn more at [Plotly Express](https://plotly.com/python/bar-charts/)
 
-You can learn more about Altair's bar charts [here](https://altair-viz.github.io/gallery/simple_bar_chart.html).
 
-Here's how to do it:
+
+Here's how to do it using the results of the binned data created immediately above.  In this case we pass in our dataframe of audio features, indicate the Boolean column and use the `value_counts()` method to supply the data for the histogram:
 
 
 ```python
-alt.Chart(feature_based_tracks).mark_bar().encode(
-    x='dance_tune',
-    y='count()'
-)
+import plotly.express as px
+
+fig = px.bar(feature_based_tracks['dance_tune'].value_counts(), 
+            title='Count of Dance Tunes')
+fig.show()
 ```
 
 <Details>
 <Summary>Image of Sample Output</Summary>
 
-![Alt text](images/spot_8.png)
+![Alt text](images/spot_dance_bool.png)
 
 </Details>
 
 <br>
 
-As you can see, our data indicates that out of 16 songs in the playlist, 13 are Dance Tunes (e.g. have a "danceability" score of at least 0.75) and 3 are not. 
+ 
 
 <br> 
 
-If we were looking to make our lives even more complicated, we could **bin "energy"** based on a 0.75 "energy" score threshold:
+If we were looking to make our lives even more complicated, we could also **bin "energy"** based on a 0.75 "energy" score threshold:
 
 
 ```python
@@ -788,21 +827,17 @@ feature_based_tracks.head()
 
 
 
-Based on this information, we can **analyze the composition** of our modified DataFrame using Altair. For example, one could think: out of the dance tunes, are most high energy or low energy? 
+Based on this information, we can **analyze the composition** of our modified DataFrame using Plotly Express. For example, one could think: out of the dance tunes, are most high energy or low energy? 
 
-Here's a way to find out using Altair:
+Here's a way to find:
 
 
 ```python
-bars = alt.Chart().mark_bar().encode(
-    x=alt.X('energy_tune', title=""),
-    y=alt.Y('count()', title='Count'),
-    color=alt.Color('energy_tune', title="High energy")
-)
+fig = px.bar(feature_based_tracks, x='energy_tune', y='dance_tune', 
+             color='energy_tune',
+             title='High energy')
 
-alt.layer(bars, data=feature_based_tracks).facet(
-    column=alt.Column('dance_tune', title = "Dance tune")
-)
+fig.show()
 ```
 
 <Details>
