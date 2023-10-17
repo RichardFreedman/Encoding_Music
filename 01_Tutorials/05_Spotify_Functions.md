@@ -605,7 +605,7 @@ pd.melt(sample, id_vars=['track_title'], value_vars=feature_list)
 
 <br>
 
-The Plotly Express `line_polar` method in turn can easily read these long-form data to produce the feature-based plots. Here we define a function that takes in the original dataframe of audio features, a list of feature columns to plot, and a name for the final chart.
+The [Plotly Express](https://plotly.com/python/polar-chart/#polar-chart-with-plotly-express) `line_polar` method in turn can easily read these long-form data to produce the feature-based plots. Here we define a function that takes in the original dataframe of audio features, a list of feature columns to plot, and a name for the final chart.  
 
 <Details>
 <Summary>Code and Explanation</Summary>
