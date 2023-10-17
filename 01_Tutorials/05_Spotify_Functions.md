@@ -586,51 +586,55 @@ fig.show()
 ---
 
 
-### Radar Plots
+### Radar (or Polar) Plots
 
-Radar (or Polar) plots are a useful way to represent multiple variables at once. Read more about the various features via [Plotly](https://plotly.com/python/radar-chart/) (under scatter plots):
+Radar (or Polar) plots are a useful way to represent multiple variables at once, putting each of several variables around a central point:  the distance from the center indicates the strength of that feature.  There are many types of polar (radar) plots available in Plotly Express.  Here we use the `line_polar` plot.  Read more about the various features via [Plotly Express](https://plotly.com/python/radar-chart/).  
 
-While there is a multitude of aspects to correlation (including test types, sample sizes, strengths, variance, and many other factors), it sometimes can be a useful statistical measure in your Music Data Analysis exploration.
+It is helpful in this instance to use the Pandas `melt` method to transform our 'wide' data (with multiple columns for the individual audio features) into 'long' form data (with each feature represented as an individual row: 
 
-This function is available via the spotipy_tools.py library, so the following is just for purposes of explanation (or if you want to adapt it in some way):
+```python
+pd.melt(sample, id_vars=['track_title'], value_vars=feature_list)
+```
 
-Be sure to specify the audio features.  Note that with Radar plots the first and last item in the following list must be the same (in order to complete the plot!).  You will also need to specify the column from the dataframe you want to plot, and the output filename, as shown below
+<Details>
+<Summary> Melted Data Output </Summary>
+
+![Alt text](images/melt_df.png)
+
+</Details>
+
+<br>
+
+The Plotly Express `line_polar` method in turn can easily read these long-form data to produce the feature-based plots. Here we define a function that takes in the original dataframe of audio features, a list of feature columns to plot, and a name for the final chart.
+
+<Details>
+<Summary>Code and Explanation</Summary>
+
+```python
+# first declare feature list:
+# feature_list = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "valence", "danceability"]
+
+def audio_feature_radar(df, feature_list, chart_title):
+    melted_data = pd.melt(sample, id_vars=['track_title'], value_vars=feature_list)
+    fig = px.line_polar(melted_data, r='value', theta='variable', color='track_title')
+    fig.update_layout(title=chart_title)
+    fig.show()
+```
+</Details>
+
+<br>
 
 Typical usage:
 
 ```python
-feature_columns = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "valence", "danceability"]
-get_radar_plot(feature_columns, our_data, chosen_column_to_plot="track_title", file_name='Radar Plot of Audio Features')
+feature_list = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "valence", "danceability"]
+audio_feature_radar(audio_feature_data, feature_list, "My Radar Plot")
 ```
-
-
-<Details>
-<Summary>Full Code from Spotify Tools for Reference</Summary>
-
-```python
-def createRadarElement(row, feature_list, chosen_column_to_plot):
-    return go.Scatterpolar(
-        r = row[feature_list].values.tolist(), 
-        theta = feature_list, 
-        mode = 'lines', 
-        name = row[chosen_column_to_plot])
-
-# This builds the plot for ONE playlist audio feature dataframe.
-# Note that you can pass in a custom name for your file
-
-def get_radar_plot(feature_list, local_df, chosen_column_to_plot, file_name='Radar Plot of Audio Features'):
-    current_data = list(local_df.apply(createRadarElement, axis=1, args=(feature_list, chosen_column_to_plot)))  
-    fig = go.Figure(current_data, )
-    fig.layout.title=file_name
-    fig.show(renderer='iframe')
-    fig.write_image(file_name + ".png", width=1200, height=800)
-```
-</Details>
 
 <Details>
 <Summary>Image of Sample Output</Summary>
 
-![Alt text](images/spot_34.png)
+![Alt text](images/radar_px.png)
 
 </Details>
 
@@ -804,9 +808,6 @@ fig.show()
 
 <br>
 
- 
-
-<br> 
 
 If we were looking to make our lives even more complicated, we could also **bin "energy"** based on a 0.75 "energy" score threshold:
 
@@ -854,7 +855,7 @@ fig.show()
 
 ##  <span style="color:olive"> Sorting Dataframes </span> <a name="sorting"></a>
 
-Another extremely useful tool is **sorting a DataFrame** based on one or many columns. As an example, we can sort our brand new DataFrame by the Tracks' "energy":
+Another extremely useful tool is **sorting a DataFrame** based on one or many columns. As an example, we can sort our brand new DataFrame by the Tracks' "energy".  You could in turn pass the result to any of the charting methods noted above.
 
 
 ```python
@@ -862,41 +863,6 @@ my_sorted_df = feature_based_tracks.sort_values(['energy'], ascending=[True])
 my_sorted_df.head()
 ```
 
-<Details>
-<Summary>Image of Sample Output</Summary>
-
-![Alt text](images/spot_13.png)
-
-
-</Details>
-
-
-<br>
-
-Things to note here:
-* the tracks in this new DataFrame are arranged based on their "energy" scores
-* the tracks' indices are now inconsequent (the leftmost column), but could be easily reset with `df.reset_index(inplace=True)`
-* the tracks can also be sorted by multiple columns (specified in the value list)
-
-Let's **chart the Tracks' "energy" based on our new DataFrame**:
-
-
-```python
-alt.Chart(my_sorted_df).mark_point().encode(
-    x=alt.X("track_name", sort=None),
-    y="energy"
-)
-```
-
-
-<Details>
-<Summary>Image of Sample Output</Summary>
-
-![Alt text](images/spot_14.png)
-
-</Details>
-
-<br>
 
 ##  <span style="color:olive">Networks:  Basic Concepts and Methods </span> <a name="networks"></a>
 
