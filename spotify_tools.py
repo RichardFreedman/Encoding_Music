@@ -3,7 +3,7 @@
 # import the following libraries
 
 import pandas as pd
-import plotly.graph_objects as go
+import plotly.express as px
 import time
 
 # 1. Establish Credentials.
@@ -103,29 +103,18 @@ def get_user_playlists(user_id, spotify_client):
 # 7. Radar Plot Functions
 # Be sure to pecify the audio features.  Note that with Radar plots the first and last item in the following list must be the same (in order to complete the plot!)
 
+# first declare feature list:
 # feature_list = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "valence", "danceability"]
 
-# This plots the Radar Elements
-
-def createRadarElement(row, feature_list, chosen_column_to_plot):
-    return go.Scatterpolar(
-        r = row[feature_list].values.tolist(), 
-        theta = feature_list, 
-        mode = 'lines', 
-        name = row[chosen_column_to_plot])
-
-# This builds the plot for ONE playlist audio feature dataframe.
-# Note that you can pass in a custom name for your file
-
-
-def get_radar_plot(feature_list, local_df, chosen_column_to_plot, file_name='Radar Plot of Audio Features'):
-    current_data = list(local_df.apply(createRadarElement, axis=1, args=(feature_list, chosen_column_to_plot)))  
-    fig = go.Figure(current_data, )
-    fig.layout.title=file_name
-    fig.show(renderer='iframe')
-    fig.write_image(file_name + ".png", width=1200, height=800)
+def audio_feature_radar(audio_feature_data, feature_list, chart_title):
+    melted_data = pd.melt(audio_feature_data, id_vars=['track_title'], value_vars=feature_list)
+    fig = px.line_polar(melted_data, r='value', theta='variable', color='track_title', labels = {'track_title' : "Track Title"})
+    fig.update_layout(title=chart_title)
+    fig.update_layout(width=800, height=800) 
+    fig.show()
 
 # Typical useage
 
-# get_radar_plot(feature_columns, our_data, chosen_column_to_plot="track_title", file_name='Radar Plot of Audio Features')
+# feature_list = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "valence", "danceability"]
+# audio_feature_radar(audio_feature_data, feature_list, "My Radar Plot")
 

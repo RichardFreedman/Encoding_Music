@@ -614,10 +614,11 @@ The Plotly Express `line_polar` method in turn can easily read these long-form d
 # first declare feature list:
 # feature_list = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "valence", "danceability"]
 
-def audio_feature_radar(df, feature_list, chart_title):
-    melted_data = pd.melt(sample, id_vars=['track_title'], value_vars=feature_list)
-    fig = px.line_polar(melted_data, r='value', theta='variable', color='track_title')
+def audio_feature_radar(audio_feature_data, feature_list, chart_title):
+    melted_data = pd.melt(audio_feature_data, id_vars=['track_title'], value_vars=feature_list)
+    fig = px.line_polar(melted_data, r='value', theta='variable', color='track_title', labels = {'track_title' : "Track Title"})
     fig.update_layout(title=chart_title)
+    fig.update_layout(width=800, height=800) 
     fig.show()
 ```
 </Details>
