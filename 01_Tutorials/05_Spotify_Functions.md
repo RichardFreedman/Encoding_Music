@@ -900,7 +900,7 @@ Haverford and Bryn Mawr are part of the tri-co! Often in network graphs and in d
 
 Generally speaking, a network graph is a visual structure designed to emphasize connections between discrete entities. It consists of Nodes and Edges, which represent a system of connected or related elements, and is largely studied within Network Theory. 
 
-Here we show how to build the network with **NetworkX** (ee the excellent [tutorial for NetworkX](https://networkx.org/documentation/stable/tutorial.html) for more assistance).  And then we will show how to display this network with **Pyvis**.  The two libraries are often used together in this way.
+Here we show how to build the network with **NetworkX** (see the excellent [tutorial for NetworkX](https://networkx.org/documentation/stable/tutorial.html) for more assistance).  And then we will show how to display this network with **Pyvis**.  The two libraries are often used together in this way.
 
 Here's how to **build, populate, and show a simple Network Graph** using **NetworkX** and **Pyvis**.  Here is a sample network consisting of just two nodes and one edge to connect them.
 
@@ -1025,7 +1025,7 @@ Reflecting this method, Spotipy conveniently has *spotipy_client.artist_related_
 Here's what such a function could look like (add this to your Notebok):
 
 
-```
+```python
 def add_related_artists(starting_artist_name, starting_artist_id, existing_graph, limit, spotipy_client, order_group=None):
     # get artists related to the current artist
     current_artist_related = pd.DataFrame(spotipy_client.artist_related_artists(starting_artist_id)["artists"])
@@ -1044,8 +1044,7 @@ def add_related_artists(starting_artist_name, starting_artist_id, existing_graph
     
 #### Get Artist Albums
 
-```
-
+```python
 headers = {
     'Authorization': 'Bearer {token}'.format(token=access_token)
 }
@@ -1069,7 +1068,7 @@ In the cell below, we will make use of the function we just defined. Using this 
 As noted, we will start with Beatles (Artist ID = "3WrFJ7ztbogyGnTHbHJFl2", Name = "The Beatles")
 
 
-```
+```python
 ## First, we need to record the information about The Beatles
 center_artist_id = "3WrFJ7ztbogyGnTHbHJFl2"
 center_artist_name = "The Beatles"
@@ -1116,7 +1115,7 @@ artist_network.show("artist_example.html")
 In order to further complicate our lives, we can **add one more generation of related artists** (think friends of friends):
 
 
-```
+```python
 # Running through the once-related artists
 for i in range(limit):
     add_related_artists(center_artist_related.loc[i]["name"], center_artist_related.loc[i]["id"], artist_network, limit, sp, (i+1))
@@ -1175,22 +1174,19 @@ In the cell below, we will make use of the function we just defined. Using this 
 As noted, we will start with Stand By Me (Song ID = "3SdTKo2uVsxFblQjpScoHy")
 
 
-```
+```python
 # First, we need to record the information about Stand By Me
 center_song = sp.track("3SdTKo2uVsxFblQjpScoHy")
 # Or Mahler 1
-
 # center_song = sp.track("7vZoMrrqsqfO96vortxxjn")
 
-# Or Lasso
-
+# Or Orlando di Lasso
 # center_song = sp.track("4CAp8WXEotxJLE5A2c3Yup")
 
 center_song_id = center_song["id"]
 center_song_artist = center_song["artists"][0]["name"]
 center_song_name = center_song["name"]
 center_song_popularity = int(center_song["popularity"])
-
 
 # limit: how many recommended songs per generation we are interested in
 limit = 3
@@ -1220,7 +1216,7 @@ song_network.show("song_network_short.html")
 Similarly to Related Artists, we will further complicate our lives by **adding one more generation of recommended songs** (with no extra seed knowledge):
 
 
-```
+```python
 # Getting the second generation of Recommended songs
 for i in range(limit):
     add_related_songs(starting_song_name=recommended_songs.loc[i]["name"], 
@@ -1276,7 +1272,7 @@ def add_related_songs_gen(starting_song_name, starting_artist_name, starting_son
 We will run this function for **two generations** for the same song (Stand By Me by Ben E. King):
 
 
-```
+```python
 # Start the network
 song_network = net.Network(notebook=False, width=1000, height=800)
 song_network.add_node(str(center_song_artist + ": " + center_song_name), value=center_song_popularity, color="#fffff", group=0)
