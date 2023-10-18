@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 900;
+            height: 900;
+            background-color: white;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"font": {"color": "black"}, "group": 1, "id": "Andrea Puentes", "label": "Andrea Puentes", "node_type": "editor", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Pere Riquet", "label": "Pere Riquet", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 1, "id": "Andrea Puentes-Blanco", "label": "Andrea Puentes-Blanco", "node_type": "editor", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Claudio Merulo", "label": "Claudio Merulo", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 1, "id": "Brian Marble", "label": "Brian Marble", "node_type": "editor", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Tom\u221a\u00b0s Luis de Victoria", "label": "Tom\u221a\u00b0s Luis de Victoria", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Tom\u00e1s Luis Victoria", "label": "Tom\u00e1s Luis Victoria", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Tom\u00e1s Luis de Victoria", "label": "Tom\u00e1s Luis de Victoria", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 1, "id": "Brian Russell", "label": "Brian Russell", "node_type": "editor", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Domenico Ferrabosco", "label": "Domenico Ferrabosco", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 1, "id": "Christina Cassia", "label": "Christina Cassia", "node_type": "editor", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Nicole des Celliers de Hesdin", "label": "Nicole des Celliers de Hesdin", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 1, "id": "David Fiala", "label": "David Fiala", "node_type": "editor", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Thomas Champion", "label": "Thomas Champion", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Lupus Hellinck", "label": "Lupus Hellinck", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 1, "id": "Franz K\u00f6rndle", "label": "Franz K\u00f6rndle", "node_type": "editor", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Leonhard Lechner", "label": "Leonhard Lechner", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Jacob Clemens non Papa", "label": "Jacob Clemens non Papa", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Roland de  Lassus", "label": "Roland de  Lassus", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Roland de Lassus", "label": "Roland de Lassus", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Pierre Sandrin", "label": "Pierre Sandrin", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 1, "id": "Jessie Ann Owens", "label": "Jessie Ann Owens", "node_type": "editor", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 1, "id": "K\u00e9vin Roger", "label": "K\u00e9vin Roger", "node_type": "editor", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Giovanni Pierluigi da Palestrina", "label": "Giovanni Pierluigi da Palestrina", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 1, "id": "Marco Gurrieri", "label": "Marco Gurrieri", "node_type": "editor", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Pierre Cad\u00e9ac", "label": "Pierre Cad\u00e9ac", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Pierre de Manchicourt", "label": "Pierre de Manchicourt", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Josquin Des Pr\u00e9s", "label": "Josquin Des Pr\u00e9s", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Pierre Passereau", "label": "Pierre Passereau", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Johannes Lupi", "label": "Johannes Lupi", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Anonymous", "label": "Anonymous", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Claudin de Sermisy", "label": "Claudin de Sermisy", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 1, "id": "Marie Breillat", "label": "Marie Breillat", "node_type": "editor", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Jean H\u00e9rissant", "label": "Jean H\u00e9rissant", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 1, "id": "Mar\u00eda Elena Cuenca Rodriguez", "label": "Mar\u00eda Elena Cuenca Rodriguez", "node_type": "editor", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Crist\u00f3bal de Morales", "label": "Crist\u00f3bal de Morales", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Guillaume Le Heurteur", "label": "Guillaume Le Heurteur", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Nicolas Gombert", "label": "Nicolas Gombert", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 1, "id": "Mar\u00eda Elena Cuenca Rodr\u00edguez", "label": "Mar\u00eda Elena Cuenca Rodr\u00edguez", "node_type": "editor", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Francisco Guerrero", "label": "Francisco Guerrero", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 1, "id": "Maxime Popineau", "label": "Maxime Popineau", "node_type": "editor", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Cipriano de Rore", "label": "Cipriano de Rore", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Ippolito Baccusi", "label": "Ippolito Baccusi", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 1, "id": "Michael Winter", "label": "Michael Winter", "node_type": "editor", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 1, "id": "Poth\u00e1rn Imre", "label": "Poth\u00e1rn Imre", "node_type": "editor", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 1, "id": "Pyrros Bachimas", "label": "Pyrros Bachimas", "node_type": "editor", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Annibale Padovano", "label": "Annibale Padovano", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Philippe Verdelot", "label": "Philippe Verdelot", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 1, "id": "Sabine Cassola", "label": "Sabine Cassola", "node_type": "editor", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 1, "id": "Vincent Besson", "label": "Vincent Besson", "node_type": "editor", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Pierre Colin", "label": "Pierre Colin", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Attr. Balbulus Notker", "label": "Attr. Balbulus Notker", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Antoine de F\u00e9vin", "label": "Antoine de F\u00e9vin", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Pierre Daulphin", "label": "Pierre Daulphin", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Didier Lupi", "label": "Didier Lupi", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Nicolas De Marle", "label": "Nicolas De Marle", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Mathurin Forestier", "label": "Mathurin Forestier", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Mathieu Sohier", "label": "Mathieu Sohier", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Dominique Phinot", "label": "Dominique Phinot", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Loyset Pieton", "label": "Loyset Pieton", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Jean Mouton", "label": "Jean Mouton", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Jean Guyon", "label": "Jean Guyon", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Jean Courtois", "label": "Jean Courtois", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Jachet de Mantua", "label": "Jachet de Mantua", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Pierre Clereau", "label": "Pierre Clereau", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Adrian Willaert", "label": "Adrian Willaert", "node_type": "composer", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 1, "id": "Yoav Belinsky", "label": "Yoav Belinsky", "node_type": "editor", "shape": "dot", "size": 20}, {"font": {"color": "black"}, "group": 0, "id": "Jean Lhertier", "label": "Jean Lhertier", "node_type": "composer", "shape": "dot", "size": 20}]);
+        edges = new vis.DataSet([{"from": "Andrea Puentes", "label": 0.0066, "to": "Pere Riquet", "value": 0.006568223287189261, "weight": 1}, {"from": "Andrea Puentes-Blanco", "label": 0.0228, "to": "Claudio Merulo", "value": 0.02280417231298796, "weight": 1}, {"from": "Brian Marble", "label": 0.0074, "to": "Tom\u221a\u00b0s Luis de Victoria", "value": 0.007404556650246251, "weight": 1}, {"from": "Brian Marble", "label": 0.0043, "to": "Tom\u00e1s Luis Victoria", "value": 0.0043227665706051, "weight": 1}, {"from": "Brian Marble", "label": 0.0048, "to": "Tom\u00e1s Luis de Victoria", "value": 0.004774813240355, "weight": 1}, {"from": "Brian Russell", "label": 0.0078, "to": "Domenico Ferrabosco", "value": 0.0077519379844961, "weight": 1}, {"from": "Christina Cassia", "label": 0.0118, "to": "Nicole des Celliers de Hesdin", "value": 0.01180981084093795, "weight": 1}, {"from": "David Fiala", "label": 0.007, "to": "Thomas Champion", "value": 0.0070175438596491, "weight": 1}, {"from": "David Fiala", "label": 0.0088, "to": "Lupus Hellinck", "value": 0.0087583719732096, "weight": 1}, {"from": "Franz K\u00f6rndle", "label": 0.0197, "to": "Leonhard Lechner", "value": 0.0197230350075062, "weight": 1}, {"from": "Franz K\u00f6rndle", "label": 0.0147, "to": "Jacob Clemens non Papa", "value": 0.0147368421052631, "weight": 1}, {"from": "Franz K\u00f6rndle", "label": 0.0088, "to": "Roland de  Lassus", "value": 0.0088424437299035, "weight": 1}, {"from": "Franz K\u00f6rndle", "label": 0.013, "to": "Roland de Lassus", "value": 0.013048875553920477, "weight": 1}, {"from": "Franz K\u00f6rndle", "label": 0.0256, "to": "Pierre Sandrin", "value": 0.0256410256410256, "weight": 1}, {"from": "Jessie Ann Owens", "label": 0.0134, "to": "Roland de Lassus", "value": 0.01344187610634974, "weight": 1}, {"from": "K\u00e9vin Roger", "label": 0.0239, "to": "Giovanni Pierluigi da Palestrina", "value": 0.0238595862959264, "weight": 1}, {"from": "Marco Gurrieri", "label": 0.0181, "to": "Pierre Sandrin", "value": 0.0181268882175226, "weight": 1}, {"from": "Marco Gurrieri", "label": 0.0103, "to": "Pierre Cad\u00e9ac", "value": 0.0102827763496143, "weight": 1}, {"from": "Marco Gurrieri", "label": 0.0192, "to": "Pierre de Manchicourt", "value": 0.0192307692307692, "weight": 1}, {"from": "Marco Gurrieri", "label": 0.012, "to": "Roland de Lassus", "value": 0.0119904076738609, "weight": 1}, {"from": "Marco Gurrieri", "label": 0.0251, "to": "Josquin Des Pr\u00e9s", "value": 0.02514028607664055, "weight": 1}, {"from": "Marco Gurrieri", "label": 0.0561, "to": "Pierre Passereau", "value": 0.0560625814863103, "weight": 1}, {"from": "Marco Gurrieri", "label": 0.046, "to": "Johannes Lupi", "value": 0.0460424211070874, "weight": 1}, {"from": "Marco Gurrieri", "label": 0.0, "to": "Anonymous", "value": 0.0, "weight": 1}, {"from": "Marco Gurrieri", "label": 0.041, "to": "Claudin de Sermisy", "value": 0.040968228065240635, "weight": 1}, {"from": "Marco Gurrieri", "label": 0.0128, "to": "Giovanni Pierluigi da Palestrina", "value": 0.0128022759601706, "weight": 1}, {"from": "Marie Breillat", "label": 0.0, "to": "Claudin de Sermisy", "value": 0.0, "weight": 1}, {"from": "Marie Breillat", "label": 0.0019, "to": "Jean H\u00e9rissant", "value": 0.0019081868831942, "weight": 1}, {"from": "Mar\u00eda Elena Cuenca Rodriguez", "label": 0.0573, "to": "Crist\u00f3bal de Morales", "value": 0.0573122529644268, "weight": 1}, {"from": "Mar\u00eda Elena Cuenca Rodriguez", "label": 0.0054, "to": "Guillaume Le Heurteur", "value": 0.0054240631163708, "weight": 1}, {"from": "Mar\u00eda Elena Cuenca Rodriguez", "label": 0.0388, "to": "Nicolas Gombert", "value": 0.0388349514563106, "weight": 1}, {"from": "Mar\u00eda Elena Cuenca Rodr\u00edguez", "label": 0.0183, "to": "Francisco Guerrero", "value": 0.01829675606409103, "weight": 1}, {"from": "Maxime Popineau", "label": 0.0104, "to": "Cipriano de Rore", "value": 0.0104357298474945, "weight": 1}, {"from": "Maxime Popineau", "label": 0.0059, "to": "Ippolito Baccusi", "value": 0.0058636282005002, "weight": 1}, {"from": "Michael Winter", "label": 0.008, "to": "Cipriano de Rore", "value": 0.00796258772444996, "weight": 1}, {"from": "Poth\u00e1rn Imre", "label": 0.0077, "to": "Giovanni Pierluigi da Palestrina", "value": 0.0076923076923076, "weight": 1}, {"from": "Pyrros Bachimas", "label": 0.0178, "to": "Cipriano de Rore", "value": 0.0178394449950445, "weight": 1}, {"from": "Pyrros Bachimas", "label": 0.0126, "to": "Annibale Padovano", "value": 0.012637912245535347, "weight": 1}, {"from": "Pyrros Bachimas", "label": 0.0445, "to": "Philippe Verdelot", "value": 0.0445246690734055, "weight": 1}, {"from": "Sabine Cassola", "label": 0.0274, "to": "Josquin Des Pr\u00e9s", "value": 0.0274273176083379, "weight": 1}, {"from": "Vincent Besson", "label": 0.0172, "to": "Pierre Colin", "value": 0.01723641023855972, "weight": 1}, {"from": "Vincent Besson", "label": 0.0291, "to": "Pierre de Manchicourt", "value": 0.02906181149435704, "weight": 1}, {"from": "Vincent Besson", "label": 0.0, "to": "Attr. Balbulus Notker", "value": 0.0, "weight": 1}, {"from": "Vincent Besson", "label": 0.0182, "to": "Antoine de F\u00e9vin", "value": 0.01823480239716537, "weight": 1}, {"from": "Vincent Besson", "label": 0.0142, "to": "Roland de Lassus", "value": 0.01418643191240902, "weight": 1}, {"from": "Vincent Besson", "label": 0.0207, "to": "Claudin de Sermisy", "value": 0.020715163712550038, "weight": 1}, {"from": "Vincent Besson", "label": 0.0289, "to": "Pierre Daulphin", "value": 0.028932655699430182, "weight": 1}, {"from": "Vincent Besson", "label": 0.0221, "to": "Crist\u00f3bal de Morales", "value": 0.02208869676885318, "weight": 1}, {"from": "Vincent Besson", "label": 0.0082, "to": "Philippe Verdelot", "value": 0.0082474226804123, "weight": 1}, {"from": "Vincent Besson", "label": 0.0312, "to": "Didier Lupi", "value": 0.0311614730878186, "weight": 1}, {"from": "Vincent Besson", "label": 0.0112, "to": "Nicolas Gombert", "value": 0.01119642446480992, "weight": 1}, {"from": "Vincent Besson", "label": 0.0072, "to": "Nicolas De Marle", "value": 0.0071757669682208005, "weight": 1}, {"from": "Vincent Besson", "label": 0.0349, "to": "Mathurin Forestier", "value": 0.034928850573823764, "weight": 1}, {"from": "Vincent Besson", "label": 0.0082, "to": "Mathieu Sohier", "value": 0.00816466090197778, "weight": 1}, {"from": "Vincent Besson", "label": 0.0283, "to": "Dominique Phinot", "value": 0.028294918315285, "weight": 1}, {"from": "Vincent Besson", "label": 0.0159, "to": "Loyset Pieton", "value": 0.0158957443744655, "weight": 1}, {"from": "Vincent Besson", "label": 0.0088, "to": "Jean Mouton", "value": 0.0088495575221238, "weight": 1}, {"from": "Vincent Besson", "label": 0.0138, "to": "Jean Guyon", "value": 0.013761578217108638, "weight": 1}, {"from": "Vincent Besson", "label": 0.0101, "to": "Jean Courtois", "value": 0.0100502512562814, "weight": 1}, {"from": "Vincent Besson", "label": 0.0131, "to": "Giovanni Pierluigi da Palestrina", "value": 0.01308873443982804, "weight": 1}, {"from": "Vincent Besson", "label": 0.0138, "to": "Jachet de Mantua", "value": 0.0138339920948616, "weight": 1}, {"from": "Vincent Besson", "label": 0.0127, "to": "Pierre Clereau", "value": 0.012748645079695442, "weight": 1}, {"from": "Vincent Besson", "label": 0.0143, "to": "Adrian Willaert", "value": 0.014294606956199819, "weight": 1}, {"from": "Yoav Belinsky", "label": 0.0033, "to": "Jean Lhertier", "value": 0.0033030553261767, "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
