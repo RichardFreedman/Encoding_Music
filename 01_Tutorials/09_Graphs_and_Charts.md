@@ -152,7 +152,8 @@ fig.update_layout(title=f'Audio Feature Correlation: {correlation:.2f}')
 fig.show()
 
 ```
-![Alt text](images/corrheatmap.png)
+![Alt text](images/corr_matrix_chart.png)
+
 
 Another way to get a good sense of the high-level correlations among variables is by first making a correlation matrix with Pandas (that is:  `correlation_matrix = data_to_correlate.corr()`) and then passing that result to the Plotly Exrpess `imshow()` method, as seen below.  Learn more at [Plotly Express](https://plotly.com/python/heatmaps/)
 
@@ -180,7 +181,7 @@ fig.show()
 
 ```
 
-![Alt text](images/corr_matrix_chart.png)
+![Alt text](images/corrheatmap.png)
 
 
 
