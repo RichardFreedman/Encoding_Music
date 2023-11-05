@@ -911,45 +911,7 @@ counted_notes.rename(columns={"count": "Count", "scaled": "Scaled_Count"}, inpla
 counted_notes
 ```
 
-How would you do this for each staff?  (Hint:  find all measures for a given staff, then find the notes in that list of measures).
-
-```python
-def get_pitch_dist(n, soup): #takes a staff number, returns dataframe of pitch distribution
-    staves = soup.find_all("staff", n = n) #all instances of the given staf
-    staff_notes = []
-    for staff in staves:
-        notes = staff.find_all("note")  
-        for note in notes:
-            staff_notes.append(note.get("pname"))
-
-    note_counts = pd.Series(Counter(staff_notes)).to_frame(n).sort_index()
-    
-    return note_counts
-
-df = get_pitch_dist(1, soup)
-
-for i in range(1, 4):
-    df = pd.concat([df, get_pitch_dist(i+1, soup)], axis = 1)
-df
-```
-
-A bar chart of the results:
-
-```python
-fig = px.bar(df, 
-             x=df.index, 
-             y="Count", 
-title="Pitch Distribution in " + soup.title.text.strip() + " by Staff")
-fig.update_xaxes(title_text="Tone")
-fig.update_yaxes(title_text="Count")
-fig.show()
-```
-
-
-
-## Histogram and Polar Plot of Notes
-
-Create a histogram from the `counted_notes`:
+Create a bar chart from the `counted_notes`:
 
 
 ```python
@@ -964,6 +926,46 @@ fig.show()
 
 
 ![Alt text](images/bs_1.png)
+
+
+How would you do this for each staff?  (Hint:  find all measures for a given staff, then find the notes in that list of measures).
+
+```python
+df = pd.DataFrame()
+staves = soup.find_all("staffDef")
+for staff in staves:
+    number = staff.get('n')
+    name = staff.get('label')
+    notes = []
+    measures = soup.find_all('measure')
+    for measure in measures:
+        this_staff = measure.find("staff", {'n' : number})      
+        meas_notes = [n.get('pname') for n in this_staff.find_all('note')]
+        notes.extend(meas_notes)
+
+#     print(notes)
+        counted = Counter(notes)
+        counted_notes = pd.Series(counted, dtype='int')
+# #         notes.append(counted)
+    df = pd.concat([df, counted_notes.to_frame(name)], axis=1)
+df
+```
+
+A bar chart of the notes per staff:
+
+```python
+fig = px.bar(df, 
+             x=df.index, 
+             y="Count", 
+title="Pitch Distribution in " + soup.title.text.strip() + " by Staff")
+fig.update_xaxes(title_text="Tone")
+fig.update_yaxes(title_text="Count")
+fig.show()
+```
+
+![Alt text](images/bs_voice_notes.png)
+
+### Polar Plot of Notes
 
 
 Or a polar plot:
