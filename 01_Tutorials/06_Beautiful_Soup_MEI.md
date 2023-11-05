@@ -18,7 +18,6 @@ In this tutorial we will explore the possibilities.
 
 
 ```python
-i%config IPCompleter.greedy=True
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
@@ -176,7 +175,7 @@ Once you've imported a file, you should be able to **convert it into a Beautiful
 
 
 ```python
-my_soup_file = bs(xml_document, 'xml')
+soup = BeautifulSoup(xml_document, 'xml')
 ```
 
 ____________________
@@ -188,7 +187,7 @@ The **MEI** framework tends to be easy to understand (as it is meant to be human
 First, let's take a look at the document as a whole. Make the cell below **print the "pretty"** version of your MEI file:
 
 ```python
-print(my_soup_file.prettify())
+print(soup.prettify())
 ```
 
 <Details>
@@ -224,23 +223,128 @@ print(my_soup_file.prettify())
 
 </Details>
 
+
+## Visualizing XML as Network Graphs
+
+Before digging into the details of the XML and starting to navigate these soup objects programmatically, let's visualize several XML snippets to get a high-level overview of how it is structured.
+
+First we will create several functions that we will use in the subsequent visualisations. Eventually you may choose to explore these functions and tweak their behavior, but for now we will use them as is:
+
+```python
+def format_element(tag: bs4.element.Tag, wrap_length=20, exclude=[]):
+    attrs_list = []
+    
+    for a, v in tag.attrs.items():
+        if a in exclude:
+            continue
+        attrs_list.append(f"{a}={v}")
+    
+    formatted_string = f"{tag.name} ({' '.join(attrs_list)})" if attrs_list else tag.name
+    
+    return textwrap.fill(formatted_string, wrap_length)
+
+
+
+def create_network(tag: bs4.element.Tag, with_attributes: bool = False, attrs_to_exclude=[]):
+
+    all_tags = [tag] + tag.find_all()
+
+    G = nx.DiGraph()
+
+    for node in all_tags:
+        depth = len(list(node.parents))
+        G.add_node(
+                   id(node), 
+                   label=format_element(node, exclude=attrs_to_exclude) if with_attributes else node.name,
+                   value=len(list(node.descendants)),
+                   group=depth,
+                   level=depth,
+                   scaling={'label': {'enabled': True}},
+                  )
+
+    for node in all_tags:
+        for child in node.children:
+            if child.name:
+                G.add_edge(id(node), id(child), 
+                           arrows='to',
+                       id=f"{id(node)}_{node.name}|{id(child)}_{child.name}")
+
+    return G
+
+
+
+def display_network(network, 
+                    filename="tmp.html", 
+                    width=900, 
+                    height=900, 
+                    bgcolor="white",
+                    font_color="black",
+                    notebook=True,
+                   ):
+
+    nt = Network(notebook=notebook, width=width, height=height, bgcolor=bgcolor, font_color=font_color)
+    nt.from_nx(network)
+
+    return nt.show(filename)
+```
+
+Let's start by creating a network of a single measure, in this case measure 1:
+
+```python
+measure_network = create_network(soup.find("measure", {"n": 1}))
+display_network(measure_network, filename="simple_measure.html")
+
+
+```
+Already from this we can see that a measure element contains staff elements and so on.
+
+Let's do the same thing again, but this time showing some attributes. We will hide the xml:id attributes since they are quite verbose:
+
+```python
+measure_network_with_attrs = create_network(
+    soup.find("measure", {"n": 1}), 
+    with_attributes=True, 
+    attrs_to_exclude=["xml:id"]
+)
+display_network(measure_network_with_attrs, filename="measure_with_attrs.html")
+```
+
+Last, let's create a network of the entire piece. We won't display it here because it risks slowing down our browser. Instead, we can save it to an HTML file and open that file separately:
+
+```python
+model_0019_network = create_network(soup)
+display_network(model_0019_network, notebook=False, filename="CRIM_Model_0019.html")
+```
+# Key Methods
+
 ## Finding Elements and Attributes
 
 
 The `find()` and `find(all)` methods are key ways of returning one or more tags in your XML file.  
 
-`my_soup_file.persName()`, for example, will return the first instance of the `persName` tag in the MEI document we previously imported and named as the `my_soup_file` object. But it is also possible to do this in several other ways, with varied results:
+`soup.persName()`, for example, will return the first instance of the `persName` tag in the MEI document we previously imported and named as the `soup` object. But it is also possible to do this in several other ways, with varied results:
 
-- The **first instance** of the `persName` tag: `my_soup_file.find('persName')` 
-- **All** the tags of the `persName` tag: `my_soup_file.find_all('persName')`, in this case returned as a Python `list` object, across which you can 
+- The **first instance** of the `persName` tag: `soup.find('persName')` 
+- **All** the tags of the `persName` tag: `soup.find_all('persName')`, in this case returned as a Python `list` object, across which you can in explore.
+
+## 
+Methods can be strung together:
+Sometimes it is difficult to navigate directly to the element or elements of interest. One way around this is to chain these finding methods together. This is somewhat analogous to climbing from one branch to another of a real tree. Here are a couple of examples of chaining these methods.
+
+`soup.find('Your_Element_Name').findParent()` will find the parent tag of the first matching element
+`soup.find('Your_Element_Name').findChild()` will find the child tag of the first matching element
 
 ## Matching  Text Strings in Elements 
 
 It's possible to return all the tags of a given type that **match a particular text string or even substring**.
 
 
-- All the instances of the `persName` tag that **match a certain text string**:  `my_soup_file.find_all("persName", string="Vincent Besson")`.
-- All the instances of the `persName` tag that contain **a substring anywhere in the text of the tag**:  `my_soup_file(lambda tag: tag.name == "persName" and "Vin" in tag.text)`.  In this case we are simply matching "Vin".
+- All the instances of the `persName` tag that **match a certain text string**:  `soup.find_all("persName", string="Vincent Besson")`.
+- All the instances of the `persName` tag that contain **a substring anywhere in the text of the tag**:  `soup(lambda tag: tag.name == "persName" and "Vin" in tag.text)`.  In this case we are simply matching "Vin".
+
+### Match Elements and Attributes with Dictionaries
+
+`soup.find_all('Your_Element_Name', {'Your_Attribute_Name' : 'Your_Attribute_Value)` will return only those elements that match both the given type and attribute.
 
 ## More About Finding and Matching Tag Strings
 
@@ -269,40 +373,40 @@ In a way, the **Title Statement** ("\<titleStmt>") element is a wrapper for all 
     
     
 ```python
-print(my_soup_file.titleStmt.prettify())
+print(soup.titleStmt.prettify())
 ```
 
 It's possible to return each of these children these in turn, by chaining the elements together.  Since we already know that the `titleStmt` contains the `title`, we can return the latter this way:
     
 ```python
-print(my_soup_file.titleStmt.title.prettify())
+print(soup.titleStmt.title.prettify())
 ```
 
 Or the the complete `respStmt`:
     
     
 ```python
-print(my_soup_file.titleStmt.respStmt.prettify())
+print(soup.titleStmt.respStmt.prettify())
 ```
     
 The `respStmt` contains several `persName` tags (for the composer, editors, etc).  Here is the first of those:
   
 ```python
-print(my_soup_file.titleStmt.respStmt.persName.prettify())
+print(soup.titleStmt.respStmt.persName.prettify())
 ```
     
 To **find all** of the `persName` children of the `respStmt`, however, we will need to use a new method. See the next section for how.
 
 ### Looking Down:  Children
 
-First, let's find all **children** of the `titleStmt`. The results are similar to what we found with other methods, but in this case we are going to see  _all_ the elements nested within the parent:  `my_soup_file.titleStmt.findChildren()`.  This method returns a `list`.  We can then inspect each of these in turn.
+First, let's find all **children** of the `titleStmt`. The results are similar to what we found with other methods, but in this case we are going to see  _all_ the elements nested within the parent:  `soup.titleStmt.findChildren()`.  This method returns a `list`.  We can then inspect each of these in turn.
 
 One thing we learn from this is that the `persName` repeat:  each individual appears twice--once as part of the nested `restStmt` and again as part of the remainder of the `titleStmt`.  This is part of the MEI standard.  And so if we do any editing of these tags we will need to be on the look out for all instances of a given name.
 
 
 ```python
 # find all the children in the titleStmt, and save as a variable
-children_of_title = my_soup_file.titleStmt.findChildren()
+children_of_title = soup.titleStmt.findChildren()
 # iterate through the list to see each child and print
 for child in children_of_title:
     print(child.prettify())
@@ -354,12 +458,12 @@ for child in children_of_title:
 
 Siblings are tags of the *same type* as a given tag.  
 
-Thus `first_person = my_soup_file.titleStmt.persName` will find the **first element** of the `persName` type.
+Thus `first_person = soup.titleStmt.persName` will find the **first element** of the `persName` type.
 
 To **find the first sibling of this tag, we use `findNextSibling`, or even just `findNext`.  If the **first sibling** was the composer, then `findNext` or `findNextSibling` will be one of the editors:
 
 ```python
-very_next_sibling = my_soup_file.titleStmt.persName.findNextSibling()
+very_next_sibling = soup.titleStmt.persName.findNextSibling()
 very_next_sibling
 
 ```
@@ -371,7 +475,7 @@ Another way to **find the very next siblings** afer the current one is with `fin
 Find the first `persName`:
 
 ```python
-first_person = my_soup_file.titleStmt.persName
+first_person = soup.titleStmt.persName
 first_person.findNext()
 ```
 
@@ -379,17 +483,17 @@ And append `findNext` to find the second person tag.
 
 
 ```python
-second_person = my_soup_file.titleStmt.persName.findNext()
+second_person = soup.titleStmt.persName.findNext()
 second_person
 ```
 
     <persName role="editor">Marco Gurrieri</persName>
 
-To **find ALL the subsequent siblings** of a given element, we use `findNextSiblings` [note the plural!].  Here we take the `my_soup_file`, and get the `titleStmt`, then the first `persName` in that tag, and finally all the siblings of that tag with `findNextSiblings()`.  The result is a `list` of all of the `persName` tags *except* the first:
+To **find ALL the subsequent siblings** of a given element, we use `findNextSiblings` [note the plural!].  Here we take the `soup`, and get the `titleStmt`, then the first `persName` in that tag, and finally all the siblings of that tag with `findNextSiblings()`.  The result is a `list` of all of the `persName` tags *except* the first:
 
 
 ```python
-sibling_names = my_soup_file.titleStmt.persName.findNextSiblings()
+sibling_names = soup.titleStmt.persName.findNextSiblings()
 
 ```
 
@@ -404,7 +508,7 @@ Here we can find the tags going up from some lower level to find out the `parent
 
 
 ```python
-for parent in my_soup_file.note.find_parents():
+for parent in soup.note.find_parents():
     print(parent.name)
 ```
 
@@ -424,7 +528,7 @@ for parent in my_soup_file.note.find_parents():
 Sometimes, you might be working for scraping/analysis tools and would want to access the **contents (text)** of individual tags:
 
 ```python
-for tag in my_soup_file.find_all("persName", {"role": "editor"}):
+for tag in soup.find_all("persName", {"role": "editor"}):
     print(tag.text.strip())
 ```
     
@@ -432,14 +536,14 @@ The `.strip()` function assures that we remove whitespace and other useless code
 
 Note that the 'text' of a tag is not the same as its 'name':
 
-`print(my_soup_file.titleStmt.persName.name)` will return the 'name' of the tag itself, in this case simply 'title'
+`print(soup.titleStmt.persName.name)` will return the 'name' of the tag itself, in this case simply 'title'
 
-`print(my_soup_file.titleStmt.persName.text)` will return the 'contents' of the tag itself, in this case simply 'Ave Maria'
+`print(soup.titleStmt.persName.text)` will return the 'contents' of the tag itself, in this case simply 'Ave Maria'
 
 
 ```python
 
-for tag in my_soup_file.find_all("persName", {"role": "editor"}):
+for tag in soup.find_all("persName", {"role": "editor"}):
     print(tag.text.strip())
 ```
 
@@ -454,7 +558,7 @@ Similarly, we can easily access the composer:
 
 ```python
 # the text of the composer element:
-for tag in my_soup_file.find_all("persName", {"role": "composer"}):
+for tag in soup.find_all("persName", {"role": "composer"}):
     print(tag.text.strip())
 ```
 
@@ -467,7 +571,7 @@ And the title:
 
 ```python
 # the text of the title element, more directly:
-my_soup_file.title.text.strip()
+soup.title.text.strip()
 ```
 
     'Veni speciosam'
@@ -479,11 +583,11 @@ We can also **update or edit** the text of a tag using `my_tag.string.replace_wi
 
 ```python
 # find the first editor (which is second `persName` tag):
-very_next_sibling = my_soup_file.titleStmt.persName.findNextSibling()
+very_next_sibling = soup.titleStmt.persName.findNextSibling()
 # update the 'string' of that tag with 'replace_with'
 very_next_sibling.string.replace_with('Kévin Roger')
 # return the updated tag
-my_soup_file.titleStmt.persName.findNextSibling()
+soup.titleStmt.persName.findNextSibling()
 ```
 
     <persName role="editor">Kévin Roger</persName>
@@ -494,15 +598,15 @@ One way to add a tag is to find a sibling of the same type as your new tag, then
 
 ```python
 # The parent tag of persName 
-people_involved_parent = my_soup_file.find("persName").parent
+people_involved_parent = soup.find("persName").parent
 # create a new tag that will have the role of 'analyst':
-new_person_tag = my_soup_file.new_tag("persName", role="Analyst")
+new_person_tag = soup.new_tag("persName", role="Analyst")
 # populate the text of that new tag with a string:
 new_person_tag.string = "Oleh Shostak"
 # add the new tag to the original parent found above
 people_involved_parent.append(new_person_tag)
 # and show the revised result
-my_soup_file.find_all("persName")
+soup.find_all("persName")
 ```
 
 
@@ -529,7 +633,7 @@ Tags can also contain **attributes**.  In the case of the `persName` tag in MEI 
 
 
 ```python
-for item in my_soup_file.titleStmt.children:
+for item in soup.titleStmt.children:
     print(item.prettify())
 ```
 
@@ -559,7 +663,7 @@ Here for instance are all the `persName` tags with the string "editor" in the `r
 
 
 ```python
-my_soup_file.find_all("persName", {"role": "editor"})
+soup.find_all("persName", {"role": "editor"})
 ```
 
     [<persName role="editor">Marco Gurrieri</persName>,
@@ -571,7 +675,7 @@ my_soup_file.find_all("persName", {"role": "editor"})
 
 Sometimes it's necessary to change the contents of an attribute.  For instance here is a list of 'editors':
 
-    `my_soup_file.find_all("persName", {"role": "editor"})``
+    `soup.find_all("persName", {"role": "editor"})``
 
     [<persName role="editor">Marco Gurrieri</persName>,
     <persName role="editor">Vincent Besson</persName>,
@@ -581,7 +685,7 @@ Sometimes it's necessary to change the contents of an attribute.  For instance h
 Here is a way call them 'analysts' instead:
 
 ```python
-tags_to_edit = my_soup_file.find_all("persName", {"role": "editor"})
+tags_to_edit = soup.find_all("persName", {"role": "editor"})
 for tag in tags_to_edit:
   tag['role'] = 'analyst'
 tags_to_edit
@@ -603,26 +707,21 @@ extension = os.path.splitext(os.path.basename(filepath))[-1]
 
 ```python
 with open(file_name, 'w') as f:
-    f.write(str(my_soup_file))
+    f.write(str(soup))
 ```
 -----
 ## Working with MEI `music`:  Measures, Staves, Notes
 
 MEI (XML) files are normally thought of as rich encodings of musical scores and the editorial and source critical information that surround their production. But they can also be interrogated for music data.  This is despite the fact that those in Common Music Notation (the standard in use since the 18th century) are encoded 'measure by measure' and so it can be rather tricky to take stock of events that (for instance) are occuring at the same time in different staves.  
 
-Advanced analysis of musical patterns is probably best done with Music21 or CRIM Intervals.  But a surprising among of relevant data about notes and editorial practice can be found with Beautiful my_soup_file.
+Advanced analysis of musical patterns is probably best done with Music21 or CRIM Intervals.  But a surprising among of relevant data about notes and editorial practice can be found with Beautiful soup.
 
 ### Staves
 
 Information about the staves are contained in the `staffDef` tag. First, let's look at just the **first staff**:
 
 ```python
-print(my_soup_file.staffDef.prettify())
-```
-
-
-```python
-print(my_soup_file.staffDef.prettify())
+print(soup.staffDef.prettify())
 ```
 
     <staffDef clef.line="2" clef.shape="G" key.sig="1f" label="Superius" lines="5" n="1" xml:id="m-30">
@@ -639,13 +738,13 @@ Next, **find all staves** with `find_all`:
 * Notice that these are returned as a **list** object, so we can easily also run this with a **for** loop.  
 
 ```python
-my_soup_file.find_all("staffDef")
+soup.find_all("staffDef")
 ```
 
-* Beautiful Soup responses are "list ready".  Thus the first staff is `my_soup_file.find_all("staffDef")[0]`.  The last staff is `my_soup_file.find_all("staffDef")[-1]`.
+* Beautiful Soup responses are "list ready".  Thus the first staff is `soup.find_all("staffDef")[0]`.  The last staff is `soup.find_all("staffDef")[-1]`.
 
 ```python
-my_soup_file.find_all("staffDef")
+soup.find_all("staffDef")
 ```
 
     [<staffDef clef.line="2" clef.shape="G" key.sig="1f" label="Superius" lines="5" n="1" xml:id="m-30">
@@ -678,7 +777,7 @@ We can use the collection of Staves to figure out **what voices** are used in a 
 
 ```python
 # get all G-clef staves:
-staves = my_soup_file.find_all("staffDef", {'clef.shape': "G"})
+staves = soup.find_all("staffDef", {'clef.shape': "G"})
 # print cleaned-up text of those tags--just the names
 for staff in staves:
     print(staff.text.strip())
@@ -688,7 +787,7 @@ for staff in staves:
 ```python
 
 # Get all G-clef staves:
-staves = my_soup_file.find_all("staffDef", {'clef.shape': "G"})
+staves = soup.find_all("staffDef", {'clef.shape': "G"})
 
 # print cleaned-up text of those tags--just the names
 for staff in staves:
@@ -701,262 +800,208 @@ for staff in staves:
     SecundusTenor
     Bassus
 
+### Find and Count Measures
 
-### Counting Notes
+Find all the measures:  
+
+```python
+soup.find_all("measure")
+```
+
+Find the first staff of the last measure:
+```python
+print(soup.find_all("measure")[-1].find("staff").prettify())
+```
+
+Find a particular measure using a dictionary to specify the 'number' attribute:
+
+```python
+measure_66 = soup.find('measure', {'n' : '66'})
+print(measure_66.prettify())
+```
+
+
+### Find Notes (by Measure or Attribute)
 
 We already know how to find the first note (of the first staff in the first bar):
 
 ```python
-my_soup_file.note.get('pname')
+soup.note.get('pname')
 ```
 
-But we can also:
+But we can also get the first pitch:
 
 
 
 ```python
 # gets just the first pitch
-my_soup_file.note.get('pname')
+soup.note.get('pname')
 ```
 
     'g'
 
-
+Or the last pitch:
 
 
 ```python
-# how many notes?
-len(my_soup_file.find_all('note'))
+soup.find_all("note")[-1]
 ```
 
-    1933
-
-
-
+Or the last note of the first staff:
 
 ```python
-# find all the notes and print pitch names
-for note in my_soup_file.find_all(name='note'):
-    print(note.get('pname'))
+print(soup.find_all("measure")[-1].find("staff").find_all("note")[-1].prettify())
 ```
 
-Shortened output:
+Or the pitch of that note:
 
-    g
-    d
-    d
-    c
-    d
-    f
-    d
-    e
-    d
-    c
-    a
-    g
-    f
-    b
-    d
-    
+```python
+# find the note
+last_note_staff_one = soup.find_all("measure")[-1].find("staff").find_all("note")[-1]
+# get the value of an attribute
+last_note_staff_one.get('pname')
+```
 
-Using some of the familiar techniques, we can count **pitches** and put them in a **series** or **DataFrame**:
+
+Notes in a particular measure:  in this case the last pitch in the last measure, voice by voice:
 
 
 ```python
-# counts pitches all voices, now as dictionary
-pitches = [n.get('pname') for n in my_soup_file.find_all('note')]
+measures = soup.find_all('measure')
+last_measure = measures[-1]
+for staff in last_measure.find_all('staff'):
+        note = staff.find_all('note')[-1]
+        print(note.get('pname'))
+```
+
+
+### Counting Notes (and Some Charts and Graphs)
+
+How many notes in all?
+
+```python
+len(soup.find_all('note'))
+```
+
+Find all notes with a particular duration, pitch, and octave:
+
+* Use dictionary of **key/value pairs to specify particular attributes.
+
+```python
+soup.find_all('note', {'dur': "4", 'pname': "g", 'oct': '3'})
+```
+
+
+```python
+soup.find_all('note', {'dur': "4", 'pname': "g", 'oct': '3'})
+```
+
+Count all the notes, then produce a dataframe that gives us a **percentage for each note, relative to the complete total**.
+
+Note the use of Python `Counter()` to keep track of the counts of each note.  See documentation at [Python.org](https://docs.python.org/3/library/collections.html#collections.Counter)
+
+```python
+pitches = [n.get('pname') for n in soup.find_all('note')]
 counted = Counter(pitches)
-
+total_n = len(soup.find_all('note'))
 
 counted_notes = pd.Series(counted).to_frame('count').sort_index()
+counted_notes['scaled'] = counted_notes['count'] / total_n
+counted_notes.rename(columns={"count": "Count", "scaled": "Scaled_Count"}, inplace=True)
 counted_notes
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>count</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>a</th>
-      <td>277</td>
-    </tr>
-    <tr>
-      <th>b</th>
-      <td>227</td>
-    </tr>
-    <tr>
-      <th>c</th>
-      <td>262</td>
-    </tr>
-    <tr>
-      <th>d</th>
-      <td>410</td>
-    </tr>
-    <tr>
-      <th>e</th>
-      <td>209</td>
-    </tr>
-    <tr>
-      <th>f</th>
-      <td>216</td>
-    </tr>
-    <tr>
-      <th>g</th>
-      <td>332</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
+How would you do this for each staff?  (Hint:  find all measures for a given staff, then find the notes in that list of measures).
 
 ```python
-# count pitches in one voice:
+def get_pitch_dist(n, soup): #takes a staff number, returns dataframe of pitch distribution
+    staves = soup.find_all("staff", n = n) #all instances of the given staf
+    staff_notes = []
+    for staff in staves:
+        notes = staff.find_all("note")  
+        for note in notes:
+            staff_notes.append(note.get("pname"))
 
-measures = my_soup_file.find_all('measure')
-pitches = []
-# here we assume the superius is the first staff
-superius_bars = [my_soup_file.find_all('staff', {"n": "1"}) for measure in measures]
-for superius in superius_bars[0]:
-    notes = superius.find_all('note')
-    for note in notes:
-        pitch = note.get('pname')
-        pitches.append(pitch)
-pitches_counted = Counter(pitches)
-superius_pitch_count = pd.Series(pitches_counted).to_frame('count').sort_index()
-superius_pitch_count
+    note_counts = pd.Series(Counter(staff_notes)).to_frame(n).sort_index()
+    
+    return note_counts
 
+df = get_pitch_dist(1, soup)
+
+for i in range(1, 4):
+    df = pd.concat([df, get_pitch_dist(i+1, soup)], axis = 1)
+df
+```
+
+A bar chart of the results:
+
+```python
+fig = px.bar(df, 
+             x=df.index, 
+             y="Count", 
+title="Pitch Distribution in " + soup.title.text.strip() + " by Staff")
+fig.update_xaxes(title_text="Tone")
+fig.update_yaxes(title_text="Count")
+fig.show()
 ```
 
 
 
+## Histogram and Polar Plot of Notes
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>count</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>a</th>
-      <td>67</td>
-    </tr>
-    <tr>
-      <th>b</th>
-      <td>64</td>
-    </tr>
-    <tr>
-      <th>c</th>
-      <td>70</td>
-    </tr>
-    <tr>
-      <th>d</th>
-      <td>99</td>
-    </tr>
-    <tr>
-      <th>e</th>
-      <td>29</td>
-    </tr>
-    <tr>
-      <th>f</th>
-      <td>27</td>
-    </tr>
-    <tr>
-      <th>g</th>
-      <td>46</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-And create a histogram
+Create a histogram from the `counted_notes`:
 
 
 ```python
-counted_notes.plot(kind="bar", figsize=(15, 10))
-plt.title("Pitch Distribution in My piece")
-plt.xticks(rotation = 0)
-plt.xlabel("Tone")
-plt.ylabel("Count")
-plt.show()
+fig = px.bar(counted_notes, 
+             x=counted_notes.index, 
+             y="Count", 
+             title="Pitch Distribution in My piece")
+fig.update_xaxes(title_text="Tone")
+fig.update_yaxes(title_text="Count")
+fig.show()
 ```
 
 
 ![Alt text](images/bs_1.png)
 
 
-
-
-#### Working with Measures
-
-It is oftentimes useful to look at **measures** – either all at once or specific ones. Here's an example:
+Or a polar plot:
 
 
 ```python
-# last pitch in last measure, for each voice
-measures = my_soup_file.find_all('measure')
-last_measure = measures[-1]
-for staff in last_measure.find_all('staff'):
-        note = staff.find_all('note')[-1]
-        print(note.get('pname'))
+# Calculate the angles for each category
+categories = list(counted_notes.index)
+angles = [n / len(categories) * 2 * math.pi for n in range(len(categories))]
+angles += angles[:1]
 
+# Create the polar plot
+fig = px.line_polar(counted_notes, 
+                    r="Scaled_Count", 
+                    theta=categories, 
+                    line_close=True)
+# Create title for the chart
+fig.update_layout(title_text="Relative Distribution of Notes in " + soup.find('title').text.strip())
+fig.show()
 ```
 
-    g
-    d
-    g
-    b
-    g
+
+![Alt text](images/bs_polar.png)
 
 
-Working with **Score Definitions** (scoreDef), it is possible to search for certain **events** within the piece. For example, find out where a **Time Signature change** occurs.  The results are saved to a dataframe for further analysis or reporting:
 
+
+## Time Signatures, Clefs, Key Signatures, and Other part of the Score Definition:
+
+Working with **Score Definitions** (scoreDef), it is possible to search for certain **events** within the piece. 
+
+For example, find out where a **Time Signature change** occurs.  The results are saved to a dataframe for further analysis or reporting:
 
 
 
 ```python
 # find all the scoredefs (which are places where time signatures change)
-scoredefs = my_soup_file.find_all('scoreDef')
+scoredefs = soup.find_all('scoreDef')
 # create an empty list for the dictionaries
 ts_dict_list = []
 # iterate through the score defs, creating dictionary of each new time signature and its location
@@ -1025,23 +1070,23 @@ df
 </div>
 
 
-Finding clef and key signature information for each voice part, along with the lowest final tone of the piece.  This could serve as an indication of key or modality:
+Finding **clef and key signature** information for each voice part, along with the **lowest final tone of the piece**.  This could serve as an indication of key or modality:
 
 ```python
 # the empty list
 list_dicts = []
 
 # get composer and title from mei file
-composer = my_soup_file.find("persName", {"role": "composer"})
-title = my_soup_file.find('title')
+composer = soup.find("persName", {"role": "composer"})
+title = soup.find('title')
 
-measures = my_soup_file.find_all('measure')
+measures = soup.find_all('measure')
 last_measure = measures[-1]
 last_staff =  last_measure.find_all('staff')[-1]
 last_note = last_staff.find_all('note')[-1]
 
 # iterate through the staves, making a temporary dictionary for each, consisting of composer, title, voice, clef shape, clef line, key signature, and last note
-for staff in my_soup_file.find_all('staffDef'):
+for staff in soup.find_all('staffDef'):
     temp_dict = {"Composer": composer.text,
                  "Title": title.text,
                  "Voice_Name": staff.text.strip(),
@@ -1059,115 +1104,3 @@ df
 
 
 ![Alt text](images/bs_2.png)
-
-
-Finally, we can look for some very specific things, like **all notes with a particular duration, pitch, and octave**:
-
-* Use dictionary of key/value pairs to specify particular attributes.
-
-```python
-my_soup_file.find_all('note', {'dur': "4", 'pname': "g", 'oct': '3'})
-```
-
-
-```python
-my_soup_file.find_all('note', {'dur': "4", 'pname': "g", 'oct': '3'})
-```
-
-
-
-
-    [<note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-323"/>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-421"/>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-635"/>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-1200"/>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-1503">
-     <verse n="1" xml:id="m-1553">
-     <syl con="d" wordpos="m" xml:id="m-1554">
-                 bi
-                </syl>
-     </verse>
-     </note>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-1544"/>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-2519"/>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="55" stem.dir="up" xml:id="m-2539">
-     <verse n="1" xml:id="m-2601">
-     <syl con="d" wordpos="m" xml:id="m-2602">
-                 sa
-                </syl>
-     </verse>
-     </note>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-2667">
-     <verse n="1" xml:id="m-2719">
-     <syl con="d" wordpos="i" xml:id="m-2720">
-                 ro
-                </syl>
-     </verse>
-     </note>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-3073"/>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-3074">
-     <verse n="1" xml:id="m-3079">
-     <syl con="d" wordpos="m" xml:id="m-3080">
-                 li
-                </syl>
-     </verse>
-     </note>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-3198">
-     <verse n="1" xml:id="m-3253">
-     <syl con="d" wordpos="m" xml:id="m-3254">
-                 li
-                </syl>
-     </verse>
-     </note>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="55" stem.dir="up" xml:id="m-3375">
-     <verse n="1" xml:id="m-3460">
-     <syl con="d" wordpos="i" xml:id="m-3461">
-                 con
-                </syl>
-     </verse>
-     </note>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="55" stem.dir="up" xml:id="m-3379"/>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-3409">
-     <verse n="1" xml:id="m-3416">
-     <syl con="d" wordpos="m" xml:id="m-3417">
-                 li
-                </syl>
-     </verse>
-     </note>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-3878"/>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-3911"/>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-3922"/>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-4032"/>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-4056"/>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-4819">
-     <verse n="1" xml:id="m-4828">
-     <syl con="u" wordpos="t" xml:id="m-4829">
-                 na,
-                </syl>
-     </verse>
-     </note>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-4906"/>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-5041"/>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-5188"/>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-5502"/>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="55" stem.dir="up" xml:id="m-6123">
-     <verse n="1" xml:id="m-6131">
-     <syl con="u" wordpos="t" xml:id="m-6132">
-                 ta?
-                </syl>
-     </verse>
-     </note>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-6193">
-     <verse n="1" xml:id="m-6206">
-     <syl con="u" wordpos="t" xml:id="m-6207">
-                 ta,
-                </syl>
-     </verse>
-     </note>,
-     <note dur="4" dur.ppq="256" oct="3" pname="g" pnum="43" stem.dir="up" xml:id="m-6197"/>]
-
-
-
-
-
-
