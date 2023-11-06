@@ -942,11 +942,8 @@ for staff in staves:
         this_staff = measure.find("staff", {'n' : number})      
         meas_notes = [n.get('pname') for n in this_staff.find_all('note')]
         notes.extend(meas_notes)
-
-#     print(notes)
         counted = Counter(notes)
         counted_notes = pd.Series(counted, dtype='int')
-# #         notes.append(counted)
     df = pd.concat([df, counted_notes.to_frame(name)], axis=1)
 df
 ```
