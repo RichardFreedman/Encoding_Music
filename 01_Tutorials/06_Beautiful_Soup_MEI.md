@@ -988,7 +988,66 @@ fig.show()
 ![Alt text](images/bs_polar.png)
 
 
+## Accidentals 
 
+Accidentals are expressed as attributes of notes, so to see the <accid> tag we must first find the note, then the value of the attribute:
+
+What the accidentals in a piece?
+
+```python
+accidentals = soup.find_all('accid')
+```
+
+In which measures do they appear?  Here we use `find_parent('measure')`, and then `get` the `n` for that measure:
+
+```python
+measure_list = []
+for accidental in accidentals:
+    measure_number = accidental.find_parent('measure').get('n')
+    measure_list.append(measure_number)
+print("Accidentals appear in " + str(measure_list))
+```
+
+
+### Note that some accidentals are in fact editorial interventions, and thus part of another element:  `<supplied>`
+
+Here we can find and report relevant information about them, including the measure number, the kind of accidental, and what pitch they apply to:
+
+```python
+list_supplied_accid_data = []
+
+for supplied in soup.find_all("supplied"):
+    accidentals = supplied.find_all('accid')
+    for accidental in accidentals:
+        
+        temp_dict = {
+                     'title' : soup.find('title').text.strip(),
+                     'composer' : soup.find('persName', {'role' : 'composer'}).text.strip(),
+                     'editor' : soup.find('persName', {'role' : 'editor'}).text.strip(),
+                     'parent_measure_number' : accidental.find_parent('measure').get('n'),
+                     'pitch' : accidental.find_parent('note').get('pname'),
+                     'accid_value' : accidental.get('accid')
+        }
+        
+        # append each dictionary to a list of all the results
+        list_supplied_accid_data.append(temp_dict)
+        
+supplied_accids = pd.DataFrame(list_supplied_accid_data)
+supplied_accids["parent_measure_number"] = supplied_accids["parent_measure_number"].apply(int)
+supplied_accids
+```
+
+![Alt text](images/bs_accid.png)
+
+### Grouping the Accidentals by Measure
+
+```python
+grouped_df = supplied_accids.groupby('parent_measure_number').agg({'pitch': 'count', 'accid_value': 'count'}).reset_index()
+grouped_df = grouped_df.sort_values('parent_measure_number')
+grouped_df
+```
+
+![Alt text](images/bs_grouped.png)
 
 ## Time Signatures, Clefs, Key Signatures, and Other part of the Score Definition:
 
@@ -1014,7 +1073,7 @@ for scoredef in scoredefs:
 df = pd.DataFrame(ts_dict_list)
 df
 ```
-
+### Clefs, Key Signatures, Lowest Last Note
 
 Finding **clef and key signature** information for each voice part, along with the **lowest final tone of the piece**.  This could serve as an indication of key or modality:
 
@@ -1049,4 +1108,4 @@ df
 ```
 
 
-![Alt text](images/bs_2.png)
+![Alt text](images/bs_ts_voices.png)
