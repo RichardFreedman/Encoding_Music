@@ -149,7 +149,11 @@ A list of all Beautiful Soup methods.  The most important for our work will be t
 ----
 ## Import Data (XML files!)
 
-As your first and perhaps most important step, you'll have to go find some data. For this homework assignment, we will work with *these files*, which you can access *here*. Once you've picked your file and copied its URL, use the function provided below to **import it as a JSON object**.
+As your first and perhaps most important step, you'll have to go find some data. For this homework assignment, we will work with the [Models](https://crimproject.org/models/) and [Masses](https://crimproject.org/masses/) of the CRIM Project.  You can load individual pieces from the CRIM Website using sample urls:
+
+For a Mass movement: `https://crimproject.org/mei/CRIM_Mass_0001_1.mei`, or for a Model: `https://crimproject.org/mei/CRIM_Model_0008.mei`
+
+Once you've picked your file and copied its URL, use the function provided below to **import it as a JSON object**.
 
 The following function extracts text as a JSON:
 
@@ -350,7 +354,7 @@ It's possible to return all the tags of a given type that **match a particular t
 
 - It is also possible to pass in lists (to return several different tags), regular expressions (to return tags matching various conditions), and even a dictionary (to match attributes of tags). Read more in the [Beautiful Soup documentation](https://tedboy.github.io/bs4_doc/6_searching_the_tree.html).
 - We can *edit* tags and their attributes, and even *add or delete* tags.  For instance we might want to change or add the name of an editor in a certain file, or to update information about copyright in a folder of files.  Read more in the [Beautiful Soup documentation](https://tedboy.github.io/bs4_doc/7_modifying_the_tree.html).
-- We can report the **entire tag**, or **get just the text string associated with it**, then use that information in some subsequent report or process.  For instance, below we show ways of finding, matching, and updating information about editors in one or more files.  We also show ways of colleting information about clefs and key signatures across a corpus of files
+- We can report the **entire tag**, or **get just the text string associated with it**, then use that information in some subsequent report or process.  For instance, below we show ways of finding, matching, and updating information about editors in one or more files.  We also show ways of collating information about clefs and key signatures across a corpus of files
 
 As explained in the following section of this tutorial, these same basic concepts can be applied across the XML tree to look for children, parents and siblings of various tags.
 
