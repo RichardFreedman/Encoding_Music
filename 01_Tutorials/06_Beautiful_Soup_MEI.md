@@ -980,7 +980,7 @@ angles += angles[:1]
 
 # Create the polar plot
 fig = px.line_polar(counted_notes, 
-                    r="Scaled_Count", 
+                    r=0, 
                     theta=categories, 
                     line_close=True)
 # Create title for the chart
