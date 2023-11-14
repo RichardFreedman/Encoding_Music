@@ -957,7 +957,7 @@ A bar chart of the notes per staff:
 ```python
 fig = px.bar(df, 
              x=df.index, 
-             y=[List of Columns (as strings) in dataframe goes here], 
+             y=df.columns.to_list(), 
 title="Pitch Distribution in " + soup.title.text.strip() + " by Staff")
 fig.update_xaxes(title_text="Tone")
 fig.update_yaxes(title_text="Count")
