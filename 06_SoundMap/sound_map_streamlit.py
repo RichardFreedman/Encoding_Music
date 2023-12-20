@@ -10,7 +10,7 @@ from streamlit_folium import folium_static
 dataset = pd.read_csv('https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/main/06_SoundMap/query-result.csv')
 
 # Example assuming the file is in the same directory as the notebook
-df2 = pd.read_csv('bicomap.csv')
+full_data = pd.read_csv('https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/main/06_SoundMap/bicomap.csv')
 
 
 # helper function to create popup data
@@ -56,7 +56,7 @@ if show_map:
         lat = dataset["latitude"][indx]
         marker = folium.Marker(location=[lat, lon], 
                                 tooltip=tooltip, 
-                                popup=_makeMessage_2(dataset, indx))
+                                popup=_makeMessage_2(full_data, indx))
         marker.add_to(m)
 
     folium_static(m)
