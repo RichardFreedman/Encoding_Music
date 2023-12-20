@@ -1,0 +1,169 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix : <https://www.bico-sound-map-2.edu/>.
+
+## Defining class taxonomy
+
+:thing
+    rdf:type rdfs:Class;
+    rdfs:label "Thing super class"^^xsd:string.
+
+:person
+    rdf:type rdfs:Class;
+    rdfs:subClassOf :thing;
+    rdfs:label "Person"^^xsd:string.
+
+:event
+    rdf:type rdfs:Class;
+    rdfs:subClassOf :thing;
+    rdfs:label "Event"^^xsd:string.
+
+:sound_event
+    rdf:type rdfs:Class;
+    rdfs:subClassOf :event;
+    rdfs:label "Sound recording"^^xsd:string.
+
+:location
+    rdf:type rdfs:Class;
+    rdfs:subClassOf :thing;
+    rdfs:label "Location"^^xsd:string.
+
+:campus
+    rdf:type rdfs:Class;
+    rdfs:subClassOf :thing;
+    rdfs:label "Campus whether Byrn Mawr or Haverford"^^xsd:string.
+
+:building
+    rdf:type rdfs:Class;
+    rdfs:subClassOf :location;
+    rdfs:label "A building"^^xsd:string.
+
+:outdoor_location
+    rdf:type rdfs:Class;
+    rdfs:subClassOf :location;
+    rdfs:label "Location outside"^^xsd:string.
+
+:recording_event 
+    rdf:type rdfs:Class;
+    rdfs:subClassOf :event;
+    rdfs:label "The recording of sound event"^^xsd:string.
+
+:recording_device
+    rdf:type rdfs:Class;
+    rdfs:subClassOf :thing;
+    rdfs:label "The device used to record"^^xsd:string.
+
+:sound_data
+    rdf:type rdfs:Class;
+    rdfs:subClassOf :thing;
+    rdfs:label "Metadata for corresponding recording event"^^xsd:string.
+
+:sound_type
+    rdf:type rdfs:Class;
+    rdfs:subClassOf :thing;
+    rdfs:label "Characteristic for describing the sound of the sound event"^^xsd:string.
+
+## Defining relations
+
+:took_place_in_campus
+    rdf:type rdf:Property;
+    rdfs:domain :sound_event;
+    rdfs:range :campus;
+    rdfs:label "Campus where sound event occurred"^^xsd:string.
+
+:took_place_in
+    rdf:type rdf:Property;
+    rdfs:domain :sound_event;
+    rdfs:range :location;
+    rdfs:label "Building or outdoor location where sound event took place"^^xsd:string.
+
+:hasdescription
+    rdf:type rdf:Property;
+    rdfs:domain :thing; 
+    rdfs:range rdfs:Literal.
+
+:has_date
+    rdf:type rdf:Property;
+    rdfs:domain :sound_event, :recording_event;
+    rdfs:range rdfs:Literal;
+    rdfs:label "Date"^^xsd:date.
+
+:recorded
+    rdf:type rdf:Property;
+    rdfs:domain :recording_event;
+    rdfs:range :sound_event;
+    rdfs:label "The action of a recording_event recording a sound_event"^^xsd:string.
+
+:performed_by
+    rdf:type rdf:Property;
+    rdfs:domain :recording_event;
+    rdfs:range :person;
+    rdfs:label "The person who completed the sound recording"^^xsd:string.
+
+:recorded_on
+    rdf:type rdf:Property;
+    rdfs:domain :recording_event;
+    rdfs:range :recording_device.
+
+:time_recorded_at 
+    rdf:type rdf:Property;
+    rdfs:domain :recording_event;
+    rdfs:range rdfs:Literal.
+
+:has_latitude
+    rdf:type rdf:Property;
+    rdfs:domain :building, :outdoor_location;
+    rdfs:range rdfs:Literal.
+
+:has_longitude
+    rdf:type rdf:Property;
+    rdfs:domain :building, :outdoor_location;
+    rdfs:range rdfs:Literal.
+
+:measured_by
+    rdf:type rdf:Property;
+    rdfs:domain :sound_data;
+    rdfs:range :person;
+    rdfs:label "The person who measured sound data"^^xsd:string.
+
+:has_sound_type
+    rdf:type rdf:Property;
+    rdfs:domain :sound_data;
+    rdfs:range :sound_type.
+
+:has_volume
+    rdf:type rdf:Property;
+    rdfs:domain :sound_data; 
+    rdfs:range rdfs:Literal.
+
+:has_pitch 
+    rdf:type rdf:Property;
+    rdfs:domain :sound_data; 
+    rdfs:range rdfs:Literal.
+
+:has_distractability 
+    rdf:type rdf:Property;
+    rdfs:domain :sound_data; 
+    rdfs:range rdfs:Literal.
+
+:has_rowdiness 
+    rdf:type rdf:Property;
+    rdfs:domain :sound_data; 
+    rdfs:range rdfs:Literal.
+
+:has_multiplicity 
+    rdf:type rdf:Property;
+    rdfs:domain :sound_data; 
+    rdfs:range rdfs:Literal.
+
+:has_repetition 
+    rdf:type rdf:Property;
+    rdfs:domain :sound_data; 
+    rdfs:range rdfs:Literal.
+
+:has_persistence 
+    rdf:type rdf:Property;
+    rdfs:domain :sound_data; 
+    rdfs:range rdfs:Literal.
