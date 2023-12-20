@@ -24,25 +24,27 @@ def _makeMessage(df, indx):
 def _makeMessage_2(df, indx):
 
     
-    message = "<br><br>Recording information: <br><br> Description: <br>>" + df2["Sound"][indx] # Provides description of the sound
-    message += "<br> Time Recorded: <br>>" + df2["Time"][indx] # Provides time of day it was recorded
-    message += "<br> Date Recorded: <br>>" + df2["Date"][indx] # Provides date it was recorded
-    message += "<br> Recorded by: <br>>" + df2["Recorder"][indx] # Provides recorder
-    message += "<br> Recorded on: <br>>" + df2["Device"][indx] # Provides recorded device
-    message += "<br><br> Stats: <br><br> Original sound emitted for: "+ df2["Purpose"][indx] #Purpose
-    message += "<br> Volume, from 1-10: " + str(df2["Volume"][indx])
-    message += "<br> Distractability, from 1-10: " + str(df2["Distractability"][indx])
-    message += "<br> Rowdiness, from 1-10: " + str(df2["Rowdiness"][indx])
-    message += "<br> Pitch, from 1-10: " + str(df2["Pitch"][indx])
-    message += "<br> Multiplicity, from 1-10: " + str(df2["Multiplicity"][indx])
-    message += "<br> Repetition, from 1-10: " + str(df2["Repetition"][indx])
-    message += "<br> Persistence, from 1-10: " + str(df2["Persistence"][indx])
+    message = "<br><br>Recording information: <br><br> Description: <br>>" + full_data["Sound"][indx] # Provides description of the sound
+    message += "<br> Time Recorded: <br>>" + full_data["Time"][indx] # Provides time of day it was recorded
+    message += "<br> Date Recorded: <br>>" + full_data["Date"][indx] # Provides date it was recorded
+    message += "<br> Recorded by: <br>>" + full_data["Recorder"][indx] # Provides recorder
+    message += "<br> Recorded on: <br>>" + full_data["Device"][indx] # Provides recorded device
+    message += "<br><br> Stats: <br><br> Original sound emitted for: "+ full_data["Purpose"][indx] #Purpose
+    message += "<br> Volume, from 1-10: " + str(full_data["Volume"][indx])
+    message += "<br> Distractability, from 1-10: " + str(full_data["Distractability"][indx])
+    message += "<br> Rowdiness, from 1-10: " + str(full_data["Rowdiness"][indx])
+    message += "<br> Pitch, from 1-10: " + str(full_data["Pitch"][indx])
+    message += "<br> Multiplicity, from 1-10: " + str(full_data["Multiplicity"][indx])
+    message += "<br> Repetition, from 1-10: " + str(full_data["Repetition"][indx])
+    message += "<br> Persistence, from 1-10: " + str(full_data["Persistence"][indx])
     return message
 
 # this is the map, with pins for each row of the dataset
 #Used this post for help with tooltip formatting https://stackoverflow.com/questions/65524514/how-can-we-get-tooltips-and-popups-to-show-in-folium
 st.header('This is a header')
 st.markdown('This is some introductory text.')
+
+
 
 # here is the sidebar button to show the map
 show_map = st.sidebar.checkbox('Show Map', value=False)
@@ -51,9 +53,9 @@ if show_map:
     m = folium.Map(location=[40.012831, -75.30926273234793], zoom_start=14)
     tooltip = "Click me!"
 
-    for indx in dataset.index:
-        lon = dataset["longitude"][indx]
-        lat = dataset["latitude"][indx]
+    for indx in full_data.index:
+        lon = full_data["Longitude"][indx]
+        lat = full_data["Latitude"][indx]
         marker = folium.Marker(location=[lat, lon], 
                                 tooltip=tooltip, 
                                 popup=_makeMessage_2(full_data, indx))
