@@ -1,0 +1,108 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix : <https://www.bico-sound-map-2.edu/>.
+
+:r1 a :sound_event;
+:took_place_in_campus :Haverford;
+:took_place_in :building1;
+:has_description "Student Organizers Singing in Founders"^^xsd:string;
+:has_date "2023-12-12"^^xsd:date. 
+
+:r1_recording a :recording_event; 
+:recorded :R1; 
+:performed_by :Luke;
+:recorded_on :IphoneVoiceMemo;
+:time_recorded_at "21:00:00"^^xsd:time;
+:has_date "2023-12-12"^^xsd:date.
+
+:building1 a :building;
+:included_in :Haverford;
+:has_description "Founders Hall"^^xsd:string;
+:has_latitude "40.0098095"^^xsd:decimal;
+:has_longitude "-75.3072503"^^xsd:decimal.
+
+
+
+# R2 examples for improving the project #
+## R2 
+
+:r2 a :sound_event;
+:took_place_in_campus :BrynMawr;
+:took_place_in :building2;
+:has_description "FUCS Concert"^^xsd:string;
+:has_date "2023-12-01"^^xsd:date.
+
+:r2_recording a :recording_event;
+:recorded :r2;
+:performed_by :Luke;
+:recorded_on :IphoneVoiceMemo;
+:time_recorded_at "22:30:00"^^xsd:time;
+:has_date "2023-12-01"^^xsd:date. 
+
+:building2 a :building; 
+:included_in :BrynMawr;
+:has_description "Batten House"^^xsd:string;
+:has_latitude "40.03187838"^^xsd:decimal;
+:has_longitude "-75.3172133"^^xsd:decimal.
+
+:IphoneVoiceMemo a :recorder_device;
+:has_description "Iphone Voice Memo"^^xsd:string. 
+
+:ZoomHandRecorder a :recorder_device;
+:has_description "Zoom H1 Handy Recorder"^^xsd:string.
+
+:Luke a :person.
+
+:Logan a :person.
+
+:Jade a :person.
+
+:Reed a :person.
+
+:Haverford a :campus;
+:has_description "Haverford College Campus"^^xsd:string. 
+
+:BrynMawr a :campus;
+:has_description "Bryn Mawr College Campus"^^xsd:string. 
+
+:r3 a :sound_event;
+:took_place_in_campus :BrynMawr;
+:took_place_in :building3;
+:has_description "Students studying in and moving in and out of the Well's open lobby"^^xsd:string;
+:has_sound_type :social_sound, :academic_sound, :incidental_sound;
+:has_date "2023-12-17"^^xsd:date. 
+
+:r3_recording a :recording_event;
+:recorded :r3; 
+:performed_by :Logan;
+:recorded_on :ZoomHandRecorder;
+:has_sound_data :sound_data3;
+:time_recorded_at "16:18:00"^^xsd:time;
+:has_date "2023-12-12"^^xsd:date.
+
+:sound_data3 a :sound_data;
+:measured_by: :Logan;
+:has_volume "4"^^xsd:integer;
+:has_pitch "5"^^xsd:integer;
+:has_distractability "5"^^xsd:integer;
+:has_rowdiness "4"^^xsd:integer;
+:has_multiplicity "5"^^xsd:integer;
+:has_repetition "3"^^xsd:integer;
+:has_persistence "6"^^xsd:integer. 
+
+:building3 a :building;
+:included_in :BrynMawr;
+:has_description "Student Life and Wellness Center"^^xsd:string;
+:has_latitude "40.02621"^^xsd:decimal;
+:has_longitude "-75.31153"^^xsd:decimal.
+
+:social_sound a :sound_type;
+:has_description "Sound of social space"^^xsd:string. 
+
+:academic_sound a :sound_type;
+:has_description "Sound of academic space"^^xsd:string. 
+
+:incidental_sound a :sound_type;
+:has_description "Sound of an anonymous or random noise"^^xsd:string. 
