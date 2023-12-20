@@ -7,7 +7,7 @@ from streamlit_folium import folium_static
 
 # get the data:
 
-dataset = pd.read_csv('query-result.csv')
+dataset = pd.read_csv('https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/main/06_SoundMap/query-result.csv')
 
 # Example assuming the file is in the same directory as the notebook
 df2 = pd.read_csv('bicomap.csv')

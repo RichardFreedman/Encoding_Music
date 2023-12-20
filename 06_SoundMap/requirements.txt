@@ -1,7 +1,4 @@
-import streamlit as st
-import streamlit.components.v1 as components
-from pathlib import Path
-import folium
-import folium.plugins as plugins
-from folium import IFrame
-import pandas as pd
+streamlit==1.26.0
+streamlit-folium==0.17.4
+pandas==2.1.4
+folium==0.13.0
