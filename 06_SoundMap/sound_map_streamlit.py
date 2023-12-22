@@ -42,7 +42,9 @@ if show_data:
 
 # here is the sidebar button to show the map
 show_map = st.sidebar.checkbox('Show Map', value=False)
-px.set_mapbox_access_token("your_token_here")
+
+mapbox_token = st.secrets["mapbox_token"]
+px.set_mapbox_access_token(mapbox_token)
 
 if show_map:
     fig = px.scatter_mapbox(st.session_state.filtered_df, 
