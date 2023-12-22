@@ -9,7 +9,7 @@ import plotly_express as px
 # full_data = pd.read_csv('https://github.com/lzsheppard/Bico_Sound_Map/blob/main/query-result.csv', delimiter='\t')
 
 # Example assuming the file is in the same directory as the notebook
-full_data = pd.read_csv('https://github.com/lzsheppard/Bico_Sound_Map/blob/main/bicomap.csv', delimiter='\t')
+full_data = pd.read_csv('https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/main/06_SoundMap/bicomap.csv')
 # full_data = pd.read_csv('Bi-Co Sound Map Locations.csv')
 full_data.drop('time', axis=1, inplace=True)
 
