@@ -1,5 +1,5 @@
 ____________________
-# Exploring (and Mining) XML with BeautifulSoup
+# Exploring (and Mining) XML with Beautiful Soup
 
 **XML** stands for **eXtensible Markup Language**, and mainly serves to transport and store data. At its core, XML was designed to be **both machine- and human-readable**. 
 
@@ -149,9 +149,7 @@ A list of all Beautiful Soup methods.  The most important for our work will be t
 ----
 ## Import Data (XML files!)
 
-As your first and perhaps most important step, you'll have to go find some data. For this homework assignment, we will work with the [Models](https://crimproject.org/models/) and [Masses](https://crimproject.org/masses/) of the CRIM Project.  You can load individual pieces from the CRIM Website using sample urls:
-
-For a Mass movement: `https://crimproject.org/mei/CRIM_Mass_0001_1.mei`, or for a Model: `https://crimproject.org/mei/CRIM_Model_0008.mei`
+In this project we will work with files from the [CRIM Project](https://crimproject.org). Our example is [Palestrina's Veni sponsa Christi](https://crimproject.org/pieces/CRIM_Model_0019/).  The link to the MEI file is `https://crimproject.org/mei/CRIM_Model_0019.mei`
 
 Once you've picked your file and copied its URL, use the function provided below to **import it as a JSON object**.
 
@@ -159,7 +157,7 @@ The following function extracts text as a JSON:
 
 
 ```python
-
+# define the function
 def getXML(url):
     # request for xml document of given url
     response = requests.get(url)    
@@ -298,8 +296,15 @@ Let's start by creating a network of a single measure, in this case measure 1:
 measure_network = create_network(soup.find("measure", {"n": 1}))
 display_network(measure_network, filename="simple_measure.html")
 
-
 ```
+<Details>
+
+<Summary>View Measure 1 as Network</Summary>
+![Alt text](md_images/bs_m_1_nw.png)
+
+</Details>
+<br>
+
 Already from this we can see that a measure element contains staff elements and so on.
 
 Let's do the same thing again, but this time showing some attributes. We will hide the xml:id attributes since they are quite verbose:
@@ -312,6 +317,14 @@ measure_network_with_attrs = create_network(
 )
 display_network(measure_network_with_attrs, filename="measure_with_attrs.html")
 ```
+<Details>
+
+<Summary>View Measure 66 as Network with Attributes</Summary>
+![Alt text](md_images/bs_m_66_nw.png)
+
+</Details>
+
+<br>
 
 Last, let's create a network of the entire piece. We won't display it here because it risks slowing down our browser. Instead, we can save it to an HTML file and open that file separately:
 
@@ -319,6 +332,16 @@ Last, let's create a network of the entire piece. We won't display it here becau
 model_0019_network = create_network(soup)
 display_network(model_0019_network, notebook=False, filename="CRIM_Model_0019.html")
 ```
+
+<Details>
+
+<Summary>Complete Piece as Network</Summary>
+![Alt text](md_images/bs_Model_19_nw.png)
+
+</Details>
+
+<br>
+
 # Key Methods
 
 ## Finding Elements and Attributes
@@ -367,7 +390,8 @@ As you have probably noticed by now, MEI (and XML, generally) files follow a **t
 
 <Summary> View Chart of Children Siblings, and Parents in XML</Summary>
 
-![Alt text](images/xml_parents.png)
+![Alt text](md_images/bs_parents_children.png)
+Diagram from [Sams Teach Yourself XSLT in 21 Days](https://www.informit.com/articles/article.aspx?p=29844&seqNum=3)
 
 </Details>
 
@@ -714,7 +738,7 @@ with open(file_name, 'w') as f:
     f.write(str(soup))
 ```
 -----
-## Working with MEI `music`:  Measures, Staves, Notes
+## Working with MEI `music`:  Staves, Measure, Notes
 
 MEI (XML) files are normally thought of as rich encodings of musical scores and the editorial and source critical information that surround their production. But they can also be interrogated for music data.  This is despite the fact that those in Common Music Notation (the standard in use since the 18th century) are encoded 'measure by measure' and so it can be rather tricky to take stock of events that (for instance) are occuring at the same time in different staves.  
 
@@ -915,6 +939,10 @@ counted_notes.rename(columns={"count": "Count", "scaled": "Scaled_Count"}, inpla
 counted_notes
 ```
 
+![Alt text](md_images/bs_note_count.png)
+
+<br>
+
 Create a bar chart from the `counted_notes`:
 
 
@@ -928,8 +956,9 @@ fig.update_yaxes(title_text="Count")
 fig.show()
 ```
 
+![Alt text](md_images/bs_1.png)
 
-![Alt text](images/bs_1.png)
+<br>
 
 
 How would you do this for each staff?  (Hint:  find all measures for a given staff, then find the notes in that list of measures).
@@ -964,7 +993,7 @@ fig.update_yaxes(title_text="Count")
 fig.show()
 ```
 
-![Alt text](images/bs_voice_notes.png)
+![Alt text](md_images/bs_voice_notes.png)
 
 ### Polar Plot of Notes
 
@@ -980,7 +1009,7 @@ angles += angles[:1]
 
 # Create the polar plot
 fig = px.line_polar(counted_notes, 
-                    r=0, 
+                    r=counted_notes["Scaled_Count"], 
                     theta=categories, 
                     line_close=True)
 # Create title for the chart
@@ -989,7 +1018,7 @@ fig.show()
 ```
 
 
-![Alt text](images/bs_polar.png)
+![Alt text](md_images/bs_polar.png)
 
 
 ## Accidentals 
@@ -1041,7 +1070,7 @@ supplied_accids["parent_measure_number"] = supplied_accids["parent_measure_numbe
 supplied_accids
 ```
 
-![Alt text](images/bs_accid.png)
+![Alt text](md_images/bs_accid.png)
 
 ### Grouping the Accidentals by Measure
 
@@ -1051,7 +1080,105 @@ grouped_df = grouped_df.sort_values('parent_measure_number')
 grouped_df
 ```
 
-![Alt text](images/bs_grouped.png)
+![Alt text](md_images/bs_grouped.png)
+
+### Looking at Editorial Habits: Notes with Accidentals (Supplied and Otherwise)
+
+#### Find Editors
+
+```python
+editors = soup.titleStmt.find_all('persName', {'role' : 'editor'})
+
+for editor in editors:
+    print(editor.prettify())
+    ```
+
+
+<br>
+
+#### define a corpus
+
+```python
+# Define a Corpus
+corpus_list = ['https://crimproject.org/mei/CRIM_Model_0019.mei',
+               'https://crimproject.org/mei/CRIM_Model_0025.mei',
+               'https://crimproject.org/mei/CRIM_Model_0029.mei',
+               'https://crimproject.org/mei/CRIM_Model_0031.mei',
+               'https://crimproject.org/mei/CRIM_Model_0036.mei',
+               'https://crimproject.org/mei/CRIM_Model_0046.mei',
+               'https://crimproject.org/mei/CRIM_Model_0047.mei']
+```
+
+<br>
+
+
+
+#### A function to calculate the proportion of supplied accidentals for each editor in each piece
+
+```python
+def calculate_ficta_factors(corpus_list):
+    list_piece_data = []
+    list_ficta_factors = []
+
+    # get each piece as BS object
+    for piece in corpus_list:
+        print(piece)
+        xml_document = getXML(piece)
+        soup = BeautifulSoup(xml_document, 'xml')
+        # find all the accidentals that are editorial
+        # divide the number of such editorial accidentals by the total number of notes in the piece ('ficta factor')
+        ficta_factor = len(soup.find_all('accid', {'func' : 'edit'})) / len(soup.find_all('note'))
+        # round those ratios to no more than three decimal points
+        list_ficta_factors.append(round(ficta_factor, 3))
+        # build a temporary dictionary of the data, with file_name, editor, composer, and the ficta factors
+        temp_dict = {'file_name' : os.path.basename(piece),
+                     'composer' : soup.find('persName', {'role' : 'composer'}).text.strip(),
+                     'editor' : soup.find('persName', {'role' : 'editor'}).text.strip(),
+                     'ficta_factor' : ficta_factor}
+        # append each dictionary to a list of all the results
+        list_piece_data.append(temp_dict)
+
+    # make a dataframe out of that list of results
+    df = pd.DataFrame(list_piece_data)
+    # create 'bins' of any number, based on the ranges of the ficta factors
+    df['ficta_bins'] = pd.cut(df['ficta_factor'], bins=3, labels=['low', 'medium', 'high'])
+    return df
+```
+![Alt text](md_images/bs_editors_table.png)
+
+<br>
+
+### Grouping By Composer and Editor
+
+Here we work with data for _all_ the CRIM files.  The analysis can take some time to run, so we have done this in advance and saved the results locally as CSV files.  We import those to use in the visualizations here:
+
+`df_all = pd.read_csv("csv_outputs/2023-08-29_ficta_all.csv")`
+
+#### To produce a scatter plot of the data:
+```python
+fig = px.scatter(
+    agg_data, 
+    x='composer', 
+    y='editor', 
+    color='mean_ficta_factor', 
+    size='mean_ficta_factor'
+)
+
+fig.update_layout(
+    title='Composer vs Editor mean ficta factors',
+    autosize=False,
+    width=14*80,
+    height=10*80,
+    margin=dict(l=65, r=50, b=65, t=90),
+    paper_bgcolor="rgba(0,0,0,0)",
+)
+fig.show()
+```
+
+![Alt text](md_images/bs_ficta_scatter.png)
+
+<br>
+
 
 ## Time Signatures, Clefs, Key Signatures, and Other part of the Score Definition:
 
@@ -1077,6 +1204,8 @@ for scoredef in scoredefs:
 df = pd.DataFrame(ts_dict_list)
 df
 ```
+
+<br>
 ### Clefs, Key Signatures, Lowest Last Note
 
 Finding **clef and key signature** information for each voice part, along with the **lowest final tone of the piece**.  This could serve as an indication of key or modality:
@@ -1112,4 +1241,6 @@ df
 ```
 
 
-![Alt text](images/bs_ts_voices.png)
+![Alt text](md_images/bs_ts_voices.png)
+
+<br>
