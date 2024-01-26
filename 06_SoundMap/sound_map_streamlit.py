@@ -28,26 +28,26 @@ min_val = full_data['volume'].min()
 max_val = full_data['volume'].max()
 
 # Create a slider for the volume column
-volume_range = st.sidebar.slider('Volume Range', min_val, max_val, (min_val, max_val))
+volume_range = st.sidebar.slider('Volume Range', 0, 10)
 
-# Filter the dataframe based on the selected volume range
-if 'filtered_df' not in st.session_state:
-    st.session_state.filtered_df = full_data[(full_data['volume'] >= volume_range[0]) & (full_data['volume'] <= volume_range[1])]
-else: 
-    st.session_state.filtered_df = full_data[(full_data['volume'] >= volume_range[0]) & (full_data['volume'] <= volume_range[1])]
+# # Filter the dataframe based on the selected volume range
+# if 'full_data' not in st.session_state:
+#     st.session_state.full_data
+# else: 
+#     st.session_state.full_data
 
 show_data = st.sidebar.checkbox('Show Filtered Data', value=False)
 if show_data:
-    st.dataframe(st.session_state.filtered_df)
+    st.dataframe(full_data)
 
 # here is the sidebar button to show the map
 show_map = st.sidebar.checkbox('Show Map', value=False)
 
-mapbox_token = st.secrets["mapbox_token"]
-px.set_mapbox_access_token(mapbox_token)
+# mapbox_token = st.secrets["pk.eyJ1IjoiZnJlZWRtYW4iLCJhIjoiY2xxZnJndjRmMTBwOTJtcXc1YjFlNjcxdCJ9.ih5e7JGYt6Izae0V5gzyEw"]
+px.set_mapbox_access_token('pk.eyJ1IjoiZnJlZWRtYW4iLCJhIjoiY2xxZnJndjRmMTBwOTJtcXc1YjFlNjcxdCJ9.ih5e7JGYt6Izae0V5gzyEw')
 
 if show_map:
-    fig = px.scatter_mapbox(st.session_state.filtered_df, 
+    fig = px.scatter_mapbox(full_data, 
                         lat='longitude', 
                         lon='latitude', 
                         hover_name='location', 
