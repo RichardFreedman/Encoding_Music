@@ -300,7 +300,8 @@ display_network(measure_network, filename="simple_measure.html")
 <Details>
 
 <Summary>View Measure 1 as Network</Summary>
-![Alt text](md_images/bs_m_1_nw.png)
+
+![alt text](md_images/bs_m_1_nw.png)
 
 </Details>
 <br>
@@ -320,6 +321,7 @@ display_network(measure_network_with_attrs, filename="measure_with_attrs.html")
 <Details>
 
 <Summary>View Measure 66 as Network with Attributes</Summary>
+
 ![Alt text](md_images/bs_m_66_nw.png)
 
 </Details>
@@ -336,6 +338,7 @@ display_network(model_0019_network, notebook=False, filename="CRIM_Model_0019.ht
 <Details>
 
 <Summary>Complete Piece as Network</Summary>
+
 ![Alt text](md_images/bs_Model_19_nw.png)
 
 </Details>
