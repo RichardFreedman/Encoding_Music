@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.43">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Citations (unfinished)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="03_Python_Basics_dev_2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="03_Python_Basics_dev_2_files/libs/quarto-html/quarto.js"></script>
+<script src="03_Python_Basics_dev_2_files/libs/quarto-html/popper.min.js"></script>
+<script src="03_Python_Basics_dev_2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="03_Python_Basics_dev_2_files/libs/quarto-html/anchor.min.js"></script>
+<link href="03_Python_Basics_dev_2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="03_Python_Basics_dev_2_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="03_Python_Basics_dev_2_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="03_Python_Basics_dev_2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="03_Python_Basics_dev_2_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Citations (unfinished)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Resources used in the creation of this guide</strong></p>
+<ol type="1">
+<li>http://python-textbook.pythonhumanities.com/01_intro/01_01-02_introduction_to_python.html</li>
+</ol>
+<section id="python-basics" class="level1">
+<h1>Python Basics</h1>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Python is a powerful yet approachable programming language, making it ideal for use in this course. While Python has many applications, our focus in Encoding Music will be using Python to understand, transform, and create data related to music. The objective of this guide is to introduce you to the basic syntactical structure of Python while learning about four key topics:</p>
+<ol type="1">
+<li>Data and Data Structures</li>
+<li>Logic</li>
+<li>Loops</li>
+<li>Functions</li>
+</ol>
+<p>You may already be familiar with Python, in which case you can use this guide as a refresher or reference.</p>
+</section>
+<section id="where-are-we" class="level2">
+<h2 class="anchored" data-anchor-id="where-are-we">Where are we?</h2>
+<p>Traditionally, Python is written in a <code>.py</code> file, like <code>hello.py</code>, consisting only of Python code. However, in this course, we’ll write and run code in Jupyter notebooks. The main difference between <code>.py</code> files and Jupyter notebooks is the ability to break up code with sections of formatted text, called “markdown”, easily run isolated sections of code, and view the the output of your code in one place.</p>
+<p>Let’s get started!</p>
+</section>
+<section id="data-and-data-structures" class="level2">
+<h2 class="anchored" data-anchor-id="data-and-data-structures">Data and Data Structures</h2>
+<section id="hello-world" class="level3">
+<h3 class="anchored" data-anchor-id="hello-world">Hello World</h3>
+<p>Later, we’ll take data and analyze it. But we need to be able to get Python to show us the results - to create output. Python creates output using the <code>print()</code> function.</p>
+<div id="cell-4" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello, World!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello, World!</code></pre>
+</div>
+</div>
+<p>As you can see, the <code>print()</code> function will cause some output - whatever is between those parentheses - to display below the code cell. You can try changing the text, running the cell again, and seeing what happens. Just be sure to keep the quotation marks in place.</p>
+<p>You may have also noticed plain English writing in the code cell: <code># Run this cell</code>. This is called a comment, and allows you to write small notes, instructions, or descriptions in your code. Writing <code>#</code> tells Python to ignore everything that follows the <code>#</code> in that line.</p>
+</section>
+<section id="variables" class="level3">
+<h3 class="anchored" data-anchor-id="variables">Variables</h3>
+<p>Sometimes, we might want Python to remember something, so we can use it later. Python gives us the ability to store things in the computer’s memory using <strong>variables</strong>. With a variable, you essentially <em>name</em> a location in the computer’s memory, then put something there. For example:</p>
+<div id="cell-6" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">"Hello, World!"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This is called <em>assigning a value</em> (<code>"Hello, World!"</code>) <em>to a variable</em> (<code>x</code>). Now we can try printing <code>"Hello, World!"</code> again, but this time by referencing the variable <code>x</code>.</p>
+<div id="cell-8" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello, World!</code></pre>
+</div>
+</div>
+<p>A nice thing about Jupyter is that if you put a variable in the <strong>last line</strong> of a code cell and run it, Jupyter will output that variable.</p>
+<div id="cell-10" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>'Hello, World!'</code></pre>
+</div>
+</div>
+<p>This also demonstrates a fundamental principle in Jupyter - <strong>all your code exists in the same world</strong>. This means if you assign a value to <code>x</code> in one cell, and reference <code>x</code> in another cell, that will work because both cells exist in the same world.</p>
+<section id="things-to-keep-in-mind" class="level4">
+<h4 class="anchored" data-anchor-id="things-to-keep-in-mind">Things to keep in mind</h4>
+<p>As you begin coding, here are some important ideas to keep in mind. You can try testing these out in the code block below.</p>
+<section id="case-sensitivity" class="level5">
+<h5 class="anchored" data-anchor-id="case-sensitivity">Case Sensitivity</h5>
+<p>Everything in Python is case-sensitive. Running <code>print(X)</code> will give you an error, because you haven’t yet named a location in memory <code>X</code>. Running <code>Print(x)</code> will give you an error because the capitalization is not correct.</p>
+</section>
+<section id="nothing-counts-unless-you-run-it" class="level5">
+<h5 class="anchored" data-anchor-id="nothing-counts-unless-you-run-it">Nothing Counts Unless You Run It</h5>
+<p>You might decide you want to output <code>"got it"</code> in the below cell, after you correct the capitalization of the variable <code>x</code>. If you go to the earlier cell where we first assigned a value to <code>x</code> and change that value to <code>"got it"</code>, you have to <strong>run that cell</strong>. Only <em>then</em> can you return to the cell below, run it, and get the new output <code>"got it"</code>. This can become difficult to keep track of with larger files - if Python ever acts like code you wrote doesn’t exist, first make sure you’ve run all the code you’ve written!</p>
+<div id="cell-12" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Experiment with the below issues</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X)    <span class="co"># How can this be made to run? And how can you change the output value?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">/tmp/ipykernel_416097/2994571786.py</span> in <span class="ansi-cyan-fg">&lt;cell line: 2&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg ansi-bold">      1</span> <span class="ansi-red-fg"># Experiment with the below issues</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>print<span class="ansi-blue-fg">(</span>X<span class="ansi-blue-fg">)</span>    <span class="ansi-red-fg"># How can this be made to run? And how can you change the output value?</span>
+
+<span class="ansi-red-fg">NameError</span>: name 'X' is not defined</pre>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="data-types" class="level3">
+<h3 class="anchored" data-anchor-id="data-types">Data Types</h3>
+<p>Let’s say you’re doing a project on the Beatles, and you’re collecting some data about them. You already know how to create a variable for the band name - <code>"The Beatles"</code>, just like <code>"Hello, World!"</code>, is text. But you’ll want to store other types of data, too. To begin, consider:</p>
+<ol type="1">
+<li>Name of band</li>
+<li>Number of albums released</li>
+<li>Number of years the band was together</li>
+<li>Whether or not they are in the Hall of Fame (HOF)</li>
+<li>List of all band members</li>
+</ol>
+<p>You could simply store all these as text - for example, <code>band_members = "John, Paul, George, and Ringo</code>. But Python has simple, built-in ways to express different types of data.</p>
+<div id="cell-14" class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>band_name <span class="op">=</span> <span class="st">"The Beatles"</span>   <span class="co"># string</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>albums_released <span class="op">=</span> <span class="dv">13</span>        <span class="co"># integer</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>years_together <span class="op">=</span> <span class="fl">7.6</span>        <span class="co"># float</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>in_hof <span class="op">=</span> <span class="va">True</span>               <span class="co"># boolean</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>band_members <span class="op">=</span> [<span class="st">"John Lennon"</span>, <span class="st">"Paul McCartney"</span>, <span class="st">"George Harrison"</span>, <span class="st">"Ringo Starr"</span>] <span class="co"># list</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>These are five of many different data types in Python. Just by writing the data in a specific way (e.g.&nbsp;including quotation marks, a decimal, brackets), we can tell Python what type of data we want the variable to recognized as. We can verify that Python understands this using the <code>type()</code> function, which outputs the <code>type</code> of the data between the parentheses.</p>
+<div id="cell-16" class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(band_name))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(albums_released))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(years_together))</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(in_hof))</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(band_members))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'str'&gt;
+&lt;class 'int'&gt;
+&lt;class 'float'&gt;
+&lt;class 'bool'&gt;
+&lt;class 'list'&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="data-types-1" class="level3">
+<h3 class="anchored" data-anchor-id="data-types-1">Data Types</h3>
+<p>These are some of the most important <strong>data types</strong> in Python. But why does it matter what data type a variable is? How do data types give us greater capabilities when working with Python?</p>
+<p>Python handles each data type differently. When you <strong>access</strong> and <strong>operate on</strong> your data, you’ll have to do so in different ways depending on the data type. You’ll also see that different operations are possible on different data types. Here’s an introduction to the data types we’ve encountered so far:</p>
+<section id="strings" class="level4">
+<h4 class="anchored" data-anchor-id="strings">Strings</h4>
+<section id="description" class="level5">
+<h5 class="anchored" data-anchor-id="description">Description</h5>
+<p><em>(abbreviated <code>str</code>)</em> A <strong>string</strong> of alpha-numeric characters surrounded by quotation marks. The quotation marks can be double <code>"text"</code> or single <code>'text'</code>, but never mixed <code>"not this!'</code>. We use strings for text, <code>"anything from a long phrase or paragraph"</code> to a single character <code>"c"</code>, or even an empty string <code>""</code>.</p>
+</section>
+<section id="creation" class="level5">
+<h5 class="anchored" data-anchor-id="creation">Creation</h5>
+<p><code>text1 = "Encoding Music"</code></p>
+<p><code>text2 = 'Music 255'</code></p>
+</section>
+<section id="accessing" class="level5">
+<h5 class="anchored" data-anchor-id="accessing">Accessing</h5>
+<p>Usually, you’ll want the entire string, which you can get using the variable name.</p>
+<p><code>print(text2)</code></p>
+<p>Sometimes, though, you might just want part of a string. Say you just want the course number for Encoding Music, <code>"255"</code>. You can get this through a technique known as <strong>string splicing</strong>.</p>
+<p>A string is a sequence of characters, and you can assign an index to each of these characters. For example, in <code>"Music 255"</code>:</p>
+<pre><code>| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|'M'|'u'|'s'|'i'|'c'|' '|'2'|'5'|'5'|</code></pre>
+<p>You can access just the ‘2’ using the <strong>index</strong> of that character. To the right of the variable name, enclose the index in brackets: <code>text2[6]</code>.</p>
+<p>See what happens:</p>
+<div id="cell-18" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>text2 <span class="op">=</span> <span class="st">'Music 255'</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>text2[<span class="dv">6</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>'2'</code></pre>
+</div>
+</div>
+<p>To access several characters in a string, you can specify a <strong>range</strong>. Ranges are specified in the format <code>[start:end]</code>, but <em>with a catch</em>: the end is <strong>not inclusive</strong>. The range <code>[6:8]</code> won’t work to get “255”, because that range gets all the indices <strong>starting from 6</strong> and <strong>up to, <em>but not including</em>, 8</strong>.</p>
+<div id="cell-20" class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>text2[<span class="dv">6</span>:<span class="dv">8</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>'25'</code></pre>
+</div>
+</div>
+<p>So if the index of the last character you want is <code>8</code>, your range should end in <code>9</code>.</p>
+<div id="cell-22" class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>text2[<span class="dv">6</span>:<span class="dv">9</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>'255'</code></pre>
+</div>
+</div>
+<p>If you want a <strong>substring</strong> to go up to the end of a string, you can also leave the end of a range blank: <code>text2[6:]</code>. This captures every character from index 6 onwards.</p>
+<p>You can also refer to indices by their position relative from the <strong>end</strong> of the string. Here is what those alternative indices would look like:</p>
+<pre><code>| -9 | -8 | -7 | -6 | -5 | -4 | -3 | -2 | -1 |
+|'M' |'u' |'s' |'i' |'c' |' ' |'2' |'5' |'5' |</code></pre>
+<p>Thus, another way to get the substring “255” is using <code>text2[-3:]</code>.</p>
+<div id="cell-24" class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>text2[<span class="op">-</span><span class="dv">3</span>:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>'255'</code></pre>
+</div>
+</div>
+</section>
+<section id="operating" class="level5">
+<h5 class="anchored" data-anchor-id="operating">Operating</h5>
+<p>There’s an optional third argument when specifying range: <code>step</code> (<code>string[start:end:step]</code>). By default, <code>step</code> is set to <code>1</code>. This means that within the specified range, your substring will move from forward from index to index in increments of 1.</p>
+<p>However, this can be changed to any integer. For example, we can take the substring <code>text2[::2]</code>. Since we left <code>start</code> and <code>end</code> blank, this range automatically includes the beginning and end of the string (you don’t need to leave a whitespace to leave <code>start</code> or <code>end</code> blank). See what happens:</p>
+<div id="cell-26" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>text2[::<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<pre><code>'Msc25'</code></pre>
+</div>
+</div>
+<p>As you can see, this returns <strong>every other character</strong> in the string. If we set step to a negative integer, the substring specified by the range will be parsed in <strong>reverse</strong>. For example, <code>text2[::-1]</code> will return the original string in reverse:</p>
+<div id="cell-28" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>text2[::<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<pre><code>'552 cisuM'</code></pre>
+</div>
+</div>
+<p>However, keep in mind that changing the order in which the string is parsed changes what the <code>start</code> and <code>end</code> of your substring should be. If you just want to reverse the word <code>Music</code>, your new <code>start</code> is at the character <code>c</code>, in index position <code>4</code>. If you set the <code>end</code> to <code>0</code>, you’ll exclude the character <code>M</code>, since the <code>end</code> of a range is not inclusive. The only way to reverse all of <code>Music</code> is to leave <code>end</code> blank: <code>text2[4::-1]</code></p>
+<div id="cell-30" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>text2[<span class="dv">4</span>::<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<pre><code>'cisuM'</code></pre>
+</div>
+</div>
+</section>
+<section id="operating-with-built-in-methods" class="level5">
+<h5 class="anchored" data-anchor-id="operating-with-built-in-methods">Operating with Built-In Methods</h5>
+<p>Python provides a number of <strong>methods</strong> for operating on strings. Note the usage of the term “returns”: when a Python method is used, the output of that operation is called what the method <strong>returns</strong>. Here are some key methods:</p>
+<ul>
+<li><code>.title()</code>: Returns the string in title case</li>
+<li><code>.upper()</code>: Returns the string in upper case</li>
+<li><code>.lower()</code>: Returns the string in lower case</li>
+<li><code>.replace()</code>: Returns the string with characters replaced as specified</li>
+<li><code>.find()</code>: Returns the index of a given character in the string, or -1 if not found</li>
+<li><code>.strip()</code>: Returns a string without the specified trailing/leading characters</li>
+<li><code>.split()</code>: Returns a list of substrings from the original string that were separated by the specified value</li>
+</ul>
+<p>To see more, visit the <a href="https://www.w3schools.com/python/python_ref_string.asp">W3Schools resource on strings</a>.</p>
+<p>To understand how these work, see the below example:</p>
+<div id="cell-32" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>text1 <span class="op">=</span> <span class="st">'encoding music'</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Original: "</span> <span class="op">+</span> text1)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>text1 <span class="op">=</span> text1.title()</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Title case: "</span> <span class="op">+</span> text1)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>text1 <span class="op">=</span> text1.upper()</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Upper case: "</span> <span class="op">+</span> text1)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>text1 <span class="op">=</span> text1.lower()</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Lower case: "</span> <span class="op">+</span> text1)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>text1 <span class="op">=</span> text1.replace(<span class="st">" "</span>, <span class="st">"_"</span>) <span class="co"># Replaces all instances of " " with "_"</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Replacement: "</span> <span class="op">+</span> text1)</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Find:"</span>)</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(text1.find(<span class="st">'_'</span>))      <span class="co"># Returns the index of the character "_" without changing the string</span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>text2 <span class="op">=</span> <span class="st">'--Music 255---'</span></span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Original: "</span> <span class="op">+</span> text2)</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>text2 <span class="op">=</span> text2.strip(<span class="st">'-'</span>)    <span class="co"># Removes "-" from the beginning and end of the string until the</span></span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>                            <span class="co"># string neither starts nor ends with "-"</span></span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Stripped: "</span> <span class="op">+</span> text2)</span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>text2 <span class="op">=</span> text2.split(<span class="st">' '</span>)    <span class="co"># Splits the string based on the separator " " (single space)</span></span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Split:"</span>)</span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(text2)                <span class="co"># Need to print the list on a new line, since you can't add</span></span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a>                            <span class="co"># a string to a list.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Original: encoding music
+Title case: Encoding Music
+Upper case: ENCODING MUSIC
+Lower case: encoding music
+Replacement: encoding_music
+Find:
+8
+Original: --Music 255---
+Stripped: Music 255
+Split:
+['Music', '255']</code></pre>
+</div>
+</div>
+<p>You may have noticed how the output from the <code>.find()</code> and <code>.split()</code> methods were displayed differently from the other outputs. This is because the data type resulting from <code>.find()</code> is an integer, which cannot be added to a string, and the data type resulting from <code>.split()</code> is a list, which cannot be added to a string:</p>
+<p><code>print("Find: " + 8)</code> would return an error.</p>
+<p><code>print("Split: " + ['Music', '255'])</code> would return an error.</p>
+<p>There is a more elegant solution to this problem: <strong>f-strings</strong>. F-strings (short for <strong>formatted strings</strong>) are a way to cleanly incorporate data into a string. For example: <code>print(f"Split: {text2}")</code></p>
+<p>Placing <code>f</code> before the string indicates an f-string. Then, within an f-string, anything within curly brackets <code>{</code> <code>}</code> is automatically converted to a string that can be outputted. Try it:</p>
+<div id="cell-34" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Find: </span><span class="sc">{</span>text1<span class="sc">.</span>find(<span class="st">'_'</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Split: </span><span class="sc">{</span>text2<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Find: 8
+Split: ['Music', '255']</code></pre>
+</div>
+</div>
+<p>You can also manually convert other data types to strings using the <code>str()</code> function. For example, say you have the variables <code>a = 'Music'</code> and <code>b = 255</code>. If you want to use these two variables to create the string <code>Music 255</code>, you might want to convert <code>b</code> from an integer to a string.</p>
+<p>You can do this using <code>str(b)</code>:</p>
+<div id="cell-36" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="st">'Music'</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">255</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="bu">str</span>(b)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(b))  <span class="co"># See that b has been converted to a string</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Now add a and b, with a space in between, and print it</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>course <span class="op">=</span> a <span class="op">+</span> <span class="st">' '</span> <span class="op">+</span> b</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(course)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'str'&gt;
+Music 255</code></pre>
+</div>
+</div>
+<p>You can also perform the opposite conversion! You can convert a string to an integer using <code>int()</code>. This will only work if the string you perform it on is actually an integer, for example <code>int('255')</code>:</p>
+<div id="cell-38" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="bu">int</span>(<span class="st">'255'</span>)  <span class="co"># converting a string to an integer</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>int</code></pre>
+</div>
+</div>
+<p>Now let’s see what we can do with integers in Python.</p>
+</section>
+</section>
+<section id="integers" class="level4">
+<h4 class="anchored" data-anchor-id="integers">Integers</h4>
+<section id="description-1" class="level5">
+<h5 class="anchored" data-anchor-id="description-1">Description</h5>
+<p><em>(abbreviated <code>int</code>)</em> A number that has no decimal or fractional part (e.g.&nbsp;<code>3</code>, <code>0</code>, <code>-10</code>).</p>
+</section>
+<section id="creation-1" class="level5">
+<h5 class="anchored" data-anchor-id="creation-1">Creation</h5>
+<p>Any number without a decimal is automatically interpreted as an integer.</p>
+<p><code>x = 5</code></p>
+<p><code>x = -22</code></p>
+</section>
+<section id="operating-1" class="level5">
+<h5 class="anchored" data-anchor-id="operating-1">Operating</h5>
+<p>When Python recognizes a variable is an integer, you can do math with it:</p>
+<div id="cell-40" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">10</span> <span class="op">+</span> <span class="dv">5</span>)   <span class="co"># Addition</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">10</span> <span class="op">-</span> <span class="dv">5</span>)   <span class="co"># Subtraction</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">10</span> <span class="op">*</span> <span class="dv">5</span>)   <span class="co"># Multiplication</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">10</span> <span class="op">**</span> <span class="dv">5</span>)  <span class="co"># Exponentiation 10^5</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">10</span> <span class="op">/</span> <span class="dv">5</span>)   <span class="co"># Division</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">10</span> <span class="op">%</span> <span class="dv">5</span>)   <span class="co"># Remainder</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>15
+5
+50
+100000
+2.0
+0</code></pre>
+</div>
+</div>
+<p>You may have noticed that the output from division, <code>10 / 5</code>, came out with a decimal. Since division can result in <strong>floats</strong>, numbers with a fractional part, the result of <strong>all</strong> division will be outputted as a float.</p>
+</section>
+</section>
+<section id="floats" class="level4">
+<h4 class="anchored" data-anchor-id="floats">Floats</h4>
+<section id="description-2" class="level5">
+<h5 class="anchored" data-anchor-id="description-2">Description</h5>
+<p>A number that can have a decimal or fractional part, but doesn’t have to (e.g.&nbsp;<code>3.14159</code>, <code>-7.2</code>, <code>5.0</code>).</p>
+</section>
+<section id="creation-2" class="level5">
+<h5 class="anchored" data-anchor-id="creation-2">Creation</h5>
+<p>Just adding a decimal to a number makes Python interpret it as a float, even when that decimal is 0.</p>
+<p><code>x = 4.2</code></p>
+<p><code>x = -5.0</code></p>
+</section>
+<section id="operation" class="level5">
+<h5 class="anchored" data-anchor-id="operation">Operation</h5>
+<p>Operating with floats works the same way as with integers, and for our usage there is no real difference between the two. Python is flexible, so if you perform an operation that combines integers and floats, Python will treat both as floats (and thus give a float as an output).</p>
+<p><code>3.5 + 4</code> will output <code>7.5</code>, for example.</p>
+<p>Even when the decimal is 0, involving a float will cause the output to be a float: <code>1 * 1.0</code> will output <code>1.0</code>.</p>
+<p>You can convert floats to integers using <code>int()</code>, which just strips a number of its decimal places: see what happens when you write <code>int(7.8)</code>.</p>
+<div id="cell-42" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="bu">int</span>(<span class="fl">7.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>7</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="booleans" class="level4">
+<h4 class="anchored" data-anchor-id="booleans">Booleans</h4>
+<section id="description-3" class="level5">
+<h5 class="anchored" data-anchor-id="description-3">Description</h5>
+<p><em>(abbreviated <code>bool</code>)</em> A value that is either <code>True</code> or <code>False</code>, and must be capitalized exactly as shown. Booleans are written <strong>without</strong> quotation marks – if quotation marks are included, Python will interpret the variable as a string.</p>
+</section>
+<section id="creation-3" class="level5">
+<h5 class="anchored" data-anchor-id="creation-3">Creation</h5>
+<p>You can create a boolean by writing either <code>True</code> or <code>False</code> without quotation marks.</p>
+<p><code>b = True</code></p>
+<p><code>b = False</code></p>
+</section>
+<section id="operation-1" class="level5">
+<h5 class="anchored" data-anchor-id="operation-1">Operation</h5>
+<p>Booleans are important because of the operations possible with them. We’ll explore the ways you can operate with booleans when we get to <strong>logic</strong> and <strong>conditionals</strong>.</p>
+</section>
+</section>
+<section id="lists" class="level4">
+<h4 class="anchored" data-anchor-id="lists">Lists</h4>
+<p>A collection of values, written within brackets, and separated by commas. A list can contain any data type within it, and can contain multiple data types at once. A list can also contain another list (called a <strong>nested list</strong>).</p>
+<p>For example:</p>
+<ul>
+<li><code>["John", "Paul", "George", "Ringo"]</code></li>
+<li><code>["Apple", 2024, 0.8, [True, True, False]]</code></li>
+</ul>
+<p>It’s important to think about what you want to do with data before choosing how to store it. Python only has certain tools available for certain data types, which makes your decision of data types important.</p>
+<p>Let’s return to our example project, collecting data about the Beatles. Now that we’ve established the importance of data types and covered the most important ones, we can go even further.</p>
+</section>
+<section id="dictionaries" class="level4">
+<h4 class="anchored" data-anchor-id="dictionaries">Dictionaries</h4>
+<p><em>(abbreviated <code>dict</code>)</em> For our project, we want to know the full name of each Beatle, when they were born, and what instrument they played. But we don’t yet have a good way of storing a group of related data. We could try to use a list:</p>
+<p><code>john = ["John Lennon", 1940, "guitar"]</code></p>
+<p>But this isn’t particuarly helpful. If we’re looking at this list, it’s not immediately clear what each category in the list is meant to be. <strong>Dictionaries</strong> solve that issue by alllowing you to specify a <strong>key</strong> for each <strong>value</strong>.</p>
+<p>For the value <code>"John Lennon"</code>, we might specify the key <code>"full_name"</code> like this:</p>
+<p>`“full_name”: “John Lennon”</p>
+<p>This is a <strong>key-value pair</strong>.</p>
+<section id="description-4" class="level5">
+<h5 class="anchored" data-anchor-id="description-4">Description</h5>
+<p>A <strong>dictionary</strong> is a collection of these key-value pairs, surrounded by curly brackets <code>{</code> <code>}</code> and separated by commas. Here is an implementation of some dictionaries in our example:</p>
+<div id="cell-45" class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>band_name <span class="op">=</span> <span class="st">"The Beatles"</span>   <span class="co"># string</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>albums_released <span class="op">=</span> <span class="dv">13</span>        <span class="co"># integer</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>years_together <span class="op">=</span> <span class="fl">7.6</span>        <span class="co"># float</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>in_hof <span class="op">=</span> <span class="va">True</span>               <span class="co"># boolean</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>band_members <span class="op">=</span> [</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"full_name"</span>: <span class="st">"John Lennon"</span>, <span class="st">"birth_year"</span>: <span class="dv">1940</span>, <span class="st">"instrument"</span>: <span class="st">"guitar"</span>},           <span class="co"># dict</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"full_name"</span>: <span class="st">"Paul McCartney"</span>, <span class="st">"birth_year"</span>: <span class="dv">1942</span>, <span class="st">"instrument"</span>: <span class="st">"bass guitar"</span>},   <span class="co"># dict</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"full_name"</span>: <span class="st">"George Harrison"</span>, <span class="st">"birth_year"</span>: <span class="dv">1943</span>, <span class="st">"instrument"</span>: <span class="st">"guitar"</span>},       <span class="co"># dict</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"full_name"</span>: <span class="st">"Ringo Starr"</span>, <span class="st">"birth_year"</span>: <span class="dv">1940</span>, <span class="st">"instrument"</span>: <span class="st">"drums"</span>}             <span class="co"># dict</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>] <span class="co"># list</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="co"># See what happens when you output a dictionary</span></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>band_members</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="47">
+<pre><code>[{'full_name': 'John Lennon', 'birth_year': 1940, 'instrument': 'guitar'},
+ {'full_name': 'Paul McCartney',
+  'birth_year': 1942,
+  'instrument': 'bass guitar'},
+ {'full_name': 'George Harrison', 'birth_year': 1943, 'instrument': 'guitar'},
+ {'full_name': 'Ringo Starr', 'birth_year': 1940, 'instrument': 'drums'}]</code></pre>
+</div>
+</div>
+<p>As you can see, the list of strings we had previously is now a much richer list of dictionaries, containing much more information. You can also see how the various data types work together: a <strong>list</strong> of <strong>dictionaries</strong>, each containing <strong>strings</strong> and <strong>integers</strong>.</p>
+<p>This can be extended infinitely - for example, you might decide that each band member should actually have a <strong>list</strong> of every instrument they played, rather than just one.</p>
+<p>For example John Lennon’s key-value pair <code>"instrument": "guitar"</code> could be replaced by:</p>
+<p><code>"instruments": ["guitar", "harmonica", "piano", "violin", "trumpet"]</code></p>
+<p>Just remember to be consistent - it makes your life much easier if every band member’s dictionary has data stored in the same way.</p>
+<p>Let’s make one last big change. We have five variables storing data about the same subject, the Beatles. That seems like a perfect candidate for a dictionary. We can replace these variables wth key-value pairs:</p>
+<div id="cell-47" class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>beatles <span class="op">=</span> {</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"band_name"</span>: <span class="st">"The Beatles"</span>,</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"albums_released"</span>: <span class="dv">13</span>,</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"years_together"</span>: <span class="fl">7.6</span>,</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"in_hof"</span>: <span class="va">True</span>,</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"band_members"</span>: [</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>        {<span class="st">"full_name"</span>: <span class="st">"John Lennon"</span>, <span class="st">"birth_year"</span>: <span class="dv">1940</span>, <span class="st">"instrument"</span>: <span class="st">"guitar"</span>},</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>        {<span class="st">"full_name"</span>: <span class="st">"Paul McCartney"</span>, <span class="st">"birth_year"</span>: <span class="dv">1942</span>, <span class="st">"instrument"</span>: <span class="st">"bass guitar"</span>},</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>        {<span class="st">"full_name"</span>: <span class="st">"George Harrison"</span>, <span class="st">"birth_year"</span>: <span class="dv">1943</span>, <span class="st">"instrument"</span>: <span class="st">"guitar"</span>},</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>        {<span class="st">"full_name"</span>: <span class="st">"Ringo Starr"</span>, <span class="st">"birth_year"</span>: <span class="dv">1940</span>, <span class="st">"instrument"</span>: <span class="st">"drums"</span>}</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a><span class="co"># See what happens when you output the new dictionary</span></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>beatles</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="48">
+<pre><code>{'band_name': 'The Beatles',
+ 'albums_released': 13,
+ 'years_together': 7.6,
+ 'in_hof': True,
+ 'band_members': [{'full_name': 'John Lennon',
+   'birth_year': 1940,
+   'instrument': 'guitar'},
+  {'full_name': 'Paul McCartney',
+   'birth_year': 1942,
+   'instrument': 'bass guitar'},
+  {'full_name': 'George Harrison', 'birth_year': 1943, 'instrument': 'guitar'},
+  {'full_name': 'Ringo Starr', 'birth_year': 1940, 'instrument': 'drums'}]}</code></pre>
+</div>
+</div>
+<p>Dictionaries are a great way to store a variety of data related to one entity.</p>
+<p>You’re now familiar with <strong>strings</strong>, <strong>integers</strong>, <strong>floats</strong>, <strong>booleans</strong>, <strong>lists</strong>, and <strong>dictionaries</strong>. With these data types, we’ve assembled a collection of data related to the Beatles. Now it’s time to do something with that data.</p>
+<p>For our project,</p>
+</section>
+</section>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
