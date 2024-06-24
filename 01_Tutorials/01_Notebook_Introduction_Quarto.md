@@ -4,7 +4,7 @@
 - [Log In to Jupyter Hub](#Log-In-to-Jupyter-Hub)
 - [Make a Folder, Create a Notebook](#Make-a-Folder,-Create-a-Notebook)
 - [Markdown and Code Cells](#Markdown-and-Code-Cells)
-- [Notebook Frozen or Errors?](#Notebook-Frozen-or-Errors?)
+- [Notebook Frozen or Errors](#Notebook-Frozen-or-Errors)
 - [Viewing and Saving Charts and Graphics](#Viewing-and-Saving-Charts-and-Graphics)
 - [Saving DataFrames as CSV Files (and Loading Datframes from CSV)](#Saving-DataFrames-as-CSV-Files-(and-Loading-Datframes-from-CSV))
 - [Copy, Save, and Download Notebook](#Copy,-Save,-and-Download-Notebook)
@@ -96,7 +96,7 @@ As displayed:
 
 <details>![](<images/em_7_md.png>)</details>
 
-## Notebook Frozen or Errors?
+## Notebook Frozen or Errors
 
 If your Notebook becomes unresponsive, or you are simply stuck in some other way, one solution is to **Restart the Kernel** and begin again from the top.  Look for the **Kernel** menu or function.
 
