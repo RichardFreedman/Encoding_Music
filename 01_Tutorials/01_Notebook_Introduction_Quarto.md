@@ -29,7 +29,7 @@ There are several ways to run, edit, and create notebooks. Students in Encoding 
 
 
 <details>
-![](<images/em_1_log.png>)
+![](images/em_1_log.png)
 </details>
 
 Your screen should look now look like this on your first login. Create a new notebook by clicking on the icon.  An 'untitled.ipynb' file will appear in the folder at the left.
@@ -94,7 +94,7 @@ As written:
 
 As displayed:
 
-<details>![](<images/em_7_md.png>)</details>
+<details>![](images/em_7_md.png)</details>
 
 ## Notebook Frozen or Errors
 
