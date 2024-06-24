@@ -239,7 +239,9 @@ But downloading and then opening in a browser is the most reliable way to check 
 
 This HTML is *complete*.  That is:  you can share it with colleagues, or even host it (on Github IO, for example) as a publication.
 
+Using the default Quarto html style, it will look like this:
 
+![alt text](<images/em_11_quarto_out.png>)
 
 ### Option: HTML to PDF from Jupyter Hub (Encoding Music)
 
