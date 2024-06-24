@@ -96,7 +96,7 @@ As displayed:
 
 <details>![](<images/em_7_md.png>)</details>
 
-## Notebook Frozen or Errors?{restart}
+## Notebook Frozen or Errors?
 
 If your Notebook becomes unresponsive, or you are simply stuck in some other way, one solution is to **Restart the Kernel** and begin again from the top.  Look for the **Kernel** menu or function.
 
