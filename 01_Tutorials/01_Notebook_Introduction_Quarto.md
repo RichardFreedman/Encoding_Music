@@ -28,15 +28,15 @@ Notebooks can be saved in your Encoding Music Jupyter Hub space, or downloaded t
 There are several ways to run, edit, and create notebooks. Students in Encoding Music can use the [Jupyter Hub](encodingmusic.crimproject.org). Ask your instructor for your username. You will create a password on your first log in.  Make it something secure and write it down, since it cannot be changed!
 
 
-<details>
+
 ![Alt text](images/em_1_log.png)
-</details>
+
 
 Your screen should look now look like this on your first login. Create a new notebook by clicking on the icon.  An 'untitled.ipynb' file will appear in the folder at the left.
 
-<details>
+
 ![Alt text](images/em_2_new_nb.png)
-</details>
+
 It is also possible to run Notebooks locally in VS Code. See more [here](02_Anaconda_VS_Code_Jupyter.md).
 
 ## Make a Folder, Create a Notebook
@@ -45,19 +45,19 @@ You will want to make a folder for your work, and perhaps different folders for 
 
 `Right+click` to rename or delete the folder:
 
-<details>
+
 ![Alt text](images/nb 24.png)
-</details>
+
 
 Now you can create a Notebook within that Folder. 
 
-<details>
+
 ![](<images/nb 25.png>)
-</details>
+
 
 `Ctr+Shift` (Mac) or `Right+Click` (Windows) lets you interact with a range of options for renaming, duplicating, and downloading files.
 
-<details>![](<images/em_3_options.png>)</details>
+![](<images/em_3_options.png>)
 
 It is also good practice to **copy and rename** any notebook you work on in order to preserve the original version of it.  See more below to learn how.
 ### How to Create, Navigate, and Run Cells
@@ -67,11 +67,11 @@ Now you are ready to create some code and commentary!
 
 * **Create a cell** with the `+` (the 'plus') icon in your Notebook:
 
-<details>![alt text](<images/em_4_new_cell.png>)</details>
+![alt text](<images/em_4_new_cell.png>)
 
 * By default the new cell will be a **code cell** but you can change it to a **markdown** cell:
 
-<details>![](<images/em_5_type.png>)</details>
+![](<images/em_5_type.png>)
 
 * **Navigate between cells** with the arrow keys on your computer, or just click in the cell you want to edit or run. 
 
@@ -89,12 +89,12 @@ Learn about markdown [here](https://quarto.org/docs/authoring/markdown-basics.ht
 
 As written:
 
-<details>![](<images/em_6_md.png>)</details>
+![](<images/em_6_md.png>)
 
 
 As displayed:
 
-<details>![](images/em_7_md.png)</details>
+![](images/em_7_md.png)
 
 ## Notebook Frozen or Errors
 
@@ -111,13 +111,13 @@ If you would like to save a chart or graph to reuse in another publication (such
 
 In the **Encoding Music** hub version of Jupyter, `right-click` on output of the cell in question, then select `copy to clipboard`.  Now you can paste this image directly into some other document.  The process is the same if you are running notebooks **locally in Anaconda Jupyter** 
 
-<details>![Alt text](<images/nb 19.png>)</details>
+![Alt text](<images/nb 19.png>)
 
 In a local **Anaconda VS-Code** put your cursor in the output area of the cell (near the image).  You will then see three icons--the one on the right is to "Save" the image.  Follow the dialogue to name and save the PNG file, then use it some other document.
 
-<details>![Alt text](<images/nb 20.png>)</details>
+![Alt text](<images/nb 20.png>)
 
-<details>![Alt text](<images/nb 21.png>)</details>
+![Alt text](<images/nb 21.png>)
 
 ## Saving DataFrames as CSV Files (and Loading Datframes from CSV)
 
@@ -149,13 +149,13 @@ It's a good idea to make a Copy of your Notebook before you run or edit it.  Ren
 
 In the **Encoding Music** hub version of Jupyter, `right-click` on the NB file, then pick "Duplicate".  Note that you can follow the same menu to `Download` your Notebook as ipynb to share or submit.
 
-<details>![Alt text](<images/nb 12.png>)</details>
+![Alt text](<images/nb 12.png>)
 
 ### Download ipynb File from Your Local Anaconda Installation
 
 If you are running notebooks **locally in Anaconda Jupyter**, then `File>DownloadAs>Notebook`:
 
-<details>![Alt text](<images/nb 13.png>)</details>
+![Alt text](<images/nb 13.png>)
 
 In a local **Anaconda VS-Code** you can simply find the ipynb file on your computer and copy or share it from there.
 
@@ -218,11 +218,11 @@ When you are ready to 'render', follow these steps:
 
 * Under the `File` menu in JupyterLab, start `New Launcher`:
 
-<details>![alt text](<images/em_9_launch.png>)</details>
+![alt text](<images/em_9_launch.png>)
 
 * From the new main window, choose `Terminal`.  
 
-<details>![alt text](<images/em_10_term.png>)</details>
+![alt text](<images/em_10_term.png>)
 
 * At the `command prompt`, type the folliwing text (edited to match the name of your notebook!)
 
@@ -247,7 +247,7 @@ From the **Encoding Music** hub or **Local Jupyter (on Anaconda)**, follow `File
 Next, **open the file in a browser, then use the `Print` dialogue to save it as PDF**.  Be sure to name it according to the conventions!
 
 
-<details>![Alt text](<images/nb 14.png>)</details>
+![Alt text](<images/nb 14.png>)
 
 ### Option: HTML to PDF from Local Anaconda
 
@@ -255,12 +255,12 @@ This is possible, but much less reliable or useful than Quarto!
 
 From Local VS-Code (on Anaconda), look for the 'three dots' at the top right of your Notebook, then pick `Export`:
 
-<details>![Alt text](<images/nb 15.png>)</details>
+![Alt text](<images/nb 15.png>)
 
 
 Now from the Export menu select 'HTML' (PDF will not work!). The HTML will be saved to the 'downloads' area on your computer. Open the file in a browser, then use the `Print` dialogue to save it as PDF.  Be sure to name it according to the conventions!
 
-<details>![Alt text](<images/nb 16.png>)</details>
+![Alt text](<images/nb 16.png>)
 
 
 
