@@ -210,9 +210,12 @@ pio.renderers.default = "plotly_mimetype+notebook_connected"
 
 ### Render Stand-Alone HTML with Quarto and Terminal Command (Recommended!)
 
-Quarto renders your Notebook as a 'stand-alone' HTML file, including all markdown, code, and outputs.  As noted above, the code cells will by default be 'folded' (so users can view/hide as needed).  The code itself will not run in this HTML version, but all of the outputs will be interactive:  users can scroll through long tables (vertically and horizontally), see pop-up details or charts, or interact with dynamic networks and other visualizations.
+Quarto renders your Notebook as a 'stand-alone' HTML file, including all markdown, code, and outputs. As noted above, the code cells will by default be 'folded' (so users can view/hide as needed). The code itself will not run in this HTML version, but all of the outputs will be interactive:  users can scroll through long tables (vertically and horizontally), see pop-up details or charts, or interact with dynamic networks and other visualizations.
 
-But before you 'render' with Quarto, make sure all the outputs are as you expect.  It's a good idea to run all the cells, from top to bottom.
+But before you 'render' with Quarto, make sure all the outputs are as you expect.  
+
+* Run all the cells, from top to bottom.
+* When finished running the cells, be sure to `save` your Notebook.  This ensures that Quarto will render all the output.
 
 When you are ready to 'render', follow these steps:
 
