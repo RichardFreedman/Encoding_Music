@@ -11,7 +11,7 @@
 - [Export and Publish with Quarto](#quarto)
 
 
-## Introduction{#intro}
+## Introduction
 In this short guide you will learn how to use **Jupyter Notebooks**, which allow anyone to run Python code in any browser, without the need to use the terminal or command line. The notebooks are saved with the `ipynb` extension. 
 
 Notebooks are organized as 'cells', which can be **commentary** (or 'markdown' cells). These are static, and written in [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet), or **Python code** (which produce dynamic output).  
