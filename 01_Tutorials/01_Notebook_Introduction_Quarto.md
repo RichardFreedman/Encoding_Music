@@ -1,14 +1,14 @@
 # Using Jupyter Notebooks; Publishing Them with Quarto
 
-- [Introduction](#intro)
-- [Log In to Jupyter Hub](#login)
-- [Make a Folder, Create a Notebook](#createnb)
-- [Cells:  Markdown vs Code](#cells)
-- [Notebook Frozen or Errors?](#restart)
-- [Viewing and Saving Charts and Graphics](#charts)
-- [Saving DataFrames as CSV Files (and Loading Datframes from CSV)](#savecsv)
-- [Copy, Save, and Download Notebook](#savenb)
-- [Export and Publish with Quarto](#quarto)
+- [Introduction](#Introduction)
+- [Log In to Jupyter Hub](#Log In to Jupyter Hub)
+- [Make a Folder, Create a Notebook](#Make a Folder, Create a Notebook)
+- [Cells:  Markdown vs Code](#Cells:  Markdown vs Code)
+- [Notebook Frozen or Errors?](#Notebook Frozen or Errors?)
+- [Viewing and Saving Charts and Graphics](#Viewing and Saving Charts and Graphics)
+- [Saving DataFrames as CSV Files (and Loading Datframes from CSV)](#Saving DataFrames as CSV Files (and Loading Datframes from CSV))
+- [Copy, Save, and Download Notebook](#Copy, Save, and Download Notebook)
+- [Export and Publish with Quarto](#Export and Publish with Quarto)
 
 
 ## Introduction
@@ -23,7 +23,7 @@ Notebooks can be saved in your Encoding Music Jupyter Hub space, or downloaded t
 **Quarto** provides a great way for you to publish your work in an elegant way, preserving the interactive tables and charts, hiding the code, and allowing your readers to focus on what matters about your ideas. Quarto allows you to think of a notebook as a narrative argument, turning your notebook into a stand-alone HTML or PDF document. And you can create a Quarto version of your notebook easily, with a few lines of code.  See more below and at [Quarto tutorial](https://quarto.org/docs/get-started/hello/jupyter.html).
 
 
-## Log In to Jupyter Hub{#login}
+## Log In to Jupyter Hub
 
 There are several ways to run, edit, and create notebooks. Students in Encoding Music can use the [Jupyter Hub](encodingmusic.crimproject.org). Ask your instructor for your username. You will create a password on your first log in.  Make it something secure and write it down, since it cannot be changed!
 
@@ -39,7 +39,7 @@ Your screen should look now look like this on your first login. Create a new not
 </details>
 It is also possible to run Notebooks locally in VS Code. See more [here](02_Anaconda_VS_Code_Jupyter.md).
 
-## Make a Folder, Create a Notebook{#createnb}
+## Make a Folder, Create a Notebook
 
 You will want to make a folder for your work, and perhaps different folders for different assignments or projects.  You could have subfolders for data (CSV, Music Files, etc). 
 
@@ -81,7 +81,7 @@ Now you are ready to create some code and commentary!
 
 * The **sequence in which cells have been run** is tracked in the space to left of individual cells. **The succession often matters, since one cell will use the state of a variable or dataframe that has been created in a previous one.  *This is important*, since it is possible to alter in a subsequent cell something that has been established in a previous one!
 
-## Cells:  Markdown vs Code{#cells}
+## Cells:  Markdown vs Code
 
 Code cells must of course be valid Python code.  They can contain comments (lines prefaced with `#`).  But for narrative explanation dedicated 'markdown' cells will be best.  The standard markdown language includes features for headings, bold, italic, lists, code blocks, images, and so on.  
 
@@ -101,7 +101,7 @@ As displayed:
 If your Notebook becomes unresponsive, or you are simply stuck in some other way, one solution is to **Restart the Kernel** and begin again from the top.  Look for the **Kernel** menu or function.
 
 
-## Viewing and Saving Charts and Graphics{#charts}
+## Viewing and Saving Charts and Graphics
 
 Normally, in the Encoding Music version and your local Anaconda Jupyter, all charts, graphs, and notation should render directly in the output cells for each code block. Certain complex networks will be saved as separate HTML files in your working folder, and can be viewed as a separate tab in your JupyterLab interface.
 
@@ -119,7 +119,7 @@ In a local **Anaconda VS-Code** put your cursor in the output area of the cell (
 
 <details>![Alt text](<images/nb 21.png>)</details>
 
-## Saving DataFrames as CSV Files (and Loading Datframes from CSV){#savecsv}
+## Saving DataFrames as CSV Files (and Loading Datframes from CSV)
 
 Dataframes can be saved as CSV files, which provide a good way of reusing them in other projects.  For instance a df called `beatles_hits` could be saved with:
 
@@ -141,7 +141,7 @@ beatles_spotify_csv = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRCv45ldJ
 beatles_spotify = pd.read_csv(beatles_spotify_csv)
 ```
 
-## Copy, Save, and Download Notebook{#savenb}
+## Copy, Save, and Download Notebook
 
 It's a good idea to make a Copy of your Notebook before you run or edit it.  Rename with "_dev" at the end, for instance, so you can distinguish it from the original.
 
@@ -159,7 +159,7 @@ If you are running notebooks **locally in Anaconda Jupyter**, then `File>Downloa
 
 In a local **Anaconda VS-Code** you can simply find the ipynb file on your computer and copy or share it from there.
 
-## Export and Publish with Quarto{#quarto}
+## Export and Publish with Quarto
 
 Saving your Notebook as HTML or PDF is the only way to share your work outside of the Jupyter environment. The process of creating HTML or PDF is slightly different (but equally tedious) in each platform.  See below for details.
 
