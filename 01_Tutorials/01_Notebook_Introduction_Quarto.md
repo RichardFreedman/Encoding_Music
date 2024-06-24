@@ -3,10 +3,10 @@
 - [Introduction](#Introduction)
 - [Log In to Jupyter Hub](#Log-In-to-Jupyter-Hub)
 - [Make a Folder, Create a Notebook](#Make-a-Folder,-Create-a-Notebook)
-- [Cells:  Markdown vs Code](#Cells:-Markdown-vs-Code)
+- [Cells:  Markdown vs Code](#Cells:--Markdown-vs-Code)
 - [Notebook Frozen or Errors?](#Notebook-Frozen-or-Errors?)
 - [Viewing and Saving Charts and Graphics](#Viewing-and-Saving-Charts-and-Graphics)
-- [Saving DataFrames as CSV Files (and Loading Datframes from CSV)](#Saving-DataFrames-as-CSV Files-(and-Loading-Datframes-from-CSV))
+- [Saving DataFrames as CSV Files (and Loading Datframes from CSV)](#Saving-DataFrames-as-CSV-Files-(and-Loading-Datframes-from-CSV))
 - [Copy, Save, and Download Notebook](#Copy,-Save,-and-Download-Notebook)
 - [Export and Publish with Quarto](#Export-and-Publish-with-Quarto)
 
