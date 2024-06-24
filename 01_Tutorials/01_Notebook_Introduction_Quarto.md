@@ -29,13 +29,13 @@ There are several ways to run, edit, and create notebooks. Students in Encoding 
 
 
 <details>
-![](images/em_1_log.png)
+![Alt text](images/em_1_log.png)
 </details>
 
 Your screen should look now look like this on your first login. Create a new notebook by clicking on the icon.  An 'untitled.ipynb' file will appear in the folder at the left.
 
 <details>
-![](<images/em_2_new_nb.png>)
+![Alt text](images/em_2_new_nb.png)
 </details>
 It is also possible to run Notebooks locally in VS Code. See more [here](02_Anaconda_VS_Code_Jupyter.md).
 
@@ -46,7 +46,7 @@ You will want to make a folder for your work, and perhaps different folders for 
 `Right+click` to rename or delete the folder:
 
 <details>
-![](<images/nb 24.png>)
+![Alt text](images/nb 24.png)
 </details>
 
 Now you can create a Notebook within that Folder. 
