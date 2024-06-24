@@ -170,7 +170,7 @@ Using Quarto is fairly simple, but requires attention to two key details:
 ### Add Special Quarto YAML Cell at the Start of your NB
 
 * Inclusion of a special `raw` cell at the *very start of the notebook*.  This cell is written in a special markdown format for quarto ('yaml' for 'yet another markdown language').  It specifies certain aspects of the translation to html, including code folding and the overall style of the result.  Here is what you should use.  
-	* Be sure to make this a `raw` cell!  
+	* Be sure to make this a `raw` cell!  It should *not* be a `code` or `markdown` cell.
 	* Be sure to include `---` at the start and end of the cell!
 	* The indentations shown matter!
 
@@ -227,7 +227,7 @@ When you are ready to 'render', follow these steps:
 
 ![alt text](<images/em_10_term.png>)
 
-* At the `command prompt`, type the folliwing text (edited to match the name of your notebook!)
+* At the `command prompt`, type the following text (edited to match the name of your notebook!)
 
 `jupyter-hc_test@encodingmusic:~$ quarto render My_Notebook.ipynb`
 
