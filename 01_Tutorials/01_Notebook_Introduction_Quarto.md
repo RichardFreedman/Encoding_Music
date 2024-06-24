@@ -3,7 +3,7 @@
 - [Introduction](#Introduction)
 - [Log In to Jupyter Hub](#Log-In-to-Jupyter-Hub)
 - [Make a Folder, Create a Notebook](#Make-a-Folder,-Create-a-Notebook)
-- [Cells:  Markdown vs Code](#Cells:--Markdown-vs-Code)
+- [Markdown and Code Cells](#Markdown-and-Code-Cells)
 - [Notebook Frozen or Errors?](#Notebook-Frozen-or-Errors?)
 - [Viewing and Saving Charts and Graphics](#Viewing-and-Saving-Charts-and-Graphics)
 - [Saving DataFrames as CSV Files (and Loading Datframes from CSV)](#Saving-DataFrames-as-CSV-Files-(and-Loading-Datframes-from-CSV))
@@ -81,7 +81,7 @@ Now you are ready to create some code and commentary!
 
 * The **sequence in which cells have been run** is tracked in the space to left of individual cells. **The succession often matters, since one cell will use the state of a variable or dataframe that has been created in a previous one.  *This is important*, since it is possible to alter in a subsequent cell something that has been established in a previous one!
 
-## Cells:  Markdown vs Code
+## Markdown and Code Cells
 
 Code cells must of course be valid Python code.  They can contain comments (lines prefaced with `#`).  But for narrative explanation dedicated 'markdown' cells will be best.  The standard markdown language includes features for headings, bold, italic, lists, code blocks, images, and so on.  
 
