@@ -47,8 +47,8 @@
 <details>
 <summary><b>How do I read data from files? [todo]</b></summary>
 <ul>
+    <li>To read data from CSV files, see <a href="03_Python_Basics.md#from-csv-to-dictionary">this resource</a> from the Python Basics markdown (reload the page after clicking the link to be directed to the correct section).</li>
     <li>We'll learn about a more powerful way to do this using Pandas later</li>
-    <li>To read data from CSV files, see <a href="03_Python_Basics.md#from-csv-to-dictionary">this resource</a> from the Python Basics markdown.</li>
 </ul>
 </details>
 
