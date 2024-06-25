@@ -1,4 +1,4 @@
-# Common Python Issues
+# Common Python and Jupyter Issues
 
 <details>
 <summary>I'm getting an error, how do I fix it?</summary>
