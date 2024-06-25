@@ -19,7 +19,7 @@
 </details>
 
 <details>
-<summary>What is the difference between a code cell and a Markdown cell?</summary>
+<summary>What is the difference between a code cell and a Markdown cell? [todo]</summary>
 <ul>
     <li>coming soon</li>
 </ul>
@@ -33,35 +33,35 @@
 </details>
 
 <details>
-<summary>How do I read data from files?</summary>
+<summary>How do I read data from files? [todo]</summary>
 <ul>
     <li>coming soon</li>
 </ul>
 </details>
 
 <details>
-<summary>How do I run a cell?</summary>
+<summary>How do I run a cell? [todo]</summary>
 <ul>
     <li>coming soon</li>
 </ul>
 </details>
 
 <details>
-<summary>How do I import libraries?</summary>
+<summary>How do I import libraries? [todo]</summary>
 <ul>
     <li>coming soon</li>
 </ul>
 </details>
 
 <details>
-<summary>What do I do if I'm struggling with Python syntax?</summary>
+<summary>What do I do if I'm struggling with Python syntax? [todo]</summary>
 <ul>
     <li>coming soon</li>
 </ul>
 </details>
 
 <details>
-<summary>How do I make sure my work is saved?</summary>
+<summary>How do I make sure my work is saved? [todo]</summary>
 <ul>
     <li>coming soon</li>
 </ul>
