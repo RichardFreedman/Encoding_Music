@@ -40,4 +40,4 @@ You should install the JupyterHub extension if prompted.
 
 ![Alt text](images/vs_jupyterhub5.png)
 
-When prompted, enter your username and password for the Encoding Music server. You can then select the Encoding Music kernel, called "Python 3 (ipykernel).
+When prompted, enter your username and password for the Encoding Music server. You can then select the Encoding Music kernel, called "Python 3 (ipykernel)".
