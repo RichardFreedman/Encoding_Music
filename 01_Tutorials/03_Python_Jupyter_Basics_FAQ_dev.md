@@ -19,8 +19,50 @@
 </details>
 
 <details>
+<summary>What is the difference between a code cell and a Markdown cell?</summary>
+<ul>
+    <li>coming soon</li>
+</ul>
+</details>
+
+<details>
 <summary>How do I convert between different data types?</summary>
 <ul>
     <li>Use Python's type casting, described in <a href="https://www.w3schools.com/python/python_casting.asp">this W3Schools resource</a></li>
+</ul>
+</details>
+
+<details>
+<summary>How do I read data from files?</summary>
+<ul>
+    <li>coming soon</li>
+</ul>
+</details>
+
+<details>
+<summary>How do I run a cell?</summary>
+<ul>
+    <li>coming soon</li>
+</ul>
+</details>
+
+<details>
+<summary>How do I import libraries?</summary>
+<ul>
+    <li>coming soon</li>
+</ul>
+</details>
+
+<details>
+<summary>What do I do if I'm struggling with Python syntax?</summary>
+<ul>
+    <li>coming soon</li>
+</ul>
+</details>
+
+<details>
+<summary>How do I make sure my work is saved?</summary>
+<ul>
+    <li>coming soon</li>
 </ul>
 </details>
