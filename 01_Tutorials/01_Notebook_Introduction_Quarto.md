@@ -46,7 +46,7 @@ You will want to make a folder for your work, and perhaps different folders for 
 `Right+click` to rename or delete the folder:
 
 
-![Alt text](images/nb 24.png)
+![Alt text](<images/nb 24.png>)
 
 
 Now you can create a Notebook within that Folder. 
