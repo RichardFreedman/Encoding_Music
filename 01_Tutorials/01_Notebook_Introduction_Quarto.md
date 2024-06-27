@@ -143,7 +143,7 @@ beatles_spotify = pd.read_csv(beatles_spotify_csv)
 
 ## Copy, Save, and Download Notebook
 
-It's a good idea to make a Copy of your Notebook before you run or edit it.  Rename with "_dev" at the end, for instance, so you can distinguish it from the original.
+It's a good idea to make a copy of your Notebook before you run or edit it.  Rename with "_dev" at the end, for instance, so you can distinguish it from the original.
 
 ### Download ipynb File from Jupyter Hub (Encoding Music)
 
