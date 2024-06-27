@@ -21,7 +21,7 @@ click==8.1.3
 comm==0.1.2
 commonmark==0.9.1
 contourpy==1.0.6
-crim_intervals==2.0.12
+crim_intervals==2.0.37
 cryptography==37.0.4
 cycler==0.11.0
 dash==2.6.1
@@ -93,7 +93,6 @@ missingno==0.4.2
 mistune==2.0.4
 more-itertools==8.7.0
 multimethod==1.8
-music21==7.1.0
 notebook==6.5.4
 nest-asyncio==1.5.6
 networkx==2.8.8

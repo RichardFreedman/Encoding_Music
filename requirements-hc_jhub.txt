@@ -22,7 +22,7 @@ comm==0.1.2
 commonmark==0.9.1
 contourpy==1.0.6
 cryptography==37.0.4
-crim_intervals==2.0.12
+crim_intervals==2.0.37
 cycler==0.11.0
 dash==2.6.1
 dash-bootstrap-components==1.2.1
@@ -101,7 +101,6 @@ missingno==0.4.2
 mistune==2.0.4
 more-itertools==8.7.0
 multimethod==1.8
-music21==7.1.0
 nbclassic==0.4.8
 nbclient==0.7.2
 nbconvert==7.2.7
