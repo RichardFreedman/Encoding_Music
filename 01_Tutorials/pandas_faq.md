@@ -1,4 +1,71 @@
-Pandas - NaNs in data
+# Common Considerations for Pandas
+
+<details>
+<summary><b>How do I deal with <code>NaNs</code> (blank entries) in my data?</b></summary>
+<ul>
+    <li>To do</li>
+</ul>
+</details>
+
+<details>
+<summary><b>How can I copy a dataframe?</b></summary>
+<ul>
+    <li>To do</li>
+</ul>
+</details>
+
+<details>
+<summary><b>How can I import external data into Pandas?</b></summary>
+<ul>
+    <li>To do</li>
+</ul>
+</details>
+
+<details>
+<summary><b>How can I combine two dataframes together?</b></summary>
+<ul>
+    <li>Joining</li>
+    <li>Merging</li>
+</ul>
+</details>
+
+<details>
+<summary><b>What practices will make my data easier to work with?</b></summary>
+<ul>
+    <li>To do</li>
+</ul>
+</details>
+
+<details>
+<summary><b>How can I filter a dataframe based on a condition?</b></summary>
+<ul>
+    <li>To do</li>
+</ul>
+</details>
+
+<details>
+<summary><b>How can I perform the same operation on an entire column, row, or dataframe?</b></summary>
+<ul>
+    <li>To do</li>
+</ul>
+</details>
+
+<details>
+<summary><b>How can I count the number of occurences of something in a dataframe?</b></summary>
+<ul>
+    <li>To do</li>
+</ul>
+</details>
+
+<details>
+<summary><b>How can I copy a dataframe?</b></summary>
+<ul>
+    <li>To do</li>
+</ul>
+</details>
+
+Pandas - NaNs in data √
+
 Naming these things:
 * Dealing with NAs
 * Copying dataframes
