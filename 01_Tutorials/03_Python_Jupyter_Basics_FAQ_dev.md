@@ -45,17 +45,17 @@
 </details>
 
 <details>
-<summary><b>How do I read data from files? [todo]</b></summary>
+<summary><b>How do I read data from files?</b></summary>
 <ul>
-    <li>To read data from CSV files, see <a href="03_Python_Basics.md#from-csv-to-dictionary">this resource</a> from the Python Basics markdown (reload the page after clicking the link to be directed to the correct section).</li>
-    <li>We'll learn about a more powerful way to do this using Pandas later</li>
+    <li>To read data from CSV files, see <a href="03_Python_Basics.md#from-csv-to-dictionary">the section "From CSV to Dictionary"</a> in the Python Basics markdown (reload the page after clicking the link to be directed to the correct section).</li>
+    <li>We'll learn about a more powerful way to do this using Pandas later.</li>
 </ul>
 </details>
 
 <details>
-<summary><b>How do I run a cell? [todo]</b></summary>
+<summary><b>How do I run a cell?</b></summary>
 <ul>
-    <li>coming soon</li>
+    <li>To run cells in a Jupyter notebook, see instructions in </li>
 </ul>
 </details>
 
