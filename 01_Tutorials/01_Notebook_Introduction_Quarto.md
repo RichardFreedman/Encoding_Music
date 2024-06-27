@@ -250,7 +250,7 @@ Using the default Quarto html style, it will look like this:
 
 This is possible, but much less reliable or useful than Quarto!
 
-From the **Encoding Music** hub or **Local Jupyter (on Anaconda)**, follow `File>Download` (or `File>DownloadAs`) and select **HTML** as the format.  Be sure to select HTML and *not* any of the PDF formats, which will not work! This will be saved to the 'downloads' area on your computer. 
+From the **Encoding Music** hub or **Local Jupyter (on Anaconda)**, follow `File>Download` (or `File>Download as` or `File>Save and Export Notebook as`) and select **HTML** as the format.  Be sure to select HTML and *not* any of the PDF formats, which may not work! This will be saved to the 'downloads' area on your computer.
 
 Next, **open the file in a browser, then use the `Print` dialogue to save it as PDF**.  Be sure to name it according to the conventions!
 
@@ -270,12 +270,6 @@ Now from the Export menu select 'HTML' (PDF will not work!). The HTML will be sa
 
 ![Alt text](<images/nb 16.png>)
 
+### Option: Save and Export as PDF or WebPDF
 
-
-
-
-
-
-
-
-
+From the Encoding Music JupyterHub, go to `File>Save and Export Notebook as` then select either `PDF` (preferred) or `WebPDF` (which doesn't handle figures well).
