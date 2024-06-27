@@ -60,22 +60,28 @@
 </details>
 
 <details>
-<summary><b>How do I import libraries? [todo]</b></summary>
+<summary><b>How do I import libraries?</b></summary>
 <ul>
-    <li>coming soon</li>
+    <li>Create a code cell. It's best practice to import all libraries in the first code cell of your notebook.</li>
+    <li>Write all necessary import statements in this cell. As an example, to import Pandas, write:<br>
+
+    import pandas as pd
+</li> 
+    <li><code>pandas</code> is the name of the library</li>
+    <li><code>as pd</code> gives <code>pandas</code> the alias <code>pd</code>, meaning you can write <code>pd.read_csv()</code> to access <code>pandas</code> commands.
 </ul>
 </details>
 
 <details>
-<summary><b>What do I do if I'm struggling with Python syntax? [todo]</b></summary>
+<summary><b>What do I do if I'm struggling with Python syntax?</b></summary>
 <ul>
-    <li>coming soon</li>
+    <li>Python has to be written in a very specific way in order to run correctly, and it might not be obvious when something is slightly off. A good idea is to look at <b>example code</b>, for example <a href="https://github.com/RichardFreedman/Encoding_Music/blob/main/04_CRIM_Corpus_Project_Template/CRIM_Padua_Notebook.ipynb">this notebook working with CRIM</a>.</li>
+    <li>If you're struggling every time you encounter a specific type of code, for example <b><code>if</code> statements</b>, look up the relevant section on <a href="https://www.w3schools.com/python/default.asp">W3Schools</a>. [<a href="https://www.w3schools.com/python/python_conditions.asp">W3Schools resource on <code>if</code> statements</a>]
 </ul>
 </details>
 
 <details>
-<summary><b>How do I make sure my work is saved? [todo]</b></summary>
-<ul>
-    <li>coming soon</li>
-</ul>
+<summary><b>How do I make sure my work is saved?</b></summary>
+    <img src="images/faq_1.png">
+    <ul><li>You can also use <code>CTRL-</code> or <code>CMD-S</code>.</li></ul>
 </details>
