@@ -215,7 +215,7 @@ Quarto renders your Notebook as a 'stand-alone' HTML file, including all markdow
 
 But before you 'render' with Quarto, make sure all the outputs are as you expect.  
 
-* Run all the cells, from top to bottom. (You can do this with the <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Forward_font_awesome.svg/1200px-Forward_font_awesome.svg.png" width=15 style="background: white"> button)
+* Run all the cells, from top to bottom. (Shortcut: use the <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Forward_font_awesome.svg/1200px-Forward_font_awesome.svg.png" width=15 style="background: white"> button)
 * When finished running the cells, be sure to `save` your Notebook.  This ensures that Quarto will render all the output.
 
 When you are ready to 'render', follow these steps:
