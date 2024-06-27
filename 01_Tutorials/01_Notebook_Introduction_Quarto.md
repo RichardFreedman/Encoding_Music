@@ -153,7 +153,7 @@ In the **Encoding Music** hub version of Jupyter, `right-click` on the NB file, 
 
 ### Download ipynb File from Your Local Anaconda Installation
 
-If you are running notebooks **locally in Anaconda Jupyter**, then `File>DownloadAs>Notebook`:
+If you are running notebooks **locally in Anaconda Jupyter**, then `File>Download as>Notebook`:
 
 ![Alt text](<images/nb 13.png>)
 
@@ -203,9 +203,10 @@ This code ensures that images created with altair and plotly will be correctly m
 Here is the code to use:
 
 ```python
-alt.renderers.enable('default')
 import plotly.io as pio
+import altair as alt
 pio.renderers.default = "plotly_mimetype+notebook_connected"
+alt.renderers.enable('default'); # The semicolon hides the status update created by this code
 ```
 
 ### Render Stand-Alone HTML with Quarto and Terminal Command (Recommended!)
