@@ -254,24 +254,6 @@ When you are ready to 'render', follow these steps:
   }
 </style>
 
-<style>
-  .command-block {
-    position: relative;
-    background: #f5f5f5;
-    padding: 10px;
-    border-radius: 5px;
-    font-family: monospace;
-  }
-  .command-block .prompt {
-    user-select: none; /* Prevents the $ from being selected */
-    color: #999;
-  }
-</style>
-
-<div class="command-block">
-  <span class="prompt">$</span> cd ~
-</div>
-
 <div class="command-line">
   <span class="prompt">$</span>
   <code>cd ~</code>
