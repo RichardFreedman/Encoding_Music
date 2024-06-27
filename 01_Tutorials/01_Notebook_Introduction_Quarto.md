@@ -230,35 +230,6 @@ When you are ready to 'render', follow these steps:
 
 * At the `command prompt`, marked with the `$` symbol, type the following text (edited to match the name of your notebook!) then hit return.
 
-<div>
-  <span>$</span>
-  <code>quarto render My_Notebook.ipynb</code>
-</div>
-
-<style>
-  .command-line {
-    display: flex;
-    font-family: monospace;
-    background: #f5f5f5;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  .command-line .prompt {
-    user-select: none;
-    color: #999;
-    margin-right: 5px;
-  }
-  .command-line code {
-    background: none;
-    padding: 0;
-  }
-</style>
-
-<div class="command-line">
-  <span class="prompt">$</span>
-  <code>cd ~</code>
-</div>
-
 ```console
 $ quarto render My_Notebook.ipynb
 ```
