@@ -75,7 +75,7 @@
 <details>
 <summary><b>What do I do if I'm struggling with Python syntax?</b></summary>
 <ul>
-    <li>Python has to be written in a very specific way in order to run correctly, and it might not be obvious when something is slightly off. A good idea is to look at <b>example code</b>, for example <a href="https://github.com/RichardFreedman/Encoding_Music/blob/main/04_CRIM_Corpus_Project_Template/CRIM_Padua_Notebook.ipynb">this notebook working with CRIM</a>.</li>
+    <li>Python has to be written in a very specific way in order to run correctly, and it might not be obvious when something is slightly off. A good idea is to look at <b>example code</b>, for example <a href="https://github.com/RichardFreedman/Encoding_Music/blob/main/04_CRIM_Corpus_Project_Template/CRIM_Padua_Notebook.ipynb">this notebook working with CRIM</a>. You can see in this notebook that <b><i>[TODO]<i><b></li>
     <li>If you're struggling every time you encounter a specific type of code, for example <b><code>if</code> statements</b>, look up the relevant section on <a href="https://www.w3schools.com/python/default.asp">W3Schools</a>. [<a href="https://www.w3schools.com/python/python_conditions.asp">W3Schools resource on <code>if</code> statements</a>]
 </ul>
 </details>
