@@ -129,7 +129,7 @@ beatles_hits.to_csv('beatles_hits_output.csv')
 
 Note that you must include `.csv` as part of name of the file, and that you must provide a name for the file in quotation marks.
 
-Conversely, it's easy to *load* a csv file as a dataframe.  Either provide a url (such as the raw version of a github file, or a shared csv from Google drive), or a local path to the file on your computer). For example:
+Conversely, it's easy to *load* a csv file as a dataframe.  The easiest solution is to provide a url (such as the raw version of a github file, or a shared csv from Google drive). You can also provide the relative file path to the file from your current working directory, if you've placed it in the same folder as your notebook. Here's an example of the url method:
 
 Name the file path some simple variable, then use `pd.read_csv` to import to Pandas:
 
