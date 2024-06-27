@@ -55,7 +55,7 @@
 <details>
 <summary><b>How do I run a cell?</b></summary>
 <ul>
-    <li>To run cells in a Jupyter notebook, see instructions in </li>
+    <li>To run cells in a Jupyter notebook, see instructions in <a href="03_Python_Basics.md#How-to-Create,-Navigate,-and-Run-Cells">the section "How to Create, Navigate, and Run Cells"</a> in the Python Basics markdown (reload the page after clicking the link to be directed to the correct section).</li>
 </ul>
 </details>
 
