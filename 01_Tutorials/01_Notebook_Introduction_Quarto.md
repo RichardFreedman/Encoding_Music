@@ -228,9 +228,11 @@ When you are ready to 'render', follow these steps:
 
 ![alt text](<images/em_10_term.png>)
 
-* At the `command prompt`, type the following text (edited to match the name of your notebook!)
+* At the `command prompt`, marked with the `$` symbol, type the following text (edited to match the name of your notebook!) then hit return.
 
-`jupyter-hc_test@encodingmusic:~$ quarto render My_Notebook.ipynb`
+```console
+$ quarto render My_Notebook.ipynb
+```
 
 After a few seconds you will see a **new HTML file** in your Jupyter Lab folder.  It will have the *same name as your original notebook*.  **Download it** and open it with your preferred browser.
 
