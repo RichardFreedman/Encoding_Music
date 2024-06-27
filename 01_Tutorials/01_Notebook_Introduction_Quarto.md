@@ -55,7 +55,7 @@ Now you can create a Notebook within that Folder.
 ![](<images/nb 25.png>)
 
 
-`Ctr+Shift` (Mac) or `Right+Click` (Windows) lets you interact with a range of options for renaming, duplicating, and downloading files.
+`Ctr+Click` (Mac) or `Right+Click` (Windows) lets you interact with a range of options for renaming, duplicating, and downloading files.
 
 ![](<images/em_3_options.png>)
 
