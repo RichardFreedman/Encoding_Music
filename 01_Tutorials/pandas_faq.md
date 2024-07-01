@@ -41,8 +41,10 @@
 </summary>
 <ul>
     <li>See Pandas <a href="">groupby</a> for separating a dataset into several groups based on certain criteria, then applying a function to each group independently<br>
-    <pre><code class="language-python">code for this goes here
-print("hello world")</code></pre<</li>
+<pre>'''python
+print('hello world')
+'''
+    </pre></li>
 </ul>
 </details>
 
