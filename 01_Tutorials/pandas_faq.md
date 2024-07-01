@@ -41,14 +41,106 @@
 </summary>
 <ul>
     <li>See Pandas <a href="">groupby</a> for separating a dataset into several groups based on certain criteria, then applying a function to each group independently<br>
-<pre>'''python
-print('hello world')
-'''
-    </pre></li>
+<pre><code># Example code here?
+</code></pre></li>
 </ul>
 </details>
 
+<details>
+<summary>
+<b>…combine two datasets that have the exact same columns</b><br>
+<blockquote style="margin-left: 13px;"><i>Ex: Combine two datasets containing data about albums that are formatted in the same way, just containing different albums</i></blockquote>
+</summary>
+<ul>
+    <li>See Pandas <a href="">concatenate</a> for combining two datasets with the same columns<br>
+<pre><code># Example code here?
+</code></pre></li>
+</ul>
+</details>
 
+<details>
+<summary>
+<b>…combine two datasets that have different columns</b><br>
+<blockquote style="margin-left: 13px;"><i>Ex:</i></blockquote>
+</summary>
+<ul>
+    <li>See Pandas <a href="">[merging option 1]</a> for combining two datasets with the mostly different columns<br>
+<pre><code># Example code here?
+</code></pre></li>
+</ul>
+</details>
+
+<details>
+<summary>
+<b>…get data from a file or other external source</b><br>
+<blockquote style="margin-left: 13px;"><i>Ex: Import your Google Sheet into Pandas</i></blockquote>
+</summary>
+<ul>
+    <li>See Pandas <a href="">[link to topic]</a> for [description of using topic]<br>
+<pre><code># Example code here?
+</code></pre></li>
+</ul>
+</details>
+
+<details>
+<summary>
+<b>…make changes to a dataframe without getting rid of the original data</b><br>
+<blockquote style="margin-left: 13px;"><i>Ex: Filter a dataframe containing album data to only contain Billboard Top 10 albums, but maintain the original list of albums for comparison</i></blockquote>
+</summary>
+<ul>
+    <li>See Pandas <a href="">[link to topic about copying]</a> for [description of using topic]<br>
+<pre><code># Example code here?
+</code></pre></li>
+</ul>
+</details>
+
+<details>
+<summary>
+<b>…modify the way my data is formatted to make it more "tidy"</b><br>
+<blockquote style="margin-left: 13px;"><i>Ex: </i></blockquote>
+</summary>
+<ul>
+    <li>See Pandas <a href="">[link to topic]</a> for [description of using topic]<br>
+<pre><code># Example code here?
+</code></pre></li>
+</ul>
+</details>
+
+<details>
+<summary>
+<b>…modify all the entries in a particular row, column, or dataframe</b><br>
+<blockquote style="margin-left: 13px;"><i>Ex: </i></blockquote>
+</summary>
+<ul>
+    <li>See Pandas <a href="">[link to topic]</a> for [description of using topic]<br>
+<pre><code># Example code here?
+</code></pre></li>
+</ul>
+</details>
+
+<details>
+<summary>
+<b>…count the occurences of specific data in a row, column, or dataframe</b><br>
+<blockquote style="margin-left: 13px;"><i>Ex: </i></blockquote>
+</summary>
+<ul>
+    <li>See Pandas <a href="">[link to topic]</a> for [description of using topic]<br>
+<pre><code># Example code here?
+</code></pre></li>
+</ul>
+</details>
+
+<details>
+<summary>
+<b>…deal with data that I can't process because it is too complex</b><br>
+<blockquote style="margin-left: 13px;"><i>Ex: </i></blockquote>
+</summary>
+<ul>
+    <li>See Pandas <a href="">[link to topic]</a> for [description of using topic]<br>
+<pre><code># Example code here?
+</code></pre></li>
+</ul>
+</details>
 
 <br><br><br><br>
 
