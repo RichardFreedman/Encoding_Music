@@ -227,8 +227,15 @@ beatles_billboard['Author-Title'] = beatles_billboard.apply(combine_cols, axis=1
 
 beatles_billboard['Author-Title'][0]
 ```
-
-Output: `'Lennon, McCartney, Harrison and Starkey: 12-Bar Original'`
+<table border="0">
+<tr>
+  <th valign="top">Output:</th>
+  <td>
+<div>
+<table border="1" class="dataframe">
+<tr><td>
+<pre>'Lennon, McCartney, Harrison and Starkey: 12-Bar Original'</pre>
+</td></tr></table></div></table>
 
 ## Combining, Joining, and Merging DataFrames
 
