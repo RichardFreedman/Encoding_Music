@@ -690,27 +690,11 @@ sp.unstack('Gender', fill_value=0)
 )
 ```
 
-Output:
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead tr th {
-        text-align: left;
-    }
-
-    .dataframe thead tr:last-of-type th {
-        text-align: right;
-    }
-</style>
+<table border="0">
+<tr>
+  <th valign="top">Output:</th>
+  <td>
 <table border="1" class="dataframe">
   <thead>
     <tr>
@@ -756,6 +740,8 @@ Output:
       <td>1</td>
     </tr>
   </tbody>
+</table>
+</td>
 </table>
 </div>
 
@@ -763,27 +749,11 @@ Output:
 sp.unstack(['Gender', 'Event'], fill_value=0)
 ```
 
-Output:
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead tr th {
-        text-align: left;
-    }
-
-    .dataframe thead tr:last-of-type th {
-        text-align: right;
-    }
-</style>
+<table border="0">
+<tr>
+  <th valign="top">Output:</th>
+  <td>
 <table border="1" class="dataframe">
   <thead>
     <tr>
@@ -830,14 +800,19 @@ Output:
     </tr>
   </tbody>
 </table>
+</td>
+</table>
 </div>
 
 ```python
 sp = sprints.groupby(['NOC','Gender','Event']).size()
 sp
 ```
-
-Output:
+<div>
+<table border="0">
+<tr>
+  <th valign="top">Output:</th>
+  <td>
 
 <blockquote><pre>
 NOC  Gender  Event
@@ -855,6 +830,8 @@ USA  Men     100m     1
              200m     1
 dtype: int64
 </pre></blockquote>
+
+</td></table></div>
 
 ```python
 sp.unstack(level=1, fill_value=0)
