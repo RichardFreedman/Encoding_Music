@@ -1,0 +1,20 @@
+Notes on Pandas Tutorials
+Part A
+
+- [x] “we now start to look more closely the columns”
+- [x] Ensure correct capitalization of “year” in “One column: `beatles_spotify[“year”]`
+- [ ] Add `.unique()` to the explanation “A Column is a Series”
+- [ ] Repetition when saying “Meanwhile an individual column is represented as a “Series”
+- [ ] Add link to Pandas Cheat Sheet in the “Subset or Slice of Rows or Columns” section
+- [ ] “Conversely sometimes it might be necessary to take split values…”
+    - [ ] Typo
+    - [ ] Not sure what’s going on here
+- [ ] Lack of concatenation example?
+- [ ] Merging:
+    - [ ] What is `right_on`, what is `left_on`, what is `how`
+    - [ ] `suffixes` explained but not used
+
+Part B
+- [ ] The NAN Problem: need to explain the NaNs are null
+- [ ] What’s up with `df[df.isna().any(axis=1)]`? Is that not overcomplicated?
+- [ ] 
