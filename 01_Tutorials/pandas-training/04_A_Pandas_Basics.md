@@ -232,10 +232,8 @@ beatles_billboard['Author-Title'][0]
   <th valign="top">Output:</th>
   <td>
 <div>
-<table border="1" class="dataframe">
-<tr><td>
 <pre>'Lennon, McCartney, Harrison and Starkey: 12-Bar Original'</pre>
-</td></tr></table></div></table>
+</div></table>
 
 ## Combining, Joining, and Merging DataFrames
 
