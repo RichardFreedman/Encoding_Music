@@ -62,7 +62,7 @@ oo.columns = column_names
 
 Rename the columns as you import the CSV:
 ```python
-oo = pd.read_csv(filename, skiprows=5, names=column_names, header=0``
+oo = pd.read_csv(filename, skiprows=5, names=column_names, header=0)
 ```
 
 `axis=0` means the axis is the index, or the columns. Therefore, the operation will be performed vertically, down the rows.
