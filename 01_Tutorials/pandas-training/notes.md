@@ -837,23 +837,11 @@ dtype: int64
 sp.unstack(level=1, fill_value=0)
 ```
 
-Output:
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
+<table border="0">
+<tr>
+  <th valign="top">Output:</th>
+  <td>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -905,6 +893,7 @@ Output:
     </tr>
   </tbody>
 </table>
+</td></table>
 </div>
 
 ```python
@@ -912,27 +901,11 @@ sprints_table = sp.unstack(level=1, fill_value=0).unstack(level=1, fill_value=0)
 sprints_table
 ```
 
-Output:
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead tr th {
-        text-align: left;
-    }
-
-    .dataframe thead tr:last-of-type th {
-        text-align: right;
-    }
-</style>
+<table border="0">
+<tr>
+  <th valign="top">Output:</th>
+  <td>
 <table border="1" class="dataframe">
   <thead>
     <tr>
@@ -978,7 +951,7 @@ Output:
       <td>1</td>
     </tr>
   </tbody>
-</table>
+</table></td></table>
 </div>
 
 ```python
@@ -986,22 +959,11 @@ sprints_NOC = sprints_table.stack("Gender")
 sprints_NOC
 ```
 
-Output:
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
+<table border="0">
+<tr>
+  <th valign="top">Output:</th>
+  <td>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1052,15 +1014,18 @@ Output:
       <td>1</td>
     </tr>
   </tbody>
-</table>
+</table></td></table>
 </div>
 
 ```python
 sprints_NOC.index
 ```
 
-Output:
-
+<div>
+<table border="0">
+<tr>
+  <th valign="top">Output:</th>
+  <td>
 <blockquote><pre>
 MultiIndex([('JAM',   'Men'),
             ('JAM', 'Women'),
@@ -1069,53 +1034,58 @@ MultiIndex([('JAM',   'Men'),
             ('USA',   'Men'),
             ('USA', 'Women')],
            names=['NOC', 'Gender'])
-</pre></blockquote>
+</pre></blockquote></td></table></div>
 
 ```python
 sprints_NOC.loc[('JAM',   'Men'), :]
 ```
 
-Output:
-
+<div><table border="0">
+<tr>
+  <th valign="top">Output:</th>
+  <td>
 <blockquote><pre>
 Event
 100m    1
 200m    1
 Name: (JAM, Men), dtype: int64
-</pre></blockquote>
+</pre></blockquote></td></table></div>
 
 ```python
 sprints_NOC.loc[('JAM',   'Men'), '100m']
 ```
 
-Output:
-
-<blockquote><pre>
+<div><table border="0">
+<tr>
+  <th valign="top">Output:</th>
+  <td><blockquote><pre>
 np.int64(1)
-</pre></blockquote>
+</pre></blockquote></td></table></div>
 
 ```python
 sprints_NOC.iloc[0, :]
 ```
 
-Output:
-
-<blockquote><pre>
+<div><table border="0">
+<tr>
+  <th valign="top">Output:</th>
+  <td><blockquote><pre>
 Event
 100m    1
 200m    1
 Name: (JAM, Men), dtype: int64
-</pre></blockquote>
+</pre></blockquote></td></table></div>
 
 ```python
 sprints_NOC.iloc[0, 0]
 ```
 
-Output:
-
-<blockquote><pre>
+<div><table border="0">
+<tr>
+  <th valign="top">Output:</th>
+  <td><blockquote><pre>
 np.int64(1)
-</pre></blockquote>
+</pre></blockquote></td></table></div>
 
 ### Finding desired functions
 
@@ -1133,11 +1103,12 @@ search_string = "excel"
 [func for func in dir(pd) if re.search(rf"{search_string}", func, re.IGNORECASE)]
 ```
 
-Output:
-
-<blockquote><pre>
+<div><table border="0">
+<tr>
+  <th valign="top">Output:</th>
+  <td><blockquote><pre>
 ['ExcelFile', 'ExcelWriter', 'read_excel']
-</pre></blockquote>
+</pre></blockquote></td></table></div>
 
 ```python
 import re
@@ -1147,8 +1118,9 @@ search_string = "upper"
 [func for func in dir(nw["Athlete Name"].str) if re.search(rf"{search_string}", func, re.IGNORECASE)]
 ```
 
-Output:
-
-<blockquote><pre>
+<div><table border="0">
+<tr>
+  <th valign="top">Output:</th>
+  <td><blockquote><pre>
 ['isupper', 'upper']
-</pre></blockquote>
+</pre></blockquote></td></table></div>
