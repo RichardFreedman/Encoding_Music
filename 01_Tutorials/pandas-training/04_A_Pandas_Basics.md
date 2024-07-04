@@ -257,7 +257,299 @@ beatles_combined = pd.merge(right=beatles_spotify,
 beatles_combined
 ```
 
-**INSERT NEW OUTPUT HERE**
+<div>
+<table border="0">
+<tr>
+  <th valign="top">Output:</th>
+  <td>
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Album.debut</th>
+      <th>Duration</th>
+      <th>Other.releases</th>
+      <th>Genre</th>
+      <th>Songwriter</th>
+      <th>Lead.vocal</th>
+      <th>Top.50.Billboard</th>
+      <th>id</th>
+      <th>year</th>
+      <th>album</th>
+      <th>song</th>
+      <th>danceability</th>
+      <th>energy</th>
+      <th>speechiness</th>
+      <th>acousticness</th>
+      <th>liveness</th>
+      <th>valence</th>
+      <th>duration_ms</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>A Hard Day's Night</td>
+      <td>1964</td>
+      <td>UK: A Hard Day's Night US: 1962-1966</td>
+      <td>152</td>
+      <td>35</td>
+      <td>Rock, Electronic, Pop/Rock</td>
+      <td>Lennon</td>
+      <td>Lennon, with McCartney</td>
+      <td>8</td>
+      <td>29</td>
+      <td>1964</td>
+      <td>A Hard Day's Night</td>
+      <td>A Hard Day's Night</td>
+      <td>0.590</td>
+      <td>0.805</td>
+      <td>0.0371</td>
+      <td>0.137</td>
+      <td>0.0996</td>
+      <td>0.797</td>
+      <td>154200</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>All My Loving</td>
+      <td>1963</td>
+      <td>UK: With the Beatles US: Meet The Beatles!</td>
+      <td>124</td>
+      <td>32</td>
+      <td>Pop/Rock</td>
+      <td>McCartney</td>
+      <td>McCartney</td>
+      <td>-1</td>
+      <td>17</td>
+      <td>1963</td>
+      <td>With The Beatles</td>
+      <td>All My Loving</td>
+      <td>0.416</td>
+      <td>0.563</td>
+      <td>0.0298</td>
+      <td>0.207</td>
+      <td>0.3430</td>
+      <td>0.900</td>
+      <td>127853</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>And I Love Her</td>
+      <td>1964</td>
+      <td>UK: A Hard Day's Night US: Something New</td>
+      <td>152</td>
+      <td>29</td>
+      <td>Pop/Rock</td>
+      <td>McCartney, with Lennon</td>
+      <td>McCartney</td>
+      <td>37</td>
+      <td>33</td>
+      <td>1964</td>
+      <td>A Hard Day's Night</td>
+      <td>And I Love Her</td>
+      <td>0.767</td>
+      <td>0.331</td>
+      <td>0.0337</td>
+      <td>0.640</td>
+      <td>0.0681</td>
+      <td>0.636</td>
+      <td>149693</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Ask Me Why</td>
+      <td>1962</td>
+      <td>UK: Please Please Me US: The Early Beatles</td>
+      <td>144</td>
+      <td>24</td>
+      <td>Pop/Rock</td>
+      <td>Lennon, with McCartney</td>
+      <td>Lennon</td>
+      <td>-1</td>
+      <td>6</td>
+      <td>1963</td>
+      <td>Please Please Me</td>
+      <td>Ask Me Why</td>
+      <td>0.605</td>
+      <td>0.394</td>
+      <td>0.0378</td>
+      <td>0.767</td>
+      <td>0.0967</td>
+      <td>0.597</td>
+      <td>146533</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Baby It's You</td>
+      <td>1963</td>
+      <td>UK: Please Please Me US: The Early Beatles</td>
+      <td>162</td>
+      <td>17</td>
+      <td>Pop/Rock</td>
+      <td>Bacharach, David, Dixon</td>
+      <td>Lennon</td>
+      <td>-1</td>
+      <td>10</td>
+      <td>1963</td>
+      <td>Please Please Me</td>
+      <td>Baby It's You</td>
+      <td>0.608</td>
+      <td>0.494</td>
+      <td>0.0345</td>
+      <td>0.778</td>
+      <td>0.0926</td>
+      <td>0.879</td>
+      <td>160520</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Please Please Me</td>
+      <td>1962</td>
+      <td>UK: Please Please Me US: The Early Beatles</td>
+      <td>120</td>
+      <td>35</td>
+      <td>Merseybeat, Rock and Roll, Pop/Rock</td>
+      <td>Lennon</td>
+      <td>Lennon, with McCartney</td>
+      <td>18</td>
+      <td>7</td>
+      <td>1963</td>
+      <td>Please Please Me</td>
+      <td>Please Please Me</td>
+      <td>0.527</td>
+      <td>0.480</td>
+      <td>0.0280</td>
+      <td>0.334</td>
+      <td>0.0702</td>
+      <td>0.706</td>
+      <td>120853</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Roll Over Beethoven</td>
+      <td>1963</td>
+      <td>UK: With the Beatles US: The Beatles Second Album</td>
+      <td>168</td>
+      <td>31</td>
+      <td>Rock and Roll, Pop/Rock</td>
+      <td>Berry</td>
+      <td>Harrison</td>
+      <td>-1</td>
+      <td>22</td>
+      <td>1963</td>
+      <td>With The Beatles</td>
+      <td>Roll Over Beethoven</td>
+      <td>0.351</td>
+      <td>0.749</td>
+      <td>0.0312</td>
+      <td>0.289</td>
+      <td>0.0952</td>
+      <td>0.967</td>
+      <td>165467</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>There's a Place</td>
+      <td>1963</td>
+      <td>UK: Please Please Me US: Rarities</td>
+      <td>109</td>
+      <td>24</td>
+      <td>Merseybeat, Rock and Roll, Pop/Rock</td>
+      <td>Lennon and McCartney</td>
+      <td>Lennon and McCartney</td>
+      <td>-1</td>
+      <td>13</td>
+      <td>1963</td>
+      <td>Please Please Me</td>
+      <td>There's a Place</td>
+      <td>0.455</td>
+      <td>0.582</td>
+      <td>0.0292</td>
+      <td>0.629</td>
+      <td>0.1720</td>
+      <td>0.927</td>
+      <td>110493</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Till There Was You</td>
+      <td>1963</td>
+      <td>UK: With the Beatles US: Meet The Beatles!</td>
+      <td>136</td>
+      <td>22</td>
+      <td>Pop/Rock</td>
+      <td>Willson</td>
+      <td>McCartney</td>
+      <td>-1</td>
+      <td>20</td>
+      <td>1963</td>
+      <td>With The Beatles</td>
+      <td>Till There Was You</td>
+      <td>0.727</td>
+      <td>0.338</td>
+      <td>0.0454</td>
+      <td>0.790</td>
+      <td>0.1050</td>
+      <td>0.646</td>
+      <td>133507</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Twist and Shout</td>
+      <td>1963</td>
+      <td>UK: Please Please Me US: The Early Beatles</td>
+      <td>125</td>
+      <td>44</td>
+      <td>Rock and Roll, R&amp;B, Pop/Rock</td>
+      <td>Medley, Russell</td>
+      <td>Lennon</td>
+      <td>13</td>
+      <td>14</td>
+      <td>1963</td>
+      <td>Please Please Me</td>
+      <td>Twist and Shout</td>
+      <td>0.482</td>
+      <td>0.849</td>
+      <td>0.0452</td>
+      <td>0.641</td>
+      <td>0.0414</td>
+      <td>0.937</td>
+      <td>155227</td>
+    </tr>
+  </tbody>
+</table>
+<p>21 rows × 20 columns</p>
+</div>
+</td>
+</table>
+</div>
 
 This isn't very useful! There are so few rows in this combined dataset because Pandas could only merge data for columns where the song title was formatted in exactly the same way. For this to work better, we should format the song titles in both frames the same way - perhaps all lowercase - before performing the merge:
 
