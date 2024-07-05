@@ -20,6 +20,31 @@ Contents of this Tutorial
 ## Tuple Trouble (and How to Cure It)
 ## Explode, Melt, and Pivot
 
+# [-------- FIND A PLACE FOR THIS
+## Combining and Spliting Columns
+
+Sometimes it is necessary to combine related columns into a new column, with values stored as a *list*. Conversely sometimes it might be necessary to split the values stored in one column into several columns (for example, if a column has first and last names, you may want one column for first names and one column for last names). This is easily done with Pandas and Python.
+
+### Combine Two Columns as String
+
+Two columns can be combined into a single one with a lambda function and `apply` (which runs the function on each row in turn):
+
+```python
+combine_cols = lambda row: row['Songwriter'] + ": "  + row['Title'] 
+beatles_billboard['Author-Title'] = beatles_billboard.apply(combine_cols, axis=1)
+
+beatles_billboard['Author-Title'][0]
+```
+<table border="0">
+<tr>
+  <th valign="top">Output:</th>
+  <td>
+<div>
+<pre>'Lennon, McCartney, Harrison and Starkey: 12-Bar Original'</pre>
+</div></table>
+
+# END SECTION THAT NEEDS TO BE PLACED -----]
+
 
 ## Create a Notebook and Load the Pandas library
 

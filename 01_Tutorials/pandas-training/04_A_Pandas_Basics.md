@@ -22,12 +22,11 @@ A helpful [Pandas Cheat Sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf)
 
 | | Contents of this Tutorial |
 |---|---|
-| 1. | [**Introduction to DataFrames**](#introduction-to-dataframes-1) |
-| 2. | [**Working with Rows**]() |
-| 3. | [**Working with Columns**]() |
-| 4. | [**Cleaning and Checking Data**]() |
-| 5. | [**Sort, Count, and Filter**]() |
-| 6. | [**Combine and Merge Data Frames**]() |
+| 1. | [**Introduction to DataFrames**](#introduction-to-dataframes) |
+| 2. | [**Working with Rows**](#working-with-rows) |
+| 3. | [**Working with Columns**](#working-with-columns) |
+| 4. | [**Sort, Count, and Filter**](#sort-and-count) |
+| 5. | [**Combine and Merge Data Frames**]() |
 
 # Introduction to DataFrames
 
@@ -86,7 +85,7 @@ Now we can look at the data in various ways to see what is here. The first colum
 
 ![Alt text](<images/pd 1-1.png>)
 
-## Working with Rows
+# Working with Rows
 
 By default Pandas shows only the first and last five rows of any data frame.  There are various ways to see others:
 
@@ -96,17 +95,17 @@ By default Pandas shows only the first and last five rows of any data frame.  Th
 * **Sample** a random sample of rows (default of 1 , but can be any number):  `beatles_spotify.sample(20)`
 
 
-### Selecting Rows:  `loc` and `iloc` 
+## Selecting Rows:  `loc` and `iloc` 
 
 `df.loc` and `df.iloc` are _not_ the same!
 
-#### iloc for Index-based slices
+### iloc for Index-based slices
 
 * **iloc**: to select rows by **index number** (the left-hand column) use `iloc`. A good way to remember this is that `iloc` will correspond to the *integer* value of the index (which starts with zero). The syntax puts rows before columns, as in `beatles_spotify.iloc[startrow:endrow, startcolumn:endcolumn]`.  Thus rows 10-15 (and all columns) of our dataframe would be `beatles_spotify.iloc[10:15, :]`.  
 
 Note:  the first number is *inclusive* but the second is *exclusive*.  So `10:15` will yield rows 10, 11, 12, 13, 14, but *not* 15.
 
-#### loc for Label-based slices
+### loc for Label-based slices
 
 * **loc**: to select rows by **label** of the left-hand column (as when you might have an index of strings), use `loc`.  This is useful when our index is a string rather than a number.  It is especially useful for working with columns.
 
@@ -118,17 +117,17 @@ Try:
 beatles_spotify.iloc[10:15,]
 ```
 
-## Working with Columns
+# Working with Columns
 
 We now start to look more closely at the columns.
 
-#### iloc for Index-based slices
+### iloc for Index-based slices
 
 It's possible to select colulmns with `iloc`, as shown above for rows. The syntax puts rows before columns, as in `beatles_spotify.iloc[startrow:endrow, startcolumn:endcolumn]`.  The first column (and all rows) would be `beatles_spotify.iloc[:, 0]`. Thus the first `five` columns (and all rows) of our dataframe would be `beatles_spotify.iloc[:, 0:6]`.  Note:  the first number is *inclusive* but the second is *exclusive*.
 
 Want to count from the *end*?  `-1` is the *last* column. So `beatles_spotify.iloc[:, -1]`
 
-#### Working with Columns by Name (or 'label')
+### Working with Columns by Name (or 'label')
 
 * **column names** as a list:  `beatles_spotify.columns`
 * **rename a column**:  `beatles_billboard["album"] = beatles_billboard["Album.debut"]` or `beatles_billboard.rename(columns = {'Album.debut':'album'})`
@@ -147,7 +146,7 @@ beatles_billboard_reordered
 
 Note that this could also be done using the `index` values for the columns.
 
-#### A Column is a Series
+### A Column is a Series
 
 An individual column is called a **Series**
 * **One column**: `beatles_spotify["year"]`
@@ -163,17 +162,54 @@ Show the columns of our df:
 beatles_billboard.columns
 ```
 
+<table border="0">
+<tr>
+  <th valign="top">Output:</th>
+  <td>
+<div>
+<pre>Index(['Title', 'Year', 'Album.debut', 'Duration', 'Other.releases', 'Genre', 'Songwriter', 'Lead.vocal', 'Top.50.Billboard'],
+      dtype='object')
+</pre></div></table>
+
 Or the data types for each column:
 
 ```python
 beatles_spotify.dtypes
 ```
 
+<table border="0">
+<tr>
+  <th valign="top">Output:</th>
+  <td>
+<div>
+<pre>id                int64
+year              int64
+album            object
+song             object
+danceability    float64
+                 ...   
+speechiness     float64
+acousticness    float64
+liveness        float64
+valence         float64
+duration_ms       int64
+Length: 11, dtype: object
+</pre></div></table>
+
 Or show the column names sorted in a list:
 
 ```python
 beatles_spotify.columns.sort_values()
 ```
+
+<table border="0">
+<tr>
+  <th valign="top">Output:</th>
+  <td>
+<div>
+<pre>Index(['acousticness', 'album', 'danceability', 'duration_ms', 'energy', 'id', 'liveness', 'song', 'speechiness', 'valence', 'year'],
+      dtype='object')
+</pre></div></table>
 
 Make a new df with just a subset of columns.  We first make a `list` of the required columns, then we pass that list inside `[]` against the original df.  In effect we are saying: `billboard` where `[these columns]` are `True`.
 
@@ -183,17 +219,133 @@ beatles_billboard_short = beatles_billboard[column_list]
 beatles_billboard_short
 ```
 
-![Alt text](<images/pdf 2.png>)
+<div>
+<table border="0">
+<tr>
+  <th valign="top">Output:</th>
+  <td><div>
+<table border="1">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Album.debut</th>
+      <th>Genre</th>
+      <th>Songwriter</th>
+      <th>Top.50.Billboard</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>12-Bar Original</td>
+      <td>1965</td>
+      <td>Anthology 2</td>
+      <td>Blues</td>
+      <td>Lennon, McCartney, Harrison and Starkey</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>A Day in the Life</td>
+      <td>1967</td>
+      <td>Sgt. Pepper's Lonely Hearts Club Band</td>
+      <td>Psychedelic Rock, Art Rock, Pop/Rock</td>
+      <td>Lennon and McCartney</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>A Hard Day's Night</td>
+      <td>1964</td>
+      <td>UK: A Hard Day's Night US: 1962-1966</td>
+      <td>Rock, Electronic, Pop/Rock</td>
+      <td>Lennon</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>A Shot of Rhythm and Blues</td>
+      <td>1963</td>
+      <td>Live at the BBC</td>
+      <td>R&amp;B, Pop/Rock</td>
+      <td>Thompson</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>A Taste of Honey</td>
+      <td>1963</td>
+      <td>UK: Please Please Me US: The Early Beatles</td>
+      <td>Pop/Rock, Jazz, Stage&amp;Screen</td>
+      <td>Scott, Marlow</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>305</th>
+      <td>You're Going to Lose That Girl</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>Rock, Pop/Rock</td>
+      <td>Lennon</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <th>306</th>
+      <td>You've Got to Hide Your Love Away</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>FolkPop/Rock</td>
+      <td>Lennon</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <th>307</th>
+      <td>You've Really Got a Hold on Me</td>
+      <td>1963</td>
+      <td>UK: With the Beatles US: The Beatles Second Album</td>
+      <td>Soul, Pop/Rock</td>
+      <td>Robinson</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <th>308</th>
+      <td>Young Blood</td>
+      <td>1963</td>
+      <td>Live at the BBC</td>
+      <td>Pop/Rock</td>
+      <td>Leiber, Stoller</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <th>309</th>
+      <td>Your Mother Should Know</td>
+      <td>1967</td>
+      <td>Magical Mystery Tour</td>
+      <td>Music Hall, Vaudeville Rock, Psychedelic Pop, ...</td>
+      <td>McCartney</td>
+      <td>-1</td>
+    </tr>
+  </tbody>
+</table>
+<p>310 rows × 6 columns</p>
+</div></td></tr></table></div>
 
-[deleted something about an individual column being a series because it was redundant, leaving note to explain image below, since I can't see it yet]
-
-![Alt text](<images/pd 3.png>)
-
-## Sort and Count
+# Sort and Count
 
 Pandas affords many ways to take stock of your data, with built-in functions counts of values, means, averages, and other statistical information.  Many of these are detailed on the [Pandas Cheat Sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf). But the following will be useful for us:
 
-### Sort Values
+## Sort Values
 
 **Sort Values** in any column.  This ascending (alphabetically or numerically) by default, but can be reversed.  Example:  
 
@@ -201,7 +353,190 @@ Pandas affords many ways to take stock of your data, with built-in functions cou
 beatles_spotify.sort_values("danceability")
 ```
 
-### Count Values
+<div>
+<table border="0">
+<tr>
+  <th valign="top">Output:</th>
+  <td>
+<div>
+<table border="1">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>year</th>
+      <th>album</th>
+      <th>song</th>
+      <th>danceability</th>
+      <th>energy</th>
+      <th>speechiness</th>
+      <th>acousticness</th>
+      <th>liveness</th>
+      <th>valence</th>
+      <th>duration_ms</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>150</th>
+      <td>151</td>
+      <td>1968</td>
+      <td>The Beatles (white album)</td>
+      <td>good night</td>
+      <td>0.146</td>
+      <td>0.355</td>
+      <td>0.0352</td>
+      <td>0.865000</td>
+      <td>0.1140</td>
+      <td>0.1780</td>
+      <td>193760</td>
+    </tr>
+    <tr>
+      <th>143</th>
+      <td>144</td>
+      <td>1968</td>
+      <td>The Beatles (white album)</td>
+      <td>helter skelter</td>
+      <td>0.166</td>
+      <td>0.831</td>
+      <td>0.0894</td>
+      <td>0.000606</td>
+      <td>0.8110</td>
+      <td>0.2810</td>
+      <td>269787</td>
+    </tr>
+    <tr>
+      <th>152</th>
+      <td>153</td>
+      <td>1969</td>
+      <td>Yellow Submarine</td>
+      <td>only a northern song</td>
+      <td>0.175</td>
+      <td>0.731</td>
+      <td>0.0705</td>
+      <td>0.000341</td>
+      <td>0.0846</td>
+      <td>0.8010</td>
+      <td>204493</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>150</td>
+      <td>1968</td>
+      <td>The Beatles (white album)</td>
+      <td>revolution 9</td>
+      <td>0.208</td>
+      <td>0.615</td>
+      <td>0.3420</td>
+      <td>0.769000</td>
+      <td>0.8240</td>
+      <td>0.1010</td>
+      <td>502013</td>
+    </tr>
+    <tr>
+      <th>158</th>
+      <td>159</td>
+      <td>1969</td>
+      <td>Yellow Submarine</td>
+      <td>sea of time</td>
+      <td>0.237</td>
+      <td>0.096</td>
+      <td>0.0387</td>
+      <td>0.971000</td>
+      <td>0.2030</td>
+      <td>0.0629</td>
+      <td>180213</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>33</td>
+      <td>1964</td>
+      <td>A Hard Day's Night</td>
+      <td>And I Love Her</td>
+      <td>0.767</td>
+      <td>0.331</td>
+      <td>0.0337</td>
+      <td>0.640000</td>
+      <td>0.0681</td>
+      <td>0.6360</td>
+      <td>149693</td>
+    </tr>
+    <tr>
+      <th>90</th>
+      <td>91</td>
+      <td>1966</td>
+      <td>Revolver</td>
+      <td>good day sunshine</td>
+      <td>0.770</td>
+      <td>0.496</td>
+      <td>0.0468</td>
+      <td>0.719000</td>
+      <td>0.1230</td>
+      <td>0.5710</td>
+      <td>129293</td>
+    </tr>
+    <tr>
+      <th>125</th>
+      <td>126</td>
+      <td>1968</td>
+      <td>The Beatles (white album)</td>
+      <td>wild honey pie</td>
+      <td>0.792</td>
+      <td>0.763</td>
+      <td>0.0506</td>
+      <td>0.425000</td>
+      <td>0.7890</td>
+      <td>0.1520</td>
+      <td>52973</td>
+    </tr>
+    <tr>
+      <th>124</th>
+      <td>125</td>
+      <td>1968</td>
+      <td>The Beatles (white album)</td>
+      <td>obi-la -di, ob-la-da</td>
+      <td>0.818</td>
+      <td>0.728</td>
+      <td>0.0314</td>
+      <td>0.232000</td>
+      <td>0.2510</td>
+      <td>0.9750</td>
+      <td>188960</td>
+    </tr>
+    <tr>
+      <th>191</th>
+      <td>192</td>
+      <td>1970</td>
+      <td>Let It Be</td>
+      <td>for you blue</td>
+      <td>0.880</td>
+      <td>0.556</td>
+      <td>0.0855</td>
+      <td>0.240000</td>
+      <td>0.2400</td>
+      <td>0.9550</td>
+      <td>152213</td>
+    </tr>
+  </tbody>
+</table>
+<p>193 rows × 11 columns</p>
+</div></td></tr></table></div>
+
+## Count Values
 
 **Count Values** in any column.  For example: 
 
@@ -209,31 +544,29 @@ beatles_spotify.sort_values("danceability")
 beatles_billboard["Album.debut"].value_counts()
 ```
 
-### Subset or Slice of Rows or Columns
-
-It is also possible to **select some slice of rows or columns** by name or index position using `df.loc()`, or `df.iloc()`.  See above, and the [Pandas Cheat Sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf).
-
-## Combining and Spliting Columns
-
-Sometimes it is necessary to combine related columns into a new column, with values stored as a *list*. Conversely sometimes it might be necessary to split the values stored in one column into several columns (for example, if a column has first and last names, you may want one column for first names and one column for last names). This is easily done with Pandas and Python.
-
-### Combine Two Columns as String
-
-Two columns can be combined into a single one with a lambda function and `apply` (which runs the function on each row in turn):
-
-```python
-combine_cols = lambda row: row['Songwriter'] + ": "  + row['Title'] 
-beatles_billboard['Author-Title'] = beatles_billboard.apply(combine_cols, axis=1)
-
-beatles_billboard['Author-Title'][0]
-```
 <table border="0">
 <tr>
   <th valign="top">Output:</th>
   <td>
 <div>
-<pre>'Lennon, McCartney, Harrison and Starkey: 12-Bar Original'</pre>
-</div></table>
+<pre>Album.debut
+Live at the BBC                                        31
+The Beatles                                            30
+Anthology 1                                            21
+Abbey Road                                             17
+Sgt. Pepper's Lonely Hearts Club Band                  13
+                                                       ..
+UK: Rarities US: Beatles '65                            1
+UK: Rarities US: The Beatles Second Album               1
+UK: Rarities US: Meet The Beatles!                      1
+UK: Rarities US: Beatles VI                             1
+UK: A Hard Day's Night US: The Beatles Second Album     1
+Name: count, Length: 54, dtype: int64
+</pre></div></table>
+
+### Subset or Slice of Rows or Columns
+
+It is also possible to **select some slice of rows or columns** by name or index position using `df.loc()`, or `df.iloc()`.  See above, and the [Pandas Cheat Sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf).
 
 ## Combining, Joining, and Merging DataFrames
 
