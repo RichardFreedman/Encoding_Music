@@ -1,5 +1,9 @@
 # Advanced Pandas:  Grouping and Tidying Data
 
+| Part A | Part B | Part C |
+|--------|--------|--------|
+| [Pandas Basics][part-a] | [Clean and Tidy Data][part-b] | **Finding and Grouping Data** |
+
 In this tutorial we will explore two key concepts for working with complex datasets:
 
 * Groupby functions, which allows you to perform tasks on defined subsets of your data

@@ -1,5 +1,9 @@
 # Pandas Basics:  Python for Data Analysis
 
+| Part A | Part B | Part C |
+|--------|--------|--------|
+| **Pandas Basics** | [Clean and Tidy Data][part-b] | [Finding and Grouping Data][part-c] |
+
 *Pandas = Python for Data Analysis*
 
 Pandas is a Python library which allows for the creation and manipulation of DataFrames, which are two dimensional objects designed to store data. Below are a few of the many ways in which pandas DataFrames can be modified, filtered, or transformed:
@@ -69,8 +73,167 @@ beatles_billboard = pd.read_csv(beatles_billboard_csv)
 A quick look at the file as a dataframe using the `head()` method:
 
 ```python
-beatles_billboard.head(25)  # Shows the first 25 rows
+beatles_billboard.head(15)  # Shows the first 15 rows
 ```
+
+<table border="0">
+    <tr>
+        <th valign="top">Output:</th>
+        <td>
+            <table border="1" class="dataframe">
+                <thead>
+                    <tr style="text-align: right;">
+                    <th></th>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th>Album.debut</th>
+                    <th>Duration</th>
+                    <th>Other.releases</th>
+                    <th>Genre</th>
+                    <th>Songwriter</th>
+                    <th>Lead.vocal</th>
+                    <th>Top.50.Billboard</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>0</th>
+                        <td>12-Bar Original</td>
+                        <td>1965</td>
+                        <td>Anthology 2</td>
+                        <td>174</td>
+                        <td>0</td>
+                        <td>Blues</td>
+                        <td>Lennon, McCartney, Harrison and Starkey</td>
+                        <td>NaN</td>
+                        <td>-1</td>
+                    </tr>
+                    <tr>
+                        <th>1</th>
+                        <td>A Day in the Life</td>
+                        <td>1967</td>
+                        <td>Sgt. Pepper's Lonely Hearts Club Band</td>
+                        <td>335</td>
+                        <td>12</td>
+                        <td>Psychedelic Rock, Art Rock, Pop/Rock</td>
+                        <td>Lennon and McCartney</td>
+                        <td>Lennon and McCartney</td>
+                        <td>-1</td>
+                    </tr>
+                    <tr>
+                        <th>2</th>
+                        <td>A Hard Day's Night</td>
+                        <td>1964</td>
+                        <td>UK: A Hard Day's Night US: 1962-1966</td>
+                        <td>152</td>
+                        <td>35</td>
+                        <td>Rock, Electronic, Pop/Rock</td>
+                        <td>Lennon</td>
+                        <td>Lennon, with McCartney</td>
+                        <td>8</td>
+                    </tr>
+                    <tr>
+                        <th>3</th>
+                        <td>A Shot of Rhythm and Blues</td>
+                        <td>1963</td>
+                        <td>Live at the BBC</td>
+                        <td>104</td>
+                        <td>0</td>
+                        <td>R&amp;B, Pop/Rock</td>
+                        <td>Thompson</td>
+                        <td>Lennon</td>
+                        <td>-1</td>
+                    </tr>
+                    <tr>
+                        <th>4</th>
+                        <td>A Taste of Honey</td>
+                        <td>1963</td>
+                        <td>UK: Please Please Me US: The Early Beatles</td>
+                        <td>163</td>
+                        <td>29</td>
+                        <td>Pop/Rock, Jazz, Stage&amp;Screen</td>
+                        <td>Scott, Marlow</td>
+                        <td>McCartney</td>
+                        <td>-1</td>
+                    </tr>
+                    <tr>
+                        <th>...</th>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                    </tr>
+                    <tr>
+                        <th>10</th>
+                        <td>All Things Must Pass</td>
+                        <td>1969</td>
+                        <td>Anthology 3</td>
+                        <td>227</td>
+                        <td>0</td>
+                        <td>Folk Rock, Pop/Rock</td>
+                        <td>Harrison</td>
+                        <td>Harrison</td>
+                        <td>-1</td>
+                    </tr>
+                    <tr>
+                        <th>11</th>
+                        <td>All Together Now</td>
+                        <td>1967</td>
+                        <td>Yellow Submarine</td>
+                        <td>130</td>
+                        <td>8</td>
+                        <td>Skiffle, Pop/Rock</td>
+                        <td>McCartney, with Lennon</td>
+                        <td>McCartney, with Lennon</td>
+                        <td>-1</td>
+                    </tr>
+                    <tr>
+                        <th>12</th>
+                        <td>All You Need Is Love</td>
+                        <td>1967</td>
+                        <td>Magical Mystery Tour</td>
+                        <td>237</td>
+                        <td>25</td>
+                        <td>Pop/Rock</td>
+                        <td>Lennon</td>
+                        <td>Lennon</td>
+                        <td>15</td>
+                    </tr>
+                    <tr>
+                        <th>13</th>
+                        <td>And I Love Her</td>
+                        <td>1964</td>
+                        <td>UK: A Hard Day's Night US: Something New</td>
+                        <td>152</td>
+                        <td>29</td>
+                        <td>Pop/Rock</td>
+                        <td>McCartney, with Lennon</td>
+                        <td>McCartney</td>
+                        <td>37</td>
+                    </tr>
+                    <tr>
+                        <th>14</th>
+                        <td>And Your Bird Can Sing</td>
+                        <td>1966</td>
+                        <td>UK: Revolver US: Yesterday and Today</td>
+                        <td>121</td>
+                        <td>9</td>
+                        <td>Power Pop, Psychedelic Pop, Pop/Rock</td>
+                        <td>Lennon, with McCartney</td>
+                        <td>Lennon</td>
+                        <td>-1</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>15 rows × 9 columns</p>
+        </td>
+    </tr>
+</table>
 
 Now we can look at the data in various ways to see what is here. The first column is the `index` (and begins with "0").
 
@@ -1358,3 +1521,4 @@ The result is significantly more useful - Pandas correctly matched many more son
 [pandas-concat]: https://pandas.pydata.org/docs/reference/api/pandas.concat.html
 [pandas-merge]: https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html
 [part-b]: 04_B_Pandas_Clean_Tidy.md
+[part-c]: 04_C_Pandas_Filter_Find_Group.md

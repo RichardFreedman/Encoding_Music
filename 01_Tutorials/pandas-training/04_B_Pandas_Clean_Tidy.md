@@ -1,5 +1,9 @@
 # Pandas:  Clean and Tidy Data
 
+| Part A | Part B | Part C |
+|--------|--------|--------|
+| [Pandas Basics][part-a] | **Clean and Tidy Data** | [Finding and Grouping Data][part-c] |
+
 In this tutorial we explore various ways of cleaning data.  We also explore ways to make your data follow the "Tidy Data" principles, which will vastly simplify other work.  The key concept here is to *un-nest* the various cells that might contain multiple data points.  "One observation or event per row" is the preferred format for Tidy Data.
 
 [Read more](https://pandas.pydata.org/about/).
@@ -208,17 +212,17 @@ beatles_billboard['Genre'] = beatles_billboard['Genre'].str.split(', ')
 
 And now the cell looks like a proper Python list:
 
+```python
 beatles_billboard['Genre'][1]
 ['Psychedelic Rock', 'Art Rock', 'Pop/Rock']
 ```
 
 Of course, this is "Tidy Data".  For that we would prefer to have each of these terms in its own row (and allow the rest of the data to repeat).  This format will allow us to perform grouping operations much more easily than if the 'Genre' values remain nested in this way.
 
-
-
 ## Tuple Trouble (and How to Cure It)
 
-#define the function to convert tuples to strings
+```python
+# define the function to convert tuples to strings
 def convertTuple(tup):
     out = ""
     if isinstance(tup, tuple):
@@ -226,3 +230,7 @@ def convertTuple(tup):
     return out  
 # clean the tuples
 df['ngram'] = df['ngram'].apply(convertTuple)
+```
+
+[part-a]: 04_A_Pandas_Basics.md
+[part-c]: 04_C_Pandas_Filter_Find_Group.md
