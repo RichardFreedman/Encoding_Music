@@ -334,3 +334,6 @@ plt.show()
 ```
 
 ![Alt text](<images/pd 9.png>)
+
+[part-a]: 04_A_Pandas_Basics.md
+[part-b]: 04_B_Pandas_Clean_Tidy.md
