@@ -16,12 +16,12 @@ Find tutorials at [W3Schools][w3schools].
 
 A helpful [Pandas Cheat Sheet][pandas-cheat-sheet].
 
-| | Contents of this Tutorial |
-|---|---|
-| 1. | [**Introduction to DataFrames**](#introduction-to-dataframes) |
-| 2. | [**Working with Rows**](#working-with-rows) |
-| 3. | [**Working with Columns**](#working-with-columns) |
-| 4. | [**Sort, Count, and Filter**](#sort-and-count) |
+|    | Contents of this Tutorial                                                      | 
+|----|--------------------------------------------------------------------------------|
+| 1. | [**Introduction to DataFrames**](#introduction-to-dataframes)                  |
+| 2. | [**Working with Rows**](#working-with-rows)                                    |
+| 3. | [**Working with Columns**](#working-with-columns)                              |
+| 4. | [**Sort, Count, and Filter**](#sort-and-count)                                 |
 | 5. | [**Combine and Merge Data Frames**](#combining-joining-and-merging-dataframes) |
 
 # Introduction to DataFrames
@@ -113,122 +113,120 @@ memory usage: 16.7+ KB</pre>
             <pre>(193, 11)</pre>
         </td>
         <td valign="top">
-            <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>id</th>
-      <th>year</th>
-      <th>danceability</th>
-      <th>energy</th>
-      <th>speechiness</th>
-      <th>acousticness</th>
-      <th>liveness</th>
-      <th>valence</th>
-      <th>duration_ms</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>count</th>
-      <td>193.000000</td>
-      <td>193.000000</td>
-      <td>193.000000</td>
-      <td>193.000000</td>
-      <td>193.000000</td>
-      <td>193.000000</td>
-      <td>193.000000</td>
-      <td>193.000000</td>
-      <td>193.000000</td>
-    </tr>
-    <tr>
-      <th>mean</th>
-      <td>97.000000</td>
-      <td>1966.290155</td>
-      <td>0.519093</td>
-      <td>0.536891</td>
-      <td>0.046399</td>
-      <td>0.375964</td>
-      <td>0.228647</td>
-      <td>0.642191</td>
-      <td>163644.155440</td>
-    </tr>
-    <tr>
-      <th>std</th>
-      <td>55.858452</td>
-      <td>2.256647</td>
-      <td>0.138738</td>
-      <td>0.193026</td>
-      <td>0.035101</td>
-      <td>0.287539</td>
-      <td>0.200419</td>
-      <td>0.250929</td>
-      <td>57982.884527</td>
-    </tr>
-    <tr>
-      <th>min</th>
-      <td>1.000000</td>
-      <td>1963.000000</td>
-      <td>0.146000</td>
-      <td>0.090200</td>
-      <td>0.024700</td>
-      <td>0.000043</td>
-      <td>0.041400</td>
-      <td>0.035700</td>
-      <td>25987.000000</td>
-    </tr>
-    <tr>
-      <th>25%</th>
-      <td>49.000000</td>
-      <td>1964.000000</td>
-      <td>0.419000</td>
-      <td>0.413000</td>
-      <td>0.031400</td>
-      <td>0.097400</td>
-      <td>0.099400</td>
-      <td>0.473000</td>
-      <td>133507.000000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>97.000000</td>
-      <td>1966.000000</td>
-      <td>0.533000</td>
-      <td>0.537000</td>
-      <td>0.036400</td>
-      <td>0.339000</td>
-      <td>0.139000</td>
-      <td>0.690000</td>
-      <td>154200.000000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>145.000000</td>
-      <td>1968.000000</td>
-      <td>0.612000</td>
-      <td>0.660000</td>
-      <td>0.045300</td>
-      <td>0.629000</td>
-      <td>0.298000</td>
-      <td>0.835000</td>
-      <td>180213.000000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>193.000000</td>
-      <td>1970.000000</td>
-      <td>0.880000</td>
-      <td>0.969000</td>
-      <td>0.342000</td>
-      <td>0.971000</td>
-      <td>0.922000</td>
-      <td>0.975000</td>
-      <td>502013.000000</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+            <table border="1">
+                <thead>
+                    <tr style="text-align: right;">
+                        <th></th>
+                        <th>id</th>
+                        <th>year</th>
+                        <th>danceability</th>
+                        <th>energy</th>
+                        <th>speechiness</th>
+                        <th>acousticness</th>
+                        <th>liveness</th>
+                        <th>valence</th>
+                        <th>duration_ms</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>count</th>
+                        <td>193.000000</td>
+                        <td>193.000000</td>
+                        <td>193.000000</td>
+                        <td>193.000000</td>
+                        <td>193.000000</td>
+                        <td>193.000000</td>
+                        <td>193.000000</td>
+                        <td>193.000000</td>
+                        <td>193.000000</td>
+                    </tr>
+                    <tr>
+                        <th>mean</th>
+                        <td>97.000000</td>
+                        <td>1966.290155</td>
+                        <td>0.519093</td>
+                        <td>0.536891</td>
+                        <td>0.046399</td>
+                        <td>0.375964</td>
+                        <td>0.228647</td>
+                        <td>0.642191</td>
+                        <td>163644.155440</td>
+                    </tr>
+                    <tr>
+                        <th>std</th>
+                        <td>55.858452</td>
+                        <td>2.256647</td>
+                        <td>0.138738</td>
+                        <td>0.193026</td>
+                        <td>0.035101</td>
+                        <td>0.287539</td>
+                        <td>0.200419</td>
+                        <td>0.250929</td>
+                        <td>57982.884527</td>
+                    </tr>
+                    <tr>
+                        <th>min</th>
+                        <td>1.000000</td>
+                        <td>1963.000000</td>
+                        <td>0.146000</td>
+                        <td>0.090200</td>
+                        <td>0.024700</td>
+                        <td>0.000043</td>
+                        <td>0.041400</td>
+                        <td>0.035700</td>
+                        <td>25987.000000</td>
+                    </tr>
+                    <tr>
+                        <th>25%</th>
+                        <td>49.000000</td>
+                        <td>1964.000000</td>
+                        <td>0.419000</td>
+                        <td>0.413000</td>
+                        <td>0.031400</td>
+                        <td>0.097400</td>
+                        <td>0.099400</td>
+                        <td>0.473000</td>
+                        <td>133507.000000</td>
+                    </tr>
+                    <tr>
+                        <th>50%</th>
+                        <td>97.000000</td>
+                        <td>1966.000000</td>
+                        <td>0.533000</td>
+                        <td>0.537000</td>
+                        <td>0.036400</td>
+                        <td>0.339000</td>
+                        <td>0.139000</td>
+                        <td>0.690000</td>
+                        <td>154200.000000</td>
+                    </tr>
+                    <tr>
+                        <th>75%</th>
+                        <td>145.000000</td>
+                        <td>1968.000000</td>
+                        <td>0.612000</td>
+                        <td>0.660000</td>
+                        <td>0.045300</td>
+                        <td>0.629000</td>
+                        <td>0.298000</td>
+                        <td>0.835000</td>
+                        <td>180213.000000</td>
+                    </tr>
+                    <tr>
+                        <th>max</th>
+                        <td>193.000000</td>
+                        <td>1970.000000</td>
+                        <td>0.880000</td>
+                        <td>0.969000</td>
+                        <td>0.342000</td>
+                        <td>0.971000</td>
+                        <td>0.922000</td>
+                        <td>0.975000</td>
+                        <td>502013.000000</td>
+                    </tr>
+                </tbody>
+            </table>
         </td>
     </tr>
 </table>
@@ -311,13 +309,15 @@ beatles_billboard.columns
 ```
 
 <table border="0">
-<tr>
-  <th valign="top">Output:</th>
-  <td>
-<div>
-<pre>Index(['Title', 'Year', 'Album.debut', 'Duration', 'Other.releases', 'Genre', 'Songwriter', 'Lead.vocal', 'Top.50.Billboard'],
-      dtype='object')
-</pre></div></table>
+    <tr>
+        <th valign="top">Output:</th>
+        <td>
+            <pre>
+Index(['Title', 'Year', 'Album.debut', 'Duration', 'Other.releases', 'Genre', 'Songwriter', 'Lead.vocal', 'Top.50.Billboard'],
+      dtype='object')</pre>
+        </td>
+    </tr>
+</table>
 
 Or the data types for each column:
 
@@ -326,11 +326,11 @@ beatles_spotify.dtypes
 ```
 
 <table border="0">
-<tr>
-  <th valign="top">Output:</th>
-  <td>
-<div>
-<pre>id                int64
+    <tr>
+        <th valign="top">Output:</th>
+        <td>
+            <pre>
+id                int64
 year              int64
 album            object
 song             object
@@ -341,8 +341,10 @@ acousticness    float64
 liveness        float64
 valence         float64
 duration_ms       int64
-Length: 11, dtype: object
-</pre></div></table>
+Length: 11, dtype: object</pre>
+        </td>
+    </tr>
+</table>
 
 Or show the column names sorted in a list:
 
@@ -351,13 +353,15 @@ beatles_spotify.columns.sort_values()
 ```
 
 <table border="0">
-<tr>
-  <th valign="top">Output:</th>
-  <td>
-<div>
-<pre>Index(['acousticness', 'album', 'danceability', 'duration_ms', 'energy', 'id', 'liveness', 'song', 'speechiness', 'valence', 'year'],
-      dtype='object')
-</pre></div></table>
+    <tr>
+        <th valign="top">Output:</th>
+        <td>
+            <pre>
+Index(['acousticness', 'album', 'danceability', 'duration_ms', 'energy', 'id', 'liveness', 'song', 'speechiness', 'valence', 'year'],
+      dtype='object')</pre>
+        </td>
+    </tr>
+</table>
 
 Make a new df with just a subset of columns.  We first make a `list` of the required columns, then we pass that list inside `[]` against the original df.  In effect we are saying: `billboard` where `[these columns]` are `True`.
 
@@ -367,127 +371,128 @@ beatles_billboard_short = beatles_billboard[column_list]
 beatles_billboard_short
 ```
 
-<div>
 <table border="0">
-<tr>
-  <th valign="top">Output:</th>
-  <td><div>
-<table border="1">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Title</th>
-      <th>Year</th>
-      <th>Album.debut</th>
-      <th>Genre</th>
-      <th>Songwriter</th>
-      <th>Top.50.Billboard</th>
-    </tr>
-  </thead>
-  <tbody>
     <tr>
-      <th>0</th>
-      <td>12-Bar Original</td>
-      <td>1965</td>
-      <td>Anthology 2</td>
-      <td>Blues</td>
-      <td>Lennon, McCartney, Harrison and Starkey</td>
-      <td>-1</td>
+        <th valign="top">Output:</th>
+        <td>
+            <table border="1">
+                <thead>
+                    <tr style="text-align: right;">
+                        <th></th>
+                        <th>Title</th>
+                        <th>Year</th>
+                        <th>Album.debut</th>
+                        <th>Genre</th>
+                        <th>Songwriter</th>
+                        <th>Top.50.Billboard</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>0</th>
+                        <td>12-Bar Original</td>
+                        <td>1965</td>
+                        <td>Anthology 2</td>
+                        <td>Blues</td>
+                        <td>Lennon, McCartney, Harrison and Starkey</td>
+                        <td>-1</td>
+                    </tr>
+                    <tr>
+                        <th>1</th>
+                        <td>A Day in the Life</td>
+                        <td>1967</td>
+                        <td>Sgt. Pepper's Lonely Hearts Club Band</td>
+                        <td>Psychedelic Rock, Art Rock, Pop/Rock</td>
+                        <td>Lennon and McCartney</td>
+                        <td>-1</td>
+                    </tr>
+                    <tr>
+                        <th>2</th>
+                        <td>A Hard Day's Night</td>
+                        <td>1964</td>
+                        <td>UK: A Hard Day's Night US: 1962-1966</td>
+                        <td>Rock, Electronic, Pop/Rock</td>
+                        <td>Lennon</td>
+                        <td>8</td>
+                    </tr>
+                    <tr>
+                        <th>3</th>
+                        <td>A Shot of Rhythm and Blues</td>
+                        <td>1963</td>
+                        <td>Live at the BBC</td>
+                        <td>R&amp;B, Pop/Rock</td>
+                        <td>Thompson</td>
+                        <td>-1</td>
+                    </tr>
+                    <tr>
+                        <th>4</th>
+                        <td>A Taste of Honey</td>
+                        <td>1963</td>
+                        <td>UK: Please Please Me US: The Early Beatles</td>
+                        <td>Pop/Rock, Jazz, Stage&amp;Screen</td>
+                        <td>Scott, Marlow</td>
+                        <td>-1</td>
+                    </tr>
+                    <tr>
+                        <th>...</th>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                    </tr>
+                    <tr>
+                        <th>305</th>
+                        <td>You're Going to Lose That Girl</td>
+                        <td>1965</td>
+                        <td>Help!</td>
+                        <td>Rock, Pop/Rock</td>
+                        <td>Lennon</td>
+                        <td>-1</td>
+                    </tr>
+                    <tr>
+                        <th>306</th>
+                        <td>You've Got to Hide Your Love Away</td>
+                        <td>1965</td>
+                        <td>Help!</td>
+                        <td>FolkPop/Rock</td>
+                        <td>Lennon</td>
+                        <td>-1</td>
+                    </tr>
+                    <tr>
+                        <th>307</th>
+                        <td>You've Really Got a Hold on Me</td>
+                        <td>1963</td>
+                        <td>UK: With the Beatles US: The Beatles Second Album</td>
+                        <td>Soul, Pop/Rock</td>
+                        <td>Robinson</td>
+                        <td>-1</td>
+                    </tr>
+                    <tr>
+                        <th>308</th>
+                        <td>Young Blood</td>
+                        <td>1963</td>
+                        <td>Live at the BBC</td>
+                        <td>Pop/Rock</td>
+                        <td>Leiber, Stoller</td>
+                        <td>-1</td>
+                    </tr>
+                    <tr>
+                        <th>309</th>
+                        <td>Your Mother Should Know</td>
+                        <td>1967</td>
+                        <td>Magical Mystery Tour</td>
+                        <td>Music Hall, Vaudeville Rock, Psychedelic Pop, ...</td>
+                        <td>McCartney</td>
+                        <td>-1</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>310 rows × 6 columns</p>
+        </td>
     </tr>
-    <tr>
-      <th>1</th>
-      <td>A Day in the Life</td>
-      <td>1967</td>
-      <td>Sgt. Pepper's Lonely Hearts Club Band</td>
-      <td>Psychedelic Rock, Art Rock, Pop/Rock</td>
-      <td>Lennon and McCartney</td>
-      <td>-1</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>A Hard Day's Night</td>
-      <td>1964</td>
-      <td>UK: A Hard Day's Night US: 1962-1966</td>
-      <td>Rock, Electronic, Pop/Rock</td>
-      <td>Lennon</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>A Shot of Rhythm and Blues</td>
-      <td>1963</td>
-      <td>Live at the BBC</td>
-      <td>R&amp;B, Pop/Rock</td>
-      <td>Thompson</td>
-      <td>-1</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>A Taste of Honey</td>
-      <td>1963</td>
-      <td>UK: Please Please Me US: The Early Beatles</td>
-      <td>Pop/Rock, Jazz, Stage&amp;Screen</td>
-      <td>Scott, Marlow</td>
-      <td>-1</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>305</th>
-      <td>You're Going to Lose That Girl</td>
-      <td>1965</td>
-      <td>Help!</td>
-      <td>Rock, Pop/Rock</td>
-      <td>Lennon</td>
-      <td>-1</td>
-    </tr>
-    <tr>
-      <th>306</th>
-      <td>You've Got to Hide Your Love Away</td>
-      <td>1965</td>
-      <td>Help!</td>
-      <td>FolkPop/Rock</td>
-      <td>Lennon</td>
-      <td>-1</td>
-    </tr>
-    <tr>
-      <th>307</th>
-      <td>You've Really Got a Hold on Me</td>
-      <td>1963</td>
-      <td>UK: With the Beatles US: The Beatles Second Album</td>
-      <td>Soul, Pop/Rock</td>
-      <td>Robinson</td>
-      <td>-1</td>
-    </tr>
-    <tr>
-      <th>308</th>
-      <td>Young Blood</td>
-      <td>1963</td>
-      <td>Live at the BBC</td>
-      <td>Pop/Rock</td>
-      <td>Leiber, Stoller</td>
-      <td>-1</td>
-    </tr>
-    <tr>
-      <th>309</th>
-      <td>Your Mother Should Know</td>
-      <td>1967</td>
-      <td>Magical Mystery Tour</td>
-      <td>Music Hall, Vaudeville Rock, Psychedelic Pop, ...</td>
-      <td>McCartney</td>
-      <td>-1</td>
-    </tr>
-  </tbody>
 </table>
-<p>310 rows × 6 columns</p>
-</div></td></tr></table></div>
 
 # Sort and Count
 
@@ -501,188 +506,188 @@ Pandas affords many ways to take stock of your data, with built-in functions cou
 beatles_spotify.sort_values("danceability")
 ```
 
-<div>
 <table border="0">
-<tr>
-  <th valign="top">Output:</th>
-  <td>
-<div>
-<table border="1">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>id</th>
-      <th>year</th>
-      <th>album</th>
-      <th>song</th>
-      <th>danceability</th>
-      <th>energy</th>
-      <th>speechiness</th>
-      <th>acousticness</th>
-      <th>liveness</th>
-      <th>valence</th>
-      <th>duration_ms</th>
-    </tr>
-  </thead>
-  <tbody>
     <tr>
-      <th>150</th>
-      <td>151</td>
-      <td>1968</td>
-      <td>The Beatles (white album)</td>
-      <td>good night</td>
-      <td>0.146</td>
-      <td>0.355</td>
-      <td>0.0352</td>
-      <td>0.865000</td>
-      <td>0.1140</td>
-      <td>0.1780</td>
-      <td>193760</td>
+        <th valign="top">Output:</th>
+        <td>
+            <table border="1">
+                <thead>
+                    <tr style="text-align: right;">
+                        <th></th>
+                        <th>id</th>
+                        <th>year</th>
+                        <th>album</th>
+                        <th>song</th>
+                        <th>danceability</th>
+                        <th>energy</th>
+                        <th>speechiness</th>
+                        <th>acousticness</th>
+                        <th>liveness</th>
+                        <th>valence</th>
+                        <th>duration_ms</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>150</th>
+                        <td>151</td>
+                        <td>1968</td>
+                        <td>The Beatles (white album)</td>
+                        <td>good night</td>
+                        <td>0.146</td>
+                        <td>0.355</td>
+                        <td>0.0352</td>
+                        <td>0.865000</td>
+                        <td>0.1140</td>
+                        <td>0.1780</td>
+                        <td>193760</td>
+                    </tr>
+                    <tr>
+                        <th>143</th>
+                        <td>144</td>
+                        <td>1968</td>
+                        <td>The Beatles (white album)</td>
+                        <td>helter skelter</td>
+                        <td>0.166</td>
+                        <td>0.831</td>
+                        <td>0.0894</td>
+                        <td>0.000606</td>
+                        <td>0.8110</td>
+                        <td>0.2810</td>
+                        <td>269787</td>
+                    </tr>
+                    <tr>
+                        <th>152</th>
+                        <td>153</td>
+                        <td>1969</td>
+                        <td>Yellow Submarine</td>
+                        <td>only a northern song</td>
+                        <td>0.175</td>
+                        <td>0.731</td>
+                        <td>0.0705</td>
+                        <td>0.000341</td>
+                        <td>0.0846</td>
+                        <td>0.8010</td>
+                        <td>204493</td>
+                    </tr>
+                    <tr>
+                        <th>149</th>
+                        <td>150</td>
+                        <td>1968</td>
+                        <td>The Beatles (white album)</td>
+                        <td>revolution 9</td>
+                        <td>0.208</td>
+                        <td>0.615</td>
+                        <td>0.3420</td>
+                        <td>0.769000</td>
+                        <td>0.8240</td>
+                        <td>0.1010</td>
+                        <td>502013</td>
+                    </tr>
+                    <tr>
+                        <th>158</th>
+                        <td>159</td>
+                        <td>1969</td>
+                        <td>Yellow Submarine</td>
+                        <td>sea of time</td>
+                        <td>0.237</td>
+                        <td>0.096</td>
+                        <td>0.0387</td>
+                        <td>0.971000</td>
+                        <td>0.2030</td>
+                        <td>0.0629</td>
+                        <td>180213</td>
+                    </tr>
+                    <tr>
+                        <th>...</th>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                    </tr>
+                    <tr>
+                        <th>32</th>
+                        <td>33</td>
+                        <td>1964</td>
+                        <td>A Hard Day's Night</td>
+                        <td>And I Love Her</td>
+                        <td>0.767</td>
+                        <td>0.331</td>
+                        <td>0.0337</td>
+                        <td>0.640000</td>
+                        <td>0.0681</td>
+                        <td>0.6360</td>
+                        <td>149693</td>
+                    </tr>
+                    <tr>
+                        <th>90</th>
+                        <td>91</td>
+                        <td>1966</td>
+                        <td>Revolver</td>
+                        <td>good day sunshine</td>
+                        <td>0.770</td>
+                        <td>0.496</td>
+                        <td>0.0468</td>
+                        <td>0.719000</td>
+                        <td>0.1230</td>
+                        <td>0.5710</td>
+                        <td>129293</td>
+                    </tr>
+                    <tr>
+                        <th>125</th>
+                        <td>126</td>
+                        <td>1968</td>
+                        <td>The Beatles (white album)</td>
+                        <td>wild honey pie</td>
+                        <td>0.792</td>
+                        <td>0.763</td>
+                        <td>0.0506</td>
+                        <td>0.425000</td>
+                        <td>0.7890</td>
+                        <td>0.1520</td>
+                        <td>52973</td>
+                    </tr>
+                    <tr>
+                        <th>124</th>
+                        <td>125</td>
+                        <td>1968</td>
+                        <td>The Beatles (white album)</td>
+                        <td>obi-la -di, ob-la-da</td>
+                        <td>0.818</td>
+                        <td>0.728</td>
+                        <td>0.0314</td>
+                        <td>0.232000</td>
+                        <td>0.2510</td>
+                        <td>0.9750</td>
+                        <td>188960</td>
+                    </tr>
+                    <tr>
+                        <th>191</th>
+                        <td>192</td>
+                        <td>1970</td>
+                        <td>Let It Be</td>
+                        <td>for you blue</td>
+                        <td>0.880</td>
+                        <td>0.556</td>
+                        <td>0.0855</td>
+                        <td>0.240000</td>
+                        <td>0.2400</td>
+                        <td>0.9550</td>
+                        <td>152213</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>193 rows × 11 columns</p>
+        </td>
     </tr>
-    <tr>
-      <th>143</th>
-      <td>144</td>
-      <td>1968</td>
-      <td>The Beatles (white album)</td>
-      <td>helter skelter</td>
-      <td>0.166</td>
-      <td>0.831</td>
-      <td>0.0894</td>
-      <td>0.000606</td>
-      <td>0.8110</td>
-      <td>0.2810</td>
-      <td>269787</td>
-    </tr>
-    <tr>
-      <th>152</th>
-      <td>153</td>
-      <td>1969</td>
-      <td>Yellow Submarine</td>
-      <td>only a northern song</td>
-      <td>0.175</td>
-      <td>0.731</td>
-      <td>0.0705</td>
-      <td>0.000341</td>
-      <td>0.0846</td>
-      <td>0.8010</td>
-      <td>204493</td>
-    </tr>
-    <tr>
-      <th>149</th>
-      <td>150</td>
-      <td>1968</td>
-      <td>The Beatles (white album)</td>
-      <td>revolution 9</td>
-      <td>0.208</td>
-      <td>0.615</td>
-      <td>0.3420</td>
-      <td>0.769000</td>
-      <td>0.8240</td>
-      <td>0.1010</td>
-      <td>502013</td>
-    </tr>
-    <tr>
-      <th>158</th>
-      <td>159</td>
-      <td>1969</td>
-      <td>Yellow Submarine</td>
-      <td>sea of time</td>
-      <td>0.237</td>
-      <td>0.096</td>
-      <td>0.0387</td>
-      <td>0.971000</td>
-      <td>0.2030</td>
-      <td>0.0629</td>
-      <td>180213</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>32</th>
-      <td>33</td>
-      <td>1964</td>
-      <td>A Hard Day's Night</td>
-      <td>And I Love Her</td>
-      <td>0.767</td>
-      <td>0.331</td>
-      <td>0.0337</td>
-      <td>0.640000</td>
-      <td>0.0681</td>
-      <td>0.6360</td>
-      <td>149693</td>
-    </tr>
-    <tr>
-      <th>90</th>
-      <td>91</td>
-      <td>1966</td>
-      <td>Revolver</td>
-      <td>good day sunshine</td>
-      <td>0.770</td>
-      <td>0.496</td>
-      <td>0.0468</td>
-      <td>0.719000</td>
-      <td>0.1230</td>
-      <td>0.5710</td>
-      <td>129293</td>
-    </tr>
-    <tr>
-      <th>125</th>
-      <td>126</td>
-      <td>1968</td>
-      <td>The Beatles (white album)</td>
-      <td>wild honey pie</td>
-      <td>0.792</td>
-      <td>0.763</td>
-      <td>0.0506</td>
-      <td>0.425000</td>
-      <td>0.7890</td>
-      <td>0.1520</td>
-      <td>52973</td>
-    </tr>
-    <tr>
-      <th>124</th>
-      <td>125</td>
-      <td>1968</td>
-      <td>The Beatles (white album)</td>
-      <td>obi-la -di, ob-la-da</td>
-      <td>0.818</td>
-      <td>0.728</td>
-      <td>0.0314</td>
-      <td>0.232000</td>
-      <td>0.2510</td>
-      <td>0.9750</td>
-      <td>188960</td>
-    </tr>
-    <tr>
-      <th>191</th>
-      <td>192</td>
-      <td>1970</td>
-      <td>Let It Be</td>
-      <td>for you blue</td>
-      <td>0.880</td>
-      <td>0.556</td>
-      <td>0.0855</td>
-      <td>0.240000</td>
-      <td>0.2400</td>
-      <td>0.9550</td>
-      <td>152213</td>
-    </tr>
-  </tbody>
 </table>
-<p>193 rows × 11 columns</p>
-</div></td></tr></table></div>
 
 ## Count Values
 
@@ -693,11 +698,11 @@ beatles_billboard["Album.debut"].value_counts()
 ```
 
 <table border="0">
-<tr>
-  <th valign="top">Output:</th>
-  <td>
-<div>
-<pre>Album.debut
+    <tr>
+        <th valign="top">Output:</th>
+        <td>
+            <pre>
+Album.debut
 Live at the BBC                                        31
 The Beatles                                            30
 Anthology 1                                            21
@@ -709,8 +714,10 @@ UK: Rarities US: The Beatles Second Album               1
 UK: Rarities US: Meet The Beatles!                      1
 UK: Rarities US: Beatles VI                             1
 UK: A Hard Day's Night US: The Beatles Second Album     1
-Name: count, Length: 54, dtype: int64
-</pre></div></table>
+Name: count, Length: 54, dtype: int64</pre>
+        </td>
+    </tr>
+</table>
 
 # Combining, Joining, and Merging DataFrames
 
@@ -740,299 +747,296 @@ beatles_combined = pd.merge(right=beatles_spotify,
 beatles_combined
 ```
 
-<div>
 <table border="0">
-<tr>
-  <th valign="top">Output:</th>
-  <td>
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Title</th>
-      <th>Year</th>
-      <th>Album.debut</th>
-      <th>Duration</th>
-      <th>Other.releases</th>
-      <th>Genre</th>
-      <th>Songwriter</th>
-      <th>Lead.vocal</th>
-      <th>Top.50.Billboard</th>
-      <th>id</th>
-      <th>year</th>
-      <th>album</th>
-      <th>song</th>
-      <th>danceability</th>
-      <th>energy</th>
-      <th>speechiness</th>
-      <th>acousticness</th>
-      <th>liveness</th>
-      <th>valence</th>
-      <th>duration_ms</th>
-    </tr>
-  </thead>
-  <tbody>
     <tr>
-      <th>0</th>
-      <td>A Hard Day's Night</td>
-      <td>1964</td>
-      <td>UK: A Hard Day's Night US: 1962-1966</td>
-      <td>152</td>
-      <td>35</td>
-      <td>Rock, Electronic, Pop/Rock</td>
-      <td>Lennon</td>
-      <td>Lennon, with McCartney</td>
-      <td>8</td>
-      <td>29</td>
-      <td>1964</td>
-      <td>A Hard Day's Night</td>
-      <td>A Hard Day's Night</td>
-      <td>0.590</td>
-      <td>0.805</td>
-      <td>0.0371</td>
-      <td>0.137</td>
-      <td>0.0996</td>
-      <td>0.797</td>
-      <td>154200</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>All My Loving</td>
-      <td>1963</td>
-      <td>UK: With the Beatles US: Meet The Beatles!</td>
-      <td>124</td>
-      <td>32</td>
-      <td>Pop/Rock</td>
-      <td>McCartney</td>
-      <td>McCartney</td>
-      <td>-1</td>
-      <td>17</td>
-      <td>1963</td>
-      <td>With The Beatles</td>
-      <td>All My Loving</td>
-      <td>0.416</td>
-      <td>0.563</td>
-      <td>0.0298</td>
-      <td>0.207</td>
-      <td>0.3430</td>
-      <td>0.900</td>
-      <td>127853</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>And I Love Her</td>
-      <td>1964</td>
-      <td>UK: A Hard Day's Night US: Something New</td>
-      <td>152</td>
-      <td>29</td>
-      <td>Pop/Rock</td>
-      <td>McCartney, with Lennon</td>
-      <td>McCartney</td>
-      <td>37</td>
-      <td>33</td>
-      <td>1964</td>
-      <td>A Hard Day's Night</td>
-      <td>And I Love Her</td>
-      <td>0.767</td>
-      <td>0.331</td>
-      <td>0.0337</td>
-      <td>0.640</td>
-      <td>0.0681</td>
-      <td>0.636</td>
-      <td>149693</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Ask Me Why</td>
-      <td>1962</td>
-      <td>UK: Please Please Me US: The Early Beatles</td>
-      <td>144</td>
-      <td>24</td>
-      <td>Pop/Rock</td>
-      <td>Lennon, with McCartney</td>
-      <td>Lennon</td>
-      <td>-1</td>
-      <td>6</td>
-      <td>1963</td>
-      <td>Please Please Me</td>
-      <td>Ask Me Why</td>
-      <td>0.605</td>
-      <td>0.394</td>
-      <td>0.0378</td>
-      <td>0.767</td>
-      <td>0.0967</td>
-      <td>0.597</td>
-      <td>146533</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Baby It's You</td>
-      <td>1963</td>
-      <td>UK: Please Please Me US: The Early Beatles</td>
-      <td>162</td>
-      <td>17</td>
-      <td>Pop/Rock</td>
-      <td>Bacharach, David, Dixon</td>
-      <td>Lennon</td>
-      <td>-1</td>
-      <td>10</td>
-      <td>1963</td>
-      <td>Please Please Me</td>
-      <td>Baby It's You</td>
-      <td>0.608</td>
-      <td>0.494</td>
-      <td>0.0345</td>
-      <td>0.778</td>
-      <td>0.0926</td>
-      <td>0.879</td>
-      <td>160520</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>Please Please Me</td>
-      <td>1962</td>
-      <td>UK: Please Please Me US: The Early Beatles</td>
-      <td>120</td>
-      <td>35</td>
-      <td>Merseybeat, Rock and Roll, Pop/Rock</td>
-      <td>Lennon</td>
-      <td>Lennon, with McCartney</td>
-      <td>18</td>
-      <td>7</td>
-      <td>1963</td>
-      <td>Please Please Me</td>
-      <td>Please Please Me</td>
-      <td>0.527</td>
-      <td>0.480</td>
-      <td>0.0280</td>
-      <td>0.334</td>
-      <td>0.0702</td>
-      <td>0.706</td>
-      <td>120853</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>Roll Over Beethoven</td>
-      <td>1963</td>
-      <td>UK: With the Beatles US: The Beatles Second Album</td>
-      <td>168</td>
-      <td>31</td>
-      <td>Rock and Roll, Pop/Rock</td>
-      <td>Berry</td>
-      <td>Harrison</td>
-      <td>-1</td>
-      <td>22</td>
-      <td>1963</td>
-      <td>With The Beatles</td>
-      <td>Roll Over Beethoven</td>
-      <td>0.351</td>
-      <td>0.749</td>
-      <td>0.0312</td>
-      <td>0.289</td>
-      <td>0.0952</td>
-      <td>0.967</td>
-      <td>165467</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>There's a Place</td>
-      <td>1963</td>
-      <td>UK: Please Please Me US: Rarities</td>
-      <td>109</td>
-      <td>24</td>
-      <td>Merseybeat, Rock and Roll, Pop/Rock</td>
-      <td>Lennon and McCartney</td>
-      <td>Lennon and McCartney</td>
-      <td>-1</td>
-      <td>13</td>
-      <td>1963</td>
-      <td>Please Please Me</td>
-      <td>There's a Place</td>
-      <td>0.455</td>
-      <td>0.582</td>
-      <td>0.0292</td>
-      <td>0.629</td>
-      <td>0.1720</td>
-      <td>0.927</td>
-      <td>110493</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>Till There Was You</td>
-      <td>1963</td>
-      <td>UK: With the Beatles US: Meet The Beatles!</td>
-      <td>136</td>
-      <td>22</td>
-      <td>Pop/Rock</td>
-      <td>Willson</td>
-      <td>McCartney</td>
-      <td>-1</td>
-      <td>20</td>
-      <td>1963</td>
-      <td>With The Beatles</td>
-      <td>Till There Was You</td>
-      <td>0.727</td>
-      <td>0.338</td>
-      <td>0.0454</td>
-      <td>0.790</td>
-      <td>0.1050</td>
-      <td>0.646</td>
-      <td>133507</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>Twist and Shout</td>
-      <td>1963</td>
-      <td>UK: Please Please Me US: The Early Beatles</td>
-      <td>125</td>
-      <td>44</td>
-      <td>Rock and Roll, R&amp;B, Pop/Rock</td>
-      <td>Medley, Russell</td>
-      <td>Lennon</td>
-      <td>13</td>
-      <td>14</td>
-      <td>1963</td>
-      <td>Please Please Me</td>
-      <td>Twist and Shout</td>
-      <td>0.482</td>
-      <td>0.849</td>
-      <td>0.0452</td>
-      <td>0.641</td>
-      <td>0.0414</td>
-      <td>0.937</td>
-      <td>155227</td>
-    </tr>
-  </tbody>
+        <th valign="top">Output:</th>
+        <td>
+            <table border="1">
+                <thead>
+                    <tr style="text-align: right;">
+                        <th></th>
+                        <th>Title</th>
+                        <th>Year</th>
+                        <th>Album.debut</th>
+                        <th>Duration</th>
+                        <th>Other.releases</th>
+                        <th>Genre</th>
+                        <th>Songwriter</th>
+                        <th>Lead.vocal</th>
+                        <th>Top.50.Billboard</th>
+                        <th>id</th>
+                        <th>year</th>
+                        <th>album</th>
+                        <th>song</th>
+                        <th>danceability</th>
+                        <th>energy</th>
+                        <th>speechiness</th>
+                        <th>acousticness</th>
+                        <th>liveness</th>
+                        <th>valence</th>
+                        <th>duration_ms</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <th>0</th>
+                    <td>A Hard Day's Night</td>
+                    <td>1964</td>
+                    <td>UK: A Hard Day's Night US: 1962-1966</td>
+                    <td>152</td>
+                    <td>35</td>
+                    <td>Rock, Electronic, Pop/Rock</td>
+                    <td>Lennon</td>
+                    <td>Lennon, with McCartney</td>
+                    <td>8</td>
+                    <td>29</td>
+                    <td>1964</td>
+                    <td>A Hard Day's Night</td>
+                    <td>A Hard Day's Night</td>
+                    <td>0.590</td>
+                    <td>0.805</td>
+                    <td>0.0371</td>
+                    <td>0.137</td>
+                    <td>0.0996</td>
+                    <td>0.797</td>
+                    <td>154200</td>
+                </tr>
+                <tr>
+                    <th>1</th>
+                    <td>All My Loving</td>
+                    <td>1963</td>
+                    <td>UK: With the Beatles US: Meet The Beatles!</td>
+                    <td>124</td>
+                    <td>32</td>
+                    <td>Pop/Rock</td>
+                    <td>McCartney</td>
+                    <td>McCartney</td>
+                    <td>-1</td>
+                    <td>17</td>
+                    <td>1963</td>
+                    <td>With The Beatles</td>
+                    <td>All My Loving</td>
+                    <td>0.416</td>
+                    <td>0.563</td>
+                    <td>0.0298</td>
+                    <td>0.207</td>
+                    <td>0.3430</td>
+                    <td>0.900</td>
+                    <td>127853</td>
+                </tr>
+                <tr>
+                    <th>2</th>
+                    <td>And I Love Her</td>
+                    <td>1964</td>
+                    <td>UK: A Hard Day's Night US: Something New</td>
+                    <td>152</td>
+                    <td>29</td>
+                    <td>Pop/Rock</td>
+                    <td>McCartney, with Lennon</td>
+                    <td>McCartney</td>
+                    <td>37</td>
+                    <td>33</td>
+                    <td>1964</td>
+                    <td>A Hard Day's Night</td>
+                    <td>And I Love Her</td>
+                    <td>0.767</td>
+                    <td>0.331</td>
+                    <td>0.0337</td>
+                    <td>0.640</td>
+                    <td>0.0681</td>
+                    <td>0.636</td>
+                    <td>149693</td>
+                </tr>
+                <tr>
+                    <th>3</th>
+                    <td>Ask Me Why</td>
+                    <td>1962</td>
+                    <td>UK: Please Please Me US: The Early Beatles</td>
+                    <td>144</td>
+                    <td>24</td>
+                    <td>Pop/Rock</td>
+                    <td>Lennon, with McCartney</td>
+                    <td>Lennon</td>
+                    <td>-1</td>
+                    <td>6</td>
+                    <td>1963</td>
+                    <td>Please Please Me</td>
+                    <td>Ask Me Why</td>
+                    <td>0.605</td>
+                    <td>0.394</td>
+                    <td>0.0378</td>
+                    <td>0.767</td>
+                    <td>0.0967</td>
+                    <td>0.597</td>
+                    <td>146533</td>
+                </tr>
+                <tr>
+                    <th>4</th>
+                    <td>Baby It's You</td>
+                    <td>1963</td>
+                    <td>UK: Please Please Me US: The Early Beatles</td>
+                    <td>162</td>
+                    <td>17</td>
+                    <td>Pop/Rock</td>
+                    <td>Bacharach, David, Dixon</td>
+                    <td>Lennon</td>
+                    <td>-1</td>
+                    <td>10</td>
+                    <td>1963</td>
+                    <td>Please Please Me</td>
+                    <td>Baby It's You</td>
+                    <td>0.608</td>
+                    <td>0.494</td>
+                    <td>0.0345</td>
+                    <td>0.778</td>
+                    <td>0.0926</td>
+                    <td>0.879</td>
+                    <td>160520</td>
+                </tr>
+                <tr>
+                    <th>...</th>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                </tr>
+                <tr>
+                    <th>16</th>
+                    <td>Please Please Me</td>
+                    <td>1962</td>
+                    <td>UK: Please Please Me US: The Early Beatles</td>
+                    <td>120</td>
+                    <td>35</td>
+                    <td>Merseybeat, Rock and Roll, Pop/Rock</td>
+                    <td>Lennon</td>
+                    <td>Lennon, with McCartney</td>
+                    <td>18</td>
+                    <td>7</td>
+                    <td>1963</td>
+                    <td>Please Please Me</td>
+                    <td>Please Please Me</td>
+                    <td>0.527</td>
+                    <td>0.480</td>
+                    <td>0.0280</td>
+                    <td>0.334</td>
+                    <td>0.0702</td>
+                    <td>0.706</td>
+                    <td>120853</td>
+                </tr>
+                <tr>
+                    <th>17</th>
+                    <td>Roll Over Beethoven</td>
+                    <td>1963</td>
+                    <td>UK: With the Beatles US: The Beatles Second Album</td>
+                    <td>168</td>
+                    <td>31</td>
+                    <td>Rock and Roll, Pop/Rock</td>
+                    <td>Berry</td>
+                    <td>Harrison</td>
+                    <td>-1</td>
+                    <td>22</td>
+                    <td>1963</td>
+                    <td>With The Beatles</td>
+                    <td>Roll Over Beethoven</td>
+                    <td>0.351</td>
+                    <td>0.749</td>
+                    <td>0.0312</td>
+                    <td>0.289</td>
+                    <td>0.0952</td>
+                    <td>0.967</td>
+                    <td>165467</td>
+                </tr>
+                <tr>
+                    <th>18</th>
+                    <td>There's a Place</td>
+                    <td>1963</td>
+                    <td>UK: Please Please Me US: Rarities</td>
+                    <td>109</td>
+                    <td>24</td>
+                    <td>Merseybeat, Rock and Roll, Pop/Rock</td>
+                    <td>Lennon and McCartney</td>
+                    <td>Lennon and McCartney</td>
+                    <td>-1</td>
+                    <td>13</td>
+                    <td>1963</td>
+                    <td>Please Please Me</td>
+                    <td>There's a Place</td>
+                    <td>0.455</td>
+                    <td>0.582</td>
+                    <td>0.0292</td>
+                    <td>0.629</td>
+                    <td>0.1720</td>
+                    <td>0.927</td>
+                    <td>110493</td>
+                </tr>
+                <tr>
+                    <th>19</th>
+                    <td>Till There Was You</td>
+                    <td>1963</td>
+                    <td>UK: With the Beatles US: Meet The Beatles!</td>
+                    <td>136</td>
+                    <td>22</td>
+                    <td>Pop/Rock</td>
+                    <td>Willson</td>
+                    <td>McCartney</td>
+                    <td>-1</td>
+                    <td>20</td>
+                    <td>1963</td>
+                    <td>With The Beatles</td>
+                    <td>Till There Was You</td>
+                    <td>0.727</td>
+                    <td>0.338</td>
+                    <td>0.0454</td>
+                    <td>0.790</td>
+                    <td>0.1050</td>
+                    <td>0.646</td>
+                    <td>133507</td>
+                </tr>
+                <tr>
+                    <th>20</th>
+                    <td>Twist and Shout</td>
+                    <td>1963</td>
+                    <td>UK: Please Please Me US: The Early Beatles</td>
+                    <td>125</td>
+                    <td>44</td>
+                    <td>Rock and Roll, R&amp;B, Pop/Rock</td>
+                    <td>Medley, Russell</td>
+                    <td>Lennon</td>
+                    <td>13</td>
+                    <td>14</td>
+                    <td>1963</td>
+                    <td>Please Please Me</td>
+                    <td>Twist and Shout</td>
+                    <td>0.482</td>
+                    <td>0.849</td>
+                    <td>0.0452</td>
+                    <td>0.641</td>
+                    <td>0.0414</td>
+                    <td>0.937</td>
+                    <td>155227</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>21 rows × 20 columns</p>
+    </td>
 </table>
-<p>21 rows × 20 columns</p>
-</div>
-</td>
-</table>
-</div>
+
 
 This isn't very useful! There are so few rows in this combined dataset because Pandas could only merge data for columns where the song title was formatted in exactly the same way. For this to work better, we should format the song titles in both frames the same way - perhaps all lowercase - before performing the merge:
 
@@ -1053,299 +1057,296 @@ beatles_combined = pd.merge(right=beatles_spotify,
 beatles_combined
 ```
 
-<div>
 <table border="0">
-<tr>
-  <th valign="top">Output:</th>
-  <td>
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Title</th>
-      <th>Year</th>
-      <th>Album.debut</th>
-      <th>Duration</th>
-      <th>Other.releases</th>
-      <th>Genre</th>
-      <th>Songwriter</th>
-      <th>Lead.vocal</th>
-      <th>Top.50.Billboard</th>
-      <th>id</th>
-      <th>year</th>
-      <th>album</th>
-      <th>song</th>
-      <th>danceability</th>
-      <th>energy</th>
-      <th>speechiness</th>
-      <th>acousticness</th>
-      <th>liveness</th>
-      <th>valence</th>
-      <th>duration_ms</th>
-    </tr>
-  </thead>
-  <tbody>
     <tr>
-      <th>0</th>
-      <td>a day in the life</td>
-      <td>1967</td>
-      <td>Sgt. Pepper's Lonely Hearts Club Band</td>
-      <td>335</td>
-      <td>12</td>
-      <td>Psychedelic Rock, Art Rock, Pop/Rock</td>
-      <td>Lennon and McCartney</td>
-      <td>Lennon and McCartney</td>
-      <td>-1</td>
-      <td>110</td>
-      <td>1967</td>
-      <td>Sgt. Pepper's Lonely Hearts Club Band</td>
-      <td>a day in the life</td>
-      <td>0.364</td>
-      <td>0.457</td>
-      <td>0.0675</td>
-      <td>0.290</td>
-      <td>0.9220</td>
-      <td>0.175</td>
-      <td>337413</td>
+        <th valign="top">Output:</th>
+        <td>
+            <table border="1">
+                <thead>
+                    <tr style="text-align: right;">
+                        <th></th>
+                        <th>Title</th>
+                        <th>Year</th>
+                        <th>Album.debut</th>
+                        <th>Duration</th>
+                        <th>Other.releases</th>
+                        <th>Genre</th>
+                        <th>Songwriter</th>
+                        <th>Lead.vocal</th>
+                        <th>Top.50.Billboard</th>
+                        <th>id</th>
+                        <th>year</th>
+                        <th>album</th>
+                        <th>song</th>
+                        <th>danceability</th>
+                        <th>energy</th>
+                        <th>speechiness</th>
+                        <th>acousticness</th>
+                        <th>liveness</th>
+                        <th>valence</th>
+                        <th>duration_ms</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>0</th>
+                        <td>a day in the life</td>
+                        <td>1967</td>
+                        <td>Sgt. Pepper's Lonely Hearts Club Band</td>
+                        <td>335</td>
+                        <td>12</td>
+                        <td>Psychedelic Rock, Art Rock, Pop/Rock</td>
+                        <td>Lennon and McCartney</td>
+                        <td>Lennon and McCartney</td>
+                        <td>-1</td>
+                        <td>110</td>
+                        <td>1967</td>
+                        <td>Sgt. Pepper's Lonely Hearts Club Band</td>
+                        <td>a day in the life</td>
+                        <td>0.364</td>
+                        <td>0.457</td>
+                        <td>0.0675</td>
+                        <td>0.290</td>
+                        <td>0.9220</td>
+                        <td>0.175</td>
+                        <td>337413</td>
+                    </tr>
+                    <tr>
+                        <th>1</th>
+                        <td>a hard day's night</td>
+                        <td>1964</td>
+                        <td>UK: A Hard Day's Night US: 1962-1966</td>
+                        <td>152</td>
+                        <td>35</td>
+                        <td>Rock, Electronic, Pop/Rock</td>
+                        <td>Lennon</td>
+                        <td>Lennon, with McCartney</td>
+                        <td>8</td>
+                        <td>29</td>
+                        <td>1964</td>
+                        <td>A Hard Day's Night</td>
+                        <td>a hard day's night</td>
+                        <td>0.590</td>
+                        <td>0.805</td>
+                        <td>0.0371</td>
+                        <td>0.137</td>
+                        <td>0.0996</td>
+                        <td>0.797</td>
+                        <td>154200</td>
+                    </tr>
+                    <tr>
+                        <th>2</th>
+                        <td>across the universe</td>
+                        <td>1968</td>
+                        <td>Let It Be</td>
+                        <td>230</td>
+                        <td>19</td>
+                        <td>Psychedelic folk, Pop/Rock</td>
+                        <td>Lennon</td>
+                        <td>Lennon</td>
+                        <td>-1</td>
+                        <td>184</td>
+                        <td>1970</td>
+                        <td>Let It Be</td>
+                        <td>across the universe</td>
+                        <td>0.257</td>
+                        <td>0.412</td>
+                        <td>0.0287</td>
+                        <td>0.361</td>
+                        <td>0.0702</td>
+                        <td>0.858</td>
+                        <td>228133</td>
+                    </tr>
+                    <tr>
+                        <th>3</th>
+                        <td>act naturally</td>
+                        <td>1965</td>
+                        <td>UK: Help! US: Yesterday and Today</td>
+                        <td>139</td>
+                        <td>14</td>
+                        <td>Country, Pop/Rock</td>
+                        <td>Russell, Morrison</td>
+                        <td>Starkey</td>
+                        <td>50</td>
+                        <td>63</td>
+                        <td>1965</td>
+                        <td>Help!</td>
+                        <td>act naturally</td>
+                        <td>0.702</td>
+                        <td>0.447</td>
+                        <td>0.0308</td>
+                        <td>0.366</td>
+                        <td>0.1530</td>
+                        <td>0.944</td>
+                        <td>150373</td>
+                    </tr>
+                    <tr>
+                        <th>4</th>
+                        <td>all i've got to do</td>
+                        <td>1963</td>
+                        <td>UK: With the Beatles US: Meet The Beatles!</td>
+                        <td>124</td>
+                        <td>9</td>
+                        <td>Pop/Rock</td>
+                        <td>Lennon</td>
+                        <td>Lennon</td>
+                        <td>-1</td>
+                        <td>16</td>
+                        <td>1963</td>
+                        <td>With The Beatles</td>
+                        <td>all i've got to do</td>
+                        <td>0.490</td>
+                        <td>0.579</td>
+                        <td>0.0344</td>
+                        <td>0.217</td>
+                        <td>0.0644</td>
+                        <td>0.879</td>
+                        <td>122573</td>
+                    </tr>
+                    <tr>
+                        <th>...</th>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                    </tr>
+                    <tr>
+                        <th>124</th>
+                        <td>yellow submarine</td>
+                        <td>1966</td>
+                        <td>Revolver</td>
+                        <td>158</td>
+                        <td>24</td>
+                        <td>Children's Music, Folk, Pop/Rock</td>
+                        <td>McCartney</td>
+                        <td>Starkey</td>
+                        <td>25</td>
+                        <td>152</td>
+                        <td>1969</td>
+                        <td>Yellow Submarine</td>
+                        <td>yellow submarine</td>
+                        <td>0.605</td>
+                        <td>0.536</td>
+                        <td>0.0421</td>
+                        <td>0.518</td>
+                        <td>0.5280</td>
+                        <td>0.688</td>
+                        <td>159720</td>
+                    </tr>
+                    <tr>
+                        <th>125</th>
+                        <td>yesterday</td>
+                        <td>1965</td>
+                        <td>UK: Help! US: Yesterday and Today</td>
+                        <td>123</td>
+                        <td>33</td>
+                        <td>Baroque Pop, Pop/Rock</td>
+                        <td>McCartney</td>
+                        <td>McCartney</td>
+                        <td>12</td>
+                        <td>68</td>
+                        <td>1965</td>
+                        <td>Help!</td>
+                        <td>yesterday</td>
+                        <td>0.332</td>
+                        <td>0.179</td>
+                        <td>0.0326</td>
+                        <td>0.879</td>
+                        <td>0.0886</td>
+                        <td>0.315</td>
+                        <td>125667</td>
+                    </tr>
+                    <tr>
+                        <th>126</th>
+                        <td>you like me too much</td>
+                        <td>1965</td>
+                        <td>UK: Help! US: Beatles VI</td>
+                        <td>155</td>
+                        <td>12</td>
+                        <td>Pop/Rock</td>
+                        <td>Harrison</td>
+                        <td>Harrison</td>
+                        <td>-1</td>
+                        <td>65</td>
+                        <td>1965</td>
+                        <td>Help!</td>
+                        <td>you like me too much</td>
+                        <td>0.555</td>
+                        <td>0.570</td>
+                        <td>0.0302</td>
+                        <td>0.415</td>
+                        <td>0.1910</td>
+                        <td>0.899</td>
+                        <td>156867</td>
+                    </tr>
+                    <tr>
+                        <th>127</th>
+                        <td>you never give me your money</td>
+                        <td>1969</td>
+                        <td>Abbey Road</td>
+                        <td>242</td>
+                        <td>7</td>
+                        <td>Rock, Pop/Rock</td>
+                        <td>McCartney</td>
+                        <td>McCartney</td>
+                        <td>-1</td>
+                        <td>173</td>
+                        <td>1969</td>
+                        <td>Abbey Road</td>
+                        <td>you never give me your money</td>
+                        <td>0.335</td>
+                        <td>0.416</td>
+                        <td>0.0348</td>
+                        <td>0.345</td>
+                        <td>0.1160</td>
+                        <td>0.223</td>
+                        <td>242973</td>
+                    </tr>
+                    <tr>
+                        <th>128</th>
+                        <td>your mother should know</td>
+                        <td>1967</td>
+                        <td>Magical Mystery Tour</td>
+                        <td>149</td>
+                        <td>13</td>
+                        <td>Music Hall, Vaudeville Rock, Psychedelic Pop, ...</td>
+                        <td>McCartney</td>
+                        <td>McCartney</td>
+                        <td>-1</td>
+                        <td>115</td>
+                        <td>1967</td>
+                        <td>Magical Mystery Tour</td>
+                        <td>your mother should know</td>
+                        <td>0.698</td>
+                        <td>0.293</td>
+                        <td>0.0332</td>
+                        <td>0.784</td>
+                        <td>0.0936</td>
+                        <td>0.724</td>
+                        <td>148413</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>129 rows × 20 columns</p>
+        </td>
     </tr>
-    <tr>
-      <th>1</th>
-      <td>a hard day's night</td>
-      <td>1964</td>
-      <td>UK: A Hard Day's Night US: 1962-1966</td>
-      <td>152</td>
-      <td>35</td>
-      <td>Rock, Electronic, Pop/Rock</td>
-      <td>Lennon</td>
-      <td>Lennon, with McCartney</td>
-      <td>8</td>
-      <td>29</td>
-      <td>1964</td>
-      <td>A Hard Day's Night</td>
-      <td>a hard day's night</td>
-      <td>0.590</td>
-      <td>0.805</td>
-      <td>0.0371</td>
-      <td>0.137</td>
-      <td>0.0996</td>
-      <td>0.797</td>
-      <td>154200</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>across the universe</td>
-      <td>1968</td>
-      <td>Let It Be</td>
-      <td>230</td>
-      <td>19</td>
-      <td>Psychedelic folk, Pop/Rock</td>
-      <td>Lennon</td>
-      <td>Lennon</td>
-      <td>-1</td>
-      <td>184</td>
-      <td>1970</td>
-      <td>Let It Be</td>
-      <td>across the universe</td>
-      <td>0.257</td>
-      <td>0.412</td>
-      <td>0.0287</td>
-      <td>0.361</td>
-      <td>0.0702</td>
-      <td>0.858</td>
-      <td>228133</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>act naturally</td>
-      <td>1965</td>
-      <td>UK: Help! US: Yesterday and Today</td>
-      <td>139</td>
-      <td>14</td>
-      <td>Country, Pop/Rock</td>
-      <td>Russell, Morrison</td>
-      <td>Starkey</td>
-      <td>50</td>
-      <td>63</td>
-      <td>1965</td>
-      <td>Help!</td>
-      <td>act naturally</td>
-      <td>0.702</td>
-      <td>0.447</td>
-      <td>0.0308</td>
-      <td>0.366</td>
-      <td>0.1530</td>
-      <td>0.944</td>
-      <td>150373</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>all i've got to do</td>
-      <td>1963</td>
-      <td>UK: With the Beatles US: Meet The Beatles!</td>
-      <td>124</td>
-      <td>9</td>
-      <td>Pop/Rock</td>
-      <td>Lennon</td>
-      <td>Lennon</td>
-      <td>-1</td>
-      <td>16</td>
-      <td>1963</td>
-      <td>With The Beatles</td>
-      <td>all i've got to do</td>
-      <td>0.490</td>
-      <td>0.579</td>
-      <td>0.0344</td>
-      <td>0.217</td>
-      <td>0.0644</td>
-      <td>0.879</td>
-      <td>122573</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>124</th>
-      <td>yellow submarine</td>
-      <td>1966</td>
-      <td>Revolver</td>
-      <td>158</td>
-      <td>24</td>
-      <td>Children's Music, Folk, Pop/Rock</td>
-      <td>McCartney</td>
-      <td>Starkey</td>
-      <td>25</td>
-      <td>152</td>
-      <td>1969</td>
-      <td>Yellow Submarine</td>
-      <td>yellow submarine</td>
-      <td>0.605</td>
-      <td>0.536</td>
-      <td>0.0421</td>
-      <td>0.518</td>
-      <td>0.5280</td>
-      <td>0.688</td>
-      <td>159720</td>
-    </tr>
-    <tr>
-      <th>125</th>
-      <td>yesterday</td>
-      <td>1965</td>
-      <td>UK: Help! US: Yesterday and Today</td>
-      <td>123</td>
-      <td>33</td>
-      <td>Baroque Pop, Pop/Rock</td>
-      <td>McCartney</td>
-      <td>McCartney</td>
-      <td>12</td>
-      <td>68</td>
-      <td>1965</td>
-      <td>Help!</td>
-      <td>yesterday</td>
-      <td>0.332</td>
-      <td>0.179</td>
-      <td>0.0326</td>
-      <td>0.879</td>
-      <td>0.0886</td>
-      <td>0.315</td>
-      <td>125667</td>
-    </tr>
-    <tr>
-      <th>126</th>
-      <td>you like me too much</td>
-      <td>1965</td>
-      <td>UK: Help! US: Beatles VI</td>
-      <td>155</td>
-      <td>12</td>
-      <td>Pop/Rock</td>
-      <td>Harrison</td>
-      <td>Harrison</td>
-      <td>-1</td>
-      <td>65</td>
-      <td>1965</td>
-      <td>Help!</td>
-      <td>you like me too much</td>
-      <td>0.555</td>
-      <td>0.570</td>
-      <td>0.0302</td>
-      <td>0.415</td>
-      <td>0.1910</td>
-      <td>0.899</td>
-      <td>156867</td>
-    </tr>
-    <tr>
-      <th>127</th>
-      <td>you never give me your money</td>
-      <td>1969</td>
-      <td>Abbey Road</td>
-      <td>242</td>
-      <td>7</td>
-      <td>Rock, Pop/Rock</td>
-      <td>McCartney</td>
-      <td>McCartney</td>
-      <td>-1</td>
-      <td>173</td>
-      <td>1969</td>
-      <td>Abbey Road</td>
-      <td>you never give me your money</td>
-      <td>0.335</td>
-      <td>0.416</td>
-      <td>0.0348</td>
-      <td>0.345</td>
-      <td>0.1160</td>
-      <td>0.223</td>
-      <td>242973</td>
-    </tr>
-    <tr>
-      <th>128</th>
-      <td>your mother should know</td>
-      <td>1967</td>
-      <td>Magical Mystery Tour</td>
-      <td>149</td>
-      <td>13</td>
-      <td>Music Hall, Vaudeville Rock, Psychedelic Pop, ...</td>
-      <td>McCartney</td>
-      <td>McCartney</td>
-      <td>-1</td>
-      <td>115</td>
-      <td>1967</td>
-      <td>Magical Mystery Tour</td>
-      <td>your mother should know</td>
-      <td>0.698</td>
-      <td>0.293</td>
-      <td>0.0332</td>
-      <td>0.784</td>
-      <td>0.0936</td>
-      <td>0.724</td>
-      <td>148413</td>
-    </tr>
-  </tbody>
 </table>
-<p>129 rows × 20 columns</p>
-</div>
-</td>
-</table>
-</div>
 
 The result is significantly more useful - Pandas correctly matched many more songs across the two frames. This is a great example of why it is so important to **clean** our data - it is vital to ensure we get the results we expect and want. As you may have noticed, even this change was not enough for Pandas to correctly match every song in the `beatles_spotify` dataframe. Read more about cleaning data with Pandas in the [next section][part-b].
 
