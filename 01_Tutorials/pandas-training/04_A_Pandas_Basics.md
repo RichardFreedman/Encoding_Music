@@ -5,20 +5,16 @@
 Pandas is a Python library which allows for the creation and manipulation of DataFrames, which are two dimensional objects designed to store data. Below are a few of the many ways in which pandas DataFrames can be modified, filtered, or transformed:
 
 * High-performance manipulation of text, integers, numbers, dates
-
 * Data alignment, reshaping, pivoting
-
 * Intelligent slicing, grouping, and subsetting
-
 * Merging and joining of sets
-
 * Integrated modules for analysis, plots, visualizations, maps, networks
 
-Read the [official documentation](https://pandas.pydata.org/about/).
+Read the [official documentation][pandas-documentation].
 
-Find tutorials at [W3Schools](https://www.w3schools.com/python/pandas/default.asp).
+Find tutorials at [W3Schools][w3schools].
 
-A helpful [Pandas Cheat Sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf).
+A helpful [Pandas Cheat Sheet][pandas-cheat-sheet].
 
 | | Contents of this Tutorial |
 |---|---|
@@ -26,7 +22,7 @@ A helpful [Pandas Cheat Sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf)
 | 2. | [**Working with Rows**](#working-with-rows) |
 | 3. | [**Working with Columns**](#working-with-columns) |
 | 4. | [**Sort, Count, and Filter**](#sort-and-count) |
-| 5. | [**Combine and Merge Data Frames**]() |
+| 5. | [**Combine and Merge Data Frames**](#combining-joining-and-merging-dataframes) |
 
 # Introduction to DataFrames
 
@@ -46,9 +42,9 @@ import pandas as pd
 
 The Pandas library has a vast array of tools for sorting, filtering, grouping, analyzing, and even visualizing tabluar data of various kinds:  strings, booleans, integers, floats, dates, and so on.  We begin with data about the albums and songs issued by the Beatles. The data are drawn from two sources:
 
-* A set from **Spotify** includes information about 193 songs, albums, years, plus other acoustic ratings that Spotify uses to characterize tracks. View these data as a [Google spreadsheet](https://docs.google.com/spreadsheets/d/1CBiNbxqF4FHWMkFv-C6nl7AyOJUFqycrR-EvWvDZEWY/edit#gid=953807965).
+* A set from **Spotify** includes information about 193 songs, albums, years, plus other acoustic ratings that Spotify uses to characterize tracks. View these data as a [Google spreadsheet][beatles-spotify-spreadsheet].
 
-* A set compiled by a team at the **University of Belgrade (Serbia)** that contains information about over 300 Beatles songs:  author(s), lead singer(s), album, musical genre(s), and standing in the Top 50 Billboard charts.  View these data on [Github]('https://github.com/inteligentni/Class-05-Feature-engineering/blob/master/The%20Beatles%20songs%20dataset%2C%20v1%2C%20no%20NAs.csv').
+* A set compiled by a team at the **University of Belgrade (Serbia)** that contains information about over 300 Beatles songs:  author(s), lead singer(s), album, musical genre(s), and standing in the Top 50 Billboard charts.  View these data on [Github][beatles-billboard-spreadsheet].
 
 We will work with both of these sets, and in the process learn how to inspect, clean, combine, filter, group, and analyze the information they contain.
 
@@ -83,7 +79,159 @@ Now we can look at the data in various ways to see what is here. The first colum
 * `beatles_spotify.shape` will tell us the size of our frame:  how many **rows and columns**, like `(193, 11)`.  Note:  normally these methods are followed by `()`.  This one is not.
 * `beatles_spotify.describe()` delivers basic statistical information about the set, such as count, average, mean, standard deviation, and basic percentiles.
 
-![Alt text](<images/pd 1-1.png>)
+<table>
+    <tr>
+        <th>Method:</th>
+        <td><code>beatles_spotify.info()</code></td>
+        <td><code>beatles_spotify.shape</code></td>
+        <td><code>beatles_spotify.describe()</code></td>
+    </tr>
+    <tr>
+        <th valign="top">Output:</th>
+        <td>
+            <pre>
+&#60;class&#160;'pandas.core.frame.DataFrame'>&#160;&#160;&#160;&#160;&#160;
+RangeIndex: 193 entries, 0 to 192
+Data columns (total 11 columns):
+ #   Column        Non-Null Count  Dtype  
+---  ------        --------------  -----  
+ 0   id            193 non-null    int64  
+ 1   year          193 non-null    int64  
+ 2   album         193 non-null    object 
+ 3   song          193 non-null    object 
+ 4   danceability  193 non-null    float64
+ 5   energy        193 non-null    float64
+ 6   speechiness   193 non-null    float64
+ 7   acousticness  193 non-null    float64
+ 8   liveness      193 non-null    float64
+ 9   valence       193 non-null    float64
+ 10  duration_ms   193 non-null    int64  
+dtypes: float64(6), int64(3), object(2)
+memory usage: 16.7+ KB</pre>
+        </td>
+        <td valign="top">
+            <pre>(193, 11)</pre>
+        </td>
+        <td valign="top">
+            <div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>year</th>
+      <th>danceability</th>
+      <th>energy</th>
+      <th>speechiness</th>
+      <th>acousticness</th>
+      <th>liveness</th>
+      <th>valence</th>
+      <th>duration_ms</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>193.000000</td>
+      <td>193.000000</td>
+      <td>193.000000</td>
+      <td>193.000000</td>
+      <td>193.000000</td>
+      <td>193.000000</td>
+      <td>193.000000</td>
+      <td>193.000000</td>
+      <td>193.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>97.000000</td>
+      <td>1966.290155</td>
+      <td>0.519093</td>
+      <td>0.536891</td>
+      <td>0.046399</td>
+      <td>0.375964</td>
+      <td>0.228647</td>
+      <td>0.642191</td>
+      <td>163644.155440</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>55.858452</td>
+      <td>2.256647</td>
+      <td>0.138738</td>
+      <td>0.193026</td>
+      <td>0.035101</td>
+      <td>0.287539</td>
+      <td>0.200419</td>
+      <td>0.250929</td>
+      <td>57982.884527</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>1.000000</td>
+      <td>1963.000000</td>
+      <td>0.146000</td>
+      <td>0.090200</td>
+      <td>0.024700</td>
+      <td>0.000043</td>
+      <td>0.041400</td>
+      <td>0.035700</td>
+      <td>25987.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>49.000000</td>
+      <td>1964.000000</td>
+      <td>0.419000</td>
+      <td>0.413000</td>
+      <td>0.031400</td>
+      <td>0.097400</td>
+      <td>0.099400</td>
+      <td>0.473000</td>
+      <td>133507.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>97.000000</td>
+      <td>1966.000000</td>
+      <td>0.533000</td>
+      <td>0.537000</td>
+      <td>0.036400</td>
+      <td>0.339000</td>
+      <td>0.139000</td>
+      <td>0.690000</td>
+      <td>154200.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>145.000000</td>
+      <td>1968.000000</td>
+      <td>0.612000</td>
+      <td>0.660000</td>
+      <td>0.045300</td>
+      <td>0.629000</td>
+      <td>0.298000</td>
+      <td>0.835000</td>
+      <td>180213.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>193.000000</td>
+      <td>1970.000000</td>
+      <td>0.880000</td>
+      <td>0.969000</td>
+      <td>0.342000</td>
+      <td>0.971000</td>
+      <td>0.922000</td>
+      <td>0.975000</td>
+      <td>502013.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+        </td>
+    </tr>
+</table>
 
 # Working with Rows
 
@@ -109,7 +257,7 @@ Note:  the first number is *inclusive* but the second is *exclusive*.  So `10:15
 
 * **loc**: to select rows by **label** of the left-hand column (as when you might have an index of strings), use `loc`.  This is useful when our index is a string rather than a number.  It is especially useful for working with columns.
 
-Pandas Cheat Sheet:  [here](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf).
+Pandas Cheat Sheet:  [here][pandas-cheat-sheet].
 
 Try:
 
@@ -133,7 +281,7 @@ Want to count from the *end*?  `-1` is the *last* column. So `beatles_spotify.il
 * **rename a column**:  `beatles_billboard["album"] = beatles_billboard["Album.debut"]` or `beatles_billboard.rename(columns = {'Album.debut':'album'})`
 * **drop a column**: `beatles_billboard.drop(columns=['Album.debut'])`.  Note that these must be presented as a list, even if there is only one!
 * **add a column**; in this case we might want to create a column based on condition in another (like "Instrumental" as a Boolean ):   
-* **data types** of the columns:  `beatles_spotify.dtypes`.  Note that we can do something similar with `beatles_spotify.info()`.  To change data type, see [Cleaning and Checking Data](), in Part B.
+* **data types** of the columns:  `beatles_spotify.dtypes`.  Note that we can do something similar with `beatles_spotify.info()`.  To change data type, see [Cleaning and Checking Data][part-b], in Part B.
 * **sort the columns** alphabetically:  `beatles_spotify.columns.sort_values()`
 * **move or reorganize columns** by specifying a new order; this would also work to drop certain columns ommitted from the list:
 
@@ -154,7 +302,7 @@ An individual column is called a **Series**
 * Count the **number of unique values** in a single column: `beatles_spotify["album"].nunique()`
 * Count the **number of entries** for each value in a column:  `beatles_spotify["album"].value_counts()`
 
-Pandas Cheat Sheet:  [here](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf).
+Pandas Cheat Sheet:  [here][pandas-cheat-sheet].
 
 Show the columns of our df:
 
@@ -343,7 +491,7 @@ beatles_billboard_short
 
 # Sort and Count
 
-Pandas affords many ways to take stock of your data, with built-in functions counts of values, means, averages, and other statistical information.  Many of these are detailed on the [Pandas Cheat Sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf). But the following will be useful for us:
+Pandas affords many ways to take stock of your data, with built-in functions counts of values, means, averages, and other statistical information.  Many of these are detailed on the [Pandas Cheat Sheet][pandas-cheat-sheet]. But the following will be useful for us:
 
 ## Sort Values
 
@@ -564,19 +712,15 @@ UK: A Hard Day's Night US: The Beatles Second Album     1
 Name: count, Length: 54, dtype: int64
 </pre></div></table>
 
-### Subset or Slice of Rows or Columns
-
-It is also possible to **select some slice of rows or columns** by name or index position using `df.loc()`, or `df.iloc()`.  See above, and the [Pandas Cheat Sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf).
-
-## Combining, Joining, and Merging DataFrames
+# Combining, Joining, and Merging DataFrames
 
 As you are working with multiple datasets, you might find it useful to combine several datasets. There are two main ways to combine datasets: merging and concatenating. First, we ask you to explore **concatenating DataFrames** using Pandas' built-in *pandas.concat*.
 
-You can read more about Concatenation [here](https://pandas.pydata.org/docs/reference/api/pandas.concat.html).
+You can read more about Concatenation [here][pandas-concat].
 
 While concatenating datasets usually means appending more entries that have the same features (columns), **merging DataFrames** enables appending new features (columns) for the same (or new) entries in your DataFrame. Here, we ask you to **merge two datasets** using Pandas' built-in *pandas.DataFrame.merge*.
 
-You can read more about Merging [here](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html).
+You can read more about Merging [here][pandas-merge].
 
 We can merge the two Beatles data frame on the basis of some shared columns.  It is not necessary for the columns to have the same name, but they need to share the same items (like 'songs').
 
@@ -592,6 +736,7 @@ beatles_combined = pd.merge(right=beatles_spotify,
          right_on="song", 
          left_on="Title", 
          how="inner")
+
 beatles_combined
 ```
 
@@ -896,7 +1041,7 @@ beatles_billboard["Title"] = beatles_billboard['Title'].str.lower() # convert al
 beatles_spotify['song'] = beatles_spotify['song'].str.lower() # convert all titles in the "song" column to lowercase
 ```
 
-Let's try that merge again:
+With the song titles updated, let's try that merge again:
 
 ```python
 beatles_combined = pd.merge(right=beatles_spotify, 
@@ -904,6 +1049,7 @@ beatles_combined = pd.merge(right=beatles_spotify,
          right_on="song", 
          left_on="Title", 
          how="inner")
+
 beatles_combined
 ```
 
@@ -1201,20 +1347,13 @@ beatles_combined
 </table>
 </div>
 
-The result is significantly more useful - Pandas correctly matched many more songs. This is a great example of why it is so important to **clean** our data - it is vital to ensure we get the results we expect and want. As you may have noticed, even this change was not enough for Pandas to correctly match every song in the `beatles_spotify` dataframe. Read more about cleaning data with Pandas in the [next section][part-b].
+The result is significantly more useful - Pandas correctly matched many more songs across the two frames. This is a great example of why it is so important to **clean** our data - it is vital to ensure we get the results we expect and want. As you may have noticed, even this change was not enough for Pandas to correctly match every song in the `beatles_spotify` dataframe. Read more about cleaning data with Pandas in the [next section][part-b].
 
-<span style="color: red">
-[ --- deleting the section because it's been replaced by the above example -- ]
-<br><br>
- But instead we could use billboard data and find the *mean ranking* of those in the top 50 by year.
-
-<pre>
-top_50 = beatles_billboard[beatles_billboard["Top.50.Billboard"] > 0].sort_values('Year')
-top_50.tail()
-</pre>
-
-![Alt text](<images/pd 5.png>)
-
-[ --- end deleted section ---]</span>
-
-[part-b]: #
+[pandas-documentation]: https://pandas.pydata.org/about/
+[w3schools]: https://www.w3schools.com/python/pandas/default.asp
+[pandas-cheat-sheet]: https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf
+[beatles-spotify-spreadsheet]: https://docs.google.com/spreadsheets/d/1CBiNbxqF4FHWMkFv-C6nl7AyOJUFqycrR-EvWvDZEWY/edit#gid=953807965
+[beatles-billboard-spreadsheet]: https://github.com/inteligentni/Class-05-Feature-engineering/blob/master/The%20Beatles%20songs%20dataset%2C%20v1%2C%20no%20NAs.csv
+[pandas-concat]: https://pandas.pydata.org/docs/reference/api/pandas.concat.html
+[pandas-merge]: https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html
+[part-b]: 04_B_Pandas_Clean_Tidy.md
