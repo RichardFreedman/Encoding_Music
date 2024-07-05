@@ -4,25 +4,25 @@
 |--------|--------|--------|
 | [Pandas Basics][part-a] | **Clean and Tidy Data** | [Finding and Grouping Data][part-c] |
 
-In this tutorial we explore various ways of cleaning data.  We also explore ways to make your data follow the "Tidy Data" principles, which will vastly simplify other work.  The key concept here is to *un-nest* the various cells that might contain multiple data points.  "One observation or event per row" is the preferred format for Tidy Data.
+In this tutorial we explore various ways of cleaning data.  We also explore ways to make your data follow the "Tidy Data" principles, which will vastly simplify other work. The key concept here is to *un-nest* the various cells that might contain multiple data points. "One observation or event per row" is the preferred format for Tidy Data.
 
-[Read more](https://pandas.pydata.org/about/).
+Read the official Pandas [documentation][pandas-documentation].
 
-[Tutorials](https://www.w3schools.com/python/pandas/default.asp).
+Find tutorials at [W3Schools][w3schools].
 
-[Pandas Cheat Sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf).
+A helpful [Pandas Cheat Sheet][pandas-cheat-sheet].
 
-Contents of this Tutorial
-
-## Clean and Tidy Principles
-## NaN Problem
-## Duplicate Rows
-## Wrong Data Type
-## Wrong or Inconsistent Format
-## Incorrect Data
-## Nested Lists and Tuples in Cells
-## Tuple Trouble (and How to Cure It)
-## Explode, Melt, and Pivot
+|    | Contents of this Tutorial                                                      | 
+|----|--------------------------------------------------------------------------------|
+| 1. | [**Clean and Tidy Principles**](#)                  |
+| 2. | [**NaN Problem**](#)                                    |
+| 3. | [**Duplicate Rowss**](#)                              |
+| 4. | [**Wrong Data Type**](#)                                          |
+| 5. | [**Wrong or Inconsistent Format**](#) |
+| 6. | [**Incorrect Data**](#) |
+| 7. | [**Nested Lists and Tuples in Cells**](#) |
+| 8. | [**Tuple Trouble (and How to Cure It)**](#) |
+| 9. | [**Explode, Melt, and Pivot**](#) |
 
 # [-------- FIND A PLACE FOR THIS
 ## Combining and Spliting Columns
@@ -60,7 +60,7 @@ import pandas as pd
 
 We continue with our data about The Beatles:
 
-* A set from **Spotify** includes information about 193 songs, albums, years, plus other acoustic ratings that Spotify uses to characterize tracks. View these data as a [Google spreadsheet](https://docs.google.com/spreadsheets/d/1CBiNbxqF4FHWMkFv-C6nl7AyOJUFqycrR-EvWvDZEWY/edit#gid=953807965).
+* A set from **Spotify** that includes information about 193 songs, albums, years, plus other acoustic ratings that Spotify uses to characterize tracks. View these data as a [Google spreadsheet](https://docs.google.com/spreadsheets/d/1CBiNbxqF4FHWMkFv-C6nl7AyOJUFqycrR-EvWvDZEWY/edit#gid=953807965).
 
 * A set compiled by a team at the **University of Belgrade (Serbia)** that contains information about over 300 Beatles songs:  author(s), lead singer(s), album, musical genre(s), and standing in the Top 50 Billboard charts.  View these data on [Github]('https://github.com/inteligentni/Class-05-Feature-engineering/blob/master/The%20Beatles%20songs%20dataset%2C%20v1%2C%20no%20NAs.csv').
 
@@ -86,7 +86,7 @@ beatles_billboard = pd.read_csv(beatles_billboard_csv)
 
 Missing data or data encoded as the wrong type will result in errors of various kinds.  See more [here](https://www.w3schools.com/python/pandas/pandas_cleaning.asp).
 
-## The NAN Problem
+## The NaN Problem
 
 In Python there is a difference between a "0" and nothing.  The latter is a Null, which represents "no data at all."  Nulls will result in errors when you attempt to perform some operation on them.  You cannot add to or compare something to a Null.  Nor can you test whether a Null contains some set of characters or matches a word. 
 
@@ -234,3 +234,6 @@ df['ngram'] = df['ngram'].apply(convertTuple)
 
 [part-a]: 04_A_Pandas_Basics.md
 [part-c]: 04_C_Pandas_Filter_Find_Group.md
+[pandas-documentation]: https://pandas.pydata.org/about/
+[w3schools]: https://www.w3schools.com/python/pandas/default.asp
+[pandas-cheat-sheet]: https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf
