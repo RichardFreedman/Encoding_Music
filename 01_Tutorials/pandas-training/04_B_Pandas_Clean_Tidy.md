@@ -71,7 +71,7 @@ In the Beatles Billboard dataset, you might notice that for certain songs, the c
       <th></th>
       <th>Title</th>
       <th>Year</th>
-      <th style="color: #00FFFF90">Album.debut</th>
+      <th><span style="color: #00FFFF90">Album.debut</span></th>
       <th>Duration</th>
       <th>Other.releases</th>
       <th>Genre</th>
@@ -85,7 +85,7 @@ In the Beatles Billboard dataset, you might notice that for certain songs, the c
       <th>9</th>
       <td>All My Loving</td>
       <td>1963</td>
-      <td style="color: #00FFFF90">UK: With the Beatles US: Meet The Beatles!</td>
+      <td><span style="color: #00FFFF90">UK: With the Beatles US: Meet The Beatles!</span></td>
       <td>124</td>
       <td>32</td>
       <td>Pop/Rock</td>
@@ -104,8 +104,8 @@ It might be helpful to separate this into two different columns to simplify the 
       <th></th>
       <th>Title</th>
       <th>Year</th>
-      <th style="color: #00FFFF90">Album.debut.UK</th>
-      <th style="color: #00FFFF90">Album.debut.US</th>
+      <th><span style="color: #00FFFF90">Album.debut.UK</span></th>
+      <th><span style="color: #00FFFF90">Album.debut.US</span></th>
       <th>Duration</th>
       <th>Other.releases</th>
       <th>Genre</th>
@@ -119,8 +119,8 @@ It might be helpful to separate this into two different columns to simplify the 
       <th>9</th>
       <td>All My Loving</td>
       <td>1963</td>
-      <td style="color: #00FFFF90">With the Beatles</td>
-      <td style="color: #00FFFF90">Meet The Beatles!</td>
+      <td><span style="color: #00FFFF90">With the Beatles</span></td>
+      <td><span style="color: #00FFFF90">Meet The Beatles!</span></td>
       <td>124</td>
       <td>32</td>
       <td>Pop/Rock</td>
