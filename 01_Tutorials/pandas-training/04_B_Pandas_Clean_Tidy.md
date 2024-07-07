@@ -71,7 +71,7 @@ In the Beatles Billboard dataset, you might notice that for certain songs, the c
       <th></th>
       <th>Title</th>
       <th>Year</th>
-      <th style="background-color: #00FFFF90">Album.debut</th>
+      <th style="color: #00FFFF90">Album.debut</th>
       <th>Duration</th>
       <th>Other.releases</th>
       <th>Genre</th>
@@ -85,7 +85,7 @@ In the Beatles Billboard dataset, you might notice that for certain songs, the c
       <th>9</th>
       <td>All My Loving</td>
       <td>1963</td>
-      <td style="background-color: #00FFFF90">UK: With the Beatles US: Meet The Beatles!</td>
+      <td style="color: #00FFFF90">UK: With the Beatles US: Meet The Beatles!</td>
       <td>124</td>
       <td>32</td>
       <td>Pop/Rock</td>
@@ -98,16 +98,14 @@ In the Beatles Billboard dataset, you might notice that for certain songs, the c
 
 It might be helpful to separate this into two different columns to simplify the data, like below:
 
-This is an example of <span style="background-color: yellow;">highlighted text</span> in markdown.
-
 <table border="1">
   <thead>
     <tr style="text-align: right;">
       <th></th>
       <th>Title</th>
       <th>Year</th>
-      <th style="background-color: #00FFFF90">Album.debut.UK</th>
-      <th style="background-color: #00FFFF90">Album.debut.US</th>
+      <th style="color: #00FFFF90">Album.debut.UK</th>
+      <th style="color: #00FFFF90">Album.debut.US</th>
       <th>Duration</th>
       <th>Other.releases</th>
       <th>Genre</th>
@@ -121,8 +119,8 @@ This is an example of <span style="background-color: yellow;">highlighted text</
       <th>9</th>
       <td>All My Loving</td>
       <td>1963</td>
-      <td style="background-color: #00FFFF90">With the Beatles</td>
-      <td style="background-color: #00FFFF90">Meet The Beatles!</td>
+      <td style="color: #00FFFF90">With the Beatles</td>
+      <td style="color: #00FFFF90">Meet The Beatles!</td>
       <td>124</td>
       <td>32</td>
       <td>Pop/Rock</td>
