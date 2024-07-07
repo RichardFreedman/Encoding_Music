@@ -98,6 +98,8 @@ In the Beatles Billboard dataset, you might notice that for certain songs, the c
 
 It might be helpful to separate this into two different columns to simplify the data, like below:
 
+This is an example of <span style="background-color: yellow;">highlighted text</span> in markdown.
+
 <table border="1">
   <thead>
     <tr style="text-align: right;">
