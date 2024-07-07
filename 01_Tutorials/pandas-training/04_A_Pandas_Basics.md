@@ -241,7 +241,7 @@ Now we can look at the data in various ways to see what is here. The first colum
 * `beatles_spotify.shape` will tell us the size of our frame:  how many **rows and columns**, like `(193, 11)`.  Note:  normally these methods are followed by `()`.  This one is not.
 * `beatles_spotify.describe()` delivers basic statistical information about the set, such as count, average, mean, standard deviation, and basic percentiles.
 
-<table>
+<table border="0">
     <tr>
         <th>Method:</th>
         <td><code>beatles_spotify.info()</code></td>
