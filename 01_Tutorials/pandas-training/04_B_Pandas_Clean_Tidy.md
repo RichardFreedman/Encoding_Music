@@ -57,9 +57,9 @@ beatles_billboard_csv = 'https://raw.githubusercontent.com/inteligentni/Class-05
 beatles_billboard = pd.read_csv(beatles_billboard_csv)
 ```
 
-## Intro Header
+## Understanding Tidy Data
 
-You will quickly run into all sorts of issues when working with data. Most, however, fall into two major categories: issues of **cleanliness** and issues of **organization**. Data that is both clean and organized is known as **Tidy Data**, and this is what we strive for when we use, manipulate, and create our data. This helps us understand our data better, and perhaps more importantly helps programs like Pandas perform better analysis on our data.
+You will quickly run into all sorts of issues when working with data. Most, however, fall into two major categories: issues of **cleanliness** and issues of **organization**. Data that is both clean and organized is known as **Tidy Data**, and this is what we strive for when we use, manipulate, and create our data. This helps us understand our data better, and perhaps most importantly helps programs like Pandas perform better analysis on our data.
 
 At the end of [Part A][part-a], we encountered two datasets that stored the same information (Beatles song titles) in different formats (lowercase/Title Case). This is an example of data that needs to be **cleaned** so we can more easily work with it.
 
@@ -71,7 +71,7 @@ In the Beatles Billboard dataset, you might notice that for certain songs, the c
       <th></th>
       <th>Title</th>
       <th>Year</th>
-      <th><span style="color: #00FFFF">Album.debut</span></th>
+      <th>Album.debut</th>
       <th>Duration</th>
       <th>Other.releases</th>
       <th>Genre</th>
@@ -85,7 +85,7 @@ In the Beatles Billboard dataset, you might notice that for certain songs, the c
       <th>9</th>
       <td>All My Loving</td>
       <td>1963</td>
-      <td><span style="color: #00FFFF">UK: With the Beatles US: Meet The Beatles!</span></td>
+      <td>UK: With the Beatles US: Meet The Beatles!</td>
       <td>124</td>
       <td>32</td>
       <td>Pop/Rock</td>
@@ -98,17 +98,14 @@ In the Beatles Billboard dataset, you might notice that for certain songs, the c
 
 It might be helpful to separate this into two different columns to simplify the data, like below:
 
-This is an example of <span style="color: yellow;">highlighted text</span> in markdown.
-
-
 <table border="1">
   <thead>
     <tr style="text-align: right;">
       <th></th>
       <th>Title</th>
       <th>Year</th>
-      <th><span style="color: #00FFFF">Album.debut.UK</span></th>
-      <th><span style="color: #00FFFF">Album.debut.US</span></th>
+      <th>Album.debut.UK</th>
+      <th>Album.debut.US</th>
       <th>Duration</th>
       <th>Other.releases</th>
       <th>Genre</th>
@@ -122,8 +119,8 @@ This is an example of <span style="color: yellow;">highlighted text</span> in ma
       <th>9</th>
       <td>All My Loving</td>
       <td>1963</td>
-      <td><span style="color: #00FFFF">With the Beatles</span></td>
-      <td><span style="color: #00FFFF">Meet The Beatles!</span></td>
+      <td>With the Beatles</td>
+      <td>Meet The Beatles!</td>
       <td>124</td>
       <td>32</td>
       <td>Pop/Rock</td>
@@ -134,17 +131,39 @@ This is an example of <span style="color: yellow;">highlighted text</span> in ma
   </tbody>
 </table>
 
-This is an example that could be organized differently, and perhaps better.
+This is an example of data that could be **organized** differently, and perhaps better.
 
-In the remainder of this document, you will learn about some common cases where data needs to be better cleaned or organized in the pursuit of Tidy Data.
+In the remainder of this document, you will learn about some common cases where data can be cleaned or organized using Pandas in pursuit of Tidy Data.
 
-## Clean and Tidy Data Principles
+<!--## Clean and Tidy Data Principles
 
-[TODO] As we work with use, manipulate, and create data in this course, it would be useful to have a standardized method to organize that data. Moreover, using a consistent format benefits the programs we run to parse our data. As you work with Pandas, you will learn that its tools are designed to work best on data formatted in a particular way. Following the principles of [Tidy Data](#) will allow us to standardize our data.
+[TODO] As we work with use, manipulate, and create data in this course, it would be useful to have a standardized method to organize that data. Moreover, using a consistent format benefits the programs we run to parse our data. As you work with Pandas, you will learn that its tools are designed to work best on data formatted in a particular way. Following the principles of [Tidy Data](#) will allow us to standardize our data.--><span style="color:red">Replace this ¶</span><br><br>
 
-### Wrong or Inconsistent Format
+## Wrong or Inconsistent Format
 
-For example when spelling or capitalization are different for the same item across many rows or columns.  There are Pandas methods to help with this process. 
+Many issues arise when data is stored as strings. Spelling and capitalization can vary across items that are meant to be the same. Often, the situation will be applying a **string method** to an entire column. You saw an example of the `lower()` string method in Part A:
+
+```python
+beatles_billboard['Title'] = beatles_billboard['Title'].str.lower()
+```
+
+`lower()` replaces every string in a column with a completely lowercase version of that string. You can see the full list of string methods here: [Pandas string methods][pandas-string-methods].
+
+Some particularly important string methods for cleaning data:
+
+* `.replace(x, y)`: Replace any instance of `x` with `y`
+* `.split(x)`: Replace a string with a list of strings. The original string is separated at every instance of the substring `x`. Ex: applying `.split(', ')` to `'John, Paul, George, Ringo` would result in `['John', 'Paul', 'George', 'Ringo']`
+* `.strip()`: Remove the spaces from the beginning and end of a string. Can also be configured to remove other characters.
+* `.upper()`: Convert a string to all uppercase.
+* `.title()`: Convert a string to Title Case.
+
+String methods can only be applied to one column at a time. To use string methods, follow the pattern below:
+
+```python
+df['column_name'] = df['column_name'].str.method_name()
+```
+
+If the string methods are not suffificent, you m
 
 ## The NaN Problem
 
@@ -325,8 +344,13 @@ Missing data or data encoded as the wrong type will result in errors of various 
 
 # ------------ END SECTION THAT NEEDS TO BE PLACED ]
 
+| Part A | Part B | Part C |
+|--------|--------|--------|
+| [Pandas Basics][part-a] | **Clean and Tidy Data** | [Finding and Grouping Data][part-c] |
+
 [part-a]: 04_A_Pandas_Basics.md
 [part-c]: 04_C_Pandas_Filter_Find_Group.md
 [pandas-documentation]: https://pandas.pydata.org/about/
 [w3schools]: https://www.w3schools.com/python/pandas/default.asp
 [pandas-cheat-sheet]: https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf
+[pandas-string-methods]: https://pandas.pydata.org/docs/user_guide/text.html#method-summary

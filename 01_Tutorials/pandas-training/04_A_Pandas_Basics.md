@@ -27,12 +27,13 @@ A helpful [Pandas Cheat Sheet][pandas-cheat-sheet].
 | 3. | [**Working with Columns**](#working-with-columns)                              |
 | 4. | [**Sort and Count**](#sort-and-count)                                          |
 | 5. | [**Combine and Merge Data Frames**](#combining-joining-and-merging-dataframes) |
+| 6. | [**Maximizing Pandas**](#maximizing-pandas)                                    |
 
 ## Introduction to DataFrames
 
-Pandas **data frames** are the basic unit upon which all operations take place.  Data frames are like spreadsheets, with columns and rows.
+Pandas **data frames** are the basic unit upon which all operations take place. Dataframes are like spreadsheets, with columns and rows.
 
-Indeed, Pandas can easily import spreadsheets in **CSV** (comma separated values) format.  We will also import data from databases in **JSON** format (Java Script Object Notation), similar to a Python dictionary.  There are special scripts for working with JSON, too.
+Indeed, Pandas can easily import spreadsheets in **CSV** (comma separated values) format. We will also import data from databases in **JSON** format (Java Script Object Notation), similar to a Python dictionary. There are special scripts for working with JSON, too.
 
 Pandas can export as well as import these formats (among others).
 
@@ -44,11 +45,11 @@ import pandas as pd
 
 ### Meet the Beatles
 
-The Pandas library has a vast array of tools for sorting, filtering, grouping, analyzing, and even visualizing tabluar data of various kinds:  strings, booleans, integers, floats, dates, and so on.  We begin with data about the albums and songs issued by the Beatles. The data are drawn from two sources:
+The Pandas library has a vast array of tools for sorting, filtering, grouping, analyzing, and even visualizing tabluar data of various kinds: strings, booleans, integers, floats, dates, and so on.  We begin with data about the albums and songs issued by the Beatles. The data are drawn from two sources:
 
 * A set from **Spotify** that includes information about 193 songs, albums, years, plus other acoustic ratings that Spotify uses to characterize tracks. View these data as a [Google spreadsheet][beatles-spotify-spreadsheet].
 
-* A set compiled by a team at the **University of Belgrade (Serbia)** that contains information about over 300 Beatles songs:  author(s), lead singer(s), album, musical genre(s), and standing in the Top 50 Billboard charts.  View these data on [Github][beatles-billboard-spreadsheet].
+* A set compiled by a team at the **University of Belgrade (Serbia)** that contains information about over 300 Beatles songs: author(s), lead singer(s), album, musical genre(s), and standing in the Top 50 Billboard charts. View these data on [Github][beatles-billboard-spreadsheet].
 
 We will work with both of these sets, and in the process learn how to inspect, clean, combine, filter, group, and analyze the information they contain.
 
@@ -395,17 +396,16 @@ memory usage: 16.7+ KB</pre>
 
 ## Working with Rows
 
-By default Pandas shows only the first and last five rows of any data frame.  There are various ways to see others:
+By default Pandas shows only the first and last five rows of any data frame. There are various ways to see others:
 
 * **All rows**, set `pd.set_option('display.max_rows', None)` or `pd.options.display.max_rows = 9999` before you display the frame.
 * **Head** rows (default of five from the start, but can be any number):  `beatles_spotify.head(20)`
 * **Tail** rows (default of five from the end, but can be any number):  `beatles_spotify.tail(20)`
 * **Sample** a random sample of rows (default of 1 , but can be any number):  `beatles_spotify.sample(20)`
 
+### Selecting Rows: `loc` and `iloc` 
 
-### Selecting Rows:  `loc` and `iloc` 
-
-`df.loc` and `df.iloc` are _not_ the same!
+`df.loc` and `df.iloc` are *not* the same!
 
 #### iloc for Index-based slices
 
@@ -1203,7 +1203,7 @@ beatles_combined
 This isn't very useful! There are so few rows in this combined dataset because Pandas could only merge data for columns where the song title was formatted in exactly the same way. For this to work better, we should format the song titles in both frames the same way - perhaps all lowercase - before performing the merge:
 
 ```python
-beatles_billboard["Title"] = beatles_billboard['Title'].str.lower() # convert all titles in the "Title" column to lowercase
+beatles_billboard['Title'] = beatles_billboard['Title'].str.lower() # convert all titles in the "Title" column to lowercase
 beatles_spotify['song'] = beatles_spotify['song'].str.lower() # convert all titles in the "song" column to lowercase
 ```
 
@@ -1511,6 +1511,14 @@ beatles_combined
 </table>
 
 The result is significantly more useful - Pandas correctly matched many more songs across the two frames. This is a great example of why it is so important to **clean** our data - it is vital to ensure we get the results we expect and want. As you may have noticed, even this change was not enough for Pandas to correctly match every song in the `beatles_spotify` dataframe. Read more about cleaning data with Pandas in the [next section][part-b].
+
+## Maximizing Pandas
+
+Pandas is a powerful library that makes complex data science easier. There are myriad features designed to handle an almost infinite set of applications. However, especially to those with prior experience in Python, it can feel easier to revert to Python code you already know how to write for complex tasks. This takes away from a crucial element of Pandas - you don't need to reinvent the wheel! For example, you almost never need to write for loops in Pandas, because there are built-in methods that will apply an operation to an entire column or dataframe. To make sure you take full advantage of the benefits Pandas provides, be sure to search the [documentation][pandas-documentation] using the search bar whenever you're attempting something new. You can also check the [cheatsheet][pandas-cheat-sheet] or [W3Schools][w3schools]. Chances are, Pandas has a built-in way to accomplish your goal that will make your life easier.
+
+| Part A | Part B | Part C |
+|--------|--------|--------|
+| **Pandas Basics** | [Clean and Tidy Data][part-b] | [Finding and Grouping Data][part-c] |
 
 [part-b]: 04_B_Pandas_Clean_Tidy.md
 [part-c]: 04_C_Pandas_Filter_Find_Group.md

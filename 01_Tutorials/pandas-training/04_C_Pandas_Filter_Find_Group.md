@@ -334,5 +334,9 @@ plt.show()
 
 ![Alt text](<images/pd 9.png>)
 
+| Part A | Part B | Part C |
+|--------|--------|--------|
+| [Pandas Basics][part-a] | [Clean and Tidy Data][part-b] | **Finding and Grouping Data** |
+
 [part-a]: 04_A_Pandas_Basics.md
 [part-b]: 04_B_Pandas_Clean_Tidy.md
