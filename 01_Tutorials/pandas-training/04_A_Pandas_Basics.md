@@ -2,7 +2,7 @@
 
 | Part A | Part B | Part C |
 |--------|--------|--------|
-| **Pandas Basics** | [Clean and Tidy Data][part-b] | [Finding and Grouping Data][part-c] |
+| **Pandas Basics** | [Clean and Tidy Data][part-b] | [Filtering, Finding, and Grouping][part-c] |
 
 *Pandas = Python for Data Analysis*
 
@@ -1518,7 +1518,7 @@ Pandas is a powerful library that makes complex data science easier. There are m
 
 | Part A | Part B | Part C |
 |--------|--------|--------|
-| **Pandas Basics** | [Clean and Tidy Data][part-b] | [Finding and Grouping Data][part-c] |
+| **Pandas Basics** | [Clean and Tidy Data][part-b] | [Filtering, Finding, and Grouping][part-c] |
 
 [part-b]: 04_B_Pandas_Clean_Tidy.md
 [part-c]: 04_C_Pandas_Filter_Find_Group.md

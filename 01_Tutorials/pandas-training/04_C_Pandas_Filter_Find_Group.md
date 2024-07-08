@@ -1,8 +1,18 @@
-# Advanced Pandas:  Grouping and Tidying Data
+# Advanced Pandas:  Filtering, Finding, and Grouping
 
 | Part A | Part B | Part C |
 |--------|--------|--------|
-| [Pandas Basics][part-a] | [Clean and Tidy Data][part-b] | **Finding and Grouping Data** |
+| [Pandas Basics][part-a] | [Clean and Tidy Data][part-b] | **Filtering, Finding, and Grouping** |
+
+<!-- Find a place for the following:
+Note that we could use this approach not only for correcting data, but for creating **new columns** based on **existing columns**.  For example:  a Boolean column (True/False) based on the result of the contents of another column.  Here the new column will report True for any row where the column "artist" contains the string "Lennon".  
+
+```python
+df['By_Lennon'] = df['artist'].str.contains("Lennon")
+```
+
+We can then use the Boolean column to filter the entire frame (see below).
+-->
 
 In this tutorial we will explore two key concepts for working with complex datasets:
 
@@ -336,7 +346,7 @@ plt.show()
 
 | Part A | Part B | Part C |
 |--------|--------|--------|
-| [Pandas Basics][part-a] | [Clean and Tidy Data][part-b] | **Finding and Grouping Data** |
+| [Pandas Basics][part-a] | [Clean and Tidy Data][part-b] | **Filtering, Finding, and Grouping** |
 
 [part-a]: 04_A_Pandas_Basics.md
 [part-b]: 04_B_Pandas_Clean_Tidy.md

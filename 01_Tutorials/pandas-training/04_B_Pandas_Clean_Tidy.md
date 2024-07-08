@@ -2,7 +2,7 @@
 
 | Part A | Part B | Part C |
 |--------|--------|--------|
-| [Pandas Basics][part-a] | **Clean and Tidy Data** | [Finding and Grouping Data][part-c] |
+| [Pandas Basics][part-a] | **Clean and Tidy Data** | [Filtering, Finding, and Grouping][part-c] |
 
 <!--In this tutorial we explore various ways of cleaning data. We also explore ways to make your data follow the "Tidy Data" principles, which will vastly simplify other work. The key concept here is to *un-nest* the various cells that might contain multiple data points. "One observation or event per row" is the preferred format for Tidy Data.--><span style="color:red">Replace this ¶</span><br><br>
 
@@ -14,16 +14,17 @@ A helpful [Pandas Cheat Sheet][pandas-cheat-sheet].
 
 |    | Contents of this Tutorial                                                      | 
 |----|--------------------------------------------------------------------------------|
-| 0. | [**Defining Clean Data and its Uses**](#) |
-| 1. | [**Clean and Tidy Principles**](#)                  |
-| 5. | [**Wrong or Inconsistent Format**](#) |
-| 2. | [**NaN Problem**](#)                                    |
-| 3. | [**Duplicate Rowss**](#)                              |
-| 4. | [**Wrong Data Type**](#)                                          |
-| 6. | [**Incorrect Data**](#) |
-| 7. | [**Nested Lists and Tuples in Cells**](#) |
-| 8. | [**Tuple Trouble (and How to Cure It)**](#) |
-| 9. | [**Explode, Melt, and Pivot**](#) |
+| x. | [**Defining Clean Data and its Uses**](#) |
+| x. | [**Clean and Tidy Principles**](#)                  |
+| x. | [**Wrong or Inconsistent Format**](#) |
+| x. | [**]
+| x. | [**NaN Problem**](#)                                    |
+| x. | [**Duplicate Rowss**](#)                              |
+| x. | [**Wrong Data Type**](#)                                          |
+| x. | [**Incorrect Data**](#) |
+| x. | [**Nested Lists and Tuples in Cells**](#) |
+| x. | [**Tuple Trouble (and How to Cure It)**](#) |
+| x. | [**Explode, Melt, and Pivot**](#) |
 
 ### Create a Notebook and Load the Pandas library
 
@@ -163,7 +164,121 @@ String methods can only be applied to one column at a time. To use string method
 df['column_name'] = df['column_name'].str.method_name()
 ```
 
-If the string methods are not suffificent, you m
+## Cleaning Data with Functions
+
+If string methods are not suffificent, or you're working with a different data type, you might need to create your own function that can be applied to the entire column.
+
+Let's imagine that you want to get some statistics about the amount of time spent by Beatles songs on the Billboard Top 50. You can do this using `beatles_billboard.describe()`. However, you first have to fix an important problem: handling instances where a song never made the Top 50. In these instances, the creators of the dataset made the decision to enter `-1` in the `'Billboard.Top.50'` column, as in the case of the song "Golden Slumbers":
+
+<table border="1">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Album.debut</th>
+      <th>Duration</th>
+      <th>Other.releases</th>
+      <th>Genre</th>
+      <th>Songwriter</th>
+      <th>Lead.vocal</th>
+      <th>Top.50.Billboard</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>81</th>
+      <td>Golden Slumbers</td>
+      <td>1969</td>
+      <td>Abbey Road</td>
+      <td>91</td>
+      <td>5</td>
+      <td>Rock, Baroque Pop, Pop/Rock</td>
+      <td>McCartney</td>
+      <td>McCartney</td>
+      <td>-1</td>
+    </tr>
+  </tbody>
+</table>
+
+For our purposes, it is better to represent the number of weeks spent in the Top 50 as `0`, rather than `-1`. Let's write a function that replaces `-1` with `0`.
+
+```python
+def normalize_billboard(entry):
+    if entry == -1:
+        return 0
+    return entry
+```
+
+If we pass a value of `-1` to the function, it will return a value of `0`. Otherwise, it will return the original value passed to it.
+
+> *Note on Python Functions:* <br>
+> Once a value is returned, the function is exited. Hence, there is no need for an `else` statement - no more than one value will ever be returned. Review Python functions at [W3Schools][w3schools-functions].
+
+As you will recall from Part A, Pandas tries to simplify your work by providing a comprehensive suite of tools. In this instance, Pandas saves us from iterating through every row with the `.apply()` method:
+
+```python
+beatles_billboard['Top.50.Billboard'] = beatles_billboard['Top.50.Billboard'].apply(normalize_billboard)
+```
+
+This will pass every entry in the `'Top.50.Billboard'` column to the `normalize_billboard()` function, replacing the entry with the return value of the function.
+
+If for some reason you want to maintain the original column, you can do so by saving the result to a new column with a different name, for example:
+
+```python
+beatles_billboard['Top.50.Billboard.normalized'] = beatles_billboard['Top.50.Billboard'].apply(normalize_billboard)
+```
+
+<!-- I want to replace this example because it is covered by a string function
+
+Let's imagine that you have a dataset in which a particular column contains data that are inconsistent: in some places for the name of an artist you have `John Lennon`, and other places `John Lenin`.  You could correct them by hand in a Spreadsheet. But there is an easier way with a Python **function**.
+
+You will first want to understand all the values you are trying to correct.  So here you would use Pandas/Python **set** method on all the values of the df["column"] in question: `set(df["Artist"])`.
+
+Now that you know what the problem values are, write a **function** that corrects `John Lenin` to `John Lennon`.  If you don't recall **functions** see [Python Basics Notebook][python-basics]!
+
+```python
+def name_check:
+    if df["Artist"] == "John Lenin":
+        return "John Lennon"
+```
+In this case the **return** statement makes the result available for the next step in the process.
+
+But how to run this over **all rows** of a data frame?  We can easily do this with the **apply** method. In effect it **apply** allows us to automatically pass over all rows in the data frame, transforming only the column we select.  
+
+```python
+df['column'] = df['column'].apply(name_check)
+```
+-->
+
+<!-- This is really weird. Seems to be a combination of filtering and NaN stuff.
+
+Try some out:
+
+**NANs anywhere:**
+
+```python
+beatles_billboard[beatles_billboard.isna().any(axis=1)]
+```
+
+**Replace NA's in Album column with 'unreleased'**
+
+```python
+beatles_billboard = beatles_billboard['Album.debut'].fillna("unreleased")
+beatles_billboard.head(25)
+```
+
+**Convert the year column to an integer, then use the Pandas "year" format to make an intelligent date out of it, and sort the columns according to their `index` positions:**
+
+```python
+beatles_billboard["Year"] = beatles_billboard["Year"].astype(int)
+beatles_billboard["Year_DT"] = pd.to_datetime(beatles_billboard["Year"], format='%Y')
+beatles_billboard_sorted = beatles_billboard.iloc[:, [0, 1, 9, 3, 4, 5, 6, 7, 8]]
+beatles_billboard_sorted.head()
+```
+
+You can think of some others!
+-->
 
 ## The NaN Problem
 
@@ -187,7 +302,7 @@ Wrong data type in a given column is another common error (particularly since Pa
 beatles_spotify['energy'] = beatles_spotify['energy'].astype(np.float64)
 ```
 
-The same thing can happen with **date=time** information.  In our orignal datasets, the "Year" columms are in fact integers.  This works fine for basic sorting.  But Pandas has an intelligent format for working with date-time information that allows us to sort by month-day-year, or create 'bins' representing quarters, decades, centuries.  
+The same thing can happen with **date-time** information.  In our orignal datasets, the "Year" columms are in fact integers.  This works fine for basic sorting.  But Pandas has an intelligent format for working with date-time information that allows us to sort by month-day-year, or create 'bins' representing quarters, decades, centuries.  
 
 So you will need to check the original data type, then convert to strings before converting to **date-time format**.  For example:
 
@@ -212,63 +327,7 @@ beatles_billboard_sorted.head()
 
 This is more difficult, since you will need to know the details of the errors, and how to correct them.  But Python and Pandas can help you automate the process.
 
-See more [here](https://towardsdatascience.com/simplify-your-dataset-cleaning-with-pandas-75951b23568e).
- 
-
-## Cleaning Data with Functions
-
-Let's imagine that you have a dataset in which a particular column contains data that are inconsistent: in some places for the name of an artist you have `John Lennon`, and other places `John Lenin`.  You could correct them by hand in a Spreadsheet. But there is an easier way with a Python **function**.
-
-You will first want to understand all the values you are trying to correct.  So here you would use Pandas/Python **set** method on all the values of the df["column"] in question: `set(df["Artist"])`.
-
-Now that you know what the problem values are, write a **function** that corrects `John Lenin` to `John Lennon`.  If you don't recall **functions** see **Python Basic Notebook**!
-
-```python
-def name_check:
-    if df["Artist"] == "John Lenin":
-        return "John Lennon"
-```
-In this case the **return** statement makes the result available for the next step in the process.
-
-But how to run this over **all rows** of a data frame?  We can easily do this with the **apply** method. In effect it **apply** allows us to automatically pass over all rows in the data frame, transforming only the column we select.  
-
-```python
-df['column'] = df['column'].apply(name_check)
-```
-
-Note that we could use this approach not only for correcting data, but for creating **new columns** based on **existing columns**.  For example:  a Boolean column (True/False) based on the result of the contents of another column.  Here the new column will report True for any row where the column "artist" contains the string "Lennon".  
-
-```python
-df['By_Lennon'] = df['artist'].str.contains("Lennon")
-```
-
-We can then use the Boolean column to filter the entire frame (see below).
-
-Try some out:
-
-**NANs anywhere:**
-
-```python
-beatles_billboard[beatles_billboard.isna().any(axis=1)]
-```
-
-**Replace NA's in Album column with 'unreleased'**
-
-```python
-beatles_billboard['Album.debut'].fillna("unreleased", inplace=True)
-beatles_billboard.head(25)
-```
-
-**Convert the year column to an integer, then use the Pandas "year" format to make an intelligent date out of it, and sort the columns according to their `index` positions:**
-
-```python
-beatles_billboard["Year"] = beatles_billboard["Year"].astype(int)
-beatles_billboard["Year_DT"] = pd.to_datetime(beatles_billboard["Year"], format='%Y')
-beatles_billboard_sorted = beatles_billboard.iloc[:, [0, 1, 9, 3, 4, 5, 6, 7, 8]]
-beatles_billboard_sorted.head()
-```
-
-You can think of some others!
+See more [here][towards-data-science-cleaning].
 
 ## Nested Lists and Tuples in Cells
 
@@ -346,7 +405,7 @@ Missing data or data encoded as the wrong type will result in errors of various 
 
 | Part A | Part B | Part C |
 |--------|--------|--------|
-| [Pandas Basics][part-a] | **Clean and Tidy Data** | [Finding and Grouping Data][part-c] |
+| [Pandas Basics][part-a] | **Clean and Tidy Data** | [Filtering, Finding, and Grouping][part-c] |
 
 [part-a]: 04_A_Pandas_Basics.md
 [part-c]: 04_C_Pandas_Filter_Find_Group.md
@@ -354,3 +413,6 @@ Missing data or data encoded as the wrong type will result in errors of various 
 [w3schools]: https://www.w3schools.com/python/pandas/default.asp
 [pandas-cheat-sheet]: https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf
 [pandas-string-methods]: https://pandas.pydata.org/docs/user_guide/text.html#method-summary
+[python-basics]: 03_Python_basics.md
+[towards-data-science-cleaning]: https://towardsdatascience.com/simplify-your-dataset-cleaning-with-pandas-75951b23568e
+[w3schools-functions]: https://www.w3schools.com/python/python_functions.asp
