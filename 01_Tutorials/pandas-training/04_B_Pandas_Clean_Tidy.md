@@ -17,9 +17,9 @@ A helpful [Pandas Cheat Sheet][pandas-cheat-sheet].
 | x. | [**Defining Clean Data and its Uses**](#) |
 | x. | [**Clean and Tidy Principles**](#)                  |
 | x. | [**Wrong or Inconsistent Format**](#) |
-| x. | [**]
-| x. | [**NaN Problem**](#)                                    |
-| x. | [**Duplicate Rowss**](#)                              |
+| x. | [**Cleaning Data with Functions**](#) |
+| x. | [**Missing Data**](#)                                    |
+| x. | [**Duplicate Rows**](#)                              |
 | x. | [**Wrong Data Type**](#)                                          |
 | x. | [**Incorrect Data**](#) |
 | x. | [**Nested Lists and Tuples in Cells**](#) |
@@ -168,7 +168,7 @@ df['column_name'] = df['column_name'].str.method_name()
 
 If string methods are not suffificent, or you're working with a different data type, you might need to create your own function that can be applied to the entire column.
 
-Let's imagine that you want to get some statistics about the amount of time spent by Beatles songs on the Billboard Top 50. You can do this using `beatles_billboard.describe()`. However, you first have to fix an important problem: handling instances where a song never made the Top 50. In these instances, the creators of the dataset made the decision to enter `-1` in the `'Billboard.Top.50'` column, as in the case of the song "Golden Slumbers":
+Let's imagine that you want to get some statistics about the amount of time spent by Beatles songs on the Billboard Top 50. You can do this using `beatles_billboard['Billboard.Top.50'].describe()`. However, you first have to fix an important problem: handling unusual data. In several instances, the creators of the dataset made the decision to enter `-1` in the `'Billboard.Top.50'` column, as in the case of the song "Golden Slumbers":
 
 <table border="1">
   <thead>
@@ -201,7 +201,9 @@ Let's imagine that you want to get some statistics about the amount of time spen
   </tbody>
 </table>
 
-For our purposes, it is better to represent the number of weeks spent in the Top 50 as `0`, rather than `-1`. Let's write a function that replaces `-1` with `0`.
+This is likely because these songs spent no time in the Top 50. However, values of `-1` will lead to strange results when calculating the average value of the column, for example. For our purposes, it is better to represent the number of weeks spent in the Top 50 as `0`, rather than `-1`. Let's write a function that replaces `-1` with `0`.
+
+> The creators of this dataset did not document whether a value of `-1` indicates "no weeks spent in the Top 50" or "no data found indicating whether song made Top 50". It is likely safe to assume the former, but this is still an *assumption*. Be careful making assumptions about data, as this could lead to incorrect analysis. Always check the source of the data to learn more about it.
 
 ```python
 def normalize_billboard(entry):
@@ -221,7 +223,38 @@ As you will recall from Part A, Pandas tries to simplify your work by providing 
 beatles_billboard['Top.50.Billboard'] = beatles_billboard['Top.50.Billboard'].apply(normalize_billboard)
 ```
 
-This will pass every entry in the `'Top.50.Billboard'` column to the `normalize_billboard()` function, replacing the entry with the return value of the function.
+This will pass every entry in the `'Top.50.Billboard'` column to the `normalize_billboard()` function, replacing the entry with the return value of the function. The updated row for "Golden Slumbers" will be:
+
+<table border="1">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Album.debut</th>
+      <th>Duration</th>
+      <th>Other.releases</th>
+      <th>Genre</th>
+      <th>Songwriter</th>
+      <th>Lead.vocal</th>
+      <th>Top.50.Billboard</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>81</th>
+      <td>Golden Slumbers</td>
+      <td>1969</td>
+      <td>Abbey Road</td>
+      <td>91</td>
+      <td>5</td>
+      <td>Rock, Baroque Pop, Pop/Rock</td>
+      <td>McCartney</td>
+      <td>McCartney</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
 
 If for some reason you want to maintain the original column, you can do so by saving the result to a new column with a different name, for example:
 
@@ -280,21 +313,113 @@ beatles_billboard_sorted.head()
 You can think of some others!
 -->
 
-## The NaN Problem
+## Missing Data
 
-In Python there is a difference between a "0" and nothing.  The latter is a Null, which represents "no data at all."  Nulls will result in errors when you attempt to perform some operation on them.  You cannot add to or compare something to a Null.  Nor can you test whether a Null contains some set of characters or matches a word. 
+Another common problem in data is **missing data**. For example, see the row for a more obscure song "Circles" in the Beatles Billboard dataset:
 
-* **Find the NaN's**:  `df[df.isna().any(axis=1)]`, or for the billboard data:  `beatles_billboard[beatles_billboard.isna().any(axis=1)]`.  
+<table border="1">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Album.debut</th>
+      <th>Duration</th>
+      <th>Other.releases</th>
+      <th>Genre</th>
+      <th>Songwriter</th>
+      <th>Lead.vocal</th>
+      <th>Top.50.Billboard</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>42</th>
+      <td>Circles</td>
+      <td>1968</td>
+      <td>NaN</td>
+      <td>226</td>
+      <td>0</td>
+      <td>Hindustani Blues, Pop/Rock</td>
+      <td>Harrison</td>
+      <td>Harrison</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
 
-* **Fill the NaN's**. If you are performing mathematical operations, You can fill missing values with some default number or string. The solution will probably vary from one column to the next (since some are integers, some dates, and are text):  `beatles_billboard.fillna("-")` would fill *all NaN* with the same string.  But we could instead try something that would be more meaningful.  For example: `beatles_billboard['Album.debut'].fillna("unreleased", inplace=True)`
-* If you are trying to filter a data frame by a particular keyword or condition, you can treat the Nulls as "False" and thereby ignore them.
+Missing data can be represented in many different ways in code. In this instance, the entry in the column `'Album.debut'` is `NaN`, meaning "Not a Number". You might also see missing data encoded as `null`, `None`, or `pd.NA`. All of these represent "no data at all".
 
-### Duplicate Rows
+Missing data can be incredibly troublesome. Most operations involving missing data will result in errors. For example, using a **string method** on a column with just a single missing value will cause the entire operation to fail. This is why it is crucial to **find** missing values and either **fill** or **remove** them.
+
+> You might also decide you want to keep null values in your data. It is possible to work around the problems presented by missing data, but this makes work more complex. It is often simpler to replace missing data with some default value.
+
+### Finding Missing Data
+
+Before doing something about missing data, you should first get a clear picture of what data is missing.
+
+* Show just the rows with missing data:
+    + ```python
+      beatles_billboard[beatles_billboard.isna().any(axis=1)]
+      ```
+* Show just rows with missing data in a specific column:
+    + ```python
+      beatles_billboard[beatles_billboard['Album.debut'].isna()]
+      ```
+
+These are examples of **filters**, which you will lean more about in [Part C][part-c].
+
+### Filling Missing Data
+
+In many cases, you might come up with some default number or string to take the place of `NaN`s. You can fill `NaN`s using the `.fillna()` method. But `beatles_billboard.fillna('-')` would fill *all* `NaN`s with the same string. Instead, the solution will probably vary from one column to the next (since some are integers, some dates, and are text). You can fill the missing values in just one column at a time:
+
+```python
+beatles_billboard = beatles_billboard['Album.debut'].fillna("unreleased")
+```
+
+Now the row for "Circles" will be:
+
+<table border="1">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Album.debut</th>
+      <th>Duration</th>
+      <th>Other.releases</th>
+      <th>Genre</th>
+      <th>Songwriter</th>
+      <th>Lead.vocal</th>
+      <th>Top.50.Billboard</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>42</th>
+      <td>Circles</td>
+      <td>1968</td>
+      <td>unreleased</td>
+      <td>226</td>
+      <td>0</td>
+      <td>Hindustani Blues, Pop/Rock</td>
+      <td>Harrison</td>
+      <td>Harrison</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+### Removing Missing Data
+
+You may decide to remove rows or columns with missing data, for instance if so much data is missing that the row/column is unusable.
+
+## Duplicate Rows
 
 Duplicate rows can also create errors, or distort your results.  Find them:  `duplicate = beatles_billboard[beatles_billboard.duplicated()]
 duplicate` (in this case there are none).  Remove them automatically with `beatles.drop_duplicates()`
 
-### Wrong Data Type
+## Wrong Data Type
 
 Wrong data type in a given column is another common error (particularly since Pandas attempts to guess the correct data type when importing from CSV or JSON).  In our beatles_spotify dataset, notice that the data type for 'energy' is `object`, which in the context of Pandas means it is a Python `string`.  As such we cannot perform mathematical operations on it. Change the data type with the `astype()` method:
 
@@ -323,7 +448,7 @@ beatles_billboard_sorted.head()
 
 ```
 
-### Incorrect Data
+## Incorrect Data
 
 This is more difficult, since you will need to know the details of the errors, and how to correct them.  But Python and Pandas can help you automate the process.
 
@@ -354,6 +479,8 @@ beatles_billboard['Genre'][1]
 ```
 
 Of course, this is "Tidy Data".  For that we would prefer to have each of these terms in its own row (and allow the rest of the data to repeat).  This format will allow us to perform grouping operations much more easily than if the 'Genre' values remain nested in this way.
+
+## Organization Principles
 
 ## Tuple Trouble (and How to Cure It)
 

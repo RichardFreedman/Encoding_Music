@@ -448,8 +448,6 @@ Want to count from the *end*?  `-1` is the *last* column. So `beatles_spotify.il
 ```python
 column_list = ['Year', 'Title', 'Album.debut', 'Duration', 'Other.releases' 'Genre', 'Songwriter', 'Lead.vocal', 'Top.50.Billboard']
 beatles_billboard_reordered = beatles_billboard[column_list]
-
-beatles_billboard_reordered
 ```
 
 Note that this could also be done using the `index` values for the columns.
@@ -458,6 +456,7 @@ Note that this could also be done using the `index` values for the columns.
 
 An individual column is called a **Series**
 * **One column**: `beatles_spotify["year"]`
+    > You can also reference a column like this: `beatles_spotify.year`. However, this syntax is not as clear and does not work with some column names, such as those with spaces or special characters. Most examples here will use the bracketed syntax.
 * Show all the unique entries in a single column: `beatles_spotify["album"].unique()`
 * Count the **number of unique values** in a single column: `beatles_spotify["album"].nunique()`
 * Count the **number of entries** for each value in a column:  `beatles_spotify["album"].value_counts()`
