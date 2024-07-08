@@ -12,6 +12,8 @@ Find tutorials at [W3Schools][w3schools].
 
 A helpful [Pandas Cheat Sheet][pandas-cheat-sheet].
 
+* Links in the table of contents have not been updated *
+
 |    | Contents of this Tutorial                                                      | 
 |----|--------------------------------------------------------------------------------|
 | x. | [**Defining Clean Data and its Uses**](#) |
@@ -22,6 +24,7 @@ A helpful [Pandas Cheat Sheet][pandas-cheat-sheet].
 | x. | [**Duplicate Rows**](#)                              |
 | x. | [**Wrong Data Type**](#)                                          |
 | x. | [**Incorrect Data**](#) |
+| x. | [**Organizing Data**](#) |
 | x. | [**Nested Lists and Tuples in Cells**](#) |
 | x. | [**Tuple Trouble (and How to Cure It)**](#) |
 | x. | [**Explode, Melt, and Pivot**](#) |
