@@ -12,7 +12,7 @@ Find tutorials at [W3Schools][w3schools].
 
 A helpful [Pandas Cheat Sheet][pandas-cheat-sheet].
 
-* Links in the table of contents have not been updated *
+*Links in the table of contents have not been updated*
 
 |    | Contents of this Tutorial                                                      | 
 |----|--------------------------------------------------------------------------------|
