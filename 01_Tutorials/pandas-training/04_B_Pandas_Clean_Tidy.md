@@ -16,16 +16,17 @@ A guide to cleaning data with Pandas on [Medium][towards-data-science-cleaning].
 
 |    | Contents of this Tutorial                                                      | 
 |----|--------------------------------------------------------------------------------|
-| x. | [**Understanding Tidy Data**](#)                  |
-| x. | [**Wrong or Inconsistent Format**](#) |
-| x. | [**Cleaning Data with Functions**](#) |
-| x. | [**Missing Data**](#)                                    |
-| x. | [**Duplicate Rows**](#)                              |
-| x. | [**Wrong Data Type**](#)                                          |
-| x. | [**Incorrect Data**](#) |
-| x. | [**Organization Principles**](#) |
-| x. | [**Nested Lists and Tuples in Cells**](#) |
-| x. | [**Tuple Trouble (and How to Cure It)**](#) |
+| x. | [**Understanding Tidy Data**](#understanding-tidy-data)                  |
+| x. | [**Wrong or Inconsistent Format**](#wrong-or-inconsistent-format) |
+| x. | [**Cleaning Data with Functions**](#cleaning-data-with-functions) |
+| x. | [**Missing Data**](#missing-data)                                    |
+| x. | [**Duplicate Rows**](#duplicate-rows)                              |
+| x. | [**Wrong Data Type**](#wrong-data-type)                                          |
+| x. | [**Data Cleaning Best Practices**](#data-cleaning-best-practices) |
+| x. | [**Data Organization Principles**](#data-organization-principles) |
+| x. | [**Fixing Multiple Variables in One Column**](#fixing-multiple-variables-in-one-column) |
+| x. | [**Fixing Multiple Observations in One Row**](#fixing-multiple-observations-in-one-row) |
+| x. | [**Tuple Trouble (and How to Cure It)**](#tuple-trouble-and-how-to-cure-it) |
 | x. | [**Explode, Melt, and Pivot**](#) |
 
 ### Create a Notebook and Load the Pandas library
@@ -140,7 +141,7 @@ In the remainder of this document, you will learn about some common cases where 
 
 ## Wrong or Inconsistent Format
 
-Many issues arise when data is stored as strings. Spelling and capitalization can vary across items that are meant to be the same. Often, the situation will be applying a **string method** to an entire column. You saw an example of the `lower()` string method in [Part A][part-a]:
+Many issues arise when data is stored as strings. Spelling and capitalization can vary across items that are meant to be the same. Often, the situation will be applying a **string method** to an entire column. You saw an example of the `.str.lower()` string method in [Part A][part-a]:
 
 ```python
 beatles_billboard['Title'] = beatles_billboard['Title'].str.lower()
@@ -150,11 +151,11 @@ beatles_billboard['Title'] = beatles_billboard['Title'].str.lower()
 
 Some particularly important string methods for cleaning data:
 
-* `.replace(x, y)`: Replace any instance of `x` with `y`
-* `.split(x)`: Replace a string with a list of strings. The original string is separated at every instance of the substring `x`. E.g.: applying `.split(', ')` to `'John, Paul, George, Ringo'` would result in `['John', 'Paul', 'George', 'Ringo']`
-* `.strip()`: Remove the spaces from the beginning and end of a string. Can also be configured to remove other characters.
-* `.upper()`: Convert a string to all uppercase.
-* `.title()`: Convert a string to Title Case.
+* `.str.replace(x, y)`: Replace any instance of `x` with `y`
+* `.str.split(x)`: Replace a string with a list of strings. The original string is separated at every instance of the substring `x`. E.g.: applying `.split(', ')` to `'John, Paul, George, Ringo'` would result in `['John', 'Paul', 'George', 'Ringo']`
+* `.str.strip()`: Remove the spaces from the beginning and end of a string. Can also be configured to remove other characters.
+* `.str.upper()`: Convert a string to all uppercase.
+* `.str.title()`: Convert a string to Title Case.
 
 String methods can only be applied to one column at a time. To use string methods, follow the pattern below:
 
@@ -467,15 +468,6 @@ The next step to take with your data is maiking it **tidy**. The key concepts of
 
 You can read more in Hadley Wickham's paper on Tidy Data [here][tidy-data].
 
-[ -- note to self -- ]
-Things to tidy in the dataset:
-
-- Multiple variables in one column
-- Each observation forms a row
-
-[ -- end note to self --]
-
-
 ### What are the benefits of following Tidy Data principles?
 
 Beyond having a largely standardized format for datasets, making your data "tidy" will massively simplify your work in Pandas. In [Part C][part-c], you'll start working with your data in-depth. All of Pandas built-in tools to parse, analyze, and visualize your data will work best when your data is organized following these principles.
@@ -517,20 +509,63 @@ As observed in the above section, many entries in the `'Album.debut'` column see
 
 This violates the Tidy Data principle "Each variable forms a column", since the two variables (UK album release and US album release) are stored in the same column. There are also rows where there is no dinstinction between a UK and a US album release, so we can assume the release was the same in both regions.
 
-This is a somewhat complex problem to solve. We want to perform the same operation on every row. First, it should take the text between `"UK: "` and `"US: "` and store it in an `"Album.debut.UK"` column. Next, it should take the text after `"US: "` and store it in an `"Album.debut.US"` column. If the UK/US album release is not specified, we should assign the same album name to both the UK and US release columns.
+This is a somewhat complex problem to solve. The data we need is stored in a string, with part of it coming after "UK: " (the UK release) and part of it coming after "US: " (the US release). Thankfully, there is a string method we can use to tidy data: `.str.split()`. We know the UK release will always be before " US: ", and the US after. So we can split on that string (including the spaces before and after): `beatles_billboard['Album.debut'].str.split(' US: ')`
 
-Since we are performing an operation on every row, it might make sense to use the `.apply()` method. But how to split the value into two separate columns? To do this, we need to `apply` a function that returns a Series, like so:
+This doesn't create a new column! To split a column, you can use the `expand` keyword for the `.str.split()` method. And since this splits the entry into two columns, we need to assign it to two columns. Put it together below:
 
 ```python
-df = pd.DataFrame({'A': ['do', 're', 'mi'], 'B': ['fa', 'so', 'la']})
-
-def func(text):
-    return pd.Series([text, text])
-  
-df[['B', 'C']] = df['B'].apply(func)
+beatles_billboard[['Album.debut.UK', 'Album.debut.US']] = beatles_billboard['Album.debut'].str.split(' US: ', expand=True)
 ```
 
-If we apply `func()` on column `'B'`, we'll create two 
+Then drop the original column, and reorder the columns:
+
+```python
+beatles_billboard = beatles_billboard.drop(columns=['Album.debut'])
+beatles_billboard = beatles_billboard.iloc[:, [0, 1, 2, 8, 9, 3, 4, 5, 6, 7]]
+```
+
+You're left with most of the data in the right place, but you still have a bit of cleaning up to do. You need to deal with the text "UK: ":
+
+<table border="1">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Album.debut.UK</th>
+      <th>Album.debut.US</th>
+      <th>Duration</th>
+      <th>Other.releases</th>
+      <th>Genre</th>
+      <th>Songwriter</th>
+      <th>Lead.vocal</th>
+      <th>Top.50.Billboard</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>9</th>
+      <td>All My Loving</td>
+      <td>1963</td>
+      <td>UK: With the Beatles</td>
+      <td>Meet The Beatles!</td>
+      <td>124</td>
+      <td>32</td>
+      <td>Pop/Rock</td>
+      <td>McCartney</td>
+      <td>McCartney</td>
+      <td>-1</td>
+    </tr>
+  </tbody>
+</table>
+
+Let's use another string method, this time `.str.strip()`, to cut "UK: " out from the beginning of each entry in the column:
+
+```python
+beatles_billboard['Album.debut.UK'] = beatles_billboard['Album.debut.UK'].str.strip('UK: ')
+```
+
+Now you're almost done with the split!
 
 <table border="1">
   <thead>
@@ -565,40 +600,73 @@ If we apply `func()` on column `'B'`, we'll create two
   </tbody>
 </table>
 
+The last case to handle is albums that didn't specifiy separate UK/US releases. In those rows, `.str.split(' US: ')` couldn't find the string " US: " to split on, so it just put the entire string in the `'Album.debut.UK'` column, and nulls in the `'Album.debut.US'` column, like so:
 
-## Nested Lists and Tuples in Cells
+<table border="1">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Album.debut.UK</th>
+      <th>Album.debut.US</th>
+      <th>...</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>92</th>
+      <td>Help!</td>
+      <td>1963</td>
+      <td>Help!</td>
+      <td>None</td>
+      <td>...</td>
+    </tr>
+  </tbody>
+</table>
 
+ Remember, `None`, is another type of missing data. We can fix this using `.fillna()` to replace any missing data in the `'Album.debut.US'` column with the entry in the `'Album.debut.UK'` column for that row:
 
+ ```python
+ beatles_billboard['Album.debut.US'] = beatles_billboard['Album.debut.US'].fillna(beatles_billboard['Album.debut.US'])
+ ```
 
-## Splitting Data into Several Columns
+ Now every song will be correctly split into two columns:
 
+ <table border="1">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Album.debut.UK</th>
+      <th>Album.debut.US</th>
+      <th>...</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>92</th>
+      <td>Help!</td>
+      <td>1963</td>
+      <td>Help!</td>
+      <td>Help!</td>
+      <td>...</td>
+    </tr>
+  </tbody>
+</table>
 
+If you have any problems, you may need to handle the missing data in the `'Album.debut'` column before trying to perform operations on it.
 
-### Split String into List
+## Fixing Multiple Observations in One Row
 
-In some cases you might find that cells in your colum a list of terms as a single string, like `'Psychedelic Rock, Art Rock, Pop/Rock'`.  Note that this is *not* the same thing as a Python list!  It's just a single string.  The second cell of the "Genre" column in the Beatles Billboard data contains just such a problem:
+In the `'Genre'` column of the `beatles_billboard` dataset, there are often several genres listed. This violates the principle of Tidy Data "Each observation forms a row".
 
-```python
-beatles_billboard['Genre'][1]
-'Psychedelic Rock, Art Rock, Pop/Rock'
-```
-
-But we can `split` the list with a built-in Python function.  In this instance simply chain the Python functions and apply them to the column: 
-
-```python
-beatles_billboard['Genre'] = beatles_billboard['Genre'].str.split(', ')
-```
-
-And now the cell looks like a proper Python list:
-
-```python
-beatles_billboard['Genre'][1]
-['Psychedelic Rock', 'Art Rock', 'Pop/Rock']
-```
-
-Of course, this is "Tidy Data".  For that we would prefer to have each of these terms in its own row (and allow the rest of the data to repeat).  This format will allow us to perform grouping operations much more easily than if the 'Genre' values remain nested in this way.
+* Demonstration of using `.str.split()` then `.explode()` to create new rows for each genre
 
 ## Tuple Trouble (and How to Cure It)
+
+You may find it easier to deal with strings than tuples (for example, for the functionality of string methods). This function will help you convert tuples to strings:
 
 ```python
 # define the function to convert tuples to strings
@@ -611,7 +679,6 @@ def convertTuple(tup):
 df['ngram'] = df['ngram'].apply(convertTuple)
 ```
 
-# [-------- FIND A PLACE FOR THIS
 ## Combining and Spliting Columns
 
 Sometimes it is necessary to combine related columns into a new column, with values stored as a *list*. Conversely sometimes it might be necessary to split the values stored in one column into several columns (for example, if a column has first and last names, you may want one column for first names and one column for last names). This is easily done with Pandas and Python.
