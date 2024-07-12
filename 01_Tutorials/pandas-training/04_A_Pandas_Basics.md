@@ -425,6 +425,20 @@ Try:
 beatles_spotify.iloc[10:15,]
 ```
 
+### Dropping Rows
+
+You can remove (what Pandas calls 'dropping') rows by referencing their index numbers. For example, to remove rows 0, 1, 5, and 6 from `beatles_billboard`:
+
+```python
+beatles_billboard = beatles_billboard.drop([0, 1, 5, 6])
+```
+
+Your dataset will now be missing rows with those indices. You can reset the indices of the dataset (so they are again continuous from 0 to the end of the dataset) using `.reset_index(drop=True)`:
+
+```python
+beatles_billboard = beatles_billboard.reset_index(drop=True)
+```
+
 ## Working with Columns
 
 We now start to look more closely at the columns.
