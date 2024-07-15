@@ -27,7 +27,7 @@ A helpful [Pandas Cheat Sheet][pandas-cheat-sheet].
 | 3. | [**Working with Columns**](#working-with-columns)                              |
 | 4. | [**Sort and Count**](#sort-and-count)                                          |
 | 5. | [**Combine and Merge Data Frames**](#combining-joining-and-merging-dataframes) |
-| 6. | [**Maximizing Pandas**](#maximizing-pandas)                                    |
+| 6. | [**Making the Most of Pandas**](#making-the-most-of-pandas)                    |
 
 ## Introduction to DataFrames
 
@@ -409,20 +409,26 @@ By default Pandas shows only the first and last five rows of any data frame. The
 
 #### iloc for Index-based slices
 
-* **iloc**: to select rows by **index number** (the left-hand column) use `iloc`. A good way to remember this is that `iloc` will correspond to the *integer* value of the index (which starts with zero). The syntax puts rows before columns, as in `beatles_spotify.iloc[startrow:endrow, startcolumn:endcolumn]`.  Thus rows 10-15 (and all columns) of our dataframe would be `beatles_spotify.iloc[10:15, :]`.  
+* **iloc**: to select rows by **index number** (the left-hand column) use `iloc`. A good way to remember this is that `iloc` will correspond to the *integer* value of the index (which starts with zero). The syntax puts rows before columns, as in `beatles_spotify.iloc[startrow:endrow, startcolumn:endcolumn]`. 
 
-Note:  the first number is *inclusive* but the second is *exclusive*.  So `10:15` will yield rows 10, 11, 12, 13, 14, but *not* 15.
+Note the use of square brackets `[ ]`: square brackets indicate we are taking a *slice* (a section) of an item.
+
+The first number is *inclusive* but the second is *exclusive*. So `beatles_spotify.iloc[10:15, 2:4]` will yield rows 10, 11, 12, 13, 14, and columns 2, 3, but *not* row 15 or column 4.
+
+As a shortcut, you can omit the first number of a range to start at the first possible index, and omit the last number of a range to end at the last possible index. You can also omit the column range to retrieve all columns.
+
+Thus rows 10-14 (and all columns) of our dataframe would be `beatles_spotify.iloc[10:15]` (or `beatles_spotify.iloc[10:15., :]`).
 
 #### loc for Label-based slices
 
-* **loc**: to select rows by **label** of the left-hand column (as when you might have an index of strings), use `loc`.  This is useful when our index is a string rather than a number.  It is especially useful for working with columns.
+* **loc**: to select rows by **label** of the left-hand column (as when you might have an index of strings), use `loc`. This is useful when our index is a string rather than a number. It is especially useful for working with columns.
 
-Pandas Cheat Sheet:  [here][pandas-cheat-sheet].
+Pandas Cheat Sheet: [here][pandas-cheat-sheet].
 
 Try:
 
 ```python
-beatles_spotify.iloc[10:15,]
+beatles_spotify.iloc[10:15]
 ```
 
 ### Dropping Rows
@@ -451,50 +457,53 @@ Want to count from the *end*?  `-1` is the *last* column. So `beatles_spotify.il
 
 #### Working with Columns by Name (or 'label')
 
-* **column names** as a list:  `beatles_spotify.columns`
-* **rename a column**:  `beatles_billboard["album"] = beatles_billboard["Album.debut"]` or `beatles_billboard.rename(columns = {'Album.debut':'album'})`
-* **drop a column**: `beatles_billboard.drop(columns=['Album.debut'])`.  Note that these must be presented as a list, even if there is only one!
-* **add a column**; in this case we might want to create a column based on condition in another (like "Instrumental" as a Boolean ):   
-* **data types** of the columns:  `beatles_spotify.dtypes`.  Note that we can do something similar with `beatles_spotify.info()`.  To change data type, see [Cleaning and Checking Data][part-b], in Part B.
-* **sort the columns** alphabetically:  `beatles_spotify.columns.sort_values()`
-* **move or reorganize columns** by specifying a new order; this would also work to drop certain columns ommitted from the list:
+<table>
+    <tr>
+        <th>Action</th>
+        <th>Example Code</th>
+        <th>Output</th>
+    </tr>
+    <tr>
+        <td>View all columns as a list</td>
+        <td><code>beatles_spotify.columns</code></td>
+        <td>
+            <details>
+                <summary>Click here</summary>
+                <pre>
+Index(['id', 'year', 'album', 'song', 'danceability', 'energy', 'speechiness',
+       'acousticness', 'liveness', 'valence', 'duration_ms'],
+      dtype='object')
+            </details>
+        </td>
+    </tr>
+    <tr>
+        <td>Rename a column</td>
+        <td><code>beatles_billboard["album"] = beatles_billboard["Album.debut"]</code> or <code>beatles_billboard.rename(columns = {'Album.debut':'album'})</code></td>
+        <td>N/A</td>
+    </tr>
+    <tr>
+        <td>Drop a column</td>
+        <td><code>beatles_billboard.drop(columns=['Album.debut'])</code></td>
+        <td>N/A</td>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<br><br><br><br>
 
-```python
-column_list = ['Year', 'Title', 'Album.debut', 'Duration', 'Other.releases' 'Genre', 'Songwriter', 'Lead.vocal', 'Top.50.Billboard']
-beatles_billboard_reordered = beatles_billboard[column_list]
-```
+* **column names** as a list: `beatles_spotify.columns` (note the absence of `()`)
 
-Note that this could also be done using the `index` values for the columns.
-
-### A Column is a Series
-
-An individual column is called a **Series**
-* **One column**: `beatles_spotify["year"]`
-    > You can also reference a column like this: `beatles_spotify.year`. However, this syntax is not as clear and does not work with some column names, such as those with spaces or special characters. Most examples here will use the bracketed syntax.
-* Show all the unique entries in a single column: `beatles_spotify["album"].unique()`
-* Count the **number of unique values** in a single column: `beatles_spotify["album"].nunique()`
-* Count the **number of entries** for each value in a column:  `beatles_spotify["album"].value_counts()`
-
-Pandas Cheat Sheet:  [here][pandas-cheat-sheet].
-
-Show the columns of our df:
+**Show the columns of our df:**
 
 ```python
 beatles_billboard.columns
 ```
 
-<table border="0">
-    <tr>
-        <th valign="top">Output:</th>
-        <td>
-            <pre>
-Index(['Title', 'Year', 'Album.debut', 'Duration', 'Other.releases', 'Genre', 'Songwriter', 'Lead.vocal', 'Top.50.Billboard'],
-      dtype='object')</pre>
-        </td>
-    </tr>
-</table>
-
-Or the data types for each column:
+* **rename a column**:  `beatles_billboard["album"] = beatles_billboard["Album.debut"]` or `beatles_billboard.rename(columns = {'Album.debut':'album'})`
+* **drop a column**: `beatles_billboard.drop(columns=['Album.debut'])`.  Note that these must be presented as a list, even if there is only one!
+* **add a column**; in this case we might want to create a column based on a condition in another (like "sad" as a Boolean): `beatles_spotify['sad'] = beatles_spotify['valence'] < 0.2`
+* **data types** of the columns:  `beatles_spotify.dtypes` (again, no `()`). Note that we can do something similar with `beatles_spotify.info()`.  To change data type, see [Cleaning and Checking Data][part-b], in Part B.
 
 ```python
 beatles_spotify.dtypes
@@ -521,7 +530,9 @@ Length: 11, dtype: object</pre>
     </tr>
 </table>
 
-Or show the column names sorted in a list:
+* **sort the columns** alphabetically:  `beatles_spotify.columns.sort_values()`
+
+Show the column names sorted in a list:
 
 ```python
 beatles_spotify.columns.sort_values()
@@ -538,7 +549,38 @@ Index(['acousticness', 'album', 'danceability', 'duration_ms', 'energy', 'id', '
     </tr>
 </table>
 
-Make a new df with just a subset of columns.  We first make a `list` of the required columns, then we pass that list inside `[]` against the original df.  In effect we are saying: `billboard` where `[these columns]` are `True`.
+* **move or reorganize columns** by specifying a new order; this would also work to drop certain columns ommitted from the list:
+
+```python
+column_list = ['Year', 'Title', 'Album.debut', 'Duration', 'Other.releases' 'Genre', 'Songwriter', 'Lead.vocal', 'Top.50.Billboard']
+beatles_billboard_reordered = beatles_billboard[column_list]
+```
+
+Note that this could also be done using the `index` values for the columns.
+
+### A Column is a Series
+
+An individual column is called a **Series**, which we can perform various operations on.
+
+* **One column** of the dataframe: `beatles_spotify["year"]`
+    > You can also reference a column like this: `beatles_spotify.year`. However, this syntax is not as clear and does not work with some column names, such as those with spaces or special characters (it is good practice to name your columns without spaces or special characters for this reason). Most examples here will use the bracketed syntax.
+* Show all the unique entries in a single column: `beatles_spotify["album"].unique()`
+* Count the **number of unique values** in a single column: `beatles_spotify["album"].nunique()`
+
+Pandas Cheat Sheet: [here][pandas-cheat-sheet].
+
+<table border="0">
+    <tr>
+        <th valign="top">Output:</th>
+        <td>
+            <pre>
+Index(['Title', 'Year', 'Album.debut', 'Duration', 'Other.releases', 'Genre', 'Songwriter', 'Lead.vocal', 'Top.50.Billboard'],
+      dtype='object')</pre>
+        </td>
+    </tr>
+</table>
+
+**Make a new df with just a subset of columns.**  We first make a `list` of the required columns, then we pass that list inside `[]` against the original df.  In effect we are saying: `billboard` where `[these columns]` are `True`.
 
 ```python
 column_list = ['Title', 'Year', 'Album.debut', 'Genre','Songwriter', 'Top.50.Billboard']
@@ -672,6 +714,8 @@ beatles_billboard_short
 ## Sort and Count
 
 Pandas affords many ways to take stock of your data, with built-in functions counts of values, means, averages, and other statistical information.  Many of these are detailed on the [Pandas Cheat Sheet][pandas-cheat-sheet]. But the following will be useful for us:
+
+* Count the **number of entries** for each value in a column:  `beatles_spotify["album"].value_counts()`
 
 ### Sort Values
 
@@ -893,6 +937,8 @@ Name: count, Length: 54, dtype: int64</pre>
         </td>
     </tr>
 </table>
+
+This data might be the final result you are looking for. 
 
 ## Combining, Joining, and Merging DataFrames
 
@@ -1525,7 +1571,7 @@ beatles_combined
 
 The result is significantly more useful - Pandas correctly matched many more songs across the two frames. This is a great example of why it is so important to **clean** our data - it is vital to ensure we get the results we expect and want. As you may have noticed, even this change was not enough for Pandas to correctly match every song in the `beatles_spotify` dataframe. Read more about cleaning data with Pandas in the [next section][part-b].
 
-## Maximizing Pandas
+## Making the Most of Pandas
 
 Pandas is a powerful library that makes complex data science easier. There are myriad features designed to handle an almost infinite set of applications. However, especially to those with prior experience in Python, it can feel easier to revert to Python code you already know how to write for complex tasks. This takes away from a crucial element of Pandas - you don't need to reinvent the wheel! For example, you almost never need to write for loops in Pandas, because there are built-in methods that will apply an operation to an entire column or dataframe. To make sure you take full advantage of the benefits Pandas provides, be sure to search the [documentation][pandas-documentation] using the search bar whenever you're attempting something new. You can also check the [cheatsheet][pandas-cheat-sheet] or [W3Schools][w3schools]. Chances are, Pandas has a built-in way to accomplish your goal that will make your life easier.
 
