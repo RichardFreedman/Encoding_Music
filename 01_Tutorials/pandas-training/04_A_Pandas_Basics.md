@@ -493,9 +493,28 @@ This example creates a new column, `'sad'`, in `beatles_spotify`. In each row, t
 
 #### 4. Drop a column
 
+Note that these must be presented as a list, even if there is only one!
+
+```python
+beatles_billboard = beatles_billboard.drop(columns=['Album.debut'])
+```
+
 #### 5. Rename a column (or columns)
 
-You can rename a single column by 
+You can rename a single column like this:
+
+```python
+beatles_billboard["album"] = beatles_billboard["Album.debut"]
+beatles_billboard = beatles_billboard.drop(columns=['Album.debut'])
+```
+
+This is the same as adding a new column, `'album'`, where every entry is the same as in the `'Album.debut'` column. You then have to get rid of the redundant `'Album.debut'` column, hence the drop.
+
+You can also rename columns by creating a dictionary that specifies which column names should be changed, and what they should be changed to:
+
+```python
+
+```
 
 * **rename a column**:  `beatles_billboard["album"] = beatles_billboard["Album.debut"]` or `beatles_billboard.rename(columns = {'Album.debut':'album'})`
 * **drop a column**: `beatles_billboard.drop(columns=['Album.debut'])`.  Note that these must be presented as a list, even if there is only one!

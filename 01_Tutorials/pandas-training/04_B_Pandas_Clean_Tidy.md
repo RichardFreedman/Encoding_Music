@@ -458,13 +458,19 @@ The next step to take with your data is maiking it **tidy**. The key concepts of
 
     > In our `beatles_billboard` dataset, the `'Album.debut'` column contains *two* variables: the UK and the US release of each album. To fix this, we would have to create two columns, one for the UK release and one for the US release.
 
+    [split is a great way to solve this]
+
 2. Each observation forms a row
 
     > In the `beatles_billboard` dataset, the `'Genre'` column often contains *several* genres. This is, in effect *several observations*. Tidy data would suggest creating a new row.
 
+    [explode is a great…]
+
 3. Each type of observational unit forms a table
 
     > Both `beatles_billboard` and `beatles_spotify` center around the observational unit of a *single song*. If we wanted to focus on a different unit, like observations about musical artists, it would be more organized to do so in a *new* dataframe, rather than our existing ones.
+
+    [in some ways beyond scope of course, but separating based on content types. spotify vs. billboard is good example: observing music features vs. observing metadata]
 
 You can read more in Hadley Wickham's paper on Tidy Data [here][tidy-data].
 
