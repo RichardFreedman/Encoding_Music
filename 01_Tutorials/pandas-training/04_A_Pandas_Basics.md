@@ -407,7 +407,7 @@ By default Pandas shows only the first and last five rows of any data frame. The
 
 `df.loc` and `df.iloc` are *not* the same!
 
-#### iloc for Index-based slices
+### iloc for Index-based slices
 
 * **iloc**: to select rows by **index number** (the left-hand column) use `iloc`. A good way to remember this is that `iloc` will correspond to the *integer* value of the index (which starts with zero). The syntax puts rows before columns, as in `beatles_spotify.iloc[startrow:endrow, startcolumn:endcolumn]`. 
 
@@ -419,7 +419,7 @@ As a shortcut, you can omit the first number of a range to start at the first po
 
 Thus rows 10-14 (and all columns) of our dataframe would be `beatles_spotify.iloc[10:15]` (or `beatles_spotify.iloc[10:15., :]`).
 
-#### loc for Label-based slices
+### loc for Label-based slices
 
 * **loc**: to select rows by **label** of the left-hand column (as when you might have an index of strings), use `loc`. This is useful when our index is a string rather than a number. It is especially useful for working with columns.
 
@@ -449,56 +449,53 @@ beatles_billboard = beatles_billboard.reset_index(drop=True)
 
 We now start to look more closely at the columns.
 
-#### iloc for Index-based slices
+### iloc for Index-based slices
 
 It's possible to select colulmns with `iloc`, as shown above for rows. The syntax puts rows before columns, as in `beatles_spotify.iloc[startrow:endrow, startcolumn:endcolumn]`.  The first column (and all rows) would be `beatles_spotify.iloc[:, 0]`. Thus the first `five` columns (and all rows) of our dataframe would be `beatles_spotify.iloc[:, 0:6]`.  Note:  the first number is *inclusive* but the second is *exclusive*.
 
 Want to count from the *end*?  `-1` is the *last* column. So `beatles_spotify.iloc[:, -1]`
 
-#### Working with Columns by Name (or 'label')
+### Working with Columns by Name (or 'label')
 
-<table>
-    <tr>
-        <th>Action</th>
-        <th>Example Code</th>
-        <th>Output</th>
-    </tr>
-    <tr>
-        <td>View all columns as a list</td>
-        <td><code>beatles_spotify.columns</code></td>
-        <td>
-            <details>
-                <summary>Click here</summary>
-                <pre>
-Index(['id', 'year', 'album', 'song', 'danceability', 'energy', 'speechiness',
-       'acousticness', 'liveness', 'valence', 'duration_ms'],
-      dtype='object')
-            </details>
-        </td>
-    </tr>
-    <tr>
-        <td>Rename a column</td>
-        <td><code>beatles_billboard["album"] = beatles_billboard["Album.debut"]</code> or <code>beatles_billboard.rename(columns = {'Album.debut':'album'})</code></td>
-        <td>N/A</td>
-    </tr>
-    <tr>
-        <td>Drop a column</td>
-        <td><code>beatles_billboard.drop(columns=['Album.debut'])</code></td>
-        <td>N/A</td>
-    </tr>
-    <tr>
-        <td></td>
-    </tr>
-</table>
-<br><br><br><br>
+| Things you can do with columns |
+|--------------------------------|
+| [Show all the columns of a dataframe]() |
+| [Show the columns sorted alphabetically]() |
+| [Add a column]() |
+| [Drop a column]() |
+| [Rename a column (or columns)]() |
+| [Show the data types of the columns]() |
+| [Reorder columns]() |
 
-* **column names** as a list: `beatles_spotify.columns` (note the absence of `()`)
+#### 1. Show all the columns of a dataframe
 
-**Show the columns of our df:**
+Show all the columns of a dataframe as a list (note the absence of `()`):
 
 ```python
 beatles_billboard.columns
 ```
+
+#### 2. Show all the columns of a dataframe sorted alphabetically
+
+```python
+beatles_billboard.sort_values()
+```
+
+#### 3. Add a column
+
+You can add a column based on another column. You assign a new column name to an expression that is then evaluated for each row:
+
+```python
+beatles_spotify['sad'] = beatles_spotify['valence'] < 0.2
+```
+
+This example creates a new column, `'sad'`, in `beatles_spotify`. In each row, the `'sad'` column will have the value of the Boolean expression `beatles_spotify['valence'] < 0.2`. This means if valence for that row is less than 0.2, `'sad'` will be `True`, and if not, `'sad'` will be `False`.
+
+#### 4. Drop a column
+
+#### 5. Rename a column (or columns)
+
+You can rename a single column by 
 
 * **rename a column**:  `beatles_billboard["album"] = beatles_billboard["Album.debut"]` or `beatles_billboard.rename(columns = {'Album.debut':'album'})`
 * **drop a column**: `beatles_billboard.drop(columns=['Album.debut'])`.  Note that these must be presented as a list, even if there is only one!
