@@ -457,15 +457,14 @@ Want to count from the *end*?  `-1` is the *last* column. So `beatles_spotify.il
 
 ### Working with Columns by Name (or 'label')
 
-| Things you can do with columns |
-|--------------------------------|
-| [Show all the columns of a dataframe]() |
-| [Show the columns sorted alphabetically]() |
-| [Add a column]() |
-| [Drop a column]() |
-| [Rename a column (or columns)]() |
-| [Show the data types of the columns]() |
-| [Reorder columns]() |
+| | Things you can do with columns |
+|--|------------------------------|
+| 1.| [Show all the columns of a dataframe](#1-show-all-the-columns-of-a-dataframe) |
+| 2. | [Add a column](#2-add-a-column) |
+| 3. | [Drop a column](#3-drop-a-column) |
+| 4. | [Rename a column (or columns)](#4-rename-a-column-or-columns) |
+| 5. | [Show the data types of the columns](#5-show-the-data-types-of-the-columns) |
+| 6. | [Reorder columns](#6-reorder-columns) |
 
 #### 1. Show all the columns of a dataframe
 
@@ -475,13 +474,24 @@ Show all the columns of a dataframe as a list (note the absence of `()`):
 beatles_billboard.columns
 ```
 
-#### 2. Show all the columns of a dataframe sorted alphabetically
+<table border="0">
+    <tr>
+        <th valign="top">Output:</th>
+        <td>
+            <pre>
+Index(['Title', 'Year', 'Album.debut', 'Duration', 'Other.releases', 'Genre', 'Songwriter', 'Lead.vocal', 'Top.50.Billboard'],
+      dtype='object')</pre>
+        </td>
+    </tr>
+</table>
+
+You can also see the list of columns in alphabetical order:
 
 ```python
-beatles_billboard.sort_values()
+beatles_spotify.columns.sort_values()
 ```
 
-#### 3. Add a column
+#### 2. Add a column
 
 You can add a column based on another column. You assign a new column name to an expression that is then evaluated for each row:
 
@@ -491,7 +501,7 @@ beatles_spotify['sad'] = beatles_spotify['valence'] < 0.2
 
 This example creates a new column, `'sad'`, in `beatles_spotify`. In each row, the `'sad'` column will have the value of the Boolean expression `beatles_spotify['valence'] < 0.2`. This means if valence for that row is less than 0.2, `'sad'` will be `True`, and if not, `'sad'` will be `False`.
 
-#### 4. Drop a column
+#### 3. Drop a column
 
 Note that these must be presented as a list, even if there is only one!
 
@@ -499,12 +509,14 @@ Note that these must be presented as a list, even if there is only one!
 beatles_billboard = beatles_billboard.drop(columns=['Album.debut'])
 ```
 
-#### 5. Rename a column (or columns)
+#### 4. Rename a column (or columns)
 
 You can rename a single column like this:
 
 ```python
+# copy 'Album.debut' column to new 'album' column
 beatles_billboard["album"] = beatles_billboard["Album.debut"]
+# remove original 'Album.debut' column
 beatles_billboard = beatles_billboard.drop(columns=['Album.debut'])
 ```
 
@@ -513,13 +525,18 @@ This is the same as adding a new column, `'album'`, where every entry is the sam
 You can also rename columns by creating a dictionary that specifies which column names should be changed, and what they should be changed to:
 
 ```python
+renaming_dict = {
+    'Album.debut': 'album',
+    'Title': 'song',
+    'Year': 'release_date'
+}
 
+beatles_billboard.rename(columns = renaming_dict)
 ```
 
-* **rename a column**:  `beatles_billboard["album"] = beatles_billboard["Album.debut"]` or `beatles_billboard.rename(columns = {'Album.debut':'album'})`
-* **drop a column**: `beatles_billboard.drop(columns=['Album.debut'])`.  Note that these must be presented as a list, even if there is only one!
-* **add a column**; in this case we might want to create a column based on a condition in another (like "sad" as a Boolean): `beatles_spotify['sad'] = beatles_spotify['valence'] < 0.2`
-* **data types** of the columns:  `beatles_spotify.dtypes` (again, no `()`). Note that we can do something similar with `beatles_spotify.info()`.  To change data type, see [Cleaning and Checking Data][part-b], in Part B.
+#### 5. Show the data types of the columns
+
+Each column has a data type, which tells Pandas what form the column's data is in. This affects what operations are possible on the column; if it is stored as a number, you can't use string methods on the column, and if it is stored as a string, you can't apply mathematical operations. You'll learn more about working with data types in [Part B][part-b].
 
 ```python
 beatles_spotify.dtypes
@@ -546,26 +563,11 @@ Length: 11, dtype: object</pre>
     </tr>
 </table>
 
-* **sort the columns** alphabetically:  `beatles_spotify.columns.sort_values()`
+Note you can learn similar information about your dataframe using `beatles_spotify.info()`.
 
-Show the column names sorted in a list:
+#### 6. Reorder columns
 
-```python
-beatles_spotify.columns.sort_values()
-```
-
-<table border="0">
-    <tr>
-        <th valign="top">Output:</th>
-        <td>
-            <pre>
-Index(['acousticness', 'album', 'danceability', 'duration_ms', 'energy', 'id', 'liveness', 'song', 'speechiness', 'valence', 'year'],
-      dtype='object')</pre>
-        </td>
-    </tr>
-</table>
-
-* **move or reorganize columns** by specifying a new order; this would also work to drop certain columns ommitted from the list:
+To reorder columns, you simply specify a new order of the existing columns in a list. You can omit columns to exclude them from the new dataframe.
 
 ```python
 column_list = ['Year', 'Title', 'Album.debut', 'Duration', 'Other.releases' 'Genre', 'Songwriter', 'Lead.vocal', 'Top.50.Billboard']
@@ -574,29 +576,7 @@ beatles_billboard_reordered = beatles_billboard[column_list]
 
 Note that this could also be done using the `index` values for the columns.
 
-### A Column is a Series
-
-An individual column is called a **Series**, which we can perform various operations on.
-
-* **One column** of the dataframe: `beatles_spotify["year"]`
-    > You can also reference a column like this: `beatles_spotify.year`. However, this syntax is not as clear and does not work with some column names, such as those with spaces or special characters (it is good practice to name your columns without spaces or special characters for this reason). Most examples here will use the bracketed syntax.
-* Show all the unique entries in a single column: `beatles_spotify["album"].unique()`
-* Count the **number of unique values** in a single column: `beatles_spotify["album"].nunique()`
-
-Pandas Cheat Sheet: [here][pandas-cheat-sheet].
-
-<table border="0">
-    <tr>
-        <th valign="top">Output:</th>
-        <td>
-            <pre>
-Index(['Title', 'Year', 'Album.debut', 'Duration', 'Other.releases', 'Genre', 'Songwriter', 'Lead.vocal', 'Top.50.Billboard'],
-      dtype='object')</pre>
-        </td>
-    </tr>
-</table>
-
-**Make a new df with just a subset of columns.**  We first make a `list` of the required columns, then we pass that list inside `[]` against the original df.  In effect we are saying: `billboard` where `[these columns]` are `True`.
+With this method, we can make a **new dataframe with just a subset of columns**.
 
 ```python
 column_list = ['Title', 'Year', 'Album.debut', 'Genre','Songwriter', 'Top.50.Billboard']
@@ -726,6 +706,17 @@ beatles_billboard_short
         </td>
     </tr>
 </table>
+
+### A Column is a Series
+
+An individual column is called a **Series**, which we can perform various operations on.
+
+* **One column** of the dataframe: `beatles_spotify["year"]`
+    > You can also reference a column like this: `beatles_spotify.year`. However, this syntax is not as clear and does not work with some column names, such as those with spaces or special characters (it is good practice to name your columns without spaces or special characters for this reason). Most examples here will use the bracketed syntax.
+* Show all the unique entries in a single column: `beatles_spotify["album"].unique()`
+* Count the **number of unique values** in a single column: `beatles_spotify["album"].nunique()`
+
+Pandas Cheat Sheet: [here][pandas-cheat-sheet].
 
 ## Sort and Count
 
