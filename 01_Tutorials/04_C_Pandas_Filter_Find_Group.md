@@ -15,9 +15,17 @@ In this tutorial we will explore two key concepts for working with complex datas
 Contents of this Tutorial
 
 
+<!---
+7/16/24
+
+Do we need new heading for Explore/melt/pivot, as prelude to Groupby?  Or perhaps just include in Groupby?
+
+--->
+
 ## Filter Rows: Logical Tests and Boolean Series
 ## Searching for Strings and SubStrings
 ## Bins:  From Continuous to Categorical Data
+## Explode, Melt, and Pivot Your Data
 ## Groupby Functions
 
 
@@ -33,7 +41,7 @@ Pandas can export as well as import these formats (among others).
 import pandas as pd
 ```
 
-## Meet the Beatles
+## Meet the Beatles (Again)
 
 The Pandas library has a vast array of tools for sorting, filtering, grouping, analyzing, and even visualizing tabluar data of various kinds:  strings, booleans, integers, floats, dates, and so on.  We begin with data about the albums and songs issued by the Beatles. The data are drawn from two sources:
 
