@@ -16,8 +16,8 @@ Read the famous [essay on Tidy Data][tidy-data].
 |----|---------------------------|
 | 1. | [**Data Organization Principles**](#data-organization-principles) |
 | 2. | [**Fixing Multiple Variables in One Column**](#fixing-multiple-variables-in-one-column) |
-| 3. | [**Fixing Multiple Observations in One Row**](#fixing-multiple-observations-in-one-row) |
-| 4. | [**Melting Data**](#melting-data) |
+| 3. | [**Fixing Multiple Observations in One Row: Exploding**](#fixing-multiple-observations-in-one-row-exploding) |
+| 4. | [**Fixing Multiple Observations in One Row: Melting**](#fixing-multiple-observations-in-one-row-melting) |
 | 5. | [**Pivoting Data**](#pivoting-data) |
 | 6. | [**Tuple Trouble (and How to Cure It)**](#tuple-trouble-and-how-to-cure-it) |
 | 7. | [**Combining Columns**](#combining-columns) |
@@ -236,7 +236,7 @@ The last case to handle is albums that didn't specifiy separate UK/US releases. 
 
 If you have any problems, you may need to handle the missing data in the `'Album.debut'` column before trying to perform operations on it.
 
-## Fixing Multiple Observations in One Row
+## Fixing Multiple Observations in One Row: Exploding
 
 In the `'Genre'` column of the `beatles_billboard` dataset, there are often several genres listed. We can see this in Golden Slumbers:
 
@@ -382,13 +382,153 @@ Remember you can chain these methods once you're comfortable with them, like thi
 
 You can now more easily access the individual genres, which you will likely also want to clean using string methods like `.str.replace()`. You'll see an example of this in [Part E][part-e].
 
-## Melting Data
+## Fixing Multiple Observations in One Row: Melting
 
-To do
+In `beatles_spotify`, we have six columns of feature data. In other words, there are six musical feature observations in each row. You may decide that a better method of organization is to only make one music feature observation in each row, like this:
+
+<blockquote><table>
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <th>song</th>
+          <td><code>'danceability'</code></td>
+          <td><code>'energy'</code></td>
+          <td><code>'speechiness'</code></td>
+          <td><code>'acousticness'</code></td>
+          <td><code>'liveness'</code></td>
+          <td><code>'valence'</code></td>
+        </tr>
+          <td><code>'yesterday'</code></td>
+          <td><code>0.3320</code></td>
+          <td><code>0.1790</code></td>
+          <td><code>0.0326</code></td>
+          <td><code>0.8790</code></td>
+          <td><code>0.0886</code></td>
+          <td><code>0.3150</code></td>
+        <tr>
+      </table>
+    </td>
+  </tr>
+    <td><strong>↓</strong></td>
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <th>song</th>
+          <th>variable</th>
+          <th>value</th>
+        </tr>
+          <td><code>'yesterday'</code></td>
+          <td><code>'danceability'</code></td>
+          <td><code>0.3320</code></td>
+        <tr>
+        </tr>
+          <td><code>'yesterday'</code></td>
+          <td><code>'energy'</code></td>
+          <td><code>0.1790</code></td>
+        <tr>
+        </tr>
+          <td><code>'yesterday'</code></td>
+          <td><code>'speechiness'</code></td>
+          <td><code>0.0326</code></td>
+        <tr>
+        </tr>
+          <td><code>'yesterday'</code></td>
+          <td><code>'acousticness'</code></td>
+          <td><code>0.8790</code></td>
+        <tr>
+        </tr>
+          <td><code>'yesterday'</code></td>
+          <td><code>'liveness'</code></td>
+          <td><code>0.0886</code></td>
+        <tr>
+        </tr>
+          <td><code>'yesterday'</code></td>
+          <td><code>'valence'</code></td>
+          <td><code>0.3150</code></td>
+        <tr>
+      </table>
+    </td>
+  </tr>
+</table></blockquote>
+
+This is where the Pandas `.melt()` method comes in. We can pass `.melt()` our dataframe, the column(s) that differentiate each row (`id_vars`), and the columns we want to be "melted" (`value_vars`).
+
+This will create a new table, which we can save separately, and will *only* contain the information we have specifically passed to the `.melt()` method.
+
+In this example, we also sort the songs after melting so all of a song's musical features are grouped together, and then reset the index (since we just rearranged everything).
+
+```python
+melted_feature_data = pd.melt(beatles_spotify, id_vars=['song'], value_vars=["danceability", "energy", "speechiness", "acousticness", "liveness", "valence"]).sort_values('song').reset_index(drop=True)
+```
+
+The resulting dataframe will look like this:
+
+<table border="1">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>song</th>
+      <th>variable</th>
+      <th>value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1110</th>
+      <td>yesterday</td>
+      <td>valence</td>
+      <td>0.3150</td>
+    </tr>
+    <tr>
+      <th>1111</th>
+      <td>yesterday</td>
+      <td>liveness</td>
+      <td>0.0886</td>
+    </tr>
+    <tr>
+      <th>1112</th>
+      <td>yesterday</td>
+      <td>acousticness</td>
+      <td>0.8790</td>
+    </tr>
+    <tr>
+      <th>1113</th>
+      <td>yesterday</td>
+      <td>energy</td>
+      <td>0.1790</td>
+    </tr>
+    <tr>
+      <th>1114</th>
+      <td>yesterday</td>
+      <td>speechiness</td>
+      <td>0.0326</td>
+    </tr>
+    <tr>
+      <th>1115</th>
+      <td>yesterday</td>
+      <td>danceability</td>
+      <td>0.3320</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Pivoting Data
 
-To do
+[See the Pandas Tutor demonstration of Pivot][pt-pivot]
 
 ## Tuple Trouble (and How to Cure It)
 
@@ -443,3 +583,4 @@ beatles_billboard['Author-Title'][0]
 [w3schools]: https://www.w3schools.com/python/pandas/default.asp
 [pandas-cheat-sheet]: https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf
 [tidy-data]: https://www.jstatsoft.org/article/view/v059i10
+[pt-pivot]: https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0A%0Acsv%20%3D%20'''%0Abreed,size,kids,longevity,price%0ALabrador%20Retriever,medium,high,12.04,810.0%0ABeagle,small,high,12.3,288.0%0AGolden%20Retriever,medium,high,12.04,958.0%0AYorkshire%20Terrier,small,low,12.6,1057.0%0ABoxer,medium,high,8.81,700.0%0A'''%0A%0Adogs%20%3D%20pd.read_csv%28io.StringIO%28csv%29%29%0Adogs%20%3D%20%28dogs.groupby%28%5B'size',%20'kids'%5D%29%0A%20%20%20%20%20%20%20%20%5B%5B'longevity',%20'price'%5D%5D%0A%20%20%20%20%20%20%20%20.mean%28%29%0A%20%20%20%20%20%20%20%20.reset_index%28%29%29%0A%0Adogs.pivot%28index%3D'size',%20columns%3D'kids'%29&d=2024-07-19&lang=py&v=v1
