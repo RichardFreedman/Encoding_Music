@@ -1,8 +1,8 @@
 # Advanced Pandas:  Filtering, Finding, and Grouping
 
-| Part A | Part B | Part C |
-|--------|--------|--------|
-| [Pandas Basics][part-a] | [Clean and Tidy Data][part-b] | **Filtering, Finding, and Grouping** |
+| Part A | Part B | Part C | Part D | Part E |
+|--------|--------|--------|--------|--------|
+| [Pandas Basics][part-a] | [Clean Data][part-b] | [Tidy Data][part-c] | **Filtering, Finding, and Grouping** | [Networks][part-e] |
 
 <!-- Find a place for the following:
 Note that we could use this approach not only for correcting data, but for creating **new columns** based on **existing columns**.  For example:  a Boolean column (True/False) based on the result of the contents of another column.  Here the new column will report True for any row where the column "artist" contains the string "Lennon".  
@@ -344,9 +344,11 @@ plt.show()
 
 ![Alt text](<images/pd 9.png>)
 
-| Part A | Part B | Part C |
-|--------|--------|--------|
-| [Pandas Basics][part-a] | [Clean and Tidy Data][part-b] | **Filtering, Finding, and Grouping** |
+| Part A | Part B | Part C | Part D | Part E |
+|--------|--------|--------|--------|--------|
+| [Pandas Basics][part-a] | [Clean Data][part-b] | [Tidy Data][part-c] | **Filtering, Finding, and Grouping** | [Networks][part-e] |
 
 [part-a]: 04_A_Pandas_Basics.md
-[part-b]: 04_B_Pandas_Clean_Tidy.md
+[part-b]: 04_B_Pandas_Clean.md
+[part-c]: 04_C_Pandas_Filter_Find_Group.md
+[part-e]: 04_E_Networks.md

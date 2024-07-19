@@ -1,6 +1,6 @@
 # Common Considerations for Pandas
 
-### When I need to…
+### When I want to…
 <details>
 <summary>
 <b>…find all the entries in a dataframe containing specific text</b><br>

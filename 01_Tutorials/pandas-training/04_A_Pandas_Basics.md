@@ -1,8 +1,8 @@
 # Pandas Basics:  Python for Data Analysis
 
-| Part A | Part B | Part C |
-|--------|--------|--------|
-| **Pandas Basics** | [Clean and Tidy Data][part-b] | [Filtering, Finding, and Grouping][part-c] |
+| Part A | Part B | Part C | Part D | Part E |
+|--------|--------|--------|--------|--------|
+| **Pandas Basics** | [Clean Data][part-b] | [Tidy Data][part-c] | [Filtering, Finding, and Grouping][part-d] | [Networks][part-e] |
 
 *Pandas = Python for Data Analysis*
 
@@ -1582,12 +1582,14 @@ The result is significantly more useful - Pandas correctly matched many more son
 
 Pandas is a powerful library that makes complex data science easier. There are myriad features designed to handle an almost infinite set of applications. However, especially to those with prior experience in Python, it can feel easier to revert to Python code you already know how to write for complex tasks. This takes away from a crucial element of Pandas - you don't need to reinvent the wheel! For example, you almost never need to write for loops in Pandas, because there are built-in methods that will apply an operation to an entire column or dataframe. To make sure you take full advantage of the benefits Pandas provides, be sure to search the [documentation][pandas-documentation] using the search bar whenever you're attempting something new. You can also check the [cheatsheet][pandas-cheat-sheet] or [W3Schools][w3schools]. Chances are, Pandas has a built-in way to accomplish your goal that will make your life easier.
 
-| Part A | Part B | Part C |
-|--------|--------|--------|
-| **Pandas Basics** | [Clean and Tidy Data][part-b] | [Filtering, Finding, and Grouping][part-c] |
+| Part A | Part B | Part C | Part D | Part E |
+|--------|--------|--------|--------|--------|
+| **Pandas Basics** | [Clean Data][part-b] | [Tidy Data][part-c] | [Filtering, Finding, and Grouping][part-d] | [Networks][part-e] |
 
-[part-b]: 04_B_Pandas_Clean_Tidy.md
-[part-c]: 04_C_Pandas_Filter_Find_Group.md
+[part-b]: 04_B_Pandas_Clean.md
+[part-c]: 04_C_Pandas_Tidy.md
+[part-d]: 04_D_Pandas_Filter_Find_Group.md
+[part-e]: 04_E_Networks.md
 [pandas-documentation]: https://pandas.pydata.org/about/
 [w3schools]: https://www.w3schools.com/python/pandas/default.asp
 [pandas-cheat-sheet]: https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf
