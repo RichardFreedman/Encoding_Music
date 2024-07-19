@@ -1,4 +1,4 @@
-# Statistical Charts with Plotly Express
+# Charts and Plots with Plotly Express
 Our main resource is the [Plotly Express](https://plotly.com/python/plotly-express) library, which allows for interactive visualizations and more complex/powerful graphs with less code. . The Plotly Express documentation details the very wide range of bar charts, histograms, scatter plots, heat maps, polar (radar) figures you can create, and various ways of adding captions, legends, colors, etc.
 
 ![Alt text](images/plotlyexp.png)
@@ -7,12 +7,16 @@ Our main resource is the [Plotly Express](https://plotly.com/python/plotly-expre
   - [Bar Charts](#bar-charts)
   - [Histograms](#histograms)
   - [Scatter Plots](#scatter-plots)
+  - [Radar or Spider Plots](#radar-or-spider-plots)
   - [Correlation Plots](#correlation-plots)
   - [Correlation does not equal causation](#correlation-does-not-equal-causation)
-  - [Adjusting Chart Size](#adjusting-size)
-  - [Adjusting Axes](#axis-scaling-and-text-rotation)
+  - [Adjusting Chart Size](#adjusting-size-of-the-image)
+  - [Pick Custom Color Scheme](#pick-custom-color-scheme)
+  - [Adjusting Axes](#axis-scaling--linear-or-logarithmic)
   - [Adding a Title](#adding-a-title)
-  - [Legend Customization](#legend-customization)
+  - [Labels and Legends](#labels-and-legends)
+  - [X and Y Axis Tickmarks](#x-and-y-axis-tickmarks)
+  - [Hover Data](#hover-to-show-data-points)
 
 ---
 
@@ -34,6 +38,9 @@ Bar charts are used to display categorical data. They consist of vertical or hor
 
 Here's an example of a bar chart showing the sales of different products:
 
+<Details>
+<Summary> Sample Bar Chart Code </Summary>
+
 ```python
 # import libraries
 import pandas as pd
@@ -44,16 +51,19 @@ bar_data = {'categories': ['Product A', 'Product B', 'Product C'],
 df_bar = pd.DataFrame(bar_data)
 
 # The barchart with Plotly Express specifying the source df, the columns to use as x and y axes, 
-# labels to use for those axes, and an overall title for the figure
+# labels to use for those axes, and an overall title for the figure that will serve as your caption
 fig = px.bar(df_bar, 
              x = 'categories', y= 'sales', 
              labels={'categories': 'Product Category', 'sales': 'Sales'},
-             title="Sales Report",
+             title='Figure 1: Sales Report'
             )
 # Set width and height in pixels
 fig.update_layout(width=600, height=400) 
 fig.show()
 ```
+
+</Details>
+<br>
 
 ![Alt text](images/bar.png)
 
@@ -62,6 +72,9 @@ fig.show()
 Histograms are used to display the distribution of numerical data. They consist of a series of adjacent rectangles (bins) that represent the frequency or proportion of data falling within specific intervals. Histograms help us understand the shape and spread of data.  Learn more at [Plotly Express](https://plotly.com/python/histograms/)
 
 Here's an example of a histogram displaying the distribution of exam scores:
+
+<Details>
+<Summary> Sample Histogram Code </Summary>
 
 ```python
 import pandas as pd
@@ -85,12 +98,20 @@ fig.update_yaxes(title_text='Count of Scores')
 fig.update_layout(width=600, height=400) 
 fig.show()
 ```
+
+</Details>
+
+<br>
+
 ![Alt text](images/hist.png)
 
 ## Scatter Plots
 Scatter plots are used to display the relationship between two numerical variables. Each point on the plot represents the values of the variables. Scatter plots are useful for identifying patterns, trends, and outliers in the data.  Learn more at [Plotly Express](https://plotly.com/python/line-and-scatter/)
 
 Here's an example of a scatter plot showing the relationship between study hours and exam scores:
+
+<Details>
+<Summary> Sample Scatter Plot Code </Summary>
 
 ```python
 # Plotly
@@ -115,12 +136,65 @@ fig_scatter = px.scatter(df_scatter,
                         title = "Scatter Plot of Study Hours vs Exam Scores, with Regression Line")
 
 fig_scatter.show()
-
 ```
+
+</Details>
+
+<br>
+
 
 ![Alt text](images/scatter.png)
 
 [See More Info on Regressions, here](Regressions.md)
+
+
+## Radar or Spider Plots
+
+Radar (or Polar) plots are a useful way to represent multiple variables at once, putting each of several variables around a central point:  the distance from the center indicates the strength of that feature.  There are many types of polar (radar) plots available in Plotly Express.  Here we use the `line_polar` plot.  Read more about the various features via [Plotly Express](https://plotly.com/python/radar-chart/).  
+
+It is helpful in this instance to use the Pandas `melt` method to transform our 'wide' data (with multiple columns for the individual audio features) into 'long' form data (with each feature represented as an individual row: 
+
+```python
+pd.melt(sample, id_vars=['track_title'], value_vars=feature_list)
+```
+
+![Alt text](images/melt_df.png)
+
+The [Plotly Express](https://plotly.com/python/polar-chart/#polar-chart-with-plotly-express) `line_polar` method in turn can easily read these long-form data to produce the feature-based plots. Here we define a function that takes in the original dataframe of audio features, a list of feature columns to plot, and a name for the final chart.  
+
+<Details>
+<Summary>Sample Radar Plot Code</Summary>
+
+```python
+# first declare feature list:
+# feature_list = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "valence", "danceability"]
+
+def audio_feature_radar(audio_feature_data, feature_list, chart_title):
+    melted_data = pd.melt(audio_feature_data, id_vars=['track_title'], value_vars=feature_list)
+    fig = px.line_polar(melted_data, r='value', theta='variable', color='track_title', labels = {'track_title' : "Track Title"})
+    fig.update_layout(title=chart_title)
+    fig.show()
+```
+</Details>
+
+<br>
+
+Typical usage:
+
+```python
+feature_list = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "valence", "danceability"]
+spotify_tools.audio_feature_radar(audio_feature_data, feature_list, "My Radar Plot")
+```
+
+<Details>
+<Summary>Image of Sample Output</Summary>
+
+![Alt text](images/radar_px.png)
+
+</Details>
+
+<br>
+
 
 ## Correlation Plots and Heatmaps
 Correlation plots are used to visualize the strength and direction of the relationship between two numerical variables. They provide a numerical measure called the correlation coefficient, which ranges from -1 to 1. A value close to -1 indicates a strong negative correlation, a value close to 1 indicates a strong positive correlation, and a value close to 0 indicates no or weak correlation.
@@ -129,6 +203,9 @@ One way to do this is via the `scatter_matrix` function in Plotly Express, which
 
 
 Note that to show trend lines as noted above, you would need to produce an individual scatterplot for each pair of variables.
+
+<Details>
+<Summary> Sample Correlation Plot Code </Summary>
 
 ```python
 import pandas as pd
@@ -152,11 +229,18 @@ fig.update_layout(title=f'Audio Feature Correlation: {correlation:.2f}')
 fig.show()
 
 ```
+
+</Details>
+
+<br>
+
 ![Alt text](images/corr_matrix_chart.png)
 
 
-Another way to get a good sense of the high-level correlations among variables is by first making a correlation matrix with Pandas (that is:  `correlation_matrix = data_to_correlate.corr()`) and then passing that result to the Plotly Exrpess `imshow()` method, as seen below.  Learn more at [Plotly Express](https://plotly.com/python/heatmaps/)
+Another way to get a good sense of the high-level correlations among variables is by first making a correlation matrix with Pandas (that is:  `correlation_matrix = data_to_correlate.corr()`) and then passing that result to the Plotly Express `imshow()` method, as seen below.  Learn more at [Plotly Express](https://plotly.com/python/heatmaps/)
 
+<Details>
+<Summary> Sample Code to Show Correlation Matrix as Plotly Heatmap </Summary>
 
 ```python
 import pandas as pd
@@ -181,6 +265,10 @@ fig.show()
 
 ```
 
+</Details>
+
+<br>
+
 ![Alt text](images/corrheatmap.png)
 
 
@@ -198,7 +286,7 @@ Image Source: [Spurious Correlations by Tyler Vigen](https://www.tylervigen.com/
 
 Although these two are strongly correlated, married couples that eat more margarine are not guaranteed to get divorced.
 
-## Adjusting the Size, Title, and Labels in Plotly Express Charts
+## Adjusting the Size, Title, Color, and Labels in Plotly Express Charts
 
 In Plotly Express there are various ways to change the size of your final image, provide a title, adjust the scale of the X and Y axes, and provide special labels for the items noted each axis.  It's also possibe to provide additional data in 'pop-up' lists that appear when the user hovers over individual points on the chart.
 
@@ -207,6 +295,9 @@ The Plotly Express documentation explains the main options.  Here we summarize a
 ### Adjusting Size of the Image
 
 Adjust the size by adding `fig.update_layout(width=600, height=400)` on the penultimate line of your chart code (immediately before `fig.show()`. The values for width and height are expressed in pixels.  Learn more at [Plotly Express](https://plotly.com/python/setting-graph-size/)
+
+<Details>
+<Summary> Sample Code to Adjust Size of Plotly Express Figure </Summary>
 
 ```python
 import pandas as pd
@@ -227,10 +318,41 @@ fig.update_layout(width=600, height=400)
 fig.show()
 ```
 
+</Details>
+
+<br>
+
+### Pick Custom Color Scheme
+
+You can select an overall color palette from among several options.  Here you need to add `color_discrete_sequence=px.colors.qualitative.Pastel` when you create the charrt.  Learn more at [Plotly Express](https://plotly.com/python/discrete-color/)
+
+<Details>
+<Summary> Sample Code to Adjust Color Palette  </Summary>
+
+```python
+# Load the gapminder dataset
+df = px.data.gapminder()
+
+# Create a histogram of life expectancy, colored by continent
+fig = px.histogram(df, x="lifeExp", nbins=50, color="continent",
+                   color_discrete_sequence=px.colors.qualitative.Pastel,
+                   title="Histogram of Life Expectancy, Colored by Continent")
+
+# Display the figure
+fig.show()
+```
+</Details>
+
+<br>
+
+![Alt text](images/hist_color.png)
 
 ### Axis Scaling:  Linear or Logarithmic?
 
 Normally numerical values are shown on a linear scale.  But it's possible to use logarithmic scales, too.  To use a logarithmic scale on the y axis, for instance, pass the following argument to the function: `log_y=True`.  Learn more at [Plotly Express](https://plotly.com/python/log-plot/)
+
+<Details>
+<Summary> Sample Code to Adjust Axis Scaling </Summary>
 
 ```python
 import pandas as pd
@@ -243,9 +365,16 @@ fig.show()
 ```
 ![Alt text](images/log.png)
 
+</Details>
+
+<br>
+
 ### Adding a Title
 
 To give your chart or graph an overall title, include `fig.update_layout(title_text="My Chart's Title")`. Learn more via the [Plotly Express documentation](https://plotly.com/python/figure-labels/).
+
+<Details>
+<Summary> Sample Code to add Figure Title </Summary>
 
 ```python
 import pandas as pd
@@ -261,10 +390,18 @@ fig.update_layout(title_text="Sales by Product")
 fig.show()
 ```
 
+</Details>
+
+<br>
+
+![Alt text](images/bar.png)
+
 ### Labels and Legends 
 
 You can label data so that each point or category is identified with a particular color, which is then explained in a legend at the side of the chart. Learn more via the [Plotly Express documentation](https://plotly.com/python/figure-labels/).
 
+<Details>
+<Summary> Sample Code to Add Legend and Data Labels </Summary>
 
 ```python
 import pandas as pd
@@ -275,14 +412,51 @@ fig = px.scatter(data_df,
 
 fig.show()
 ```
+</Details>
+
+<br>
+
 
 ![Alt text](images/legend.png)
 
+
+### X and Y Axis Tickmarks
+
+The content of the x and y axes are termined via variables passed in when you create your plot.  But the orientation, size and other graphical aspects of the scales themselves are determined via 'tickmark' adjustments.  One useful technique when dealing with song titles from Spotify information is to angle the X-axis tickmarks by updating the figure with `fig.update_xaxes(tickangle=45)
+`. You can easily adjust many other aspects of the tickmarks and labelling style. See more at [Plotly Express](https://plotly.com/python/axes/)
+
+<Details>
+<Summary> Sample Code to Adjust Tickmark Angle </Summary>
+
+```python
+import pandas as pd
+import plotly.express as px
+
+# create figure using selected columns from the dataframe
+fig = px.scatter(sample_df,
+                 x="track_title", y='tempo')
+
+# update layout of title labels for the x axis
+fig.update_xaxes(tickangle=45)
+
+# sort the titles alphabetically
+fig.update_xaxes(categoryorder='category ascending')
+
+fig.show()
+```
+</Details>
+
+<br>
+
+
+![Alt text](images/plotly_tick_angle.png)
 
 ### Hover to Show Data Points
 
 Include a list of `hover_data` columns when you create the Plotly Express figure.  Learn more via the [Plotly Express documentation](https://plotly.com/python/hover-text-and-formatting/), and see the example below.
 
+<Details>
+<Summary> Sample Code to Add Hover Data </Summary>
 
 ```python
 import pandas as pd
@@ -293,6 +467,8 @@ fig = px.scatter(data_df,
 
 fig.show()
 ```
+</Details>
+<br>
 
 ![Alt text](images/hover.png)
 
