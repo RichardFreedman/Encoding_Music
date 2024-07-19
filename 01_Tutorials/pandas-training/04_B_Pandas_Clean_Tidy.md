@@ -385,6 +385,8 @@ beatles_billboard = beatles_billboard.dropna(how='any', axis=0) # drops all rows
 
 Duplicate rows can also create errors, or distort your results. Find them:  `duplicates = beatles_billboard[beatles_billboard.duplicated()]` (in this case there are none). Remove them automatically with `beatles_billboard = beatles_billboard.drop_duplicates()`
 
+You can also specify removing rows only if they contain duplicates in a specific column with `beatles_billboard = beatles_billboard.drop_duplicates(subset=['Title'])`
+
 ## Wrong Data Type
 
 Wrong data type in a given column is another common error (particularly since Pandas attempts to guess the correct data type when importing from CSV or JSON). In our `beatles_spotify` dataset, suppose that the data type for 'energy' is `object`, which is a general data type that could mean almost anything.  As such we cannot perform mathematical operations on it. Change the data type with the `astype()` method:
@@ -457,26 +459,26 @@ The next step to take with your data is maiking it **tidy**. The key concepts of
 1. Each variable forms a column
 
     > In our `beatles_billboard` dataset, the `'Album.debut'` column contains *two* variables: the UK and the US release of each album. To fix this, we would have to create two columns, one for the UK release and one for the US release.
-
-    [split is a great way to solve this]
+    
+    As you will see in [Fixing Multiple Variables in One Column](#fixing-multiple-variables-in-one-column), the `.str.split()` method is a great way to solve this.
 
 2. Each observation forms a row
 
     > In the `beatles_billboard` dataset, the `'Genre'` column often contains *several* genres. This is, in effect *several observations*. Tidy data would suggest creating a new row.
 
-    [explode is a great…]
+    As you will see in [Fixing Multiple Observations in One Row](#fixing-multiple-observations-in-one-row), the `.explode()` method is a great way to solve this.
 
 3. Each type of observational unit forms a table
 
     > Both `beatles_billboard` and `beatles_spotify` center around the observational unit of a *single song*. If we wanted to focus on a different unit, like observations about musical artists, it would be more organized to do so in a *new* dataframe, rather than our existing ones.
 
-    [in some ways beyond scope of course, but separating based on content types. spotify vs. billboard is good example: observing music features vs. observing metadata]
+    In this course, we will largely work with the same type of data during a project, so this point is somewhat beyond our scope. However, even the distinction between the `beatles_spotify` and `beatles_billboard` datasets is a good example of separating tables that are making different observations.
 
 You can read more in Hadley Wickham's paper on Tidy Data [here][tidy-data].
 
 ### What are the benefits of following Tidy Data principles?
 
-Beyond having a largely standardized format for datasets, making your data "tidy" will massively simplify your work in Pandas. In [Part C][part-c], you'll start working with your data in-depth. All of Pandas built-in tools to parse, analyze, and visualize your data will work best when your data is organized following these principles.
+Beyond having a largely standardized format for datasets, making your data "tidy" will massively simplify your work in Pandas. In [Part D][part-d], you'll start working with your data in-depth. All of Pandas built-in tools to parse, analyze, and visualize your data will work best when your data is organized following these principles.
 
 ## Fixing Multiple Variables in One Column
 
@@ -513,7 +515,7 @@ As observed in the above section, many entries in the `'Album.debut'` column see
   </tbody>
 </table>
 
-This violates the Tidy Data principle "Each variable forms a column", since the two variables (UK album release and US album release) are stored in the same column. There are also rows where there is no dinstinction between a UK and a US album release, so we can assume the release was the same in both regions.
+This violates the Tidy Data principle that **"Each variable forms a column"**, since the two variables (UK album release and US album release) are stored in the same column. There are also rows where there is no dinstinction between a UK and a US album release, so we can assume the release was the same in both regions.
 
 This is a somewhat complex problem to solve. The data we need is stored in a string, with part of it coming after "UK: " (the UK release) and part of it coming after "US: " (the US release). Thankfully, there is a string method we can use to tidy data: `.str.split()`. We know the UK release will always be before " US: ", and the US after. So we can split on that string (including the spaces before and after): `beatles_billboard['Album.debut'].str.split(' US: ')`
 
@@ -666,13 +668,153 @@ If you have any problems, you may need to handle the missing data in the `'Album
 
 ## Fixing Multiple Observations in One Row
 
-In the `'Genre'` column of the `beatles_billboard` dataset, there are often several genres listed. This violates the principle of Tidy Data "Each observation forms a row".
+In the `'Genre'` column of the `beatles_billboard` dataset, there are often several genres listed. We can see this in Golden Slumbers:
 
-* Demonstration of using `.str.split()` then `.explode()` to create new rows for each genre
+<table border="1">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Album.debut</th>
+      <th>Duration</th>
+      <th>Other.releases</th>
+      <th>Genre</th>
+      <th>Songwriter</th>
+      <th>Lead.vocal</th>
+      <th>Top.50.Billboard</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>81</th>
+      <td>Golden Slumbers</td>
+      <td>1969</td>
+      <td>Abbey Road</td>
+      <td>91</td>
+      <td>5</td>
+      <td>Rock, Baroque Pop, Pop/Rock</td>
+      <td>McCartney</td>
+      <td>McCartney</td>
+      <td>-1</td>
+    </tr>
+  </tbody>
+</table>
+
+ This violates the principle of Tidy Data that **"Each observation forms a row"**, since there are multiple observations (Golden Slumbers has genre **X**) in a single row. We want to expand this row into three rows, each with a different observed genre. Pandas allows us to do this in three key steps:
+
+1. Clean the data
+
+> This could include
+> 
+> * Converting all genres to lowercase to ensure uniform formatting
+> * Stripping any superfluous spaces
+> 
+> This **must** include:
+> 
+> * Handling any missing data
+
+2. Within the column, **"split"** the genres:
+
+<blockquote><table>
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <th>Genre</th>
+        </tr>
+          <td><code>'Rock, Baroque Pop, Pop/Rock'</code></td>
+        <tr>
+      </table>
+    </td>
+    <td><strong>→</strong></td>
+    <td>
+      <table>
+        <tr>
+          <th>Genre</th>
+        </tr>
+          <td><code>['Rock', 'Baroque Pop', 'Pop/Rock']</code></td>
+        <tr>
+      </table>
+    </td>
+  </tr>
+</table></blockquote>
+
+ 3. **"Explode"** the row into one row for each genre:
+ 
+<blockquote><table>
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <th>Genre</th>
+        </tr>
+          <td><code>['Rock', 'Baroque Pop', 'Pop/Rock']</code></td>
+        <tr>
+      </table>
+    </td>
+    <td><strong>→</strong></td>
+    <td>
+      <table>
+        <tr>
+          <th>Genre</th>
+        </tr>
+          <td><code>'Rock'</code></td>
+        <tr>
+        </tr>
+          <td><code>'Baroque Pop'</code></td>
+        <tr>
+        </tr>
+          <td><code>'Pop/Rock'</code></td>
+        <tr>
+      </table>
+    </td>
+  </tr>
+</table></blockquote>
+
+### Cleaning the data
+
+Since we are already familiar with these steps, let's clean the column by "chaining" three methods:
+
+```python
+# make everything lowercase, remove leading/trailing spaces, and fill NAs
+beatles_billboard['Genre'] = beatles_billboard['Genre'].str.lower().str.strip().fillna('')
+```
+
+### Splitting the data
+
+To split the genres into an organized **list**, we use the string method `.str.split(', ')`:
+
+```python
+# split the long strings into a list of strings in each cell
+beatles_billboard['Genre'] = beatles_billboard['Genre'].str.split(', ')
+```
+
+### Exploding the data
+
+Now we can split the row into several rows, one for each element of the list, using `df.explode('column_name')`, in this case `beatles_billboard.explode('Genre')`. Since this is such a big change, and we don't want to ruin our data, let's store the result in a new dataframe, `beatles_billboard_exploded`:
+
+```python
+# explode the data
+beatles_billboard_exploded = beatles_billboard.explode('Genre')
+```
+
+"Exploded" rows maintain their original dataframe index. For example, since Golden Slumbers had the index `81`, and three genres, there are now three rows with the index `81`. Let's fix this using `.reset_index(drop=True)` (this removes the old index column):
+
+```python
+# clean up indices
+beatles_billboard_exploded = beatles_billboard_exploded.reset_index(drop=True)
+```
+
+Remember you can chain these methods once you're comfortable with them, like this: `beatles_billboard_exploded = beatles_billboard.explode('Genre').reset_index(drop=True)`
+
+### What now?
+
+You can now more easily access the individual genres, which you will likely also want to clean using string methods like `.str.replace()`. You'll see an example of this in [Part E][part-e].
 
 ## Tuple Trouble (and How to Cure It)
 
-You may find it easier to deal with strings than tuples (for example, for the functionality of string methods). This function will help you convert tuples to strings:
+You may encounter data stored as tuples: `('this', 'is', 'a', 'tuple')`. As we've seen, it can be much easier to work with strings than tuples (for example, for the functionality of string methods). This function will help you convert tuples to strings:
 
 ```python
 # define the function to convert tuples to strings
@@ -681,22 +823,23 @@ def convertTuple(tup):
     if isinstance(tup, tuple):
         out = '_'.join(tup)
     return out  
+
 # clean the tuples
-df['ngram'] = df['ngram'].apply(convertTuple)
+df['column_name'] = df['column_name'].apply(convertTuple)
 ```
 
 ## Combining and Spliting Columns
 
-Sometimes it is necessary to combine related columns into a new column, with values stored as a *list*. Conversely sometimes it might be necessary to split the values stored in one column into several columns (for example, if a column has first and last names, you may want one column for first names and one column for last names). This is easily done with Pandas and Python.
-
-### Combine Two Columns as String
-
-Two columns can be combined into a single one with a lambda function and `apply` (which runs the function on each row in turn):
+As we've seen, making your data tidy can involve splitting a column into several columns. However, you may also want to combine several columns of related data into one. For example, you could take the `'Songwriter'` and `'Title'` columns from `beatles_billboard`, and combine them into a new `'Author-Title'` column with the format `'Songwriter: Title'`. This function will help you do that:
 
 ```python
-combine_cols = lambda row: row['Songwriter'] + ": "  + row['Title'] 
+# define the function using lambda
+combine_cols = lambda row: row['Songwriter'] + ": "  + row['Title']
+
+# use .apply() to apply the function to every row in the column
 beatles_billboard['Author-Title'] = beatles_billboard.apply(combine_cols, axis=1)
 
+# output a single row as an example
 beatles_billboard['Author-Title'][0]
 ```
 
@@ -709,12 +852,17 @@ beatles_billboard['Author-Title'][0]
     </tr>
 </table>
 
+> Normally we've seen functions written like this: `def combine_cols(row):`. However, there is a shorthand for writing functions using `lambda`, which allows you to write functions in a single line. `lambda` functions are easier and cleaner to write, but at the expense of readbility. Learn more [here][lambda-functions].
+
+
 | Part A | Part B | Part C |
 |--------|--------|--------|
 | [Pandas Basics][part-a] | **Clean and Tidy Data** | [Filtering, Finding, and Grouping][part-c] |
 
 [part-a]: 04_A_Pandas_Basics.md
 [part-c]: 04_C_Pandas_Filter_Find_Group.md
+[part-d]:
+[part-e]:
 [pandas-documentation]: https://pandas.pydata.org/about/
 [w3schools]: https://www.w3schools.com/python/pandas/default.asp
 [pandas-cheat-sheet]: https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf
@@ -725,3 +873,4 @@ beatles_billboard['Author-Title'][0]
 [datetime-format-codes]: https://docs.python.org/3/library/datetime.html#format-codes
 [pandas-documentation-categories]: https://pandas.pydata.org/docs/user_guide/categorical.html
 [tidy-data]: https://www.jstatsoft.org/article/view/v059i10
+[lambda-functions]: https://www.w3schools.com/python/python_lambda.asp
