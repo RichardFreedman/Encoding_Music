@@ -1,3 +1,5 @@
+# Pandas: Tidy Data
+
 | Part A | Part B | Part C | Part D |
 |--------|--------|--------|--------|
 | [Pandas Basics][part-a] | [Clean Data][part-b] | **Tidy Data** | [Filtering, Finding, and Grouping][part-d] |
@@ -36,7 +38,7 @@ The next step to take with your data is making it **tidy**. The key concepts of 
 
     > In the `beatles_billboard` dataset, the `'Genre'` column often contains *several* genres. This is, in effect *several observations*. Tidy data would suggest creating a new row.
 
-    As you will see in [Fixing Multiple Observations in One Row](#fixing-multiple-observations-in-one-row), the `.explode()` method is a great way to solve this.
+    As you will see in **FIX**[Fixing Multiple Observations in One Row](#fixing-multiple-observations-in-one-row-explode), the `.explode()` method is a great way to solve this.
 
 3. Each type of observational unit forms a table
 
@@ -378,9 +380,13 @@ beatles_billboard_exploded = beatles_billboard_exploded.reset_index(drop=True)
 
 Remember you can chain these methods once you're comfortable with them, like this: `beatles_billboard_exploded = beatles_billboard.explode('Genre').reset_index(drop=True)`
 
+**insert table of golden slumbers when done**
+
 ### What now?
 
-You can now more easily access the individual genres, which you will likely also want to clean using string methods like `.str.replace()`. You'll see an example of this in [Part E][part-e].
+You can now more easily access the individual genres, which you will likely also want to clean using string methods like `.str.replace()`. You'll see an example of this in [Part E][part-e]. **fix link**
+
+**Regularizing data - take from Part E**
 
 ## Fixing Multiple Observations in One Row: Melting
 

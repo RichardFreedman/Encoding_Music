@@ -350,4 +350,4 @@ plt.show()
 
 [part-a]: 04_A_Pandas_Basics.md
 [part-b]: 04_B_Pandas_Clean.md
-[part-c]: 04_C_Pandas_Filter_Find_Group.md
+[part-c]: 04_C_Pandas_Tidy.md

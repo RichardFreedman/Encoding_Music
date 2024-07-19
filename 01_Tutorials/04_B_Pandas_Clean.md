@@ -1,4 +1,4 @@
-# Pandas:  Clean and Tidy Data
+# Pandas: Clean Data
 
 | Part A | Part B | Part C | Part D |
 |--------|--------|--------|--------|
