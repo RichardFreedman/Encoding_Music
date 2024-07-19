@@ -1,6 +1,6 @@
-| Part A | Part B | Part C | Part D | Part E |
-|--------|--------|--------|--------|--------|
-| [Pandas Basics][part-a] | [Clean Data][part-b] | **Tidy Data** | [Filtering, Finding, and Grouping][part-d] | [Networks][part-e] |
+| Part A | Part B | Part C | Part D |
+|--------|--------|--------|--------|
+| [Pandas Basics][part-a] | [Clean Data][part-b] | **Tidy Data** | [Filtering, Finding, and Grouping][part-d] |
 
 In this tutorial, we explore ways to make your data follow "Tidy Data" principles, which will vastly simplify other work. The key concept of Tidy Data is "one observation or event per row".
 
@@ -432,14 +432,13 @@ beatles_billboard['Author-Title'][0]
 
 > Normally we've seen functions written like this: `def combine_cols(row):`. However, there is a shorthand for writing functions using `lambda`, which allows you to write functions in a single line. `lambda` functions are easier and cleaner to write, but at the expense of readbility. Learn more [here][lambda-functions].
 
-| Part A | Part B | Part C | Part D | Part E |
-|--------|--------|--------|--------|--------|
-| [Pandas Basics][part-a] | [Clean Data][part-b] | **Tidy Data** | [Filtering, Finding, and Grouping][part-d] | [Networks][part-e] |
+| Part A | Part B | Part C | Part D |
+|--------|--------|--------|--------|
+| [Pandas Basics][part-a] | [Clean Data][part-b] | **Tidy Data** | [Filtering, Finding, and Grouping][part-d] |
 
 [part-a]: 04_A_Pandas_Basics.md
 [part-b]: 04_B_Pandas_Clean.md
 [part-d]: 04_D_Pandas_Filter_Find_Group.md
-[part-e]: 04_E_Networks.md
 [pandas-documentation]: https://pandas.pydata.org/about/
 [w3schools]: https://www.w3schools.com/python/pandas/default.asp
 [pandas-cheat-sheet]: https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf

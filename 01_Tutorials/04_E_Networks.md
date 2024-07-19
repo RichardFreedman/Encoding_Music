@@ -28,19 +28,15 @@ Note that for some of the demonstrations offered below you will be working with 
 In the field of data science, networks (also known as graphs) are powerful tools used to represent and study relationships between entities. A network is composed of **nodes** (also called vertices) and **edges** (also called links). Each node represents an entity, while each edge represents a relationship between two entities.
 
 ### Nodes
-
 **Nodes are the fundamental building blocks of a network.** Think of them as the entities or objects you want to study. In a social network, nodes could represent individuals, while in a transportation network, nodes could represent cities.  You could even have different **kinds** of nodes in the same network--for instance some nodes representing musical works and others representing the groups that performed them. These could be distinguished by color or shape.
 
 ### Edges
-
 **Edges are the connections between nodes.** They show how the entities are related to each other. In a social network, edges could represent friendships, and in a transportation network, edges could represent roads connecting cities.
 
 ### Weights
-
 **Edges can have an associated weight**. The weight of an edge represents the strength or intensity of the relationship between the connected nodes. For example, in a network of academic writings, the weights could represent the number of times authors cited each other. In the transporation network, the weights could represent the number of journeys taken between each pair of places. 
 
 ### How are Two Things more Related than Others?
-
 Determining the strength of the relationship between two nodes depends on the context of the network. For example, in a social network, the frequency and duration of interactions, mutual friends, and common interests can help establish the strength of friendships. In other cases, such as a transportation network, the distance between nodes could be a factor in determining the weight of the edges.
 
 ### Centrality as a Key Concept in Networks
@@ -48,23 +44,19 @@ Determining the strength of the relationship between two nodes depends on the co
 By design, network visualization tools arrange the nodes so that those with the greatest number of connections to other nodes appear at the center of a two-dimensional field.  Conversely nodes with only a few connections to other nodes wind up at the periphery. Such representations thus reveal "communities". And indeed, there are special algorithms, like *Louvain Community Detection*, that help us discover neighborhoods in complex networks.
 
 ### More about Network Theory
-
 You can learn more about [Network Theory](https://en.wikipedia.org/wiki/Network_theory) and explore Network Graphs [here](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)).
 
 ## A Simple Example:  A Network of Students
 
 ![Network Example of Students](images/Network_resized.png)
-
 In the Network graph above, the highlighted characteristics represent the differences between Haverford student A and every other student. We see that Haverford student A & B only have one difference, so the edge weight is strong and the nodes are closer together. Haverford student B and Bryn Mawr student A have two differences, so the edge weight is _relatively_ weaker. We also see a node in our graph that has no connection and has no similarity to the other three nodes.
 
 Why is Bryn Mawr Student A connected and not Villanova Student A if they both have no similarities to Haverford Student A?
 
-### Reason One
-
+#### Reason One
 Bryn Mawr student A watches horror movies and Haverford student B also watches horror movies, so they are connected.
 
-### Reason Two (less obvious without context)
-
+#### Reason Two (less obvious without context)
 Haverford and Bryn Mawr are part of the tri-co! Often in network graphs and in data science, machines find an abstract connection between vast amounts of data, often clustering data or nodes together, but that may not always mean that it is directly evident as to what these clusters or connections represent. For example, none of our node bullet points have "_is part of the tri-co_" as a characteristic, but perhaps there is some underlying bias or evidence that may not be evident to us that _is_ evident to machines which allows them to cluster or connect otherwise "different" data. 
 
 ## Pyvis and NetworkX:  Python Tools for Networks
@@ -216,7 +208,7 @@ For purposes of this network demonstration, we can take care of these steps with
 
 <Details>
 
-<Summary> View Code for Initial Clean up and Tidy Functions <strong>THIS CODE DOESN'T WORK</strong></Summary>
+<Summary> View Code for Initial Clean up and Tidy Functions </Summary>
 
 ```python
 # make everything lowercase, remove leading/trailing spaces, and fill nas
@@ -509,18 +501,14 @@ You will need to supply:
 #### Example A
 
 df = beatles_spotify_binned
-
 feature_to_groupby = 'danceability_q_binned' 
-
 column_for_list_of_edges = 'song' 
 
 
 #### Example B
 
 df = beatles_billboard_exploded
-
 feature_to_groupby = 'Title'
-
 column_for_list_of_edges = 'Genre'
 
 
@@ -1458,5 +1446,3 @@ pairs.explode().value_counts()
 
 
 In the Network Graph above, you can see the 3 **communities** of artists that are detected based on what playlist they belong to. Note: *we didn't pass the playlist information into the Network*!
-
-\

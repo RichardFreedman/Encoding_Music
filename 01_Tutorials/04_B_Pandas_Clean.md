@@ -1,8 +1,8 @@
 # Pandas:  Clean and Tidy Data
 
-| Part A | Part B | Part C | Part D | Part E |
-|--------|--------|--------|--------|--------|
-| [Pandas Basics][part-a] | **Clean Data** | [Tidy Data][part-c] | [Filtering, Finding, and Grouping][part-d] | [Networks][part-e] |
+| Part A | Part B | Part C | Part D |
+|--------|--------|--------|--------|
+| [Pandas Basics][part-a] | **Clean Data** | [Tidy Data][part-c] | [Filtering, Finding, and Grouping][part-d] |
 
 Cleaning data is an important precursor to anlyzing data, and often represents the biggest part of a data analysis project. In this tutorial, we explore various ways in which data can be "messy" and how it can be subsequently cleaned.
 
@@ -450,14 +450,13 @@ beatles_billboard = preprocess()
 This sets you up for the next step: **tidying** your data in [Part C][part-c].
 
 
-| Part A | Part B | Part C | Part D | Part E |
-|--------|--------|--------|--------|--------|
-| [Pandas Basics][part-a] | **Clean Data** | [Tidy Data][part-c] | [Filtering, Finding, and Grouping][part-d] | [Networks][part-e] |
+| Part A | Part B | Part C | Part D |
+|--------|--------|--------|--------|
+| [Pandas Basics][part-a] | **Clean Data** | [Tidy Data][part-c] | [Filtering, Finding, and Grouping][part-d] |
 
 [part-a]: 04_A_Pandas_Basics.md
 [part-c]: 04_C_Pandas_Tidy.md
 [part-d]: 04_D_Pandas_Filter_Find_Group.md
-[part-e]: 04_E_Networks.md
 [pandas-documentation]: https://pandas.pydata.org/about/
 [w3schools]: https://www.w3schools.com/python/pandas/default.asp
 [pandas-cheat-sheet]: https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf
