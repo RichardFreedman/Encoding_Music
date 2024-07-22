@@ -917,7 +917,7 @@ beatles_spotify.sort_values("danceability")
 
 ### Count Values
 
-**Count Values** in any column.  For example: 
+Pandas makes it easy to summarize the count of each value in any column.  For example: 
 
 ```python
 beatles_billboard["Album.debut"].value_counts()
@@ -945,7 +945,11 @@ Name: count, Length: 54, dtype: int64</pre>
     </tr>
 </table>
 
-This data might be the final result you are looking for. 
+You may want to store the result of the `.value_counts()` method in a new dataframe:
+
+```python
+counts = pd.DataFrame(beatles_billboard["Album.debut"].value_counts())
+```
 
 ## Combining, Joining, and Merging DataFrames
 
@@ -957,6 +961,19 @@ While concatenating datasets usually means appending more entries that have the 
 
 You can read more about Merging [here][pandas-merge].
 
+**Joining DataFrames** is similar to merging, but is much less versatile. With `join`, you combine datasets based on index only.
+
+You can read more about Joining [here][pandas-join].
+
+### Concatenation vs. Merging
+
+Concatenation is the most simple operation. If your data have identical column names, then you concatenate.
+
+If you have different numbers of columns, but otherwise share column names, you *might* be able to concatenate, assuming you don't mind lots of missing data in some places.
+
+If your dataframes are quite different but share some common data, then you should merge.
+
+### Merging Example
 We can merge the two Beatles data frame on the basis of some shared columns.  It is not necessary for the columns to have the same name, but they need to share the same items (like 'songs').
 
 * In this case the **song** column in the **Spotify data** corresponds to the **Title** column in the **Billboard data**
@@ -1264,7 +1281,6 @@ beatles_combined
         <p>21 rows × 20 columns</p>
     </td>
 </table>
-
 
 This isn't very useful! There are so few rows in this combined dataset because Pandas could only merge data for columns where the song title was formatted in exactly the same way. For this to work better, we should format the song titles in both frames the same way - perhaps all lowercase - before performing the merge:
 
@@ -1596,3 +1612,4 @@ Pandas is a powerful library that makes complex data science easier. There are m
 [beatles-billboard-spreadsheet]: https://github.com/inteligentni/Class-05-Feature-engineering/blob/master/The%20Beatles%20songs%20dataset%2C%20v1%2C%20no%20NAs.csv
 [pandas-concat]: https://pandas.pydata.org/docs/reference/api/pandas.concat.html
 [pandas-merge]: https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html
+[pandas-join]: https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.join.html

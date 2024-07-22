@@ -384,7 +384,7 @@ Remember you can chain these methods once you're comfortable with them, like thi
 
 ### What now?
 
-You can now more easily access the individual genres, which you will likely also want to clean using string methods like `.str.replace()`. You'll see an example of this in [Part E][part-e]. **fix link**
+You can now more easily access the individual genres, which you will likely also want to clean using string methods like `.str.replace()`. You'll see an example of this in the [Networks tutorial][networks-tutorial]. **fix link**
 
 **Regularizing data - take from Part E**
 
@@ -590,3 +590,4 @@ beatles_billboard['Author-Title'][0]
 [pandas-cheat-sheet]: https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf
 [tidy-data]: https://www.jstatsoft.org/article/view/v059i10
 [pt-pivot]: https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0A%0Acsv%20%3D%20'''%0Abreed,size,kids,longevity,price%0ALabrador%20Retriever,medium,high,12.04,810.0%0ABeagle,small,high,12.3,288.0%0AGolden%20Retriever,medium,high,12.04,958.0%0AYorkshire%20Terrier,small,low,12.6,1057.0%0ABoxer,medium,high,8.81,700.0%0A'''%0A%0Adogs%20%3D%20pd.read_csv%28io.StringIO%28csv%29%29%0Adogs%20%3D%20%28dogs.groupby%28%5B'size',%20'kids'%5D%29%0A%20%20%20%20%20%20%20%20%5B%5B'longevity',%20'price'%5D%5D%0A%20%20%20%20%20%20%20%20.mean%28%29%0A%20%20%20%20%20%20%20%20.reset_index%28%29%29%0A%0Adogs.pivot%28index%3D'size',%20columns%3D'kids'%29&d=2024-07-19&lang=py&v=v1
+[networks-tutorial]: 04_E_Networks.md

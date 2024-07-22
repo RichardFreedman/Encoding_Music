@@ -16,12 +16,13 @@ A guide to cleaning data with Pandas on [Medium][towards-data-science-cleaning].
 
 |    | Contents of this Tutorial                                                      | 
 |----|--------------------------------------------------------------------------------|
-| 1. | [**Understanding Clean and Tidy Data**](#understanding-clean-and-tidy-data)                  |
-| 2. | [**Wrong or Inconsistent Format**](#wrong-or-inconsistent-format) |
+| 0. | [**Identifying the Problem**](#identifying-the-problem) |
+| 1. | [**Understanding Clean and Tidy Data**](#understanding-clean-and-tidy-data) |
+| 2. | [**Wrong or Inconsistent Format or Values**](#wrong-or-inconsistent-format-or-values) |
 | 3. | [**Cleaning Data with Functions**](#cleaning-data-with-functions) |
-| 4. | [**Missing Data**](#missing-data)                                    |
-| 5. | [**Duplicate Rows**](#duplicate-rows)                              |
-| 6. | [**Wrong Data Type**](#wrong-data-type)                                          |
+| 4. | [**Missing Data**](#missing-data) |
+| 5. | [**Duplicate Rows**](#duplicate-rows) |
+| 6. | [**Wrong Data Type**](#wrong-data-type) |
 | 7. | [**Data Cleaning Best Practices**](#data-cleaning-best-practices) |
 
 ### Create a Notebook and Load the Pandas library
@@ -134,7 +135,15 @@ This is an example of data that could be **organized** differently, and perhaps 
 
 In the remainder of this document, we will focus on data **cleaning**. Then, in [Part C][part-c], we will pivot to data **tidying** and **organization**.
 
-## Wrong or Inconsistent Format
+## Identifying the Problem
+
+We will often be working with large datasets where it is impossible to manually check every value to verify its accuracy and cleanliness. One tool we can use to quickly identify problems in a dataset is the Pandas `.sort_values().` method. This allows us to generate a list of every entry in a column, sorted alphabetically. This provides a decent snapshot into your data. Try the below code:
+
+```python
+[entry for entry in beatles_billboard['Album.debut'].sort_values()]
+```
+
+## Wrong or Inconsistent Format or Values
 
 Many issues arise when data is stored as strings. Spelling and capitalization can vary across items that are meant to be the same. Often, the situation will be applying a **string method** to an entire column. You saw an example of the `.str.lower()` string method in [Part A][part-a]:
 
@@ -147,6 +156,11 @@ beatles_billboard['Title'] = beatles_billboard['Title'].str.lower()
 Some particularly important string methods for cleaning data:
 
 * `.str.replace(x, y)`: Replace any instance of `x` with `y`
+  + For example, you might want to regularize:
+    - `'rock & roll'` as `'rock'`
+    'r&b' (as 'rhythm and blues' ?)
+    'stage&screen' (as 'stage and screen')
+    'experimental music' as 'experimental', or 'children's music' as 'children's' (since having 'music' in a list of music genres is not very useful)
 * `.str.split(x)`: Replace a string with a list of strings. The original string is separated at every instance of the substring `x`. E.g.: applying `.split(', ')` to `'John, Paul, George, Ringo'` would result in `['John', 'Paul', 'George', 'Ringo']`
 * `.str.strip()`: Remove the spaces from the beginning and end of a string. Can also be configured to remove other characters.
 * `.str.upper()`: Convert a string to all uppercase.
@@ -157,6 +171,9 @@ String methods can only be applied to one column at a time. To use string method
 ```python
 df['column_name'] = df['column_name'].str.method_name()
 ```
+
+**TODO: more elaboration from the links**
+**TODO: but keep in mind how you may have to clean again after splitting/exploding/etc**
 
 ## Cleaning Data with Functions
 
