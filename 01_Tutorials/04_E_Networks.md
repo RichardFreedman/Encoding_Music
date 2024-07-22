@@ -15,12 +15,10 @@ Note that for some of the demonstrations offered below you will be working with 
 * [Pyvis and NetworkX:  Python Tools for Networks](#pyvis-and-networkx--python-tools-for-networks)
 * [Networks: From DataFrame to Edge Pairs with Groupby and Explode]()
 * [Networks: Adjusting Pyvis Physics for Clarity](#adjust-physics)
-* [Networks with Spotify Data](#networks-spotify)
-* [Complex Networks:  Related Artists](#artist_networks)
-* [Complex Networks:  Song Network](#song-network)
+* [Networks with Spotify Data Two Ways:  Binned and Continuous](#networks-spotify)
+* [Complex Networks:  Spotify Recommended Artists](#artist_networks)
+* [Complex Networks:  Spotify Recommended Songs ](#song-network)
 * [Louvain Community Detection:  The Ghost in the Machine](#louvain)
-
-
 
 
 ##  Networks:  Basic Concepts and Methods 
@@ -71,9 +69,9 @@ We are lucky to have Python-friendly tools designed to help us create and displa
 
 Here is code that will **build, populate, and show a simple Network Graph** using **NetworkX** and **Pyvis**. This sample network consists of just two nodes and one edge to connect them.
 
-```
-#python
-# import libraries
+
+```python
+# import libraries; here we need only three of them
 import pyvis
 from pyvis import network as net
 import networkx as nx
@@ -92,13 +90,10 @@ pyvis_graph = net.Network(notebook=True, width="800", height="800", bgcolor="whi
 pyvis_graph.from_nx(G)
 pyvis_graph.show('my_graph.html')
 ```
-
-<Details>
-<Summary>Image of the Network</Summary>
+<br>
+Here is the result:
 
 ![Alt text](images/network_sample_1.png)
-
-</Details>
 
 <br>
 
@@ -109,6 +104,11 @@ Such a simple network graph above is not very informative:  of course we know th
 You could of course add any number of new nodes and edges to a given network using the same approach:  first make a list of notes, then pass along a series of tuples representing each edge.  But in fact it's possible to add nodes *at the same time you add the edges*, simply by passing a list of tuples that represent the edges.  The networkX graph object (`G = nx.Graph()`) has a method that allows us to do just this:  `G.add_edges_from()`.  For example:
 
 ```python
+# import libraries; for this project we only need three of them:
+import pyvis
+from pyvis import network as net
+import networkx as nx
+
 # define a list of tuples for the nodes and edges
 # notice that repeating a node is fine; doing so simply adds another edge to the given node
 my_edge_list = [("John", "Paul"), ("John", "Ringo"), ("John", "George")]
@@ -119,7 +119,7 @@ G = nx.Graph()
 # add the nodes and edges
 G.add_edges_from(my_edge_list)
 
-# render with pyvis
+# render with pyvis, and define layout and color
 pyvis_graph = net.Network(notebook=True, 
 width="800", 
 height="800", 
@@ -129,13 +129,13 @@ font_color="black")
 pyvis_graph.from_nx(G)
 pyvis_graph.show('my_graph.html')
 ```
+<br>
 
-<Details>
-<Summary>Image of Sample Output</Summary>
+
+Here is the result:
 
 ![Alt text](images/network_sample2.png)
 
-</Details>
 
 <br>
 
@@ -167,12 +167,6 @@ Deriving a table of edge pairs from your original dataframe takes some knowledge
 
 Let's look at these steps in detail using the **Beatles Billboard** data. There are some 300 songs in this dataset, if we imagine a network with 300 nodes, it would almost certainly be too complex to interepret. But the Billboard dataset also includes some 'genre' labels, and it could be interesting to see how these genres fall into families. They might not reveal a lot about the songs, but they would definitely tell us something about the folks who assigned the labels in the first place!
 
-##  Create a Notebook and Load the Pandas library 
-
-```python
-import pandas as pd
-```
-
 
 ##  Meet the Beatles (Again) 
 
@@ -187,6 +181,7 @@ We will work with both of these sets, and in the process learn how to clean and 
 Get the Spotify data:
 
 ```python
+import pandas as pd
 beatles_spotify_csv = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRCv45ldJmq0isl2bvWok7AbD5C6JWA0Xf1tBqow5ngX7_ox8c2d846PnH9iLp_SikzgYmvdPHe9k7G/pub?output=csv'
 
 beatles_spotify = pd.read_csv(beatles_spotify_csv)
@@ -208,19 +203,23 @@ For purposes of this network demonstration, we can take care of these steps with
 
 <Details>
 
-<Summary> View Code for Initial Clean up and Tidy Functions </Summary>
+<Summary> Get Code for Initial Clean up and Tidy Functions </Summary>
 
 ```python
+# import library (this would have been done at the time we created the Beatles df in any case!)
+
+import pandas as pd
+
 # make everything lowercase, remove leading/trailing spaces, and fill nas
 beatles_billboard['Genre'] = beatles_billboard['Genre'].str.lower().str.strip().fillna('')
 # split the long strings into a list of strings in each cell
 beatles_billboard['Genre'] = beatles_billboard['Genre'].str.split(',')
-# explode the data
+# # explode the data
 beatles_billboard_exploded = beatles_billboard.explode('Genre').reset_index(drop=True)
-# and clean whitespace and odd characters again
-beatles_billboard_exploded['Genre'] = beatles_billboard_exploded
+# # and clean whitespace and odd characters again
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.strip()
 
-# clean individual problems in the exploded data with str.replace()
+# # clean individual problems in the exploded data with str.replace()
 beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('acid rock[', 'acid rock')
 beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('pop/rock', 'pop rock')
 beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('r&b', 'rhythm and blues')
@@ -228,7 +227,6 @@ beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.re
 beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('experimental music', 'experimental')
 beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace("children's music", "children's")
 beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace("stage&screen", "stage and screen")
-
 ```
 </Details>
 
@@ -251,9 +249,22 @@ Here is how to do it:
 * **from each list of genre labels create a new list of pairs of labels**.  These tuples will provide the basis of the nodes and edges. 
 * **count** the occurences of each pair of labels, and return the results as a new dataframe:  pairs and counts.  This will be passed directly to networkX to populate the graph.
 
-### 1: The Groupby Operation:
+## Step 1: The Groupby Operation:
+
+
+From this we see that for each song title, we have a list of genre labels:
+
+![alt text](images/new_nw_1.png)
+
+
+<Details>
+
+<Summary>Groupby Code</Summary>
 
 ```python
+# for this we only need one library:
+import pandas as pd
+
 # copy of our data, so we don't accidentally alter it
 df = beatles_billboard_exploded
 
@@ -264,11 +275,12 @@ column_for_list_of_edges = 'Genre' # <-- this is the original df column that wil
 # Group by 'feature_to_groupby' and extract a 'column_for_list_of_edges'
 grouped_feature_with_edges = df.groupby
 ```
-From this we see that for each song title, we have a list of genre labels:
 
-![alt text](images/new_nw_1.png)
+</Details>
 
-### 2: Find the Combinations of Genre Labels for Each Group, and Count Them
+<br>
+
+## Step 2: Find the Combinations of Genre Labels for Each Group, and Count Them
 
 For *each of these lists of titles*, we need to find all of the `pairs` of titles, which will serve as our network edges. This is easily done with a special Python library called `collections`, and within that the `combinations` method.
 
@@ -279,7 +291,8 @@ The `combinations` method will return a new list consisting of all the unique pa
 This is what this looks like for a single list of genre labels in one row:
 
 ```python
-# make sure you have imported the relevant library, itertools
+# make sure you have imported the relevant library, itertools, and of course pandas
+import pandas as pd
 import itertools
 # now a sample list and the resulting combinations
 sample_list = ['psychedelic rock', 'art rock', 'pop rock']
@@ -291,10 +304,17 @@ pairs
  ('art rock', 'pop rock')]
  ```
 
-Running the `combinations` method over each row of the exploded dataframe, we in turn create a new dataframe with `all_pairs` of genres.  
+### Running the `combinations` method over each row of the exploded dataframe, we in turn create a new dataframe with `all_pairs` of genres.  
+
+![alt text](images/new_nw_2.png)
+
+<Details>
+
+<Summary>Combinations and Pairs Code</Summary>
 
 ```python
-# make sure you have imported the relevant library, itertools
+# make sure you have imported the relevant library, itertools, and of course pandas
+import pandas as pd
 import itertools
 
 # Generate all pairs edges for each group
@@ -308,30 +328,13 @@ edge_pair_name = column_for_list_of_edges + "_Pairs"
 edge_pair_df = pd.DataFrame(all_pairs, columns=[feature_to_groupby, edge_pair_name])
 # adjust for a threshold of genres per piece. should be > 0 
 edge_pair_df_filtered = edge_pair_df[edge_pair_df[edge_pair_name].apply(len) > 0]
-
 ```
-
-
-<Details>
-<Summary>Image of Sample Output All Edges</Summary>
-
-
-![alt text](images/new_nw_2.png)
 
 </Details>
 
 <br>
 
-And this, in turn, we `explode` in order to create a dataframe of genre pairs for each title.  
-
-
-```python
-exploded_edge_pairs = edge_pair_df_filtered.explode(edge_pair_name)
-```
-
-<Details>
-<Summary>Image of Sample Exploded Edges</Summary>
-
+### And this, in turn, we `explode` in order to create a dataframe of genre pairs for each title.  
 
 ![alt text](images/new_nw_3.png)
 
@@ -339,50 +342,31 @@ exploded_edge_pairs = edge_pair_df_filtered.explode(edge_pair_name)
 
 <br>
 
-
-Finally, we will `count` the occurences of each edge pair, so that we can show a weighted network.
-
-
-```python
-# get the counts of each pair, which provides the basis of the weights
-pair_counts = exploded_edge_pairs[edge_pair_name].value_counts()
-
-# as a df, for clarity
-pair_counts_df = pd.DataFrame(pair_counts).reset_index()
-pair_counts_df.head()
-```
-<Details>
-<Summary>Image of Sample Exploded Edges with Counts</Summary>
+### Finally, we will `count` the occurences of each edge pair, so that we can show a weighted network.
 
 ![alt text](images/new_nw_4.png)
 
+## Step 3: Make Network from the Edge Pairs
 
-</Details>
-
-<br>
-
-
-
-
-### 3: Make Network from the Edge Pairs
-
-At last we are ready to build our network from the dataframe of edge pairs and their corresponding weights, which was our original goal! 
-
-<Details>
-<Summary>From List of Tuples to Weighted Edges and Nodes</Summary>
-
+### At last we are ready to build our network from the dataframe of edge pairs and their corresponding weights, which was our original goal! 
 
 ![alt text](<images/tuples to network.png>)
-
-</Details>
 
 <br>
 
 <Details>
 <Summary>Code to Create Network from Dataframe of Edge Tuples and Counts</Summary>
 
-
 ```python
+# import libraries
+import pandas as pd
+import numpy as np
+import networkx as nx
+from pyvis import network as net
+from itertools import combinations
+from community import community_louvain
+from copy import deepcopy
+
 # allow a filter for the number of times a given pair of genres occurs
 # this works with the original series of pair counts, not the df
 
@@ -398,7 +382,6 @@ add_forceAtlas2Based_physics = True
 
 # Create an empty NetworkX graph
 G = nx.Graph()
-
 
 # Add nodes and assign weights to edges
 for pair, count in pair_counts_filtered.items():
@@ -416,8 +399,6 @@ for pair, count in pair_counts_filtered.items():
 for edge in G.edges(data=True):
     edge[2]['width'] = edge[2]['weight']
     
-
-
 # Adding Louvain Communities
 
 if detect_louvain_communities == True:
@@ -430,7 +411,7 @@ if detect_louvain_communities == True:
     G = add_communities(G)
 
 # set display parameters
-network_graph = Network(notebook=True,
+network_graph = net.Network(notebook=True,
                    width=graph_height,
                    height=graph_height,
                    bgcolor="black", 
@@ -457,71 +438,103 @@ network_graph.from_nx(G)
 network_graph.show("network_graph.html")
 ```
 
-
 </Details>
 
 <br>
 
 
-##### 3A. Basic Network
+##### Option A. Basic Network of Genres with NetworkX and Pyvis
 
 The simplest version of the NetworkX and Pyvis tools result in a rather dense (and thus difficult to interpret) network of genres:
 
 ![alt text](<images/nw no physics.png>)
 
-##### 3B. Network with Updated Physics for Legibility
+##### Option B. Network of Genres with Updated Physics for Legibility
 
-Adding some updated physics to the network spread things out so they are more legible, and includes the relative weights of the edges:
+Adding some updated physics to the network spread things out so they are more legible, and includes the relative weights of the edges.  Learn more about the various options for adjusting the 'repulsion' among the various nodes [here on the Pyvis documentation site](https://pyvis.readthedocs.io/en/latest/documentation.html#pyvis.network.Network.force_atlas_2based)
+
+```python
+network_graph.set_options("""
+    {
+    "physics": {
+    "enabled": true,
+    "forceAtlas2Based": {
+        "springLength": 1
+    },
+    "solver": "forceAtlas2Based"
+    }
+    }
+    """)
+```
 
 ![alt text](<images/nw with physics.png>)
 
-##### 3C. Network with Louvain Community Detection
+##### Option C. Network of Genres with Louvain Community Detection
 
-Finally, we reveal 'communities' via color highlights, using the Louvain Community Detection Algorithm. Read more about this magic below!
+Finally, we reveal 'communities' via color highlights, using the Louvain Community Detection Algorithm. Learn more [here](#louvain-community-detection--the-ghost-in-the-machine).
+
+```python
+# import the relevant libraries
+from community import community_louvain
+from copy import deepcopy
+
+# function to add the communities
+def add_communities(G):
+        G = deepcopy(G)
+        partition = community_louvain.best_partition(G)
+        nx.set_node_attributes(G, partition, "group")
+        return G
+        
+    G = add_communities(G)
+```
 
 ![alt text](<images/nw with louvain.png>)
 
 
-## The Complete Network Code
+### The Complete Code for Beatles Billboard Network
 
-Here we assume that you have already cleaned and exploded your original dataframe as explained above.
+Here we assume that you have already [cleaned and exploded your original dataframe as explained above](#but-wait--are-the-data-clean).
 
 You also need to know which column will serve as your `groupby` basis and which column will be used to build the `edge_pairs`.
 
 There are also various settings that allow you to control the size and other features of the graph.
-
 
 You will need to supply:
 
 * a cleaned df
 * feature to group by
 * the column that will determine the edges
-* option to select graph size, louvain, and advanced physics
+* options to select graph size, Louvain, and advanced physics
 
-#### Example A
+#### Example 1: A Network of Genres (the nodes) Linked by Songs (the edges)
 
-df = beatles_spotify_binned
-feature_to_groupby = 'danceability_q_binned' 
-column_for_list_of_edges = 'song' 
+Here we group by the 'Title', creating a list of genres that are relevant for each.  The genres then become the nodes, and the edges link genres that are associated with the same song.  The width of the edges indicates how frequently any pair of genres is linked to the same song. Colors reveal communities of genres. 
 
-
-#### Example B
-
+```python
 df = beatles_billboard_exploded
 feature_to_groupby = 'Title'
 column_for_list_of_edges = 'Genre'
+```
 
+<Details>
 
-
-
+<Summary> Complete Code for Network of Genres </Summary>
 
 ```python
+# import libraries
+import pandas as pd
+import numpy as np
+import networkx as nx
+from pyvis import network as net
+from itertools import combinations
+from community import community_louvain
+from copy import deepcopy
 # copy of our data, so we don't accidentally alter it
-
 
 df = beatles_billboard_exploded
 
 #  select the columns to use; these will be determined by your original df
+# use the 
 feature_to_groupby = 'Title' # <-- this is the original df column that will provide the basic control; could even be a list of columns
 column_for_list_of_edges = 'Genre' # <-- this is the original df column that will contain the list of features that will become the nodes and edges
 
@@ -543,10 +556,8 @@ edge_pair_df_filtered = edge_pair_df[edge_pair_df[edge_pair_name].apply(len) > 0
 # explode the edge pair df
 exploded_edge_pairs = edge_pair_df_filtered.explode(edge_pair_name)
 
-
 # get the pair counts
 pair_counts = exploded_edge_pairs[edge_pair_name].value_counts()
-
 
 # allow a filter for the number of times a given pair of genres occurs
 # this works with the original series of pair counts, not the df
@@ -564,7 +575,6 @@ add_forceAtlas2Based_physics = True
 # Create an empty NetworkX graph
 G = nx.Graph()
 
-
 # Add nodes and assign weights to edges
 for pair, count in pair_counts_filtered.items():
     # Directly unpacking the tuple into node1 and node2
@@ -581,8 +591,6 @@ for pair, count in pair_counts_filtered.items():
 for edge in G.edges(data=True):
     edge[2]['width'] = edge[2]['weight']
     
-
-
 # Adding Louvain Communities
 
 if detect_louvain_communities == True:
@@ -595,7 +603,7 @@ if detect_louvain_communities == True:
     G = add_communities(G)
 
 # set display parameters
-network_graph = Network(notebook=True,
+network_graph = net.Network(notebook=True,
                    width=graph_height,
                    height=graph_height,
                    bgcolor="black", 
@@ -622,7 +630,16 @@ network_graph.from_nx(G)
 network_graph.show("network_graph.html")
 ```
 
-### 4: Interpreting Networks
+</Details>
+
+<br>
+
+The complete network of genres looks like this:
+
+![alt text](images/nw_bb_genre_full.png)
+
+
+### Interpreting the Genre Network
 
 Networks can *look* appealing, even mesmerizing.  But how do we interpret them?  One way is by exploring connections, and in turn thinking about the implications of things that are associated with each other (and things that are not).
 
@@ -632,76 +649,523 @@ Our Beatles Genre data are of course hardly objective:  they represent attribute
 
 On the other hand, we see a more obvious affinity among rock, the blues, and so-called 'progressive' rock, with it's influences from jazz, classical, and even avant-garde musics:
 
-
 ![alt text](<images/nw pro and blues.png>)
 
+#### Example 2: A Network of Titles (the nodes) Linked by Genres (the edges)
 
+Here we will build a network from the opposite standpoint, grouping by the 'genre', creating a list of songs that are relevant for each.  The songs then become the nodes, and the edges link songs that have the same genre tag.  The width of the edges indicates how frequently any pair of songs is linked by a common genre. Colors reveal communities of songs. 
 
-
-<!--- 
-7/16/24>
-
-The following are from 2022-23 and need work.  They are complex, and they don't yet use the Physics
-
-On the other hand, the Louvain explanation is helpful!
-
---->
-##  More Networks with Spotify Data</a>
-
-In this part, we'll explore some ways of creating networks using Spotify's Artists and Songs based on Recommended and Related songs and artists.
-
-Building onto these tools, we can create something more advanced – for example, **a diagram of user_1's playlists** (by iterating over *all_my_tracks*). We will scale the nodes (playlists) based on their size using Pyvis' **value** attribute of Nodes.
-
-Here's how to do it (add this code to your Notebook)
-
+Note:  with 300 songs in the Beatles Billboard dataset, we will need to filter the data in order to have a network that is even remotely meaningful!  So here we give an example for songs released in 1967 only!
 
 ```python
-# Creating a Network with one center Node
-playlists_network = net.Network(notebook=True, width=1000, height = 800)
-
-playlists_network.add_node("user_1's Spotify", color="#fffff")
-
-# As we want to record both playlist names and corresponding sizes, we need a Dictionary:
-user_1_playlist_dictionary = {}
-# replace "my_username" with the Spotify user ID of your choice
-user_1s_playlists = pd.DataFrame(sp.user_playlists(my_username)["items"])
-
-# Iterating over the playlists and recording Names and Sizes
-for i in range(len(user_1s_playlists)):
-    user_1_playlist_dictionary[user_1s_playlists.loc[i]["name"]] = user_1s_playlists["tracks"][i]["total"]
-
-# Adding new Nodes and Edges based on the items in the Dictionary:
-for item in user_1_playlist_dictionary:
-    playlists_network.add_node(item, value=user_1_playlist_dictionary[item])
-    playlists_network.add_edge("user_1's Spotify", item)
-
-# Showing the Network Graph
-playlists_network.show("playlists_diagram.html")
+df = beatles_billboard_exploded[beatles_billboard_exploded['Year'] == 1967]
+feature_to_groupby = 'Genre'
+column_for_list_of_edges = 'Title'
 ```
 
-![Alt text](images/spot_25.png)
+<Details>
+
+<Summary> Complete Code for Network of Titles Linked by Genre </Summary>
+
+```python
+# import libraries
+import pandas as pd
+import numpy as np
+import networkx as nx
+from pyvis import network as net
+from itertools import combinations
+from community import community_louvain
+from copy import deepcopy
+# copy of our data, so we don't accidentally alter it
+
+df = beatles_billboard_exploded[beatles_billboard_exploded['Year'] == 1967]
+
+#  select the columns to use; these will be determined by your original df
+# use the 
+feature_to_groupby = 'Genre' # <-- this is the original df column that will provide the basic control; could even be a list of columns
+column_for_list_of_edges = 'Title' # <-- this is the original df column that will contain the list of features that will become the nodes and edges
+
+# Group by 'feature_to_groupby' and extract a 'column_for_list_of_edges'
+grouped_feature_with_edges = df.groupby(feature_to_groupby)[column_for_list_of_edges].unique().reset_index(name=column_for_list_of_edges)
+
+# Generate all pairs edges for each group
+all_pairs = []
+for _, row in grouped_feature_with_edges.iterrows():
+    pairs = list(combinations(row[column_for_list_of_edges], 2))
+    all_pairs.append((row[feature_to_groupby], pairs))
+
+# Create a new DataFrame with the results
+edge_pair_name = column_for_list_of_edges + "_Pairs"
+edge_pair_df = pd.DataFrame(all_pairs, columns=[feature_to_groupby, edge_pair_name])
+# adjust for a threshold of genres per piece. should be > 0 
+edge_pair_df_filtered = edge_pair_df[edge_pair_df[edge_pair_name].apply(len) > 0]
+
+# explode the edge pair df
+exploded_edge_pairs = edge_pair_df_filtered.explode(edge_pair_name)
+
+# get the pair counts
+pair_counts = exploded_edge_pairs[edge_pair_name].value_counts()
+
+# allow a filter for the number of times a given pair of genres occurs
+# this works with the original series of pair counts, not the df
+
+minimum_count_for_pair = 1
+
+pair_counts_filtered = pair_counts[pair_counts >= 1]
+
+# set graph options:
+graph_height = 800
+graph_width = 800
+detect_louvain_communities = True
+add_forceAtlas2Based_physics = True
+
+# Create an empty NetworkX graph
+G = nx.Graph()
+
+# Add nodes and assign weights to edges
+for pair, count in pair_counts_filtered.items():
+    # Directly unpacking the tuple into node1 and node2
+    node1, node2 = pair
+    # Adding nodes if they don't exist already
+    if node1 not in G.nodes:
+        G.add_node(node1)
+    if node2 not in G.nodes:
+        G.add_node(node2)
+    # Adding edge with weight
+    G.add_edge(node1, node2, weight=count)
+
+# Adjusting edge thickness based on weights
+for edge in G.edges(data=True):
+    edge[2]['width'] = edge[2]['weight']
     
+# Adding Louvain Communities
+
+if detect_louvain_communities == True:
+    def add_communities(G):
+        G = deepcopy(G)
+        partition = community_louvain.best_partition(G)
+        nx.set_node_attributes(G, partition, "group")
+        return G
+        
+    G = add_communities(G)
+
+# set display parameters
+network_graph = net.Network(notebook=True,
+                   width=graph_height,
+                   height=graph_height,
+                   bgcolor="black", 
+                   font_color="white")
+
+# Set the physics layout of the network
+
+if add_forceAtlas2Based_physics == True:
+
+    network_graph.set_options("""
+    {
+    "physics": {
+    "enabled": true,
+    "forceAtlas2Based": {
+        "springLength": 1
+    },
+    "solver": "forceAtlas2Based"
+    }
+    }
+    """)
+
+network_graph.from_nx(G)
+# # return the network
+network_graph.show("network_graph.html")
+```
+
+</Details>
 
 <br>
 
-As expected, we can see the center node we added at first – which is now connected to 8 other nodes, which all correspond to user_1's playlists. These nodes are sized based on the playlists' sizes (number of tracks) and named based on the playlists' names. **This is a simple undirected network**.
 
-----
+Here is the complete network:
 
-##  <span style="color:olive">Complex Networks:  Related Artists </span> <a name="artist_networks"></a> 
+![alt text](images/nw_bb_song_full.png)
+
+<br>
+
+### Interpreting the Title Network
+
+Even viewing titles from *a single year* in the Beatles discography is daunting!  There are simply too many nodes and connections for us to make easy sense of what is going on.  But looking at a single piece ("A Day in the Life") can begin to reveal its *generic* affinities (in the estimation of the team who compiled the Beatles Billboard data) with other pieces from the same period.  
+
+One way of simplifyings would be to filter the results (for the full Beatles Billboard data, or even for the year 1967) to show only a particular subset of genres.  Here we will return to "A Day in the Life", a piece that seems to straddle some genres we might not think of as existing in the same piece:  "psychedelic rock", "art rock", and "pop/rock":
+
+![alt text](images/nw_group_explode.png)
+
+<br>
+
+If we filter the full dataset for 1967 *and* these genre terms:
+
+```python
+# filter by year
+df = beatles_billboard_exploded[beatles_billboard_exploded['Year'] == 1967]
+# filter by genre terms associated with chosen song
+df = df[df['Genre'].isin(['psychedelic rock', 'art/rock', 'pop/rock'])]
+```
+
+We can start to see something that makes more sense, putting "A Day in the Life" in the midst of a network of pieces with which it shares (in the estimation of the team who built the Billboard dataset) various tendencies.  This, in turn, could prompt some other discussion of the place of our song in the *sequence* of pieces in an albumn, its place in the development of the Beatles' style, or an analysis of the specific features that allow these songs to exist at the boundaries of various generic types.
+
+![alt text](images/nw_bb_title_filtered.png)
+
+
+## Spotify Networks with Categorical (Binned) and Continuous (Scalar) Data
+
+Now let's see what Networks can show us about Beatles Spotify Audio Feature data, which are derived based on various proprietary algorithms.  They include some categorical labels for key (0=C), and mode (1=major, 0=minor). But there are floats features like 'loudness' (which is in decibels) and tempo (beats per minute) and scalars (floats from 0 to 1) for things things like 'danceability', 'acousticness', and 'valence'.  Learn more from Spotify [here](https://developer.spotify.com/documentation/web-api/reference/get-audio-features).
+
+With continuous data we could of course simply organize our data via `df['selected_feature_column']sort_values()` to see the ranking of pieces according to a particular audio feature.  Or we could show a scatterplot of the feature values in a particular albumn or set of tunes.  But what would a network of continous values look like?  If pieces are the nodes, what would form the edges, and what would they reveal?
+
+Here we take a 'threshold' approach to the creation of the edges.  That is:  for each piece, we find the value of its 'chosen audio feature', then we find all the pieces whose chosen audio feature is within a threshold of "X" of the given value.  These 'matching' pieces are in turn used to our edges.  
+
+Result is a tapestry of nodes that seem to flow from one extreme of our continuum to the other.  The colors (created with Louvain Community algorithm) highlight various subsets of pieces that share a large number of connections with each other.  In this case we have used the **valence** audio feature as the basis of report.  Spotify characterizes valence as "the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry)."
+
+![alt text](images/nw_beatles_continuous_all.png)
+
+<br>
+
+At the low end of the scale we find some of the most melancholy of the songs created by the band:
+
+
+![alt text](images/nw_beatles_valence_low.png)
+
+<br>
+
+And at the high end, some of their most manic pop and blues songs:
+
+![alt text](images/nw_beatles_valence_high.png)
+
+<br>
+
+Here is the code to produce this, including various functions that identify the value for each piece, its neighboring 'matches', and in turn the network graph:.
+
+<Details>
+
+<Summary>Complete Code for Network of Continuous Values</Summary>
+
+```python
+# import libraries
+from pyvis import network as net
+import networkx as nx
+from community import community_louvain
+import pandas as pd
+from itertools import combinations
+from copy import deepcopy
+
+def find_matches(row, feature, df, threshold=0.05):
+    feature_value = row[feature]
+    song = row['song']
+    return df.loc[(abs(df[feature] - feature_value) <= threshold) & (df['song'] != song)]['song'].tolist()
+
+def add_weights(row, max_weight):
+    u = row['edge'][0]
+    v = row['edge'][1]
+    w = (1 - (row['weight'] / max_weight)) * 5
+    return (u, v, w)
+
+def add_communities(G):
+    G = deepcopy(G)
+    partition = community_louvain.best_partition(G)
+    nx.set_node_attributes(G, partition, "group")
+    return G
+
+def feature_network(feature, threshold=0.05, output_name='feature_network.html'):
+    if not output_name[-5:] == '.html':
+        raise TypeError('Your output file must end in .html')
+    
+    beatles_spotify_csv = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRCv45ldJmq0isl2bvWok7AbD5C6JWA0Xf1tBqow5ngX7_ox8c2d846PnH9iLp_SikzgYmvdPHe9k7G/pub?output=csv'
+    beatles_spotify = pd.read_csv(beatles_spotify_csv)
+
+    # beatles_spotify = beatles_spotify.sample(50).copy
+    
+    if not feature in beatles_spotify.columns:
+        raise KeyError(f"Not a valid feature. Features are: {str(beatles_spotify.iloc[:, -7:-1].columns.tolist()).strip('[').strip(']')}")
+    
+    beatles_spotify[feature] = beatles_spotify[feature].astype('float64')
+
+    bsv = beatles_spotify[['song', 'album', feature]]
+
+    bsv['matches'] = bsv.apply(lambda row: find_matches(row, feature, bsv, threshold), axis=1)
+
+    bsv_exploded = bsv.explode('matches')
+
+    bsv_exploded = bsv_exploded.dropna(subset=['matches'])
+
+    bsv_exploded['edge'] = list(zip(bsv_exploded['song'], bsv_exploded['matches']))
+
+    bsv_exploded['edge'] = bsv_exploded['edge'].apply(lambda x: tuple(sorted([str(e) for e in x])))
+
+    bsv_edges = bsv_exploded.drop_duplicates(subset='edge')[['song', 'edge', feature]]
+
+    bsv_edges['weight'] = bsv_edges['edge'].apply(lambda match: abs(bsv.drop_duplicates(subset='song').set_index('song').loc[match[0], feature] - bsv.drop_duplicates(subset='song').set_index('song').loc[match[1], feature]))
+
+    max_weight = bsv_edges['weight'].max()
+    bsv_edges['weighted_edge'] = bsv_edges.apply(lambda row: add_weights(row, max_weight), axis=1)
+
+    G = nx.Graph()
+    G.add_nodes_from(bsv_exploded['song'])
+    G.add_weighted_edges_from(bsv_edges['weighted_edge'])
+    G = add_communities(G)
+    for node in G.nodes():
+        G.nodes[node]['title'] = f"{feature}: {bsv_exploded.loc[bsv_exploded['song'] == node, feature].iloc[0]}"
+    network_graph = net.Network(
+        bgcolor="black",
+        font_color="white"
+    )
+    network_graph.set_options("""
+        {
+        "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "springLength": 1
+        },
+        "solver": "forceAtlas2Based"
+        }
+        }
+        """)
+    network_graph.from_nx(G)
+    network_graph.save_graph(output_name)
+
+# run the functions and return the graph:
+
+feature_network('valence', 0.1, 'valence.html')
+```
+</Details>
+
+<br>
+
+
+
+### Spotify Audio Features as Categorical (Binned) Data
+
+The continuous network is certainly revealing.  But what would it look like if we 'binned' the audio features (into a half dozen segments, for example, each determined by the overall range of values for our feature).  Remember that we can do this with the `cut` and `q_cut` methods.  The result is a dataframe in which selected features are 'binned' into a series of descrete segments, in this case numbered from 1=low to 6=high, each of equal size, since we use the q-cut method.  
+
+![alt text](images/nw_beatles-qcut.png)
+
+
+As we might expect, the resulting network shows a half-dozen descrete families of pieces.  
+
+![alt text](images/nw_beatles_spot_qcut_all.png)
+
+But why is there one piece that seems to be linked to TWO groups?  
+
+
+
+![alt text](images/nw_yellow_pivot.png)
+
+
+It turns out that "Yellow Submarine" was in fact released twice--as part of Revolver and as part of the album that bears its name.  But this is not simply a 'duplicate' for Spotify's Audio Feature algorithm has given it two slightly different ratings, which in turn fall across _two_ bins! 
+
+
+![alt text](images/yellowsub.png)
+
+
+#### A Network with More Than One Bin at Once?
+
+A network based on a single binned category is not very interesting.  But what if we include _more than one_ category as part of our network?  After all, two songs might each have a low rating for acousticness, but _different_ ratings for danceability.  Played out across many pieces, this reveal some interesting connections otherwise not obvious from different kinds of charts or plots.
+
+
+The full results for all 190+ songs in the Beatles Spotify dataset are too complex for us to make much sense of, although the network itself is certainly pretty:
+
+![alt text](images/nw_beatles_spot_2_qcuts_all.png)
+
+<br>
+
+But if we filter the data for a pair of pivotal years in the Beatles output (1966 and 1967) we can see some very interesting results:
+
+![alt text](images/nw_beatles_spot_2_cuts_66-67.png)
+
+<br>
+
+`df = beatles_spotify_binned[(beatles_spotify_binned['year'] >= 1966) & (beatles_spotify_binned['year'] <= 1967)].copy()`
+
+![alt text](images/nw_beatles_spot_2_cuts_day.png)
+
+<br>
+
+And focussing further on "A Day in the Life", we see it as a centrum of an entire set of tunes with which it shares both acousticness and valence ratings.  It would be interesting to compare this to what we learn from the "Continous" network we created above, and to claims about genre from earlier in this tutorial.
+
+<Details>
+
+<Summary> Code to Create Networks from Binned Spotify Data </Summary>
+
+```python
+# First We Transform Scalar Ratings to Categoricals
+binned_cols = ['danceability', 'acousticness']
+# now make a copy of the dataframe
+selected_album = beatles_spotify
+
+# selected_album = beatles_spotify[beatles_spotify['album'] == 'Rubber Soul'].copy()
+# label the bins and count the number of labels for use below
+labels = ['1', '2', '3', '4', '5', '6']
+bin_count = len(labels)
+# loop over the columns and 'cut' the data, returning new columns with the individual rows labeled
+# note that here we need to `drop` items that might be duplicated across bins
+for column in binned_cols:
+    selected_album[f"{column}_q_binned"] = pd.qcut(selected_album[column], 
+                                                 q=bin_count,
+                                                labels = labels,
+                                                duplicates='drop')
+beatles_spotify_binned = selected_album
+# select columns to show
+cols_to_view = ['year', 'album', 'song','danceability', 'acousticness','valence', 'danceability_q_binned','acousticness_q_binned','valence_q_binned']
+beatles_spotify_binned[cols_to_view]
+
+# copy of our data, so we don't accidentally alter it
+# filter it by year, or some other criteria
+df = beatles_spotify_binned[(beatles_spotify_binned['year'] >= 1966) & (beatles_spotify_binned['year'] <= 1967)].copy()
+
+# select the binned features (this could be a list of one or more)
+features = ['valence_q_binned', 'acousticness_q_binned']
+
+# define pair and edge lists
+all_pairs = []
+edge_pair_dfs = []
+
+# group function, which iterates through the selected feature(s)
+for feature_to_groupby in features: 
+
+    # column for the edges
+    column_for_list_of_edges = 'song' # <-- this is the original df column that will contain the list of features that will become the nodes and edges
+    
+    # Group by 'feature_to_groupby' and extract a 'column_for_list_of_edges'
+    grouped_feature_with_edges = df.groupby(feature_to_groupby)[column_for_list_of_edges].unique().reset_index(name=column_for_list_of_edges)
+    
+    # Generate all pairs edges for each group
+    for _, row in grouped_feature_with_edges.iterrows():
+        pairs = list(combinations(row[column_for_list_of_edges], 2))
+        all_pairs.append((row[feature_to_groupby], pairs))
+
+    # Create a new DataFrame with the results
+    edge_pair_name = column_for_list_of_edges + "_Pairs"
+    edge_pair_df = pd.DataFrame(all_pairs, columns=[feature_to_groupby, edge_pair_name])
+    # adjust for a threshold of genres per piece. should be > 0 
+    edge_pair_df_filtered = edge_pair_df[edge_pair_df[edge_pair_name].apply(len) > 0]
+    edge_pair_dfs.append(edge_pair_df_filtered)
+
+edge_pair_df_filtered = pd.concat(edge_pair_dfs)
+# explode the edge pair df
+exploded_edge_pairs = edge_pair_df_filtered.explode(edge_pair_name)
+
+# get the pair counts
+pair_counts = exploded_edge_pairs[edge_pair_name].value_counts()
+
+# allow a filter for the number of times a given pair of genres occurs
+# this works with the original series of pair counts, not the df
+
+minimum_count_for_pair = 1
+pair_counts_filtered = pair_counts[pair_counts >= 1]
+
+# set graph options:
+graph_height = 800
+graph_width = 800
+detect_louvain_communities = True
+add_forceAtlas2Based_physics = True
+
+# Create an empty NetworkX graph
+G = nx.Graph()
+
+# Add nodes and assign weights to edges
+for pair, count in pair_counts_filtered.items():
+    # Directly unpacking the tuple into node1 and node2
+    node1, node2 = pair
+    # Adding nodes if they don't exist already
+    if node1 not in G.nodes:
+        G.add_node(node1)
+    if node2 not in G.nodes:
+        G.add_node(node2)
+    # Adding edge with weight
+    G.add_edge(node1, node2, weight=count)
+
+# Adjusting edge thickness based on weights
+for edge in G.edges(data=True):
+    edge[2]['width'] = edge[2]['weight']
+    
+# Adding Louvain Communities
+if detect_louvain_communities == True:
+    def add_communities(G):
+        G = deepcopy(G)
+        partition = community_louvain.best_partition(G)
+        nx.set_node_attributes(G, partition, "group")
+        return G      
+    G = add_communities(G)
+
+# set display parameters
+network_graph = net.Network(notebook=True,
+                   width=graph_height,
+                   height=graph_height,
+                   bgcolor="black", 
+                   font_color="white")
+
+# Set the physics layout of the network
+if add_forceAtlas2Based_physics == True:
+    network_graph.set_options("""
+    {
+    "physics": {
+    "enabled": true,
+    "forceAtlas2Based": {
+        "springLength": 1
+    },
+    "solver": "forceAtlas2Based"
+    }
+    }
+    """)
+
+network_graph.from_nx(G)
+# # return the network
+network_graph.show("network_graph.html")
+```
+
+</Details>
+
+<br>
+
+
+<!--- 
+7/21/24>
+
+
+5. RILM concept networks
+
+
+--->
+
+
+##  Social Networks:  Spotify's Recommended Artists  
 
 Now, we'll get into slightly more complicated things.
 
-Spotify API provides a way to **get related artists** given an Artist ID. According to Spotify, this method returns a collection of artists "similar to a given artist", and the **"similarity is based on analysis of the Spotify community's listening history"**.  Note that these connections are **social and collaborative**, and not based on the **audio feature** data explored above.
+Spotify API provides a way to **get related artists** given an Artist ID. According to Spotify, this method returns a collection of artists "similar to a given artist", and the **"similarity is based on analysis of the Spotify community's listening history"**.  Note that these connections are **social and collaborative**, and *not* based on the **audio feature** data explored above.
 
 Learn more about Spotify's [Related Artists method](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-artists-related-artists).
 
 Reflecting this method, Spotipy conveniently has *spotipy_client.artist_related_artists*, which returns a collection of artists related to an artist. Making use of this method, one could think of a function that would go through a number of related artists (**limit**) and add graph Nodes and Edges corresponding to the newly discovered related artists. We will also **size nodes** based on popularity.
 
-Here's what such a function could look like (add this to your Notebok):
+Here's what such a function could look like (add this to your Notebook):
 
+<Details>
+
+<Summary>Function to Add Spotify Recommended Artists</Summary>
 
 ```python
+import pandas as pd
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
+import spotify_tools
+
+# storing the credentials:
+CLIENT_ID = "your_spotify_id"
+CLIENT_SECRET = "your_spotify_secret"
+
+
+# instantiating the client
+# source: Max Hilsdorf (https://towardsdatascience.com/how-to-create-large-music-datasets-using-spotipy-40e7242cc6a6)
+client_credentials_manager = SpotifyClientCredentials(client_id=CLIENT_ID, client_secret=CLIENT_SECRET)
+sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+
+# define function to obtain artist recommendations from Spotify
 def add_related_artists(starting_artist_name, starting_artist_id, existing_graph, limit, spotipy_client, order_group=None):
     # get artists related to the current artist
     current_artist_related = pd.DataFrame(spotipy_client.artist_related_artists(starting_artist_id)["artists"])
@@ -717,79 +1181,99 @@ def add_related_artists(starting_artist_name, starting_artist_id, existing_graph
         existing_graph.add_edge(starting_artist_name, current_artist_related.loc[i]["name"])
 ```
 
-    
-#### Get Artist Albums
+</Details>
 
-```python
-headers = {
-    'Authorization': 'Bearer {token}'.format(token=access_token)
-}
-BASE_URL = 'https://api.spotify.com/v1/'
-artist_id = '7nwUJBm0HE4ZxD3f5cy5ok'
+<br>
 
-# pull all artists albums
-r = requests.get(BASE_URL + 'artists/' + artist_id + '/albums', 
-                 headers=headers, 
-                 params={'include_groups': 'album', 'limit': 50})
-d = r.json()
 
-df = pd.DataFrame(d)
-# df["items"][0]
-```
-
-#### Get Related Artists (for Multiple Generations)
+### Get Recommended Artists (for One Generation)
 
 In the cell below, we will make use of the function we just defined. Using this function and some basic information, we will **produce a Network Graph for two generations (circles) of artists related to The Beatles**. 
 
 As noted, we will start with Beatles (Artist ID = "3WrFJ7ztbogyGnTHbHJFl2", Name = "The Beatles")
 
+<Details>
+
+<Summary> Code to Get Recommended Artists </Summary>
 
 ```python
-## First, we need to record the information about The Beatles
+
+# set graph options:
+graph_height = 800
+graph_width = 800
+detect_louvain_communities = True
+add_forceAtlas2Based_physics = True
+
+## First, we need to record the information about The Beatles as 'center artist' of the graph
 center_artist_id = "3WrFJ7ztbogyGnTHbHJFl2"
 center_artist_name = "The Beatles"
-center_artist_popularity = 80
+center_artist_popularity = 120
 
-# # or, we need to record the information about Aretha
-# center_artist_id = "6uRJnvQ3f8whVnmeoecv5Z"
-# center_artist_name = "Berlin"
-# center_artist_popularity = 100
+# get df of related artists from Spotify based on center artist
+center_artist_related = pd.DataFrame(sp.artist_related_artists(center_artist_id)["artists"])
 
-# # or, we need to record the information about Aretha
-# center_artist_id = "7nwUJBm0HE4ZxD3f5cy5ok"
-# center_artist_name = "Aretha"
-# center_artist_popularity = 100
-
-# limit: how many related per generation are we interested in
+# set parameters
 limit = 5
+order_group=None
 
-center_artist_related = pd.DataFrame(sp.artist_related_artists(center_artist_id)["artists"]).loc[0:(limit-1)]
+# Create an empty NetworkX graph
+G = nx.Graph()
 
-# setting up the Network
-artist_network = net.Network(notebook=True, width=1000, height=800)
-artist_network.add_node(center_artist_name, value=center_artist_popularity, color="#fffff", group=0)
+# create initial centrum
+G.add_node(center_artist_name, value=center_artist_popularity, color="#fffff", group=0)
 
-# Getting the first circle of related artists:
-add_related_artists(center_artist_name, center_artist_id, artist_network, limit, sp)
+# get the related artists and their popularity rating
+for i in range(limit):
+        # check if node already exists
+        if center_artist_related.loc[i]["name"] not in G.nodes():
+            if order_group:
+                G.add_node(center_artist_related.loc[i]["name"], value=int(center_artist_related.loc[i]["popularity"]), group=order_group)
+            else:
+                G.add_node(center_artist_related.loc[i]["name"], value=int(center_artist_related.loc[i]["popularity"]), group=(i + 1))
+        # add edge
+        G.add_edge(center_artist_name, center_artist_related.loc[i]["name"])
 
-# artist_network.add_node("test")
+# set display parameters
+network_graph = net.Network(notebook=True,
+                   width=1000,
+                   height=1000,
+                   bgcolor="white", 
+                   font_color="black")
 
-# Showing the Network Graph
-artist_network.show("artist_example.html")
+# Set the physics layout of the network
+
+if add_forceAtlas2Based_physics == True:
+
+    network_graph.set_options("""
+    {
+    "physics": {
+    "enabled": true,
+    "forceAtlas2Based": {
+        "springLength": 50
+    },
+    "solver": "forceAtlas2Based"
+    }
+    }
+    """)
+
+network_graph.from_nx(G)
+# # return the network
+network_graph.show("network_graph.html")   
 ```
-
-<Details>
-<Summary>Image of Sample Output</Summary>
-
-![Alt text](images/spot_26.png)
 
 </Details>
 
-
 <br>
 
-In order to further complicate our lives, we can **add one more generation of related artists** (think friends of friends):
+![alt text](images/nw_beatles_artist.png)
 
+### Get Recommended Artists (for Multiple Generations)
+
+In order to further complicate our lives, we can **add one more generation of recommended artists** (think friends of friends):
+
+<Details>
+
+<Summary>View Code for Multi-Generational Recommendations</Summary>
 
 ```python
 # Running through the once-related artists
@@ -798,41 +1282,36 @@ for i in range(limit):
 
 # Showing the Network Graph
 artist_network.show("artist_example.html")
-
-
 ```
-
-<Details>
-<Summary>Image of Sample Output</Summary>
-
-![Alt text](images/spot_27.png)
-
 
 </Details>
 
 <br>
 
+![alt text](images/nw_beatles_artist_second.png)
+
+<br>
 
 As you can see, the Network Graph above provides some very interesting information and prompts some very important thoughts. Think about: 
 * Why are the nodes located the way they are located? 
 * Who are the artists we've missed? 
 * How are these people related?
 
-<br>
+## Social Networks:  Spotify's Recommended Songs 
 
-
-##  <span style="color:olive"> Complex Networks:  A Network of Songs </span> <a name="song-network"></a>
-
-Similarly to Related Artists, Spotify API has a way of **recommending songs** based on a "seed" of tracks. Acording to the API Documentation, "recommendations **are generated based on the available information for a given seed entity and matched against similar artists and tracks**".
+Similarly to Recommended Artists, Spotify API has a way of **recommending songs** based on a "seed" of tracks. Acording to the API Documentation, "recommendations **are generated based on the available information for a given seed entity and matched against similar artists and tracks**".
 
 You can read more about Spotify's Recommendations [here](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations).
 
-This method is mirrored by Spotipy – specifically, in the *sp.recommendations* method. One could think of a function that would **get a generation of recommended songs and add them to a Network Graph** (scaled by popularity).
+This method is mirrored by Spotipy – specifically, in the *sp.recommendations* method. One could think of a function that would **get a generation of recommended songs and add them to a Network Graph** (scaled by popularity). Using this function and some basic information, we will **produce a Network Graph for two generations (circles) of recommended songs based on Ben E. King's Stand By Me**. 
 
-Add this to your Notebook:
+As noted, we will start with Stand By Me (Song ID = "3SdTKo2uVsxFblQjpScoHy")
 
+<Details>
+<Summary>Code for Recommended Songs</Summary>
 
 ```python
+# function to get recommended songs
 def add_related_songs(starting_song_name, starting_artist_name, starting_song_id, existing_graph, limit, spotipy_client, first_gen=True, order_group=None):
     current_song_related = pd.DataFrame(spotipy_client.recommendations(seed_tracks=[starting_song_id])["tracks"])
     for i in range(limit):
@@ -843,16 +1322,11 @@ def add_related_songs(starting_song_name, starting_artist_name, starting_song_id
                 existing_graph.add_node(str(current_song_related.loc[i]["artists"][0]["name"] + ": " + current_song_related.loc[i]["name"]), value=int(current_song_related.loc[i]["popularity"]), group=(i+1))
         existing_graph.add_edge(str(starting_artist_name + ": " + starting_song_name), str(current_song_related.loc[i]["artists"][0]["name"] + ": " + current_song_related.loc[i]["name"]))
     return current_song_related
-```
-
-In the cell below, we will make use of the function we just defined. Using this function and some basic information, we will **produce a Network Graph for two generations (circles) of recommended songs based on Ben E. King's Stand By Me**. 
-
-As noted, we will start with Stand By Me (Song ID = "3SdTKo2uVsxFblQjpScoHy")
 
 
-```python
-# First, we need to record the information about Stand By Me
-center_song = sp.track("3SdTKo2uVsxFblQjpScoHy")
+# now, we need to record the information about our first song, A Day in the Life
+center_song = sp.track("0hKRSZhUGEhKU6aNSPBACZ")
+
 # Or Mahler 1
 # center_song = sp.track("7vZoMrrqsqfO96vortxxjn")
 
@@ -865,57 +1339,63 @@ center_song_name = center_song["name"]
 center_song_popularity = int(center_song["popularity"])
 
 # limit: how many recommended songs per generation we are interested in
-limit = 3
+limit = 5
+order_group=None
 
-# Creating the Network graph and adding the center Node
-song_network = net.Network(notebook=True, width=1000, height=800)
-song_network.add_node(str(center_song_artist + ": " + center_song_name), value=center_song_popularity, color="#fffff", group=0)
+# Create an empty NetworkX graph
+G = nx.Graph()
+
+add_forceAtlas2Based_physics = True
+
+# create initial centrum
+G.add_node((str(center_song_artist + ": " + center_song_name)), value=center_song_popularity, color="#fffff", group=0)
 
 # Getting the first circle of related artists:
-recommended_songs = add_related_songs(center_song_name, center_song_artist, center_song_id, song_network, limit, sp)
+recommended_songs = add_related_songs(center_song_name, center_song_artist, center_song_id, G, limit, sp)
 
-# Showing the Network
-song_network.show("song_network_short.html")
+# set display parameters
+network_graph = net.Network(notebook=True,
+                   width=1000,
+                   height=1000,
+                   bgcolor="white", 
+                   font_color="black")
 
-# Note that depending on your Jupyter Hub this network might not render directly in the Notebook.  Look for the named file in the folder where your Notebook is stored and open it there.
+# Set the physics layout of the network
+
+if add_forceAtlas2Based_physics == True:
+
+    network_graph.set_options("""
+    {
+    "physics": {
+    "enabled": true,
+    "forceAtlas2Based": {
+        "springLength": 50
+    },
+    "solver": "forceAtlas2Based"
+    }
+    }
+    """)
+
+network_graph.from_nx(G)
+# # return the network
+network_graph.show("network_graph.html")
 ```
-
-<Details>
-<Summary>Image of Sample Output</Summary>
-
-![Alt text](images/spot_28.png)
 
 </Details>
 
 <br>
 
-Similarly to Related Artists, we will further complicate our lives by **adding one more generation of recommended songs** (with no extra seed knowledge):
+![alt text](images/nw_day_recommend.png)
+
+<br>
+
+### Get Recommended Songs (for Multiple Generations)
+
+Similarly to Recommended Artists, we will further complicate our lives by **adding one more generation of recommended songs** (with no extra seed knowledge):
 
 
-```python
-# Getting the second generation of Recommended songs
-for i in range(limit):
-    add_related_songs(starting_song_name=recommended_songs.loc[i]["name"], 
-                      starting_artist_name=recommended_songs.loc[i]["artists"][0]["name"], 
-                      starting_song_id=recommended_songs.loc[i]["id"], 
-                      existing_graph=song_network, 
-                      limit=limit, 
-                      spotipy_client=sp, 
-                      first_gen=False, 
-                      order_group=(i+1))
-                      
+![alt text](images/nw_day_recommend_2.png)
 
-
-# Showing the network
-song_network.show("song_network.html")
-```
-
-<Details>
-<Summary>Image of Sample Output</Summary>
-
-![Alt text](images/spot_29.png)
-
-</Details>
 
 <br>
 
@@ -926,57 +1406,10 @@ Interestingly, Spotify's recommendations for songs **change every time you run y
 
 <br>
 
-Finally, we can make one very slight tweak to our add_related_songs method. Previously, we only included one track as a seed track for running the GET Recommendations method. In the function below, we will define a new function that will essentially do the same thing as the one above, except it will **pass 5 random tracks (out of the tracks in the graph) as the recommendation seed** into the Recommendation function.
 
-
-Add this to your Notebook:
-
-
-```python
-def add_related_songs_gen(starting_song_name, starting_artist_name, starting_song_id, existing_graph, limit, spotipy_client, first_gen=True, order_group=None):
-    current_song_related = pd.DataFrame(sp.recommendations(seed_tracks=starting_song_id)["tracks"]).loc[0:(limit - 1)]
-    for i in range(limit):
-        if str(current_song_related.loc[i]["artists"][0]["name"] + ": " + current_song_related.loc[i]["name"]) not in existing_graph.get_nodes():
-            if order_group:
-                existing_graph.add_node(str(current_song_related.loc[i]["artists"][0]["name"] + ": " + current_song_related.loc[i]["name"]), value=int(current_song_related.loc[i]["popularity"]), group=order_group)
-            else:
-                existing_graph.add_node(str(current_song_related.loc[i]["artists"][0]["name"] + ": " + current_song_related.loc[i]["name"]), value=int(current_song_related.loc[i]["popularity"]), group=(i+1))
-        existing_graph.add_edge(str(starting_artist_name + ": " + starting_song_name), str(current_song_related.loc[i]["artists"][0]["name"] + ": " + current_song_related.loc[i]["name"]))
-    return current_song_related
-```
-
-We will run this function for **two generations** for the same song (Stand By Me by Ben E. King):
-
-
-```python
-# Start the network
-song_network = net.Network(notebook=False, width=1000, height=800)
-song_network.add_node(str(center_song_artist + ": " + center_song_name), value=center_song_popularity, color="#fffff", group=0)
-
-# First generation
-recommended_songs = add_related_songs_gen(center_song_name, center_song_artist, [center_song_id], song_network, limit, sp)
-
-# Second generation
-for i in range(limit):
-    add_related_songs_gen(recommended_songs.loc[i]["name"], recommended_songs.loc[i]["artists"][0]["name"], random.sample(list(recommended_songs["id"]), 3), song_network, limit, sp, False, (i+1))
-
-# Show the network Graph
-song_network.show("song_network.html")
-```
-
-Note that this graph looks a little different! What are **some of your observations**?  As a listener, do the recommendations make sense?
-
-<Details>
-<Summary>Image of Sample Output</Summary>
-
-![Alt text](images/spot_30.png)
-
-</Details>
-
-<br>
 ----
 
-##  <span style="color:olive">Louvain Community Detection:  The Ghost in the Machine </span> <a name="louvain"></a>
+## Louvain Community Detection:  The Ghost in the Machine
 
 
 In the last part of this guide, we will briefly explore **Louvain Community Detection**. In short, this is a method that allows us to visually identify communities of discrete entities that share a common attribute. In simpler terms, it helps identify clusters or communities of related nodes.
@@ -984,7 +1417,7 @@ In the last part of this guide, we will briefly explore **Louvain Community Dete
 You can learn more about the mathematics behind the Louvain algorithm [here](https://towardsdatascience.com/louvain-algorithm-93fde589f58c), explore its documentation [here](https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.community.louvain.louvain_communities.html), read about its applications [here](https://towardsdatascience.com/louvains-algorithm-for-community-detection-in-python-95ff7f675306).
 
 
-#### How the Louvain Algorithm Works
+### How the Louvain Algorithm Works
 
 1. **Step 1: Initialization**
    - Each node is initially assigned to its own community.
@@ -1002,449 +1435,10 @@ You can learn more about the mathematics behind the Louvain algorithm [here](htt
 ### Why Modularity Matters
 Modularity measures how well a network is divided into communities. Higher modularity values indicate better community structures. The Louvain algorithm aims to maximize the modularity by rearranging nodes into communities where they are more densely connected with each other and less connected with nodes in other communities.
 
-
-
-### Example A:  Network of Artists Shared Among Five Related Spotify Playlists
-
-In our first example, we will **identify Louvain communities of artists** within the playlists they belong to.  This approach is simply tracing common artists--it does not involve Spotify Audio Feature data.
-
-<br>
-
-At first, let's **pick 5 playlists** centered around a common theme. For example, let's choose "Rock". By searching on Spotify, we found and randomly picked these 5 playlists:
-* [Rock Classics](https://open.spotify.com/playlist/37i9dQZF1DWXRqgorJj26U): "Rock legends & epic songs that continue to inspire generations", Spotify Playlist ID: "37i9dQZF1DWXRqgorJj26U"
-* [Rock Mix](https://open.spotify.com/playlist/37i9dQZF1EQpj7X7UK8OOF): "Fleetwood Mac, Elton John, Steve Miller Band and more", Spotify Playlist ID: "37i9dQZF1EQpj7X7UK8OOF"
-* [Classic Rock Drive](https://open.spotify.com/playlist/37i9dQZF1DXdOEFt9ZX0dh): "Classic rock to get your motor running. Cover: AC/DC", Spotify Playlist ID: "37i9dQZF1DXdOEFt9ZX0dh"
-* [Rock Drive](https://open.spotify.com/playlist/37i9dQZF1DX7Ku6cgJPhh5): "Amp up your commute with these rock hits. Cover: Foo Fighters", Spotify Playlist ID: "37i9dQZF1DX7Ku6cgJPhh5"
-* [Dad Rock](https://open.spotify.com/playlist/37i9dQZF1DX09NvEVpeM77): "Classic rock favorites. Cover: Bruce Springsteen", Spotify Playlist ID: "37i9dQZF1DX09NvEVpeM77"
-
-<br>
-
-Let's **put these playlists in a DataFrame**:
-
-<Details>
-<Summary>See the Code (and Copy to Your Notebook)</Summary>
-
-```python
-# Three Model Lists.  Two of them share only one.  Two of them share all except one.  
-# What do we expect?
-rock_playlists_dfs_list = []
-PL_1 = '37i9dQZF1DWXRqgorJj26U'
-PL_2 = '37i9dQZF1EQpj7X7UK8OOF'
-PL_3 = '37i9dQZF1DXdOEFt9ZX0dh'
-PL_4 = '37i9dQZF1DX7Ku6cgJPhh5'
-PL_5 = '37i9dQZF1DX09NvEVpeM77'
-
-rock_playlists_ids_list = [PL_1, PL_2, PL_3]
-
-# # Create a list of playlists
-# rock_playlists_dfs_list = []
-# rock_playlists_ids_list = ["37i9dQZF1DWXRqgorJj26U",
-#                           "37i9dQZF1EQpj7X7UK8OOF",
-#                           "37i9dQZF1DXdOEFt9ZX0dh",
-#                            "37i9dQZF1DX7Ku6cgJPhh5",
-#                           "37i9dQZF1DX09NvEVpeM77"]
-
-# Looping through the items and producing Audio Features DataFrames
-
-for item in rock_playlists_ids_list:
-  temp_playlist_df = pd.DataFrame(sp.playlist_items(item))
-  temp_playlist_audio = spotify_tools.get_audio_features_df(temp_playlist_df, sp)
-  temp_playlist_audio["playlist_name"] = sp.playlist(item)["name"]
-  rock_playlists_dfs_list.append(temp_playlist_audio)
-    
-# Concatenating the Audio Features DataFrames
-rock_playlists_df = pd.concat(rock_playlists_dfs_list)
-rock_playlists_df
-
-# Our new Rock Playlists DataFrame contains 400 tracks gathered across the 5 playlists. As we don't want to overwhelm our Network, we will **choose a random sample** of 100 tracks out of this DataFrame:
-
-input_data_rock_df = rock_playlists_df.reset_index()
-our_sample = input_data_rock_df.sample(100)
-```
-
-</Details>
-
-<br>
-
-Now, let's **define the Louvain Community Algorithm methods**.
-
-**Create nodes** (courtesy of Daniel Russo Batterham and Richard Freedman).  See the code below, or just run this with the `rock_playlists_df`
-
-<Details>
-<Summary>See the Code (and Copy to Your Notebook)</Summary>
-
-```python
-# Creating an HTML node
-def create_node_html(node: str, source_df: pd.DataFrame, node_col: str):
-    rows = source_df.loc[source_df[node_col] == node].itertuples()
-    html_lis = []
-    for r in rows:
-        html_lis.append(f"""<li>Artist: {r.artist}<br>
-                                Playlist: {r.playlist_name}<br>"""
-                       )
-    html_ul = f"""<ul>{''.join(html_lis)}</ul>"""
-    return html_ul
-```
-
-</Details>
-
-<br>
-
-**Add nodes from edge list** (courtesy of Daniel Russo Batterham and Richard Freedman):
-
-<Details>
-<Summary>See the Code (and Copy to Your Notebook)</Summary>
-
-```python
-# Adding nodes from an Edgelist
-def add_nodes_from_edgelist(edge_list: list, 
-                               source_df: pd.DataFrame, 
-                               graph: nx.Graph,
-                               node_col: str):
-    graph = deepcopy(graph)
-    node_list = pd.Series(edge_list).apply(pd.Series).stack().unique()
-    for n in node_list:
-        graph.add_node(n, title=create_node_html(n, source_df, node_col), spring_length=1000)
-    return graph
-```
-
-</Details>
-<br>
-
-**Find Louvain Communities** (courtesy of Daniel Russo Batterham and Richard Freedman):
-
-<Details>
-<Summary>See the Code (and Copy to Your Notebook)</Summary>
-
-```python
-# Adding Louvain Communities
-def add_communities(G):
-    G = deepcopy(G)
-    partition = community_louvain.best_partition(G)
-    nx.set_node_attributes(G, partition, "group")
-    return G
-```
-</Details>
-<br>
-
-**Produce a Network of pairs**, which we'll run the add_communities method on, marking the Louvain communities:
-
-<Details>
-<Summary>See the Code (and Copy to Your Notebook)</Summary>
-
-```python
-def choose_network(df, chosen_word, output_file_name, output_width=800):
-    
-    # creating unique pairs
-    output_grouped = df.groupby(['tags'])[chosen_word].apply(list).reset_index()
-    pairs = output_grouped[chosen_word].apply(lambda x: list(combinations(x, 2)))
-    pairs2 = pairs.explode().dropna()
-    unique_pairs = pairs.explode().dropna().unique()
-    
-    # creating a new Graph
-    pyvis_graph = net.Network(notebook=True, width=output_width, height="1000", bgcolor="black", font_color="white")
-    G = nx.Graph()
-    # adding nodes
-    try:
-        G = add_nodes_from_edgelist(edge_list=unique_pairs, source_df=df, graph=G, node_col=chosen_word)
-    except Exception as e:
-        print(e)
-    # add edges
-    G.add_edges_from(unique_pairs)
-    # find communities
-    G = add_communities(G)
-    pyvis_graph.from_nx(G)
-    pyvis_graph.show(output_file_name)
-```
-
-</Details>
-<br>
-
-**Detect Louvain Communities** of artists within the playlists they belong to:
-
-<Details>
-<Summary>See the Code (and Copy to Your Notebook)</Summary>
-
-```python
-louvain_network = choose_network(input_data_rock_df.sample(50), 'artist', 'modified_rock.html')
-louvain_network.show("modified_rock.html")
-```
-
-</Details>
-<br>
-
-<Details>
-<Summary>Image of Sample Output</Summary>
-
-![Alt text](images/louvain.png)
-
-
-</Details>
-
-
-### Example B:  Networks Using Audio Feature Data 
-
-In our second example, we will **identify Louvain communities of using Spotify Audio Feature data**.  We do this in several steps:
-
-**Create Categorical Bins from Scalar Audio Feature Data.**
-
-Spotify Audio Feature data are of course scalars.  And so to find 'similar' tracks it is helpful to transform these as categorical data types (for instance:  `low, middle, high, very high` for `danceability`).  This is easily done with Pandas `cut` and `qcut` methods.  Here we use the latter, creating four bins, each with its own label:
-
-<Details>
-<Summary>Code to Use</Summary>
-
-```python
-
-# select the columns to categorize:
-binned_cols = ['danceability',
- 'energy',
- 'key',
- 'loudness',
- 'speechiness',
- 'liveness',
- 'valence',
- 'tempo',
- 'duration_ms']
-
-# copy the original dataframe, define labels and create new binned/categorized columns based on the originals
-our_data_q_binned = our_data.copy()
-labels = ['l', 'm', 'h', 's']
-bin_count = len(labels)
-for column in binned_cols:
-    our_data_q_binned[f"{column}_q_binned"] = pd.qcut(our_data_q_binned[column], 
-                                                 q=bin_count,
-                                                labels = labels,
-                                                 duplicates='drop')
-```
-</Details>
-
-<br>
-
-**Create 'Tags' that Combine Categories as Distinctive Types**.  Using python `join` we next link up the various categorical labels into distinctive 'tags' (like `L_L_M_H_L` which represent the values for several different Audio Features at once.
-
-<Details>
-<Summary>Code to Use</Summary>
-
-```python
-# select some useful set of columns to combine
-q_bin_tag_cols = ['danceability_q_binned',
- 'energy_q_binned',
- 'speechiness_q_binned',
- 'liveness_q_binned',
- 'valence_q_binned']
-
-# join them into a new column:
-
-our_data_q_binned['tags'] = our_data_q_binned[q_bin_tag_cols].apply(lambda row : "_".join(row), axis='columns')
-```
-
-</Details>
-
-<br>
-
-**Create the Louvain Communities Networks from the Binned and Tagged Audio Feature Data**.  Below we detail the functions used to create the Louvain Communnities Network:
-
-
-<Details>
-<Summary>Code to use in Notebooks</Summary>
-
-```python
-# Adding nodes from an Edgelist
-def add_nodes_from_edgelist(edge_list: list, 
-                               source_df: pd.DataFrame, 
-                               graph: nx.Graph,
-                               node_col: str):
-    graph = deepcopy(graph)
-    node_list = pd.Series(edge_list).apply(pd.Series).stack().unique()
-    for n in node_list:
-        graph.add_node(n, spring_length=1000)
-    return graph
-# Adding Louvain Communities
-def add_communities(G):
-    G = deepcopy(G)
-    partition = community_louvain.best_partition(G)
-    nx.set_node_attributes(G, partition, "group")
-    return G
-
-def choose_network(df, chosen_word, output_file_name, output_width=800):
-    
-    # creating unique pairs
-    output_grouped = df.groupby(['tags'])[chosen_word].apply(list).reset_index()
-    pairs = output_grouped[chosen_word].apply(lambda x: list(combinations(x, 2)))
-    pairs2 = pairs.explode().dropna()
-    unique_pairs = pairs.explode().dropna().unique()
-    
-    # creating a new Graph
-    pyvis_graph = net.Network(notebook=True, width=output_width, height="1000", bgcolor="black", font_color="white")
-    G = nx.Graph()
-    # adding nodes
-    try:
-        G = add_nodes_from_edgelist(edge_list=unique_pairs, source_df=df, graph=G, node_col=chosen_word)
-    except Exception as e:
-        print(e)
-    # add edges
-    G.add_edges_from(unique_pairs)
-    # find communities
-    G = add_communities(G)
-    pyvis_graph.from_nx(G)
-    pyvis_graph.show(output_file_name)
-
-```
-
-</Details>
-
-</br>
-
-**Create the Network**.  With all the code above in place, create the network:
-
-```python
-louvain_network = choose_network(our_data_q_binned, 'artist_name', 'artist_net.html')
-```
-
-The Result Tells us How Tracks (or Artists, or Playlists) are connected according to Audio Features:
-
-
-![Alt text](images/louvain_audio.png)
-
-
-#### Background on the Louvain Network is Created: How the Edges and Nodes are Formed: The "Grouped" Playlists
-
-
-```python
-output_grouped = input_data_rock_df.groupby(['playlist_name'])['artist'].apply(set).reset_index()
-pairs = output_grouped['artist'].apply(lambda x: list(combinations(x, 2)))
-pairs2 = pairs.explode().dropna()
-unique_pairs = pairs.explode().dropna().unique()
-
-```
-
-#### Here is the `output_grouped`:
-
-<Details>
-<Summary>Image of Sample Output</Summary>
-
-![Alt text](images/louvain_group.png)
-
-</Details>
-
-#### And the `Pairs` in each List:
-
-<Details>
-<Summary>Image of Sample Output</Summary>
-
-![Alt text](images/louvain_pairs.png)
-
-</Details>
-
-Pairs are produced via combinations of all items in a set:
-
-list(combinations(["paul", "john", 'george'], 2))
-```
-    [('paul', 'john'), ('paul', 'george'), ('john', 'george')]
-
-```
-Note the same thing as permutations (which considers all orderings)
-
-from itertools import permutations
-list(permutations(["paul", "john", 'george'], 3))
-```
-    [('paul', 'john', 'george'),
-     ('paul', 'george', 'john'),
-     ('john', 'paul', 'george'),
-     ('john', 'george', 'paul'),
-     ('george', 'paul', 'john'),
-     ('george', 'john', 'paul')]
-
-```
-Each item in series is a list of tuples. the tuples will be the edges!
-
-```
-
-    0    [(Jimi Hendrix, Ben E. King), (Jimi Hendrix, A...
-    1    [(Jimi Hendrix, Ben E. King), (Jimi Hendrix, A...
-    2    [(Etta James, Patsy Cline), (Etta James, The B...
-    Name: artist, dtype: object
-
-```
-
-Here we un-nest all the lists with `explode`.  Now the `len(pairs)` is 856!
-
-
-```
-pairs.explode().apply(sorted)
-    0           [Ben E. King, Jimi Hendrix]
-    0       [Aretha Franklin, Jimi Hendrix]
-    0          [Howlin' Wolf, Jimi Hendrix]
-    0       [Jimi Hendrix, The Temptations]
-    0             [Jimi Hendrix, Sam Cooke]
-                        ...                
-    2       [Janis Joplin, Louis Armstrong]
-    2         [Frank Sinatra, Janis Joplin]
-    2    [Ella Fitzgerald, Louis Armstrong]
-    2      [Ella Fitzgerald, Frank Sinatra]
-    2      [Frank Sinatra, Louis Armstrong]
-    Name: artist, Length: 135, dtype: object
-
-```
-
-There are nevertheless duplicate edges!  We could keep them for figuring weights!
-
 ### The Ghost In the Machine:
 
 The key thing is that **Louvain does NOT know about the lists**!  It creates the commmunities **only on the basis of edges**!
 
 
-```
-
-# pairs2 = pairs.explode().dropna()
-
-# do not need drop na!
-
-# Note that the original lists are NOT here!
-
-# could have other attributes added to data structure--weights, for instance!
-unique_pairs = pairs.explode().unique()
-unique_pairs
-```
-    array([('Jimi Hendrix', 'Ben E. King'),
-           ('Jimi Hendrix', 'Aretha Franklin'),
-           ('Jimi Hendrix', "Howlin' Wolf"),
-           ('Jimi Hendrix', 'The Temptations'), ('Jimi Hendrix', 'Sam Cooke'),
-           ('Jimi Hendrix', 'Donovan'),
-           ('Jimi Hendrix', 'Jefferson Airplane'),
-           ('Jimi Hendrix', 'Leonard Cohen'),
-           ('Jimi Hendrix', 'Simon & Garfunkel'),
-           ('Ben E. King', 'Aretha Franklin'),
-           ('Ben E. King', "Howlin' Wolf"),
-           ('Ben E. King', 'The Temptations'), ('Ben E. King', 'Sam Cooke'),
-           ('Ben E. King', 'Donovan'), ('Ben E. King', 'Jefferson Airplane'),
-           ('Ben E. King', 'Leonard Cohen'),
-           ('Ben E. King', 'Simon & Garfunkel')])
-          
-
-### Adding Weighted Edges
-
-We can count Tuples, which are the edges, so this would help us make a dict of value counts, and these could serve as the edge weights in the graph.
 
 
-```
-pairs.explode().value_counts()
-```
-
-    (Jimi Hendrix, Aretha Franklin)                      2
-    (Aretha Franklin, The Temptations)                   2
-    (Aretha Franklin, Simon & Garfunkel)                 2
-    (Donovan, Leonard Cohen)                             2
-    (Howlin' Wolf, Simon & Garfunkel)                    2
-                                                        ..
-    (Louis Armstrong, Frank Sinatra)                     1
-    (Smokey Robinson & The Miracles, Louis Armstrong)    1
-    (Etta James, Smokey Robinson & The Miracles)         1
-    (Otis Redding, Howlin' Wolf)                         1
-    (Patsy Cline, Ella Fitzgerald)                       1
-    Name: artist, Length: 99, dtype: int64
-
-
-In the Network Graph above, you can see the 3 **communities** of artists that are detected based on what playlist they belong to. Note: *we didn't pass the playlist information into the Network*!
-
-\

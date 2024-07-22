@@ -1,4 +1,13 @@
-show
+# set graph options:
+graph_height = 800
+graph_width = 800
+detect_louvain_communities = True
+add_forceAtlas2Based_physics = True
+# set graph options:
+graph_height = 800
+graph_width = 800
+detect_louvain_communities = True
+add_forceAtlas2Based_physics = True
 
 ---
 
