@@ -13,15 +13,14 @@ Note that for some of the demonstrations offered below you will be working with 
 * [Networks:  Basic Concepts and Methods](#networks--basic-concepts-and-methods)
 * [A Simple Network of Students](#a-simple-example--a-network-of-students)
 * [Pyvis and NetworkX:  Python Tools for Networks](#pyvis-and-networkx--python-tools-for-networks)
-* [Networks: From DataFrame to Edge Pairs with Groupby and Explode]()
-* [Networks: Adjusting Pyvis Physics for Clarity](#adjust-physics)
-* [Networks with Spotify Data Two Ways:  Binned and Continuous](#networks-spotify)
-* [Complex Networks:  Spotify Recommended Artists](#artist_networks)
-* [Complex Networks:  Spotify Recommended Songs ](#song-network)
-* [Louvain Community Detection:  The Ghost in the Machine](#louvain)
+* [Networks: Billboard Data to Edge Pairs with Groupby and Explode](#from-dataframe-to-edge-pairs--groupby-and-explode)
+* [Networks with Spotify Data Two Ways:  Binned and Continuous](#spotify-networks-with-categorical-binned-and-continuous-scalar-data)
+* [Complex Networks:  Spotify Recommended Artists](#social-networks--spotifys-recommended-artists)
+* [Complex Networks:  Spotify Recommended Songs ](#social-networks--spotifys-recommended-songs)
+* [Louvain Community Detection:  The Ghost in the Machine](#louvain-community-detection--the-ghost-in-the-machine)
 
 
-##  Networks:  Basic Concepts and Methods 
+## Networks:  Basic Concepts and Methods 
 
 In the field of data science, networks (also known as graphs) are powerful tools used to represent and study relationships between entities. A network is composed of **nodes** (also called vertices) and **edges** (also called links). Each node represents an entity, while each edge represents a relationship between two entities.
 
@@ -155,7 +154,7 @@ Imagine this:
 *But how do we get from Pandas dataframes to a table of edge pairs and counts like this one?*  
 
 ----
-##  From DataFrame to Edge Pairs:  Groupby and Explode
+## From DataFrame to Edge Pairs:  Groupby and Explode
 
 
 Deriving a table of edge pairs from your original dataframe takes some knowledge of several key Pandas and Python methods.  If you don't recall the first and second of these, review them in the relevant tutorial!
@@ -168,7 +167,7 @@ Deriving a table of edge pairs from your original dataframe takes some knowledge
 Let's look at these steps in detail using the **Beatles Billboard** data. There are some 300 songs in this dataset, if we imagine a network with 300 nodes, it would almost certainly be too complex to interepret. But the Billboard dataset also includes some 'genre' labels, and it could be interesting to see how these genres fall into families. They might not reveal a lot about the songs, but they would definitely tell us something about the folks who assigned the labels in the first place!
 
 
-##  Meet the Beatles (Again) 
+## Meet the Beatles (Again) 
 
 We continue with our data about The Beatles:
 
@@ -249,7 +248,7 @@ Here is how to do it:
 * **from each list of genre labels create a new list of pairs of labels**.  These tuples will provide the basis of the nodes and edges. 
 * **count** the occurences of each pair of labels, and return the results as a new dataframe:  pairs and counts.  This will be passed directly to networkX to populate the graph.
 
-## Step 1: The Groupby Operation:
+### Step 1: The Groupby Operation:
 
 
 From this we see that for each song title, we have a list of genre labels:
@@ -280,7 +279,7 @@ grouped_feature_with_edges = df.groupby
 
 <br>
 
-## Step 2: Find the Combinations of Genre Labels for Each Group, and Count Them
+### Step 2: Find the Combinations of Genre Labels for Each Group, and Count Them
 
 For *each of these lists of titles*, we need to find all of the `pairs` of titles, which will serve as our network edges. This is easily done with a special Python library called `collections`, and within that the `combinations` method.
 
@@ -304,7 +303,7 @@ pairs
  ('art rock', 'pop rock')]
  ```
 
-### Running the `combinations` method over each row of the exploded dataframe, we in turn create a new dataframe with `all_pairs` of genres.  
+#### Running the `combinations` method over each row of the exploded dataframe, we in turn create a new dataframe with `all_pairs` of genres.  
 
 ![alt text](images/new_nw_2.png)
 
@@ -334,7 +333,7 @@ edge_pair_df_filtered = edge_pair_df[edge_pair_df[edge_pair_name].apply(len) > 0
 
 <br>
 
-### And this, in turn, we `explode` in order to create a dataframe of genre pairs for each title.  
+#### And this, in turn, we `explode` in order to create a dataframe of genre pairs for each title.  
 
 ![alt text](images/new_nw_3.png)
 
@@ -342,13 +341,13 @@ edge_pair_df_filtered = edge_pair_df[edge_pair_df[edge_pair_name].apply(len) > 0
 
 <br>
 
-### Finally, we will `count` the occurences of each edge pair, so that we can show a weighted network.
+#### Finally, we will `count` the occurences of each edge pair, so that we can show a weighted network.
 
 ![alt text](images/new_nw_4.png)
 
-## Step 3: Make Network from the Edge Pairs
+### Step 3: Make Network from the Edge Pairs
 
-### At last we are ready to build our network from the dataframe of edge pairs and their corresponding weights, which was our original goal! 
+#### At last we are ready to build our network from the dataframe of edge pairs and their corresponding weights, which was our original goal! 
 
 ![alt text](<images/tuples to network.png>)
 
@@ -443,13 +442,13 @@ network_graph.show("network_graph.html")
 <br>
 
 
-##### Option A. Basic Network of Genres with NetworkX and Pyvis
+#### Option A. Basic Network of Genres with NetworkX and Pyvis
 
 The simplest version of the NetworkX and Pyvis tools result in a rather dense (and thus difficult to interpret) network of genres:
 
 ![alt text](<images/nw no physics.png>)
 
-##### Option B. Network of Genres with Updated Physics for Legibility
+#### Option B. Network of Genres with Updated Physics for Legibility
 
 Adding some updated physics to the network spread things out so they are more legible, and includes the relative weights of the edges.  Learn more about the various options for adjusting the 'repulsion' among the various nodes [here on the Pyvis documentation site](https://pyvis.readthedocs.io/en/latest/documentation.html#pyvis.network.Network.force_atlas_2based)
 
@@ -469,7 +468,7 @@ network_graph.set_options("""
 
 ![alt text](<images/nw with physics.png>)
 
-##### Option C. Network of Genres with Louvain Community Detection
+#### Option C. Network of Genres with Louvain Community Detection
 
 Finally, we reveal 'communities' via color highlights, using the Louvain Community Detection Algorithm. Learn more [here](#louvain-community-detection--the-ghost-in-the-machine).
 
@@ -1133,7 +1132,7 @@ network_graph.show("network_graph.html")
 --->
 
 
-##  Social Networks:  Spotify's Recommended Artists  
+## Social Networks:  Spotify's Recommended Artists  
 
 Now, we'll get into slightly more complicated things.
 
