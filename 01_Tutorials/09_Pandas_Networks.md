@@ -1302,9 +1302,9 @@ Similarly to Recommended Artists, Spotify API has a way of **recommending songs*
 
 You can read more about Spotify's Recommendations [here](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations).
 
-This method is mirrored by Spotipy – specifically, in the *sp.recommendations* method. One could think of a function that would **get a generation of recommended songs and add them to a Network Graph** (scaled by popularity). Using this function and some basic information, we will **produce a Network Graph for two generations (circles) of recommended songs based on Ben E. King's Stand By Me**. 
+This method is mirrored by Spotipy – specifically, in the *sp.recommendations* method. One could think of a function that would **get a generation of recommended songs and add them to a Network Graph** (scaled by popularity). Using this function and some basic information, we will **produce a Network Graph for two generations (circles) of recommended songs based on McCartney and Lennon's "A Day in the Life". 
 
-As noted, we will start with Stand By Me (Song ID = "3SdTKo2uVsxFblQjpScoHy")
+As noted, we will start with "A Day in the Life" (Song ID = "0hKRSZhUGEhKU6aNSPBACZ")
 
 <Details>
 <Summary>Code for Recommended Songs</Summary>

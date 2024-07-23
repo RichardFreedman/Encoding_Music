@@ -220,6 +220,8 @@ audio_features = {
 }
 audio_feature_df = pd.DataFrame(audio_features)
 
+# create matrix (and ignore non-numerical columns if they exist)
+correlation_matrix = audio_feature_df.corr(numeric_only=True)
 
 # fig = px.scatter_matrix(correlation_matrix)
 fig = px.scatter_matrix(audio_feature_df, dimensions=audio_feature_df.columns)
