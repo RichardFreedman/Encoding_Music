@@ -937,6 +937,12 @@ The *name* of each artist:
 
 <br>
 
+As we explain in the [Encoding Music Tutorial for Pandas Networks](09_Pandas_Networks.md), we can even imagine retrieving _generations_ of artists, and showing "networks" of recommended creators:
+
+![alt text](images/nw_beatles_artist_second.png)
+
+
+
 
 ### Recommended Genres
 
@@ -1063,6 +1069,10 @@ And their 'name':
 current_song_related['artists'][0][0]['name']
 'Carole King'
 ```
+
+As we explain in the [Encoding Music Tutorial for Pandas Networks](09_Pandas_Networks.md), we can even imagine retrieving _generations_ of recommended songs, and showing "networks" of related items:
+
+![alt text](images/nw_day_recommend_2.png)
 
 
 
