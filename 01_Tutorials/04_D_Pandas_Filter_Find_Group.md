@@ -326,8 +326,6 @@ plt.show()
 
 Various built-in math functions allow us to run basic statistics.  Libraries like `numpy` permit many more!
 
-
-
 ```python
 top_50 = beatles_billboard[beatles_billboard["Top.50.Billboard"] > 0].sort_values('Year')
 
