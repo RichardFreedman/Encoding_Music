@@ -378,7 +378,68 @@ beatles_billboard_exploded = beatles_billboard.explode('Genre')
 beatles_billboard_exploded = beatles_billboard_exploded.reset_index(drop=True)
 ```
 
-Remember you can chain these methods once you're comfortable with them, like this: `beatles_billboard_exploded = beatles_billboard.explode('Genre').reset_index(drop=True)`
+Now the entries for Golden Slumbers will have unique indices:
+
+<table border="1">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Album.debut</th>
+      <th>Duration</th>
+      <th>Other.releases</th>
+      <th>Genre</th>
+      <th>Songwriter</th>
+      <th>Lead.vocal</th>
+      <th>Top.50.Billboard</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>154</th>
+      <td>Golden Slumbers</td>
+      <td>1969</td>
+      <td>Abbey Road</td>
+      <td>91</td>
+      <td>5</td>
+      <td>rock</td>
+      <td>McCartney</td>
+      <td>McCartney</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <th>155</th>
+      <td>Golden Slumbers</td>
+      <td>1969</td>
+      <td>Abbey Road</td>
+      <td>91</td>
+      <td>5</td>
+      <td>baroque pop</td>
+      <td>McCartney</td>
+      <td>McCartney</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <th>156</th>
+      <td>Golden Slumbers</td>
+      <td>1969</td>
+      <td>Abbey Road</td>
+      <td>91</td>
+      <td>5</td>
+      <td>pop/rock</td>
+      <td>McCartney</td>
+      <td>McCartney</td>
+      <td>-1</td>
+    </tr>
+  </tbody>
+</table>
+
+Remember you can chain these methods once you're comfortable with them, like this:
+
+```python
+beatles_billboard_exploded = beatles_billboard.explode('Genre').reset_index(drop=True)
+```
 
 **insert table of golden slumbers when done**
 
