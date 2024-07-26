@@ -466,7 +466,7 @@ Want to count from the *end*?  `-1` is the *last* column. So `beatles_spotify.il
 | 5. | [Show the data types of the columns](#5-show-the-data-types-of-the-columns) |
 | 6. | [Reorder columns](#6-reorder-columns) |
 
-#### 1. Show all the columns of a dataframe
+#### Show all the columns of a dataframe
 
 Show all the columns of a dataframe as a list (note the absence of `()`):
 
@@ -491,7 +491,7 @@ You can also see the list of columns in alphabetical order:
 beatles_spotify.columns.sort_values()
 ```
 
-#### 2. Add a column
+#### Add a column
 
 You can add a column based on another column. You assign a new column name to an expression that is then evaluated for each row:
 
@@ -501,7 +501,7 @@ beatles_spotify['sad'] = beatles_spotify['valence'] < 0.2
 
 This example creates a new column, `'sad'`, in `beatles_spotify`. In each row, the `'sad'` column will have the value of the Boolean expression `beatles_spotify['valence'] < 0.2`. This means if valence for that row is less than 0.2, `'sad'` will be `True`, and if not, `'sad'` will be `False`.
 
-#### 3. Drop a column
+#### Drop a column
 
 Note that these must be presented as a list, even if there is only one!
 
@@ -509,7 +509,7 @@ Note that these must be presented as a list, even if there is only one!
 beatles_billboard = beatles_billboard.drop(columns=['Album.debut'])
 ```
 
-#### 4. Rename a column (or columns)
+#### Rename a column (or columns)
 
 You can rename a single column like this:
 
@@ -534,7 +534,7 @@ renaming_dict = {
 beatles_billboard.rename(columns = renaming_dict)
 ```
 
-#### 5. Show the data types of the columns
+#### Show the data types of the columns
 
 Each column has a data type, which tells Pandas what form the column's data is in. This affects what operations are possible on the column; if it is stored as a number, you can't use string methods on the column, and if it is stored as a string, you can't apply mathematical operations. You'll learn more about working with data types in [Part B][part-b].
 
@@ -565,7 +565,7 @@ Length: 11, dtype: object</pre>
 
 Note you can learn similar information about your dataframe using `beatles_spotify.info()`.
 
-#### 6. Reorder columns
+#### Reorder columns
 
 To reorder columns, you simply specify a new order of the existing columns in a list. You can omit columns to exclude them from the new dataframe.
 

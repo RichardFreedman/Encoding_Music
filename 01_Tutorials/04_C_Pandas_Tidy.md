@@ -20,9 +20,9 @@ Read the famous [essay on Tidy Data][tidy-data].
 | 2. | [**Fixing Multiple Variables in One Column**](#fixing-multiple-variables-in-one-column) |
 | 3. | [**Fixing Multiple Observations in One Row: Exploding**](#fixing-multiple-observations-in-one-row-exploding) |
 | 4. | [**Fixing Multiple Observations in One Row: Melting**](#fixing-multiple-observations-in-one-row-melting) |
-| 5. | [**Pivoting Data**](#pivoting-data) |
-| 6. | [**Tuple Trouble (and How to Cure It)**](#tuple-trouble-and-how-to-cure-it) |
-| 7. | [**Combining Columns**](#combining-columns) |
+| 5. | [**Tuple Trouble (and How to Cure It)**](#tuple-trouble-and-how-to-cure-it) |
+| 6. | [**Combining Columns**](#combining-columns) |
+| 7. | [**Pivoting Data**](#pivoting-data) |
 
 ## Data Organization Principles
 
@@ -38,7 +38,7 @@ The next step to take with your data is making it **tidy**. The key concepts of 
 
     > In the `beatles_billboard` dataset, the `'Genre'` column often contains *several* genres. This is, in effect *several observations*. Tidy data would suggest creating a new row.
 
-    As you will see in **FIX**[Fixing Multiple Observations in One Row](#fixing-multiple-observations-in-one-row-explode), the `.explode()` method is a great way to solve this.
+    As you will see in **TODO: FIX**[Fixing Multiple Observations in One Row](#fixing-multiple-observations-in-one-row-explode), the `.explode()` method is a great way to solve this.
 
 3. Each type of observational unit forms a table
 
@@ -435,19 +435,24 @@ Now the entries for Golden Slumbers will have unique indices:
   </tbody>
 </table>
 
-Remember you can chain these methods once you're comfortable with them, like this:
+Remember you can chain methods in one line once you're comfortable with them, like this:
 
 ```python
 beatles_billboard_exploded = beatles_billboard.explode('Genre').reset_index(drop=True)
 ```
 
-**insert table of golden slumbers when done**
+In this way, you can more simply write all of the steps for exploding:
+
+```python
+beatles_billboard['Genre'] = beatles_billboard['Genre'].str.lower().str.strip().fillna('').str.split(', ')
+beatles_billboard_exploded = beatles_billboard.explode('Genre').reset_index(drop=True)
+```
 
 ### What now?
 
-You can now more easily access the individual genres, which you will likely also want to clean using string methods like `.str.replace()`. You'll see an example of this in the [Networks tutorial][networks-tutorial]. **fix link**
+You can now more easily access the individual genres, which you will likely also want to clean using string methods like `.str.replace()`. You'll see an example of this in the [Networks tutorial][networks-tutorial]. **TODO: fix link**
 
-**Regularizing data - take from Part E**
+**TODO: Regularizing data - take from Part E**
 
 ## Fixing Multiple Observations in One Row: Melting
 
@@ -593,10 +598,6 @@ The resulting dataframe will look like this:
   </tbody>
 </table>
 
-## Pivoting Data
-
-[See the Pandas Tutor demonstration of Pivot][pt-pivot]
-
 ## Tuple Trouble (and How to Cure It)
 
 You may encounter data stored as tuples: `('this', 'is', 'a', 'tuple')`. As we've seen, it can be much easier to work with strings than tuples (for example, for the functionality of string methods). This function will help you convert tuples to strings:
@@ -639,6 +640,10 @@ beatles_billboard['Author-Title'][0]
 
 > Normally we've seen functions written like this: `def combine_cols(row):`. However, there is a shorthand for writing functions using `lambda`, which allows you to write functions in a single line. `lambda` functions are easier and cleaner to write, but at the expense of readbility. Learn more [here][lambda-functions].
 
+## Pivoting Data
+<!--TODO: add more explanation, or just remove -->
+[See the Pandas Tutor demonstration of Pivot][pt-pivot]
+
 | Part A | Part B | Part C | Part D |
 |--------|--------|--------|--------|
 | [Pandas Basics][part-a] | [Clean Data][part-b] | **Tidy Data** | [Filtering, Finding, and Grouping][part-d] |
@@ -650,5 +655,7 @@ beatles_billboard['Author-Title'][0]
 [w3schools]: https://www.w3schools.com/python/pandas/default.asp
 [pandas-cheat-sheet]: https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf
 [tidy-data]: https://www.jstatsoft.org/article/view/v059i10
-[pt-pivot]: https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0A%0Acsv%20%3D%20'''%0Abreed,size,kids,longevity,price%0ALabrador%20Retriever,medium,high,12.04,810.0%0ABeagle,small,high,12.3,288.0%0AGolden%20Retriever,medium,high,12.04,958.0%0AYorkshire%20Terrier,small,low,12.6,1057.0%0ABoxer,medium,high,8.81,700.0%0A'''%0A%0Adogs%20%3D%20pd.read_csv%28io.StringIO%28csv%29%29%0Adogs%20%3D%20%28dogs.groupby%28%5B'size',%20'kids'%5D%29%0A%20%20%20%20%20%20%20%20%5B%5B'longevity',%20'price'%5D%5D%0A%20%20%20%20%20%20%20%20.mean%28%29%0A%20%20%20%20%20%20%20%20.reset_index%28%29%29%0A%0Adogs.pivot%28index%3D'size',%20columns%3D'kids'%29&d=2024-07-19&lang=py&v=v1
-[networks-tutorial]: 04_E_Networks.md
+[pt-pivot]: https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0A%0Acsv%20%3D%20'''%0Abreed,size,kids,longevity,price%0ALabrador%20Retriever,medium,high,12.04,810.0%0ABeagle,small,high,12.3,288.0%0AGolden%20Retriever,medium,high,12.04,958.0%0AYorkshire%20Terrier,small,low,12.6,1057.0%0ABoxer,medium,high,8.81,700.0%0A'''%0A%0Adogs%20%3D%20pd.read_csv%28io.StringIO%28csv%29%29%0Adogs%20%3D%20%28dogs%5B%5B'size',%20'kids',%20'price'%5D%5D%29%0A%0Adogs.pivot_table%28index%3D'size',%20columns%3D'kids',%20values%3D'price'%29&d=2024-07-24&lang=py&v=v1
+<!--TODO: fix link above-->
+[networks-tutorial]: 04_E_Networks.md 
+<!--TODO: fix link above-->

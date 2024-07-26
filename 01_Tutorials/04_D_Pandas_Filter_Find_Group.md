@@ -4,16 +4,6 @@
 |--------|--------|--------|--------|
 | [Pandas Basics][part-a] | [Clean Data][part-b] | [Tidy Data][part-c] | **Filtering, Finding, and Grouping** |
 
-<!-- TODO Find a place for the following:
-Note that we could use this approach not only for correcting data, but for creating **new columns** based on **existing columns**.  For example:  a Boolean column (True/False) based on the result of the contents of another column.  Here the new column will report True for any row where the column "artist" contains the string "Lennon".  
-
-```python
-df['By_Lennon'] = df['artist'].str.contains("Lennon")
-```
-
-We can then use the Boolean column to filter the entire frame (see below).
--->
-
 In this tutorial we will explore two key concepts for working with complex datasets:
 
 * Groupby functions, which allows you to perform tasks on defined subsets of your data
@@ -513,7 +503,6 @@ beatles_billboard[beatles_billboard['Album.debut'].str.contains('Anthology')]
 > ```
 > &nbsp;
 
-
 #### The `.isin()` Method
 
 The `.isin()` method works if you are looking for cells that match *at least one of several* possible strings. Note that the strings must be presented as a "list", thus `isin(["string_1", "string_2"])`.  For example, to return rows that have just "Lennon" OR just "McCartney":
@@ -642,6 +631,99 @@ binned_data = pd.qcut(beatles_spotify["danceability"], q=4, labels=['l', 'm', 'h
 
 ## Groupby Functions
 
+`groupby` is a powerful method that saves time when working with subsets (groups) of your data that share a certain characteristic.
+
+Imagine you want to find the average duration of tracks in the album "Help!". Without `groupby`, you'd write something like:
+
+```python
+beatles_billboard[beatles_billboard['Album.debut'] == 'Help!']['Duration'].mean()
+```
+
+> `.mean()` returns the average of all the values in a numerical column
+
+This is perfectly good, concise code. But what if you want to find the average duration of every album? You would have to find all the album names, filter for each of them one at a time, then compute the average for each - not a trivial task!
+
+Instead, you can use `groupby` to separate your data into groups. In one line, this would be:
+
+```python
+beatles_billboard.groupby('Album.debut')['Duration'].mean()
+```
+
+<table border="0">
+    <tr>
+        <th valign="top">Output:</th>
+        <td>
+            <pre style="white-space: pre;">
+Album.debut
+Abbey Road                                                         166.411765
+Anthology 1                                                        147.619048
+Anthology 2                                                        181.250000
+Anthology 3                                                        181.222222
+Help!                                                              146.285714<details><summary>Click to show more</summary>Let It Be                                                          175.750000
+Let It Be... Naked - Fly on the Wall bonus disc                    176.000000
+Live at the BBC                                                    137.548387
+Live! at the Star-Club in Hamburg, Germany; 1962                   150.000000
+Magical Mystery Tour                                               200.000000
+On Air - Live at the BBC Volume 2                                  109.000000
+Revolver                                                           150.181818
+Rock 'n' Roll Music                                                153.000000
+Rubber Soul                                                        150.800000
+Sgt. Pepper's Lonely Hearts Club Band                              182.769231
+The Beatles                                                        185.266667
+The Beatles Bootleg Recordings 1963                                117.000000
+The Beatles' Christmas Album                                       183.000000
+UK: 1967-1970 US: Hey Jude                                         226.333333
+UK: A Collection of Beatles Oldies US: 1962-1966                   116.000000
+UK: A Collection of Beatles Oldies US: Beatles '65                 145.000000
+UK: A Collection of Beatles Oldies US: Beatles VI                  150.000000
+UK: A Collection of Beatles Oldies US: Hey Jude                    138.000000
+UK: A Collection of Beatles Oldies US: Meet The Beatles!           144.000000
+UK: A Collection of Beatles Oldies US: The Beatles Second Album    138.000000
+UK: A Collection of Beatles Oldies US: Yesterday and Today         152.500000
+UK: A Hard Day's Night US: 1962-1966                               152.000000
+UK: A Hard Day's Night US: Beatles '65                             140.000000
+UK: A Hard Day's Night US: Hey Jude                                147.500000
+UK: A Hard Day's Night US: Something New                           137.500000
+UK: A Hard Day's Night US: The Beatles Second Album                157.000000
+UK: Beatles for Sale US: Beatles '65                               141.875000
+UK: Beatles for Sale US: Beatles VI                                145.500000
+UK: Help! US: Beatles VI                                           152.000000
+UK: Help! US: Rubber Soul                                          121.000000
+UK: Help! US: Yesterday and Today                                  131.000000
+UK: Past Masters Volume 1 US: The Beatles Second Album             126.500000
+UK: Please Please Me US: Meet The Beatles!                         175.000000
+UK: Please Please Me US: Rarities                                  108.000000
+UK: Please Please Me US: The Early Beatles                         141.181818
+UK: Rarities US: Beatles '65                                       183.000000
+UK: Rarities US: Beatles VI                                        161.000000
+UK: Rarities US: Hey Jude                                          179.000000
+UK: Rarities US: Meet The Beatles!                                 133.000000
+UK: Rarities US: Rarities                                          185.333333
+UK: Rarities US: Something New                                     146.000000
+UK: Rarities US: The Beatles Second Album                          121.000000
+UK: Revolver US: Yesterday and Today                               146.000000
+UK: Rock 'n' Roll Music US: Something New                          146.000000
+UK: Rock 'n' Roll Music US: The Beatles Second Album               130.000000
+UK: Rubber Soul US: Yesterday and Today                            156.250000
+UK: With the Beatles US: Meet The Beatles!                         128.555556
+UK: With the Beatles US: The Beatles Second Album                  164.000000
+Yellow Submarine                                                   229.750000
+Name: Duration, dtype: float64</details></pre>
+        </td>
+    </tr>
+</table>
+
+Imagine you want to find the number of tracks in the album "Help!" using the `beatles_billboard` dataset. Without `groupby`, you would have to:
+
+1. Filter the dataframe to contain only tracks where `beatles_billboard'Album.debut' == 'Help!'`
+2. Use the `.nunique()` method on the `'Title'` column
+
+This may seem relatively straightforward! But what if you wanted to do 
+
+
+Let's imagine you want to find information about a subset of the data that all share a certain characteristic. For example, the number of albums that all share the same name. You could filter a dataframe, selecting only the rows with the desired album. Then you could count the number of unique tracks using the `.nunique()` method
+
+<!--TODO: update this link-->
 Learn more about Groupby [here](https://medium.com/towards-data-science/pandas-groupby-aggregate-transform-filter-c95ba3444bbb).
 
 **Groupby** functions allow you to organize and analyze data that share certain features.  For instance, we could find the **number of songs per album**:
@@ -700,7 +782,6 @@ beatles_jl_pm.groupby(['Songwriter','Year']).size()
 ```
 
 ![Alt text](<images/Pd 7.png>)
-
 
 ## Charts and Graphs
 
