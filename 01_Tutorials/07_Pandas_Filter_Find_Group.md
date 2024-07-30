@@ -717,7 +717,7 @@ Name: Duration, dtype: float64</details></pre>
     </tr>
 </table>
 
-Pandas Tutor provides an excellent visualization of this with a subset of the data (just a few columns and albums) [here][pandas-tutor-groupby-1]. Copy and paste the code snippet below if it does not automatically load in.
+Pandas Tutor provides an excellent visualization of this with a subset of the data (just a few columns and albums) [here][pandas-tutor-groupby-1]{:target="_blank"}. Copy and paste the code snippet below if it does not automatically load in.
 
 <details><summary>Code snippet for Pandas Tutor</summary>
 
