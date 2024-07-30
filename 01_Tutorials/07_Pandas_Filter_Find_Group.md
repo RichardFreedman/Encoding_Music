@@ -626,6 +626,8 @@ binned_data = pd.qcut(beatles_spotify["danceability"], q=4, labels=['l', 'm', 'h
 
 However, `groupby` also requires special attention to the tidiness of your data in order for it to function correctly.
 
+There will be a supplemental essay on `groupby` functions available on Moodle or GDrive. That will be a more in-depth view of the topic, whereas the below guide to `groupby` focuses on some of the core features.
+
 In this section:
 
 |    | Topic |
@@ -1341,7 +1343,7 @@ beatles_jl_pm.groupby(['Songwriter','Year']).count()
 
 <br>
 
-There are many other functions that can be applied to aggregate, filter and transform data within groups!  See the essay above for a guide.
+There are many other functions that can be applied to aggregate, filter and transform data within groups!  See the supplemental essay on `groupby` functions for more in-depth information.
 
 A count of track titles per album:
 
