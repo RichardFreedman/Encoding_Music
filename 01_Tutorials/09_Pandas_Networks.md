@@ -1,6 +1,5 @@
-
-
----
+| [Pandas Basics][pandas-basics] | [Clean Data][pandas-clean] | [Tidy Data][pandas-tidy] | [Filtering, Finding, and Grouping][pandas-filter-find-group] | [Graphs and Charts][pandas-graphs] | **Networks** |
+|--------|--------|--------|--------|-------|-------|
 
 # All About Networks
 
@@ -8,17 +7,16 @@ In this tutorial you will learn about networks, and how to build them with Pytho
 
 Note that for some of the demonstrations offered below you will be working with The Beatles Spotify and Billboard data. These are already available as CSV files.  For other projects you will need to bring your own data, either from Spotify or from some other project.
 
-## Contents of this Tutorial
-
-* [Networks:  Basic Concepts and Methods](#networks--basic-concepts-and-methods)
-* [A Simple Network of Students](#a-simple-example--a-network-of-students)
-* [Pyvis and NetworkX:  Python Tools for Networks](#pyvis-and-networkx--python-tools-for-networks)
-* [Networks: Billboard Data to Edge Pairs with Groupby and Explode](#from-dataframe-to-edge-pairs--groupby-and-explode)
-* [Networks with Spotify Data Two Ways:  Binned and Continuous](#spotify-networks-with-categorical-binned-and-continuous-scalar-data)
-* [Complex Networks:  Spotify Recommended Artists](#social-networks--spotifys-recommended-artists)
-* [Complex Networks:  Spotify Recommended Songs ](#social-networks--spotifys-recommended-songs)
-* [Louvain Community Detection:  The Ghost in the Machine](#louvain-community-detection--the-ghost-in-the-machine)
-
+|    | Contents of this Tutorial               | 
+|----|-----------------------------------------|
+| 1. |[**Networks:  Basic Concepts and Methods**](#networks--basic-concepts-and-methods) |
+| 2. | [**A Simple Network of Students**](#a-simple-example--a-network-of-students) |
+| 3. | [**Pyvis and NetworkX:  Python Tools for Networks**](#pyvis-and-networkx--python-tools-for-networks) |
+| 4. | [**Networks: Billboard Data to Edge Pairs with Groupby and Explode**](#from-dataframe-to-edge-pairs--groupby-and-explode) |
+| 5. | [**Networks with Spotify Data Two Ways:  Binned and Continuous**](#spotify-networks-with-categorical-binned-and-continuous-scalar-data) |
+| 6. | [**Complex Networks: Spotify Recommended Artists**](#social-networks--spotifys-recommended-artists) |
+| 7. | [**Complex Networks: Spotify Recommended Songs**](#social-networks--spotifys-recommended-songs) |
+| 8. | [**Louvain Community Detection:  The Ghost in the Machine**](#louvain-community-detection--the-ghost-in-the-machine) |
 
 ## Networks:  Basic Concepts and Methods 
 
@@ -1438,6 +1436,12 @@ Modularity measures how well a network is divided into communities. Higher modul
 
 The key thing is that **Louvain does NOT know about the lists**!  It creates the commmunities **only on the basis of edges**!
 
+| [Pandas Basics][pandas-basics] | [Clean Data][pandas-clean] | [Tidy Data][pandas-tidy] | [Filtering, Finding, and Grouping][pandas-filter-find-group] | [Graphs and Charts][pandas-graphs] | **Networks** |
+|--------|--------|--------|--------|-------|-------|
 
-
-
+[pandas-basics]: 04_Pandas_Basics.md
+[pandas-clean]: 05_Pandas_Clean_Data.md
+[pandas-tidy]: 06_Pandas_Tidy_Data.md
+[pandas-filter-find-group]: 07_Pandas_Filter_Find_Group.md
+[pandas-graphs]: 08_Pandas_Graphs_and_Charts.md
+[pandas-networks]: 09_Pandas_Networks.md

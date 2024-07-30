@@ -1,22 +1,27 @@
+| [Pandas Basics][pandas-basics] | [Clean Data][pandas-clean] | [Tidy Data][pandas-tidy] | [Filtering, Finding, and Grouping][pandas-filter-find-group] | **Graphs and Charts** | [Networks][pandas-networks] |
+|--------|--------|--------|--------|-------|-------|
+
 # Charts and Plots with Plotly Express
+
 Our main resource is the [Plotly Express](https://plotly.com/python/plotly-express) library, which allows for interactive visualizations and more complex/powerful graphs with less code. . The Plotly Express documentation details the very wide range of bar charts, histograms, scatter plots, heat maps, polar (radar) figures you can create, and various ways of adding captions, legends, colors, etc.
 
 ![Alt text](images/plotlyexp.png)
 
-## Table of Contents:
-  - [Bar Charts](#bar-charts)
-  - [Histograms](#histograms)
-  - [Scatter Plots](#scatter-plots)
-  - [Radar or Spider Plots](#radar-or-spider-plots)
-  - [Correlation Plots](#correlation-plots)
-  - [Correlation does not equal causation](#correlation-does-not-equal-causation)
-  - [Adjusting Chart Size](#adjusting-size-of-the-image)
-  - [Pick Custom Color Scheme](#pick-custom-color-scheme)
-  - [Adjusting Axes](#axis-scaling--linear-or-logarithmic)
-  - [Adding a Title](#adding-a-title)
-  - [Labels and Legends](#labels-and-legends)
-  - [X and Y Axis Tickmarks](#x-and-y-axis-tickmarks)
-  - [Hover Data](#hover-to-show-data-points)
+|     | Contents of this Tutorial               | 
+|-----|-----------------------------------------|
+| 1.  | [**Bar Charts**](#bar-charts) |
+| 2.  | [**Histograms**](#histograms) |
+| 3.  | [**Scatter Plots**](#scatter-plots) |
+| 4.  | [**Radar or Spider Plots**](#radar-or-spider-plots) |
+| 5.  | [**Correlation Plots and Heatmaps**](#correlation-plots-and-heatmaps) |
+| 6.  | [**Correlation Does Not Equal Causation**](#correlation-does-not-equal-causation) |
+| 7.  | [**Adjusting Chart Size**](#adjusting-size-of-the-image) |
+| 8.  | [**Pick Custom Color Scheme**](#pick-custom-color-scheme) |
+| 9.  | [**Adjusting Axes**](#axis-scaling-linear-or-logarithmic) |
+| 10. | [**Adding a Title**](#adding-a-title) |
+| 11. | [**Labels and Legends**](#labels-and-legends) |
+| 12. | [**X and Y Axis Tickmarks**](#x-and-y-axis-tickmarks) |
+| 13. | [**Hover Data**](#hover-to-show-data-points) |
 
 ---
 
@@ -66,7 +71,6 @@ fig.show()
 <br>
 
 ![Alt text](images/bar.png)
-
 
 ## Histograms
 Histograms are used to display the distribution of numerical data. They consist of a series of adjacent rectangles (bins) that represent the frequency or proportion of data falling within specific intervals. Histograms help us understand the shape and spread of data.  Learn more at [Plotly Express](https://plotly.com/python/histograms/)
@@ -142,7 +146,6 @@ fig_scatter.show()
 
 <br>
 
-
 ![Alt text](images/scatter.png)
 
 [See More Info on Regressions, here](Regressions.md)
@@ -195,12 +198,11 @@ spotify_tools.audio_feature_radar(audio_feature_data, feature_list, "My Radar Pl
 
 <br>
 
-
 ## Correlation Plots and Heatmaps
+
 Correlation plots are used to visualize the strength and direction of the relationship between two numerical variables. They provide a numerical measure called the correlation coefficient, which ranges from -1 to 1. A value close to -1 indicates a strong negative correlation, a value close to 1 indicates a strong positive correlation, and a value close to 0 indicates no or weak correlation.
 
 One way to do this is via the `scatter_matrix` function in Plotly Express, which produces an individual scatterplot of all pairs of values in each pair of variables in your data.  Here is an example using audio feature data from Spotify.   Learn more at [Plotly Express](https://plotly.com/python/splom/)
-
 
 Note that to show trend lines as noted above, you would need to produce an individual scatterplot for each pair of variables.
 
@@ -272,8 +274,6 @@ fig.show()
 <br>
 
 ![Alt text](images/corrheatmap.png)
-
-
 
 ### Correlation Does Not Equal Causation
 It's crucial to understand that correlation does not imply causation. Just because two variables are correlated does not mean that one variable causes the other. Correlation measures the statistical relationship between variables but cannot determine cause and effect.
@@ -474,3 +474,11 @@ fig.show()
 
 ![Alt text](images/hover.png)
 
+| [Pandas Basics][pandas-basics] | [Clean Data][pandas-clean] | [Tidy Data][pandas-tidy] | [Filtering, Finding, and Grouping][pandas-filter-find-group] | **Graphs and Charts** | [Networks][pandas-networks] |
+|--------|--------|--------|--------|-------|-------|
+
+[pandas-basics]: 04_Pandas_Basics.md
+[pandas-clean]: 05_Pandas_Clean_Data.md
+[pandas-tidy]: 06_Pandas_Tidy_Data.md
+[pandas-filter-find-group]: 07_Pandas_Filter_Find_Group.md
+[pandas-networks]: 09_Pandas_Networks.md
