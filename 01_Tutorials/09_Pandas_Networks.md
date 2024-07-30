@@ -194,7 +194,7 @@ beatles_billboard = pd.read_csv(beatles_billboard_csv)
 
 ## But Wait!  Are the Data Clean?
 
-The first thing to notice, however, is that the individual cells of the 'Genre' column consist of long strings, such as `Psychedelic Rock, Art Rock, Pop/Rock`. Performing a groupby operation on these long strings will not reveal much, since all of the subgenre will be embedded in these long strings. So some data-cleaning is needed as a preliminary step. We need to *clean the data*, *split the lists*, and *regularize the terms* in order to make a useful network. So you might need to go back to Pandas Tutorial B and remind yourself of how to do this.
+The first thing to notice, however, is that the individual cells of the 'Genre' column consist of long strings, such as `Psychedelic Rock, Art Rock, Pop/Rock`. Performing a groupby operation on these long strings will not reveal much, since all of the subgenre will be embedded in these long strings. So some data-cleaning is needed as a preliminary step. We need to *clean the data*, *split the lists*, and *regularize the terms* in order to make a useful network. So you might need to go back to the [Tutorial on Clean Data](05_Pandas_Clean_Data.md) and remind yourself of how to do this.
 
 For purposes of this network demonstration, we can take care of these steps with the following code:
 
