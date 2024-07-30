@@ -1,8 +1,7 @@
-# Pandas: Clean Data
+| [Pandas Basics][pandas-basics] | **Clean Data** | [Tidy Data][pandas-tidy] | [Filtering, Finding, and Grouping][pandas-filter-find-group] | [Networks][pandas-networks] |
+|--------|--------|--------|--------|-------|
 
-| Part A | Part B | Part C | Part D |
-|--------|--------|--------|--------|
-| [Pandas Basics][part-a] | **Clean Data** | [Tidy Data][part-c] | [Filtering, Finding, and Grouping][part-d] |
+# Pandas: Clean Data
 
 Cleaning data is an important precursor to anlyzing data, and often represents the biggest part of a data analysis project. In this tutorial, we explore various ways in which data can be "messy" and how it can be subsequently cleaned.
 
@@ -16,14 +15,14 @@ A guide to cleaning data with Pandas on [Medium][towards-data-science-cleaning].
 
 |    | Contents of this Tutorial                                                      | 
 |----|--------------------------------------------------------------------------------|
-| 0. | [**Identifying the Problem**](#identifying-the-problem) |
-| 1. | [**Understanding Clean and Tidy Data**](#understanding-clean-and-tidy-data) |
-| 2. | [**Wrong or Inconsistent Format or Values**](#wrong-or-inconsistent-format-or-values) |
-| 3. | [**Cleaning Data with Functions**](#cleaning-data-with-functions) |
-| 4. | [**Missing Data**](#missing-data) |
-| 5. | [**Duplicate Rows**](#duplicate-rows) |
-| 6. | [**Wrong Data Type**](#wrong-data-type) |
-| 7. | [**Data Cleaning Best Practices**](#data-cleaning-best-practices) |
+| 1. | [**Identifying the Problem**](#identifying-the-problem) |
+| 2. | [**Understanding Clean and Tidy Data**](#understanding-clean-and-tidy-data) |
+| 3. | [**Wrong or Inconsistent Format or Values**](#wrong-or-inconsistent-format-or-values) |
+| 4. | [**Cleaning Data with Functions**](#cleaning-data-with-functions) |
+| 5. | [**Missing Data**](#missing-data) |
+| 6. | [**Duplicate Rows**](#duplicate-rows) |
+| 7. | [**Wrong Data Type**](#wrong-data-type) |
+| 8. | [**Data Cleaning Best Practices**](#data-cleaning-best-practices) |
 
 ### Create a Notebook and Load the Pandas library
 
@@ -61,7 +60,7 @@ beatles_billboard = pd.read_csv(beatles_billboard_csv)
 
 You will quickly run into all sorts of issues when working with data. Most, however, fall into two major categories: issues of **cleanliness** and issues of **organization**. Data that is both clean and organized is known as **Tidy Data**, and this is what we strive for when we use, manipulate, and create our data. This helps us understand our data better, and perhaps most importantly helps programs like Pandas perform better analysis on our data.
 
-At the end of [Part A][part-a], we encountered two datasets that stored the same information (Beatles song titles) in different formats (lowercase/Title Case). This is an example of data that needs to be **cleaned** so we can more easily work with it (see how in the [section on data formatting](#wrong-or-inconsistent-format)).
+At the end of [Pandas: Basics][pandas-basics], we encountered two datasets that stored the same information (Beatles song titles) in different formats (lowercase/Title Case). This is an example of data that needs to be **cleaned** so we can more easily work with it (see how in the [section on data formatting](#wrong-or-inconsistent-format)).
 
 In the Beatles Billboard dataset, you might notice that for certain songs, the column `Album.debut` contains information about different album names for UK and US releases when applicable, like in the below example for "All My Loving":
 
@@ -131,21 +130,21 @@ It might be helpful to separate this into two different columns to simplify the 
   </tbody>
 </table>
 
-This is an example of data that could be **organized** differently, and perhaps better (see how in [Part C][part-c]).
+This is an example of data that could be **organized** differently, and perhaps better (see how in [Pandas: Tidy Data][pandas-tidy]).
 
-In the remainder of this document, we will focus on data **cleaning**. Then, in [Part C][part-c], we will pivot to data **tidying** and **organization**.
+In the remainder of this document, we will focus on data **cleaning**. Then, in [Pandas: Tidy Data][pandas-tidy], we will pivot to data **tidying** and **organization**.
 
 ## Identifying the Problem
 
 We will often be working with large datasets where it is impossible to manually check every value to verify its accuracy and cleanliness. One tool we can use to quickly identify problems in a dataset is the Pandas `.sort_values().` method. This allows us to generate a list of every entry in a column, sorted alphabetically. This provides a decent snapshot into your data. Try the below code:
 
 ```python
-[entry for entry in beatles_billboard['Album.debut'].sort_values()]
+list(beatles_billboard['Album.debut'].sort_values())
 ```
 
 ## Wrong or Inconsistent Format or Values
 
-Many issues arise when data is stored as strings. Spelling and capitalization can vary across items that are meant to be the same. Often, the situation will be applying a **string method** to an entire column. You saw an example of the `.str.lower()` string method in [Part A][part-a]:
+Many issues arise when data is stored as strings. Spelling and capitalization can vary across items that are meant to be the same. Often, the situation will be applying a **string method** to an entire column. You saw an example of the `.str.lower()` string method in [Pandas: Basics][pandas-basics]:
 
 ```python
 beatles_billboard['Title'] = beatles_billboard['Title'].str.lower()
@@ -172,8 +171,20 @@ String methods can only be applied to one column at a time. To use string method
 df['column_name'] = df['column_name'].str.method_name()
 ```
 
-**TODO: more elaboration from the links**
-**TODO: but keep in mind how you may have to clean again after splitting/exploding/etc**
+Here are some examples of data you may want to regularize:
+
+*  `'rock & roll'` and `'rock'` (could be the same?)
+* `'r&b'` (as `'rhythm and blues'`?)
+* `'stage&screen'` (as `'stage and screen'`)
+* `'experimental music'` as `'experimental'`, or `"children's music"` as `"children's"` (since having 'music' in a list of music genres is not very useful)
+
+> Use "double quotes" if your string contains a 'single quote' (like "children's") to avoid errors.
+
+You may want to regularize the `'Genre'` column, since it's stored as a string, but is essentially a list. This would be a good use of the `.str.split(', ')` method:
+
+```python
+beatles_billboard['Genre'].str.split(', ')
+```
 
 ## Cleaning Data with Functions
 
@@ -228,7 +239,7 @@ If we pass a value of `-1` to the function, it will return a value of `0`. Other
 > *Note on Python Functions:* <br>
 > Once a value is returned, the function is exited. Hence, there is no need for an `else` statement - no more than one value will ever be returned. Review Python functions at [W3Schools][w3schools-functions].
 
-As you will recall from Part A, Pandas tries to simplify your work by providing a comprehensive suite of tools. In this instance, Pandas saves us from iterating through every row with the `.apply()` method:
+As you will recall from [Pandas: Basics][pandas-basics], Pandas tries to simplify your work by providing a comprehensive suite of tools. In this instance, Pandas saves us from iterating through every row with the `.apply()` method:
 
 ```python
 beatles_billboard['Top.50.Billboard'] = beatles_billboard['Top.50.Billboard'].apply(normalize_billboard)
@@ -329,7 +340,7 @@ Before doing something about missing data, you should first get a clear picture 
       beatles_billboard[beatles_billboard['Album.debut'].isna()]
       ```
 
-These are examples of **filters**, which you will lean more about in [Part D][part-d].
+These are examples of **filters**, which you will lean more about in [Pandas: Filtering, Finding, and Grouping][pandas-filter-find-group].
 
 ### Filling Missing Data
 
@@ -374,7 +385,7 @@ Now the row for "Circles" will be:
 
 ### Removing Missing Data
 
-You may decide to remove rows or columns with missing data, for instance if so much data is missing that the row/column is unusable. In Pandas, removing data is called **dropping** data. You learned how to drop entire rows and columns manually in [Part A][part-a].
+You may decide to remove rows or columns with missing data, for instance if so much data is missing that the row/column is unusable. In Pandas, removing data is called **dropping** data. You learned how to drop entire rows and columns manually in [Pandas: Basics][pandas-basics].
 
 When dropping rows with missing data, you can take advantage of the built-in Pandas method `.dropna()`, which will help you automatically drop rows/columns with missing data. `.dropna()` takes two key arguments:
 
@@ -464,16 +475,15 @@ Now you can get a fresh, clean version of the dataset with just one line:
 beatles_billboard = preprocess()
 ```
 
-This sets you up for the next step: **tidying** your data in [Part C][part-c].
+This sets you up for the next step: **tidying** your data in [Pandas: Tidy Data][pandas-tidy].
 
+| [Pandas Basics][pandas-basics] | **Clean Data** | [Tidy Data][pandas-tidy] | [Filtering, Finding, and Grouping][pandas-filter-find-group] | [Networks][pandas-networks] |
+|--------|--------|--------|--------|-------|
 
-| Part A | Part B | Part C | Part D |
-|--------|--------|--------|--------|
-| [Pandas Basics][part-a] | **Clean Data** | [Tidy Data][part-c] | [Filtering, Finding, and Grouping][part-d] |
-
-[part-a]: 04_A_Pandas_Basics.md
-[part-c]: 04_C_Pandas_Tidy.md
-[part-d]: 04_D_Pandas_Filter_Find_Group.md
+[pandas-basics]: 04_A_Pandas_Basics.md
+[pandas-tidy]: 04_C_Pandas_Tidy.md
+[pandas-filter-find-group]: 04_D_Pandas_Filter_Find_Group.md
+[pandas-networks]: 04_E_Networks.md
 [pandas-documentation]: https://pandas.pydata.org/about/
 [w3schools]: https://www.w3schools.com/python/pandas/default.asp
 [pandas-cheat-sheet]: https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf
@@ -484,4 +494,3 @@ This sets you up for the next step: **tidying** your data in [Part C][part-c].
 [datetime-format-codes]: https://docs.python.org/3/library/datetime.html#format-codes
 [pandas-documentation-categories]: https://pandas.pydata.org/docs/user_guide/categorical.html
 [tidy-data]: https://www.jstatsoft.org/article/view/v059i10
-[lambda-functions]: https://www.w3schools.com/python/python_lambda.asp

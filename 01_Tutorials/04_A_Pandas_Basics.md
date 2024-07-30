@@ -1,10 +1,9 @@
-# Pandas Basics:  Python for Data Analysis
+| **Pandas Basics** | [Clean Data][pandas-clean] | [Tidy Data][pandas-tidy] | [Filtering, Finding, and Grouping][pandas-filter-find-group] | [Networks][pandas-networks] |
+|--------|--------|--------|--------|-------|
 
-| Part A | Part B | Part C | Part D |
-|--------|--------|--------|--------|
-| **Pandas Basics** | [Clean Data][part-b] | [Tidy Data][part-c] | [Filtering, Finding, and Grouping][part-d] |
+# Pandas: Basics
 
-*Pandas = Python for Data Analysis*
+*Pandas: The Python library for Data Analysis*
 
 Pandas is a Python library which allows for the creation and manipulation of DataFrames, which are two dimensional objects designed to store data. Below are a few of the many ways in which pandas DataFrames can be modified, filtered, or transformed:
 
@@ -536,7 +535,7 @@ beatles_billboard.rename(columns = renaming_dict)
 
 #### Show the data types of the columns
 
-Each column has a data type, which tells Pandas what form the column's data is in. This affects what operations are possible on the column; if it is stored as a number, you can't use string methods on the column, and if it is stored as a string, you can't apply mathematical operations. You'll learn more about working with data types in [Part B][part-b].
+Each column has a data type, which tells Pandas what form the column's data is in. This affects what operations are possible on the column; if it is stored as a number, you can't use string methods on the column, and if it is stored as a string, you can't apply mathematical operations. You'll learn more about working with data types in [Pandas: Clean Data][pandas-clean].
 
 ```python
 beatles_spotify.dtypes
@@ -1592,19 +1591,19 @@ beatles_combined
     </tr>
 </table>
 
-The result is significantly more useful - Pandas correctly matched many more songs across the two frames. This is a great example of why it is so important to **clean** our data - it is vital to ensure we get the results we expect and want. As you may have noticed, even this change was not enough for Pandas to correctly match every song in the `beatles_spotify` dataframe. Read more about cleaning data with Pandas in the [next section][part-b].
+The result is significantly more useful - Pandas correctly matched many more songs across the two frames. This is a great example of why it is so important to **clean** our data - it is vital to ensure we get the results we expect and want. As you may have noticed, even this change was not enough for Pandas to correctly match every song in the `beatles_spotify` dataframe. Read more about cleaning data with Pandas in the [next section][pandas-clean].
 
 ## Making the Most of Pandas
 
 Pandas is a powerful library that makes complex data science easier. There are myriad features designed to handle an almost infinite set of applications. However, especially to those with prior experience in Python, it can feel easier to revert to Python code you already know how to write for complex tasks. This takes away from a crucial element of Pandas - you don't need to reinvent the wheel! For example, you almost never need to write for loops in Pandas, because there are built-in methods that will apply an operation to an entire column or dataframe. To make sure you take full advantage of the benefits Pandas provides, be sure to search the [documentation][pandas-documentation] using the search bar whenever you're attempting something new. You can also check the [cheatsheet][pandas-cheat-sheet] or [W3Schools][w3schools]. Chances are, Pandas has a built-in way to accomplish your goal that will make your life easier.
 
-| Part A | Part B | Part C | Part D |
-|--------|--------|--------|--------|
-| **Pandas Basics** | [Clean Data][part-b] | [Tidy Data][part-c] | [Filtering, Finding, and Grouping][part-d] |
+| **Pandas Basics** | [Clean Data][pandas-clean] | [Tidy Data][pandas-tidy] | [Filtering, Finding, and Grouping][pandas-filter-find-group] | [Networks][pandas-networks] |
+|--------|--------|--------|--------|-------|
 
-[part-b]: 04_B_Pandas_Clean.md
-[part-c]: 04_C_Pandas_Tidy.md
-[part-d]: 04_D_Pandas_Filter_Find_Group.md
+[pandas-clean]: 04_B_Pandas_Clean.md
+[pandas-tidy]: 04_C_Pandas_Tidy.md
+[pandas-filter-find-group]: 04_D_Pandas_Filter_Find_Group.md
+[pandas-networks]: 04_E_Networks.md
 [pandas-documentation]: https://pandas.pydata.org/about/
 [w3schools]: https://www.w3schools.com/python/pandas/default.asp
 [pandas-cheat-sheet]: https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf

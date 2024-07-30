@@ -1,8 +1,7 @@
-# Pandas: Tidy Data
+| [Pandas Basics][pandas-basics] | [Clean Data][pandas-clean] | **Tidy Data** | [Filtering, Finding, and Grouping][pandas-filter-find-group] | [Networks][pandas-networks] |
+|--------|--------|--------|--------|-------|
 
-| Part A | Part B | Part C | Part D |
-|--------|--------|--------|--------|
-| [Pandas Basics][part-a] | [Clean Data][part-b] | **Tidy Data** | [Filtering, Finding, and Grouping][part-d] |
+# Pandas: Tidy Data
 
 In this tutorial, we explore ways to make your data follow "Tidy Data" principles, which will vastly simplify other work. The key concept of Tidy Data is "one observation or event per row".
 
@@ -18,11 +17,11 @@ Read the famous [essay on Tidy Data][tidy-data].
 |----|---------------------------|
 | 1. | [**Data Organization Principles**](#data-organization-principles) |
 | 2. | [**Fixing Multiple Variables in One Column**](#fixing-multiple-variables-in-one-column) |
-| 3. | [**Fixing Multiple Observations in One Row: Exploding**](#fixing-multiple-observations-in-one-row-exploding) |
-| 4. | [**Fixing Multiple Observations in One Row: Melting**](#fixing-multiple-observations-in-one-row-melting) |
+| 3. | [**Fixing Multiple Observations in One Row: Explode**](#fixing-multiple-observations-in-one-row-explode) |
+| 4. | [**Fixing Multiple Observations in One Row: Melt**](#fixing-multiple-observations-in-one-row-melt) |
 | 5. | [**Tuple Trouble (and How to Cure It)**](#tuple-trouble-and-how-to-cure-it) |
 | 6. | [**Combining Columns**](#combining-columns) |
-| 7. | [**Pivoting Data**](#pivoting-data) |
+| 7. | [**Stack and Unstack**](#stack-and-unstack) |
 
 ## Data Organization Principles
 
@@ -36,9 +35,9 @@ The next step to take with your data is making it **tidy**. The key concepts of 
 
 2. Each observation forms a row
 
-    > In the `beatles_billboard` dataset, the `'Genre'` column often contains *several* genres. This is, in effect *several observations*. Tidy data would suggest creating a new row.
+    > In the `beatles_billboard` dataset, the `'Genre'` column often contains *several* genres. This is, in effect *several observations*. Tidy data would suggest creating a new row for each observation.
 
-    As you will see in **TODO: FIX**[Fixing Multiple Observations in One Row](#fixing-multiple-observations-in-one-row-explode), the `.explode()` method is a great way to solve this.
+    As you will see in [Fixing Multiple Observations in One Row](#fixing-multiple-observations-in-one-row-explode), the `.explode()` method is a great way to solve this.
 
 3. Each type of observational unit forms a table
 
@@ -50,7 +49,7 @@ You can read more in Hadley Wickham's paper on Tidy Data [here][tidy-data].
 
 ### What are the benefits of following Tidy Data principles?
 
-Beyond having a largely standardized format for datasets, making your data "tidy" will massively simplify your work in Pandas. In [Part D][part-d], you'll start working with your data in-depth. All of Pandas built-in tools to parse, analyze, and visualize your data will work best when your data is organized following these principles.
+Beyond having a largely standardized format for datasets, making your data "tidy" will massively simplify your work in Pandas. In [Pandas: Filtering, Finding, and Grouping][pandas-filter-find-group], you'll start working with your data in-depth. All of Pandas built-in tools to parse, analyze, and visualize your data will work best when your data is organized following these principles.
 
 ## Fixing Multiple Variables in One Column
 
@@ -238,7 +237,7 @@ The last case to handle is albums that didn't specifiy separate UK/US releases. 
 
 If you have any problems, you may need to handle the missing data in the `'Album.debut'` column before trying to perform operations on it.
 
-## Fixing Multiple Observations in One Row: Exploding
+## Fixing Multiple Observations in One Row: `explode`
 
 In the `'Genre'` column of the `beatles_billboard` dataset, there are often several genres listed. We can see this in Golden Slumbers:
 
@@ -448,13 +447,29 @@ beatles_billboard['Genre'] = beatles_billboard['Genre'].str.lower().str.strip().
 beatles_billboard_exploded = beatles_billboard.explode('Genre').reset_index(drop=True)
 ```
 
-### What now?
+### Clean the result
 
-You can now more easily access the individual genres, which you will likely also want to clean using string methods like `.str.replace()`. You'll see an example of this in the [Networks tutorial][networks-tutorial]. **TODO: fix link**
+You can now more easily access the individual genres, which you will need to clean using string methods like `.str.replace()`. 
 
-**TODO: Regularizing data - take from Part E**
+The below code snippet provides an example of the methods you could apply in this scenario.
 
-## Fixing Multiple Observations in One Row: Melting
+<details><summary>View code</summary>
+
+```python
+# clean individual problems in the exploded data with str.replace() and str.strip()
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.strip('[')
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('pop/rock', 'pop rock')
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('r&b', 'rhythm and blues')
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('rock and roll', 'rock')
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('experimental music', 'experimental')
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace("children's music", "children's")
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace("stage&screen", "stage and screen")
+```
+</details>
+
+You'll see an example of this in the [Networks tutorial][pandas-networks].
+
+## Fixing Multiple Observations in One Row: `melt`
 
 In `beatles_spotify`, we have six columns of feature data. In other words, there are six musical feature observations in each row. You may decide that a better method of organization is to only make one music feature observation in each row, like this:
 
@@ -640,22 +655,138 @@ beatles_billboard['Author-Title'][0]
 
 > Normally we've seen functions written like this: `def combine_cols(row):`. However, there is a shorthand for writing functions using `lambda`, which allows you to write functions in a single line. `lambda` functions are easier and cleaner to write, but at the expense of readbility. Learn more [here][lambda-functions].
 
-## Pivoting Data
-<!--TODO: add more explanation, or just remove -->
-[See the Pandas Tutor demonstration of Pivot][pt-pivot]
+## Stack and Unstack
 
-| Part A | Part B | Part C | Part D |
-|--------|--------|--------|--------|
-| [Pandas Basics][part-a] | [Clean Data][part-b] | **Tidy Data** | [Filtering, Finding, and Grouping][part-d] |
+`stack` and `unstack` provide new ways to reshape your data. They are more radical transformations than `explode` and `melt` because the result isn't necessarily a dataframe. While you are less likely to need these methods, you may encounter scenarios, such as a visualization tool requiring a specific data format, where they are beneficial. As such, the primary focus of this section is to expand your knowledge of the possibilities without delving into the specifics.
 
-[part-a]: 04_A_Pandas_Basics.md
-[part-b]: 04_B_Pandas_Clean.md
-[part-d]: 04_D_Pandas_Filter_Find_Group.md
+### `stack` Function
+
+`stack` transforms your dataframe into a series. Each entry in the series represents a row in the original dataframe. You can think of this as converting your data from a "wide" format to a "long" format. For example:
+
+```python
+stacked_df = beatles_billboard.stack()
+
+# show the first entry
+stacked_df[0]
+```
+
+<table border="0">
+    <tr>
+        <th valign="top">Output:</th>
+        <td>
+            <pre>Title                                       12-Bar Original
+Year                                                   1965
+Album.debut                                     Anthology 2
+Duration                                                174
+Other.releases                                            0
+Genre                                                 Blues
+Songwriter          Lennon, McCartney, Harrison and Starkey
+Top.50.Billboard                                         -1
+dtype: object</pre>
+        </td>
+    </tr>
+</table>
+
+One common way to `stack` dataframes is by first setting the index to one of the columns of the dataframe. That way, the resulting series has each title as an index, making it easy to quickly see information on a particular track.
+
+```python
+# create a stack with titles as indices
+title_stack = beatles_billboard.set_index('Title').stack()
+
+# show the result
+title_stack
+```
+
+<table border="0">
+    <tr>
+        <th valign="top">Output:</th>
+        <td>
+            <pre style="white-space: pre;">Title                                                                      
+12-Bar Original                                            Year                                                             1965
+                                                           Album.debut                                               Anthology 2
+                                                           Duration                                                          174
+                                                           Other.releases                                                      0
+                                                           Genre                                                           Blues
+                                                           Songwriter                    Lennon, McCartney, Harrison and Starkey
+                                                           Top.50.Billboard                                                   -1
+A Day in the Life                                          Year                                                             1967
+                                                           Album.debut                     Sgt. Pepper's Lonely Hearts Club Band
+                                                           Duration                                                          335
+                                                           Other.releases                                                     12
+                                                           Genre                            Psychedelic Rock, Art Rock, Pop/Rock
+                                                           Songwriter                                       Lennon and McCartney
+                                                           Lead.vocal                                       Lennon and McCartney
+                                                           Top.50.Billboard                                                   -1
+...</pre>
+        </td>
+    </tr>
+</table>
+
+This makes it much more intuitive to access information for a single track:
+
+```python
+title_stack['A Day in the Life']
+```
+
+<table border="0">
+    <tr>
+        <th valign="top">Output:</th>
+        <td>
+            <pre style="white-space: pre;">Year                                                 1967
+Album.debut         Sgt. Pepper's Lonely Hearts Club Band
+Duration                                              335
+Other.releases                                         12
+Genre                Psychedelic Rock, Art Rock, Pop/Rock
+Songwriter                           Lennon and McCartney
+Lead.vocal                           Lennon and McCartney
+Top.50.Billboard                                       -1
+dtype: object</pre>
+        </td>
+    </tr>
+</table>
+
+You can also reference just a specific data point:
+
+```python
+title_stack['A Day in the Life']['Lead.vocal']
+```
+
+<table border="0">
+    <tr>
+        <th valign="top">Output:</th>
+        <td>
+            <pre style="white-space: pre;">'Lennon and McCartney'</pre>
+        </td>
+    </tr>
+</table>
+
+Use this code to check all of the possible index values:
+
+```python
+set(title_stack.index.get_level_values(0))
+```
+
+###  `unstack` Function
+
+`unstack` is the inverse operation of `stack`.
+
+The one crucial requirement for a successful `unstack` operation is that each index in the "stacked" (long form) data is unique. If it isn't, this should be resolved using `.drop_duplicates()`, `.reset_index()`, `.reset_index(drop=True)`, or another method, depending on your needs.
+
+If each index in your stacked data is unique, you can simply use the `.unstack()` method to re-create the original dataframe, as it was before the `stack` was performed.
+
+```python
+reverted_df = stacked_df.unstack()
+```
+
+| [Pandas Basics][pandas-basics] | [Clean Data][pandas-clean] | **Tidy Data** | [Filtering, Finding, and Grouping][pandas-filter-find-group] | [Networks][pandas-networks] |
+|--------|--------|--------|--------|-------|
+
+[pandas-basics]: 04_A_Pandas_Basics.md
+[pandas-clean]: 04_B_Pandas_Clean.md
+[pandas-filter-find-group]: 04_D_Pandas_Filter_Find_Group.md
+[pandas-networks]: 04_E_Networks.md
 [pandas-documentation]: https://pandas.pydata.org/about/
 [w3schools]: https://www.w3schools.com/python/pandas/default.asp
 [pandas-cheat-sheet]: https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf
 [tidy-data]: https://www.jstatsoft.org/article/view/v059i10
-[pt-pivot]: https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0A%0Acsv%20%3D%20'''%0Abreed,size,kids,longevity,price%0ALabrador%20Retriever,medium,high,12.04,810.0%0ABeagle,small,high,12.3,288.0%0AGolden%20Retriever,medium,high,12.04,958.0%0AYorkshire%20Terrier,small,low,12.6,1057.0%0ABoxer,medium,high,8.81,700.0%0A'''%0A%0Adogs%20%3D%20pd.read_csv%28io.StringIO%28csv%29%29%0Adogs%20%3D%20%28dogs%5B%5B'size',%20'kids',%20'price'%5D%5D%29%0A%0Adogs.pivot_table%28index%3D'size',%20columns%3D'kids',%20values%3D'price'%29&d=2024-07-24&lang=py&v=v1
-<!--TODO: fix link above-->
-[networks-tutorial]: 04_E_Networks.md 
-<!--TODO: fix link above-->
+[lambda-functions]: https://www.w3schools.com/python/python_lambda.asp
