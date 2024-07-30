@@ -1,47 +1,40 @@
-# Pandas:  Clean and Tidy Data
+| [Pandas Basics][pandas-basics] | **Clean Data** | [Tidy Data][pandas-tidy] | [Filtering, Finding, and Grouping][pandas-filter-find-group] | [Graphs and Charts][pandas-graphs] | [Networks][pandas-networks] |
+|--------|--------|--------|--------|-------|-------|
 
-In this tutorial we explore various ways of cleaning data.  We also explore ways to make your data follow the "Tidy Data" principles, which will vastly simplify other work.  The key concept here is to *un-nest* the various cells that might contain multiple data points.  "One observation or event per row" is the preferred format for Tidy Data.
+# Pandas: Clean Data
 
-[Read more](https://pandas.pydata.org/about/).
+Cleaning data is an important precursor to anlyzing data, and often represents the biggest part of a data analysis project. In this tutorial, we explore various ways in which data can be "messy" and how it can be subsequently cleaned.
 
-[Tutorials](https://www.w3schools.com/python/pandas/default.asp).
+Read the official Pandas [documentation][pandas-documentation].
 
-[Pandas Cheat Sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf).
+Find tutorials at [W3Schools][w3schools].
 
-<!---
-7/16/24
+A helpful [Pandas Cheat Sheet][pandas-cheat-sheet].
 
-The table of contents will need to be updated.
+A guide to cleaning data with Pandas on [Medium][towards-data-science-cleaning].
 
---->
+|    | Contents of this Tutorial                                                      | 
+|----|--------------------------------------------------------------------------------|
+| 1. | [**Identifying the Problem**](#identifying-the-problem) |
+| 2. | [**Understanding Clean and Tidy Data**](#understanding-clean-and-tidy-data) |
+| 3. | [**Wrong or Inconsistent Format or Values**](#wrong-or-inconsistent-format-or-values) |
+| 4. | [**Cleaning Data with Functions**](#cleaning-data-with-functions) |
+| 5. | [**Missing Data**](#missing-data) |
+| 6. | [**Duplicate Rows**](#duplicate-rows) |
+| 7. | [**Wrong Data Type**](#wrong-data-type) |
+| 8. | [**Data Cleaning Best Practices**](#data-cleaning-best-practices) |
 
-Contents of this Tutorial
-
-## [Create a Notebook and Load the Pandas library](#create-a-notebook-and-load-the-pandas-library-1)
-## [Meet the Beatles (Again)](#meet-the-beatles-again-1)
-## [Checking Data](#checking-data-1)
-## [The NaN Problem](#the-nan-problem-1)
-## [Duplicate Rows](#duplicate-rows-1)
-## [Wrong Data Types:  Strings, Floats, Integers, Dates](#wrong-data-types--strings-floats-integers-dates-1)
-## [Wrong or Inconsistent Case or Spelling](#wrong-or-inconsistent-case-or-spelling-1)
-## [Leading/Trailing Whitespace or Characters](#leadingtrailing-whitespace-or-characters-1)
-## [Replacing Text, Selectively](#replacing-text-selectively-1)
-## [Cleaning Data with Functions](#cleaning-data-with-functions-1)
-## [Split and Join](#split-and-join-1)
-
-
-##  Create a Notebook and Load the Pandas library 
+### Create a Notebook and Load the Pandas library
 
 ```python
 import pandas as pd
 ```
 
-
-##  Meet the Beatles (Again) 
+### Meet the Beatles
 
 We continue with our data about The Beatles:
 
-* A set from **Spotify** includes information about 193 songs, albums, years, plus other acoustic ratings that Spotify uses to characterize tracks. View these data as a [Google spreadsheet](https://docs.google.com/spreadsheets/d/1CBiNbxqF4FHWMkFv-C6nl7AyOJUFqycrR-EvWvDZEWY/edit#gid=953807965).
+* A set from **Spotify** that includes information about 193 songs, albums, years, plus other acoustic ratings that Spotify uses to characterize tracks. View these data as a [Google spreadsheet](https://docs.google.com/spreadsheets/d/1CBiNbxqF4FHWMkFv-C6nl7AyOJUFqycrR-EvWvDZEWY/edit#gid=953807965).
 
 * A set compiled by a team at the **University of Belgrade (Serbia)** that contains information about over 300 Beatles songs:  author(s), lead singer(s), album, musical genre(s), and standing in the Top 50 Billboard charts.  View these data on [Github]('https://github.com/inteligentni/Class-05-Feature-engineering/blob/master/The%20Beatles%20songs%20dataset%2C%20v1%2C%20no%20NAs.csv').
 
@@ -63,350 +56,442 @@ beatles_billboard_csv = 'https://raw.githubusercontent.com/inteligentni/Class-05
 beatles_billboard = pd.read_csv(beatles_billboard_csv)
 ```
 
-<!---
-7/16/24 Comment
+## Understanding Clean and Tidy Data
 
-Made corrections in following paragraph
---->
+You will quickly run into all sorts of issues when working with data. Most, however, fall into two major categories: issues of **cleanliness** and issues of **organization**. Data that is both clean and organized is known as **Tidy Data**, and this is what we strive for when we use, manipulate, and create our data. This helps us understand our data better, and perhaps most importantly helps programs like Pandas perform better analysis on our data.
 
+At the end of [Pandas: Basics][pandas-basics], we encountered two datasets that stored the same information (Beatles song titles) in different formats (lowercase/Title Case). This is an example of data that needs to be **cleaned** so we can more easily work with it (see how in the [section on data formatting](#wrong-or-inconsistent-format)).
 
-##  Checking Data
+In the Beatles Billboard dataset, you might notice that for certain songs, the column `Album.debut` contains information about different album names for UK and US releases when applicable, like in the below example for "All My Loving":
 
+<table border="1">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Album.debut</th>
+      <th>Duration</th>
+      <th>Other.releases</th>
+      <th>Genre</th>
+      <th>Songwriter</th>
+      <th>Lead.vocal</th>
+      <th>Top.50.Billboard</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>9</th>
+      <td>All My Loving</td>
+      <td>1963</td>
+      <td>UK: With the Beatles US: Meet The Beatles!</td>
+      <td>124</td>
+      <td>32</td>
+      <td>Pop/Rock</td>
+      <td>McCartney</td>
+      <td>McCartney</td>
+      <td>-1</td>
+    </tr>
+  </tbody>
+</table>
 
-Missing data or data encoded as the wrong type will result in errors of various kinds.  Learn more about data cleaning with Pandas [here](https://www.w3schools.com/python/pandas/pandas_cleaning.asp).
+It might be helpful to separate this into two different columns to simplify the data, like below:
 
-You will first want to understand all the values you are trying to correct. Let's say you wanted to inspect all of the *unique values* found in the 'Genre' column of the Beatles Billboard data. Simply calling this `beatles_billboard['Genre'].unique()` will return the values, but as a numpy array, which is not easy to read.
+<table border="1">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Album.debut.UK</th>
+      <th>Album.debut.US</th>
+      <th>Duration</th>
+      <th>Other.releases</th>
+      <th>Genre</th>
+      <th>Songwriter</th>
+      <th>Lead.vocal</th>
+      <th>Top.50.Billboard</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>9</th>
+      <td>All My Loving</td>
+      <td>1963</td>
+      <td>With the Beatles</td>
+      <td>Meet The Beatles!</td>
+      <td>124</td>
+      <td>32</td>
+      <td>Pop/Rock</td>
+      <td>McCartney</td>
+      <td>McCartney</td>
+      <td>-1</td>
+    </tr>
+  </tbody>
+</table>
 
-<Details>
-<Summary>View the Array of Values for "Genre" </Summary>
+This is an example of data that could be **organized** differently, and perhaps better (see how in [Pandas: Tidy Data][pandas-tidy]).
 
-![alt text](images/array.png)
+In the remainder of this document, we will focus on data **cleaning**. Then, in [Pandas: Tidy Data][pandas-tidy], we will pivot to data **tidying** and **organization**.
 
-</Details>
+## Identifying the Problem
 
-<br>
+We will often be working with large datasets where it is impossible to manually check every value to verify its accuracy and cleanliness. One tool we can use to quickly identify problems in a dataset is the Pandas `.sort_values().` method. This allows us to generate a list of every entry in a column, sorted alphabetically. This provides a decent snapshot into your data. Try the below code:
 
-Instead try `sorted(beatles_billboard['Genre'].dropna().unique().tolist())`, which displays as a single list of the values in alphabetical order. Note that here we include `dropna()` so that any Null values are ignored; otherwise you would return a type error.
+```python
+list(beatles_billboard['Album.debut'].sort_values())
+```
 
-<Details>
-<Summary>View the Sorted List of Values for "Genre" </Summary>
+## Wrong or Inconsistent Format or Values
 
-![alt text](images/sorted_list.png)
+Many issues arise when data is stored as strings. Spelling and capitalization can vary across items that are meant to be the same. Often, the situation will be applying a **string method** to an entire column. You saw an example of the `.str.lower()` string method in [Pandas: Basics][pandas-basics]:
 
-</Details>
+```python
+beatles_billboard['Title'] = beatles_billboard['Title'].str.lower()
+```
 
-<br>
+`lower()` replaces every string in a column with a completely lowercase version of that string. You can see the full list of string methods here: [Pandas string methods][pandas-string-methods].
 
-Looking over these you will quickly discover things that need to be cleaned or reformatted:
+Some particularly important string methods for cleaning data:
 
-* leading/trailing whitespace
-* variant spellings of the same term
-* inconsistent capitalization
-* and above all, the fact that in each case the various terms have been strung together as a single string  
+* `.str.replace(x, y)`: Replace any instance of `x` with `y`
+  + For example, you might want to regularize:
+    - `'rock & roll'` as `'rock'`
+    'r&b' (as 'rhythm and blues' ?)
+    'stage&screen' (as 'stage and screen')
+    'experimental music' as 'experimental', or 'children's music' as 'children's' (since having 'music' in a list of music genres is not very useful)
+* `.str.split(x)`: Replace a string with a list of strings. The original string is separated at every instance of the substring `x`. E.g.: applying `.split(', ')` to `'John, Paul, George, Ringo'` would result in `['John', 'Paul', 'George', 'Ringo']`
+* `.str.strip()`: Remove the spaces from the beginning and end of a string. Can also be configured to remove other characters.
+* `.str.upper()`: Convert a string to all uppercase.
+* `.str.title()`: Convert a string to Title Case.
 
-See below for ways to address these systematically.
+String methods can only be applied to one column at a time. To use string methods, follow the pattern below:
 
+```python
+df['column_name'] = df['column_name'].str.method_name()
+```
 
-## The NAN Problem
+Here are some examples of data you may want to regularize:
 
+*  `'rock & roll'` and `'rock'` (could be the same?)
+* `'r&b'` (as `'rhythm and blues'`?)
+* `'stage&screen'` (as `'stage and screen'`)
+* `'experimental music'` as `'experimental'`, or `"children's music"` as `"children's"` (since having 'music' in a list of music genres is not very useful)
 
-In Python there is a difference between a "0" and nothing.  The latter is a Null, which represents "no data at all."  Nulls will result in errors when you attempt to perform some operation on them.  You cannot add to or compare something to a Null.  Nor can you test whether a Null contains some set of characters or matches a word. 
+> Use "double quotes" if your string contains a 'single quote' (like "children's") to avoid errors.
 
-* **Find the NaN's**:  `df[df.isna().any(axis=1)]`, or for the billboard data:  `beatles_billboard[beatles_billboard.isna().any(axis=1)]`.  
+You may want to regularize the `'Genre'` column, since it's stored as a string, but is essentially a list. This would be a good use of the `.str.split(', ')` method:
 
-<!---
-7/16/24 Comment
+```python
+beatles_billboard['Genre'].str.split(', ')
+```
 
-Made corrections in following paragraph
+## Cleaning Data with Functions
 
-Do you want to do something about 'inplace' now?  What is the solution?
+If string methods are not suffificent, or you're working with a different data type, you might need to create your own function that can be applied to the entire column.
 
-Do you want something more explicit?
+Let's imagine that you want to get some statistics about the amount of time spent by Beatles songs on the Billboard Top 50. You can do this using `beatles_billboard['Billboard.Top.50'].describe()`. However, you first have to fix an important problem: handling unusual data. In several instances, the creators of the dataset made the decision to enter `-1` in the `'Billboard.Top.50'` column, as in the case of the song "Golden Slumbers":
 
+<table border="1">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Album.debut</th>
+      <th>Duration</th>
+      <th>Other.releases</th>
+      <th>Genre</th>
+      <th>Songwriter</th>
+      <th>Lead.vocal</th>
+      <th>Top.50.Billboard</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>81</th>
+      <td>Golden Slumbers</td>
+      <td>1969</td>
+      <td>Abbey Road</td>
+      <td>91</td>
+      <td>5</td>
+      <td>Rock, Baroque Pop, Pop/Rock</td>
+      <td>McCartney</td>
+      <td>McCartney</td>
+      <td>-1</td>
+    </tr>
+  </tbody>
+</table>
+
+This is likely because these songs spent no time in the Top 50. However, values of `-1` will lead to strange results when calculating the average value of the column, for example. For our purposes, it is better to represent the number of weeks spent in the Top 50 as `0`, rather than `-1`. Let's write a function that replaces `-1` with `0`.
+
+> The creators of this dataset did not document whether a value of `-1` indicates "no weeks spent in the Top 50" or "no data found indicating whether song made Top 50". It is likely safe to assume the former, but this is still an *assumption*. Be careful making assumptions about data, as this could lead to incorrect analysis. Always check the source of the data to learn more about it.
+
+```python
+def normalize_billboard(entry):
+    if entry == -1:
+        return 0
+    return entry
+```
+
+If we pass a value of `-1` to the function, it will return a value of `0`. Otherwise, it will return the original value passed to it.
+
+> *Note on Python Functions:* <br>
+> Once a value is returned, the function is exited. Hence, there is no need for an `else` statement - no more than one value will ever be returned. Review Python functions at [W3Schools][w3schools-functions].
+
+As you will recall from [Pandas: Basics][pandas-basics], Pandas tries to simplify your work by providing a comprehensive suite of tools. In this instance, Pandas saves us from iterating through every row with the `.apply()` method:
+
+```python
+beatles_billboard['Top.50.Billboard'] = beatles_billboard['Top.50.Billboard'].apply(normalize_billboard)
+```
+
+This will pass every entry in the `'Top.50.Billboard'` column to the `normalize_billboard()` function, replacing the entry with the return value of the function. The updated row for "Golden Slumbers" will be:
+
+<table border="1">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Album.debut</th>
+      <th>Duration</th>
+      <th>Other.releases</th>
+      <th>Genre</th>
+      <th>Songwriter</th>
+      <th>Lead.vocal</th>
+      <th>Top.50.Billboard</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>81</th>
+      <td>Golden Slumbers</td>
+      <td>1969</td>
+      <td>Abbey Road</td>
+      <td>91</td>
+      <td>5</td>
+      <td>Rock, Baroque Pop, Pop/Rock</td>
+      <td>McCartney</td>
+      <td>McCartney</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+If for some reason you want to maintain the original column, you can do so by saving the result to a new column with a different name, for example:
+
+```python
+beatles_billboard['Top.50.Billboard.normalized'] = beatles_billboard['Top.50.Billboard'].apply(normalize_billboard)
+```
+
+The `.apply()` method also allows you to split the contents of one column into several columns. To do this, see an example in the section "[Fixing Multiple Variables in One Column](#fixing-multiple-variables-in-one-column)".
+
+## Missing Data
+
+Another common problem in data is **missing data**. For example, see the row for a more obscure song "Circles" in the Beatles Billboard dataset:
+
+<table border="1">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Album.debut</th>
+      <th>Duration</th>
+      <th>Other.releases</th>
+      <th>Genre</th>
+      <th>Songwriter</th>
+      <th>Lead.vocal</th>
+      <th>Top.50.Billboard</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>42</th>
+      <td>Circles</td>
+      <td>1968</td>
+      <td>NaN</td>
+      <td>226</td>
+      <td>0</td>
+      <td>Hindustani Blues, Pop/Rock</td>
+      <td>Harrison</td>
+      <td>Harrison</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+Missing data can be represented in many different ways in code. In this instance, the entry in the column `'Album.debut'` is `NaN`, meaning "Not a Number". You might also see missing data encoded as `null`, `None`, or `pd.NA`. All of these represent "no data at all".
+
+Missing data can be incredibly troublesome. Most operations involving missing data will result in errors. For example, using a **string method** on a column with just a single missing value will cause the entire operation to fail. This is why it is crucial to **find** missing values and either **fill** or **remove** them.
+
+> You might also decide you want to keep null values in your data. It is possible to work around the problems presented by missing data, but this makes work more complex. It is often simpler to replace missing data with some default value.
+
+### Finding Missing Data
+
+Before doing something about missing data, you should first get a clear picture of what data is missing.
+
+* Show just the rows with missing data:
+    + ```python
+      beatles_billboard[beatles_billboard.isna().any(axis=1)]
+      ```
+* Show just rows with missing data in a specific column:
+    + ```python
+      beatles_billboard[beatles_billboard['Album.debut'].isna()]
+      ```
+
+These are examples of **filters**, which you will lean more about in [Pandas: Filtering, Finding, and Grouping][pandas-filter-find-group].
+
+### Filling Missing Data
+
+In many cases, you might come up with some default number or string to take the place of `NaN`s. You can fill `NaN`s using the `.fillna()` method. But `beatles_billboard.fillna('-')` would fill *all* `NaN`s with the same string. Instead, the solution will probably vary from one column to the next (since some are integers, some dates, and are text). You can fill the missing values in just one column at a time:
+
+```python
 beatles_billboard['Album.debut'] = beatles_billboard['Album.debut'].fillna("unreleased")
+```
 
---->
+Now the row for "Circles" will be:
 
-* **Fill the NaN's**. If you are performing mathematical operations, you can fill missing values with some default number or string. The solution will probably vary from one column to the next (since some are integers, some dates, and are text):  `beatles_billboard.fillna("-")` would fill *all NaN* with the same string.  But we could instead try something that would be more meaningful.  For example: `beatles_billboard['Album.debut'].fillna("unreleased", inplace=True)`
-* If you are trying to filter a data frame by a particular keyword or condition, you can treat the Nulls as "False" and thereby ignore them, as have seen above:  `sorted(beatles_billboard['Genre'].dropna().unique().tolist())`
+<table border="1">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Album.debut</th>
+      <th>Duration</th>
+      <th>Other.releases</th>
+      <th>Genre</th>
+      <th>Songwriter</th>
+      <th>Lead.vocal</th>
+      <th>Top.50.Billboard</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>42</th>
+      <td>Circles</td>
+      <td>1968</td>
+      <td>unreleased</td>
+      <td>226</td>
+      <td>0</td>
+      <td>Hindustani Blues, Pop/Rock</td>
+      <td>Harrison</td>
+      <td>Harrison</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
 
+### Removing Missing Data
+
+You may decide to remove rows or columns with missing data, for instance if so much data is missing that the row/column is unusable. In Pandas, removing data is called **dropping** data. You learned how to drop entire rows and columns manually in [Pandas: Basics][pandas-basics].
+
+When dropping rows with missing data, you can take advantage of the built-in Pandas method `.dropna()`, which will help you automatically drop rows/columns with missing data. `.dropna()` takes two key arguments:
+
+* `how`:
+  + `how='any'` will drop all rows/columns that contain *any* missing data
+  + `how='all'` will drop all rows/columns that contain missing data in *every* entry in that row/column
+* `axis`:
+  + `axis=0` indicates dropping rows
+  + `axis=1` indicates dropping columns
+
+Put it all together:
+
+```python
+beatles_billboard = beatles_billboard.dropna(how='any', axis=0) # drops all rows with missing data in any entry
+```
+
+> As with most of the methods in this tutorial, Pandas provides many more arguments that allow you to customize the `.dropna()` method. Always check the [documentation][pandas-documentation] to see if Pandas provides pre-built tools for a specific task you're doing.
 
 ## Duplicate Rows
 
+Duplicate rows can also create errors, or distort your results. Find them:  `duplicates = beatles_billboard[beatles_billboard.duplicated()]` (in this case there are none). Remove them automatically with `beatles_billboard = beatles_billboard.drop_duplicates()`
 
-<!---
-7/16/24
+You can also specify removing rows only if they contain duplicates in a specific column with `beatles_billboard = beatles_billboard.drop_duplicates(subset=['Title'])`
 
-Corrected small typos and reformatted the following:
+## Wrong Data Type
 
---->
-
-Duplicate rows can also create errors, or distort your results.  
-
-* Find them:  `duplicate = beatles_billboard[beatles_billboard.duplicated()]duplicate` (in this case there are none).  
-* Remove them automatically with `beatles_billboard = beatles_billboard.drop_duplicates()`
-
-
-## Wrong Data Types:  Strings, Floats, Integers, Dates
-
-
-Wrong data type in a given column is another common error (particularly since Pandas attempts to guess the correct data type when importing from CSV or JSON).  In our beatles_spotify dataset, notice that *the data type for 'energy' is `object`*, which in the context of Pandas means it is a Python `string`.  As such we cannot perform mathematical operations on it. Change the data type with the `astype()` method:
+Wrong data type in a given column is another common error (particularly since Pandas attempts to guess the correct data type when importing from CSV or JSON). In our `beatles_spotify` dataset, suppose that the data type for 'energy' is `object`, which is a general data type that could mean almost anything.  As such we cannot perform mathematical operations on it. Change the data type with the `astype()` method:
 
 ```python
-beatles_spotify['energy'] = beatles_spotify['energy'].astype(np.float64)
+beatles_spotify['energy'] = beatles_spotify['energy'].astype('float64')
 ```
-
-<!---
-7/16/24
-
-Corrected typos below
-
---->
 
 The same thing can happen with **date-time** information.  In our orignal datasets, the "Year" columms are in fact integers.  This works fine for basic sorting.  But Pandas has an intelligent format for working with date-time information that allows us to sort by month-day-year, or create 'bins' representing quarters, decades, centuries.  
 
-So you will need to check the original data type, then convert to strings before converting to **date-time format**.  For example:
-
-```python
-beatles_billboard["Year"] = beatles_billboard["Year"].astype(str)
-```
-
-Then convert that string to **datetime** format (in this case, in a new column, for comparison):
+So you will need to check the original data type, then convert to **date-time format**. For example (in this case, in a new column, for comparison):
 
 ```python
 beatles_billboard["Year_DT"] = pd.to_datetime(beatles_billboard["Year"], format='%Y')
 ```
-
-<!--- 
-7/15/24 comment:
-
-The following suggestion about column order does NOT belong here.  Don't we have another portion of the Tutorials devoted to this?
---->
-
 And then reorder the columns for clarity:
 
 ```python
+# Creates a copy of the dataframe including all row, with column 9 ("Year_DT") taking the place of column 2, and column 2 no longer being included
 beatles_billboard_sorted = beatles_billboard.iloc[:, [0, 1, 9, 3, 4, 5, 6, 7, 8]]
-beatles_billboard_sorted.head()
-
 ```
-<!--- 
-7/15/24 comment:
 
-New title for the following section and additional content, too,
+You can see the full list of date format codes (like `'%Y'`) [here][datetime-format-codes].
 
---->
+Pandas also supports **categorical** data. This can be more complex to work with, but adds lots of powerful functionality. You can read the [Pandas categories documentation][pandas-documentation-categories].
 
-## Wrong or Inconsistent Case or Spelling
+## Data Cleaning Best Practices
 
+As you work with data from various sources, you will inevitably encouter problems. It can be tempting to fix individual errors as you see them occur - for example, if you see "Lennon" mispelled as "Lenin", you might want to return to the original spreadsheet to correct the error. You might even use Pandas to change an individual cell. However, this contravenes a key principle of data science: **reproducibility**.
 
-You often notice that data are filled with inconsistencies:  
+Whenever possible, take a **generalized** and **reproducible** approach to cleaning data. That means instead of manually correcting "Lenin" to "Lennon", use a string method to change **every** instance of "Lenin". Doing this in a Jupyter notebook, with explanation, means that someone else could take the same original dataset and produce the same result as you, following a single method documented in one place.
 
-* variant spellings ('color' vs 'colour')
-* inconsistent capitalization ('rock and roll', 'Rock and Roll')
-
-There are Pandas methods to help with this process.  Mainy of them use the `str` accessor, to which you in turn apply any of a number of tools to correct the problem, as described below.  What's more, you can apply the `str.my_method()` to an entire dataframe, an entire column, or even to some subset of column values that match a particular condition.
-
-Here are some examples:
-
-#### Inconsistent Capitalization
-
-Access the column, then add `.str.lower()` and copy this back into the original column (or you could make a new column):
+One good practice is to create a **function** that handles cleaning your data. Once you've figured out the best way to clean your data, you can put all the steps in a function, like this:
 
 ```python
-# make all the terms lower case
-beatles_billboard['Genre'] = beatles_billboard['Genre'].str.lower()
+def preprocess():
+    # Read CSV
+    beatles_billboard_df = pd.read_csv('https://raw.githubusercontent.com/inteligentni/Class-05-Feature-engineering/master/The%20Beatles%20songs%20dataset%2C%20v1%2C%20no%20NAs.csv')
+
+    # Fill missing entries in the 'Album.debut' column with 'unreleased'
+    beatles_billboard_df['Album.debut'] = beatles_billboard_df['Album.debut'].fillna("unreleased")
+
+    # Drop rows with missing data
+    beatles_billboard_df = beatles_billboard_df.dropna(how='any', axis=0)
+
+    # Change entries of -1 to 0 in 'Top.50.Billboard' column
+    def normalize_billboard(entry):
+        if entry == -1:
+            return 0
+        return entry
+    beatles_billboard_df['Top.50.Billboard'] = beatles_billboard_df['Top.50.Billboard'].apply(normalize_billboard)
+
+    # Change the 'Year' column to a datetime datatype
+    beatles_billboard_df["Year"] = pd.to_datetime(beatles_billboard_df["Year"], format='%Y')
+
+    # Return the cleaned dataframe
+    return beatles_billboard_df
 ```
 
-## Leading/Trailing Whitespace or Characters
-
-#### Dealing with Trailing/Leading Whitespace
-
-You might also notice that some strings include leading and trailing spaces (' rock') [in which there is a space *before* the word]
-
-Here we add `.strip()` to the `str.` accessor:
+Now you can get a fresh, clean version of the dataset with just one line:
 
 ```python
-beatles_billboard['Genre'] = beatles_billboard['Genre'].str.strip()
+beatles_billboard = preprocess()
 ```
 
-Note that this will `strip()` the leading/trailing spaces from the *complete string* in each cell.  
-
-But if we `split()` the long strings of genre names into lists (as suggested below), or even `explode()` a dataframe so that each row has only a single Genre term, we will find that there are still other leading/trailing spaces associated with individual strings in these lists.  So you might need to use `strip()` more than once!
-
-#### Dealing with Trailing/Leading Characters
-
-In the Genre column of the Beatles Billboard data, some terms have *spurious bracket symbols at the end of the given genre label*.  You can use the `strip` method to remove them, just pass in the character or string you want to remove:
-
-```python
-beatles_billboard['Genre'] = beatles_billboard['Genre'].str.strip('[')
-beatles_billboard['Genre'] = beatles_billboard['Genre'].str.strip(']')
-```
-**Important**: The `strip('my_symbol') will only remove things that appear *at the beginning or end* of the complete contents of the cell!
-
-#### Chaining strip() Commands
-
-Note that we can also chain these methods together in a single line of code:
-
-
-```python
-beatles_billboard['Genre'] = beatles_billboard['Genre'].str.lower().str.strip().str.strip('[').str.strip(']')
-```
-
-
-##  Replacing Text, Selectively
-
-
-The `str` accessor also has a built-in `replace()` method that allows you to selectively change the contents of any substring. In the following string, let's say we needed to fix a spelling error:
-
-`genre_name = "rock&roll"`
-
-Since the `genre_name` variable is *already a string* you can do this simply by calling `name.replace('rock&roll', 'rock')`.  Note that the first string within the `replace()` method is the string to match, and the second is the updated string you want.
-
-If you were working only with this single variable, you would want to refresh the original variable:
-
-`genre_name = genre_name.replace('rock&roll', 'rock')`
-
-But you can also use the `replace()` method on an entire column of a dataframe.  Here the key step is to remember that *you will also need to include `str.` in order for Pandas to access the contents of the given cell as a string*.  The following code will relace the substring `rock&roll` with `rock` anywhere it appears in the designated column.
-
-```python
-beatles_billboard['Genre'] = beatles_billboard['Genre'].str.replace('rock&roll', 'rock')
-```
-You also might want to regularize:
-
-* 'rock & roll', 'rock'
-* 'r&b' (as 'rhythm and blues' ?)
-* 'stage&screen' (as 'stage and screen')
-* 'experimental music' as 'experimental', or 'children's music' as 'children's' (since having 'music' in a list of music genres is not very useful)
-
-
-
-##  Cleaning Data with Functions
-
-
-Some situations are more complex, and you might want to use subject the contents of the cell to some conditional test before you make the correction.  In this case `str.replace()` might not be subtle enough for your needs.
-
-Now that you know what the problem values are, write a **function** that corrects `John Lenin` to `John Lennon`.  If you don't recall **functions** see **Python Basic Notebook**!
-
-```python
-def name_check:
-    if df["Artist"] == "John Lenin":
-        return "John Lennon"
-```
-In this case the **return** statement makes the result available for the next step in the process.
-
-But how to run this over **all rows** of a data frame?  We can easily do this with the **apply** method. In effect it **apply** allows us to automatically pass over all rows in the data frame, transforming only the column we select.  
-
-```python
-df['column'] = df['column'].apply(name_check)
-```
-
-Note that we could use this approach not only for correcting data, but for creating **new columns** based on **existing columns**.  For example:  a Boolean column (True/False) based on the result of the contents of another column.  Here the new column will report True for any row where the column "artist" contains the string "Lennon".  
-
-```python
-df['By_Lennon'] = df['artist'].str.contains("Lennon")
-```
-
-
-<!---
-7/16/24
-
-Does the following discussion of Boolean filtering belong here in the Clean and Tidy Tutorial?  
-
-Should this instead be in the Filter/Sort/Group section?
-
---->
-We can then use the Boolean column to filter the entire frame (see below).
-
-Try some out:
-
-**NANs anywhere:**
-
-```python
-beatles_billboard[beatles_billboard.isna().any(axis=1)]
-```
-
-**Replace NA's in Album column with 'unreleased'**
-
-```python
-beatles_billboard['Album.debut'].fillna("unreleased", inplace=True)
-beatles_billboard.head(25)
-```
-
-**Convert the year column to an integer, then use the Pandas "year" format to make an intelligent date out of it, and sort the columns according to their `index` positions:**
-
-```python
-beatles_billboard["Year"] = beatles_billboard["Year"].astype(int)
-beatles_billboard["Year_DT"] = pd.to_datetime(beatles_billboard["Year"], format='%Y')
-beatles_billboard_sorted = beatles_billboard.iloc[:, [0, 1, 9, 3, 4, 5, 6, 7, 8]]
-beatles_billboard_sorted.head()
-```
-
-You can think of some others!
-
-<!---
-7/16/24 Comments
-
-The following is new--a general heading for nested lists and tuples
-
---->
-
-
-## Split and Join
-
-The Beatles Billboard dataset is filled with interesting information. But the way the data have been formatted is in some ways frustrating.  As we have seen above, the individual cells of the 'Genre' appear to contain a list of various terms. But on close inspection this is *not a list in the Pythonic sense*:  it is just a long string, and thus any attempt to count or analyze the individual genre terms will not be possible.
-
-```python
-beatles_billboard['Genre'][1]
-'Psychedelic Rock, Art Rock, Pop/Rock'
-```
-
-
-#### Split Long String into List of Strings
-
-We can `split` this long string with a built-in Python function available to the `str.` accessor, which is in turn applied to the complete column.  It looks for the commas and then divides the long string into individual strings, returning them as a Python `list` object: 
-
-```python
-beatles_billboard['Genre'] = beatles_billboard['Genre'].str.split(', ')
-```
-
-And now the cell looks like a proper Python list:
-
-```python
-beatles_billboard['Genre'][1]
-['Psychedelic Rock', 'Art Rock', 'Pop/Rock']
-```
-
-As a next step, we might want to 'tidy' the data by *putting the individual strings on separate rows*, which would be useful for **GroupBy operations**. See the next tutorial to learn how!
-
-#### Join List of Strings into a Single String
-
-We could also *reverse the process*, in this case with a simple function that will take a list of strings and return a single string.  We then `apply()` that function to all the rows in the given column.
-
-```python
-# define the function to convert a list of strings into a single string, with individual items separated by commas
-def convertlist(my_list):
-    out = ""
-    if isinstance(my_list, list):
-        out = ', '.join(my_list)
-    return out  
-# now apply the function to a given column
-df['my_col'] = df['my_col'].apply(convertlist)
-```
-
-#### Tuple Trouble (and How to Cure It)
-
-Tuples (such as: `(Rock, Pop)`) can present special challenges, since they do no lend themselves well to certain operations, such as counting all the values. If you have 'tuple trouble' you can convert these with a simple function that uses the `join` method, returning the tuple items as a single string. Here is how to do it:
-
-
-```python
-# define the function to convert tuples to strings, joined by the "_" character
-def convertTuple(tup):
-    out = ""
-    if isinstance(tup, tuple):
-        out = '_'.join(tup)
-    return out  
-# clean the tuples using 'apply'
-df['my_col'] = df['my_col'].apply(convertTuple)
-```
-
+This sets you up for the next step: **tidying** your data in [Pandas: Tidy Data][pandas-tidy].
+
+| [Pandas Basics][pandas-basics] | **Clean Data** | [Tidy Data][pandas-tidy] | [Filtering, Finding, and Grouping][pandas-filter-find-group] | [Graphs and Charts][pandas-graphs] | [Networks][pandas-networks] |
+|--------|--------|--------|--------|-------|-------|
+
+[pandas-basics]: 04_Pandas_Basics.md
+[pandas-tidy]: 06_Pandas_Tidy_Data.md
+[pandas-filter-find-group]: 07_Pandas_Filter_Find_Group.md
+[pandas-graphs]: 08_Pandas_Graphs_and_Charts.md
+[pandas-networks]: 09_Pandas_Networks.md
+[pandas-documentation]: https://pandas.pydata.org/about/
+[w3schools]: https://www.w3schools.com/python/pandas/default.asp
+[pandas-cheat-sheet]: https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf
+[towards-data-science-cleaning]: https://towardsdatascience.com/simplify-your-dataset-cleaning-with-pandas-75951b23568e
+[pandas-string-methods]: https://pandas.pydata.org/docs/user_guide/text.html#method-summary
+[python-basics]: 03_Python_basics.md
+[w3schools-functions]: https://www.w3schools.com/python/python_functions.asp
+[datetime-format-codes]: https://docs.python.org/3/library/datetime.html#format-codes
+[pandas-documentation-categories]: https://pandas.pydata.org/docs/user_guide/categorical.html
+[tidy-data]: https://www.jstatsoft.org/article/view/v059i10
