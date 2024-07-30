@@ -1,5 +1,7 @@
 # Common Considerations for Pandas
 
+`^ Ctrl`+`F` (Windows) and `⌘ Cmd`+`F` (Mac) are your friends in this document! Use them to find an FAQ that could help you.
+
 ### When I want to…
 <details>
 <summary>
