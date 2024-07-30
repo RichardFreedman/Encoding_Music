@@ -2139,6 +2139,7 @@ list(grouped.groups.keys())
 ```
 
 <blockquote><details><summary>What's going on here?</summary>
+
 `grouped.groups` returns a dictionary, wherein each **key** is a group name and each **value** is a list. The list contains the indices of each item from the original dataframe that is in that group.
 
 If we want to see all of the group names, we only need the **keys** of this dictionary. However, `grouped.groups.keys()` comes out in a weird format. We can fix this by converting the output to a list, using `list()`. The result is a nicely formatted list of every group name in the `groupby` object.
