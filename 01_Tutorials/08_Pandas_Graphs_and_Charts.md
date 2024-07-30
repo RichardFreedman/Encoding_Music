@@ -189,12 +189,12 @@ feature_list = ["danceability", "energy", "speechiness", "liveness", "instrument
 spotify_tools.audio_feature_radar(audio_feature_data, feature_list, "My Radar Plot")
 ```
 
-<Details>
-<Summary>Image of Sample Output</Summary>
+
+<br>
+
 
 ![Alt text](images/radar_px.png)
 
-</Details>
 
 <br>
 
@@ -326,7 +326,7 @@ fig.show()
 
 ### Pick Custom Color Scheme
 
-You can select an overall color palette from among several options.  Here you need to add `color_discrete_sequence=px.colors.qualitative.Pastel` when you create the charrt.  Learn more at [Plotly Express](https://plotly.com/python/discrete-color/)
+You can select an overall color palette from among several options.  Here you need to add `color_discrete_sequence=px.colors.qualitative.Pastel` when you create the chart.  Learn more at [Plotly Express](https://plotly.com/python/discrete-color/)
 
 <Details>
 <Summary> Sample Code to Adjust Color Palette  </Summary>
