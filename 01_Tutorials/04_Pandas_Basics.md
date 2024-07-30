@@ -458,12 +458,12 @@ Want to count from the *end*?  `-1` is the *last* column. So `beatles_spotify.il
 
 | | Things you can do with columns |
 |--|------------------------------|
-| 1.| [Show all the columns of a dataframe](#1-show-all-the-columns-of-a-dataframe) |
-| 2. | [Add a column](#2-add-a-column) |
-| 3. | [Drop a column](#3-drop-a-column) |
-| 4. | [Rename a column (or columns)](#4-rename-a-column-or-columns) |
-| 5. | [Show the data types of the columns](#5-show-the-data-types-of-the-columns) |
-| 6. | [Reorder columns](#6-reorder-columns) |
+| 1.| [Show all the columns of a dataframe](#show-all-the-columns-of-a-dataframe) |
+| 2. | [Add a column](#add-a-column) |
+| 3. | [Drop a column](#drop-a-column) |
+| 4. | [Rename a column (or columns)](#rename-a-column-or-columns) |
+| 5. | [Show the data types of the columns](#show-the-data-types-of-the-columns) |
+| 6. | [Reorder columns](#reorder-columns) |
 
 #### Show all the columns of a dataframe
 
