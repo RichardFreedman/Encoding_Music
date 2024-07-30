@@ -284,7 +284,7 @@ If for some reason you want to maintain the original column, you can do so by sa
 beatles_billboard['Top.50.Billboard.normalized'] = beatles_billboard['Top.50.Billboard'].apply(normalize_billboard)
 ```
 
-The `.apply()` method also allows you to split the contents of one column into several columns. To do this, see an example in the section "[Fixing Multiple Variables in One Column](#fixing-multiple-variables-in-one-column)".
+The `.apply()` method also allows you to split the contents of one column into several columns. To do this, see an example in the section "[Fixing Multiple Variables in One Column](06_Pandas_Tidy_Data.md#fixing-multiple-variables-in-one-column)" in [Pandas: Tidy Data][pandas-tidy].
 
 ## Missing Data
 

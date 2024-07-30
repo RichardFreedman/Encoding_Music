@@ -973,6 +973,7 @@ If you have different numbers of columns, but otherwise share column names, you 
 If your dataframes are quite different but share some common data, then you should merge.
 
 ### Merging Example
+
 We can merge the two Beatles data frame on the basis of some shared columns.  It is not necessary for the columns to have the same name, but they need to share the same items (like 'songs').
 
 * In this case the **song** column in the **Spotify data** corresponds to the **Title** column in the **Billboard data**
