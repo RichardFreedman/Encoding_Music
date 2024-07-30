@@ -449,4 +449,8 @@ for sample_name in sample_name_list:
     name_check(sample_name)
 ```
 
----
+### Lambda functions
+
+You may encounter code using the term `lambda`. This is a shorthand way for defining entire functions in a single line. While it is quicker to write, it is much harder to read and understand. For this reason, you'll mostly see functions defined using `def` in these tutorials. However, you are encouraged to learn more about Python `lambda` functions [here][lambda-functions].
+
+[lambda-functions]: https://www.w3schools.com/python/python_lambda.asp
