@@ -270,7 +270,8 @@ feature_to_groupby = 'Title' # <-- this is the original df column that will prov
 column_for_list_of_edges = 'Genre' # <-- this is the original df column that will contain the list of features that will become the nodes and edges
 
 # Group by 'feature_to_groupby' and extract a 'column_for_list_of_edges'
-grouped_feature_with_edges = df.groupby
+grouped_feature_with_edges = df.groupby(feature_to_groupby)[column_for_list_of_edges].unique().reset_index(name=column_for_list_of_edges)
+grouped_feature_with_edges
 ```
 
 </Details>
