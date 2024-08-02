@@ -36,6 +36,15 @@ from itertools import tee, combinations
 
 import numpy as np
 
+# set up for Jupyter Notebook on Server:
+
+import plotly.io as pio
+pio.renderers.default = "plotly_mimetype+notebook_connected"
+
+# supress warnings
+import warnings
+warnings.filterwarnings('ignore')
+
 ```
 
 ## A Simple Map with Two Places
