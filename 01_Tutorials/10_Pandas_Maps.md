@@ -217,7 +217,7 @@ You can specifiy ("hard code") these attributes as strings or lists with the `ma
 
 The order of the elements in the `color` list will be used according to the order in which our `lat` and `lon` values were determined.  So the length of these lists need to match!  As we will discover in the **From Dataframe to Map** section below, there is an easy way to manage all of this with Pandas!
 
-Also note that in this case we specify the colors by a simple English-language name.  But these could also be hex values, or even rbg tuples.  Plotly Express and Graph Objects include many built-in color scales; learn more [here](https://plotly.com/python/builtin-colorscales/).
+Also note that in this case we specify the colors by their English-language names.  But these could also be hex values, or even rbg tuples.  Plotly Express and Graph Objects include many built-in color scales; learn more [here](https://plotly.com/python/builtin-colorscales/).
 
 ```python
 # specifying marker size (same) and color (different)
@@ -265,6 +265,10 @@ As we will discover in the **From Dataframe to Map** section below, there is an 
 
 Perhaps you want to show some relationship between certain markers.  We can do this by modifying the `go.Figure(mode=)` object.  
 
+![alt text](maps_9.png)
+
+Here is how to do use `mode='markers+lines'`.
+
 ``` python
 # Create the map, and set the marker size
 fig = go.Figure(data=go.Scattermapbox(
@@ -281,8 +285,7 @@ In the case of a map with only two markers, it might be obvious that we want the
 
 Building up a complex map in the ways explained above would be tedious at best, and involve a lot of careful work to make sure that any custom sizes, colors, and connecting lines were done correctly.
 
-But there is a better way to do this:  populate your map coordinates and features from a **dataframe**, since this is where you can keep the coordinates and metadata in the same row. These
-individual rows will in turn be passed into the Plotly Graph Object to create the map.
+But there is a better way to do this:  populate your map coordinates and features from a **dataframe**, since it is likely that you will gathered your data in a JSON-like dictionary, and then enriched the data with various attributes (for instance, color, or size of each place). Provided that you have carefully checked the data for NANs or other irregularities, you can simply **pass each column to relevant Graph Object** and create the map.
 
 ### A Simple Example:  Two-College Dataframe
 
@@ -290,7 +293,7 @@ Let's return to the df created above:
 
 ![alt text](images/maps_3.png)
 
-Now let's pass each of these rows into the Plotly Graph Object. 
+Now let's pass each of these columns into the Plotly Graph Object. 
 
 - In this case the Graph Objects `lon` and `lat` take in tuples. We can do this with `df['Longitude'].values` and `df['Latitude'].values`.  Technically, these are numpy arrays, but Graph Objects interprets them as tuples.
 - Meanwhile the `hovertext` value for each marker is provided by the corresponding `Place` value in our dataframe.  Since this column is the same length as the `Latitude` and `Longtitude` columns, we know that the data will align.
@@ -313,6 +316,12 @@ fig = go.Figure(data=go.Scattermapbox(
 ))
 ```
 
+In this instance we are passing the `color` attributes as *a hard-coded list inside* the `Figure` dictionary.  But if our dataframe had contained a specific column for this attribute (or for the relative `size` of the marker [such as "endowment per student"], we could have used `size=df['endow_per_student'].values` and `color=df['color'].values`) to set these features, too.
+
+Setting **connecting lines** in this way, however, will not work, since the columns don't tell us which markers are connected with each other!
+
+For a solution to this problem, see the following example.
+
 ## A More Complex Example: Pairs of Related Places
 
 The **RILM Bio Card** project data assembles biographical information about musicians and musicologists who are cited in the RILM Abstracts and other databases. The BioCards contain information about places and dates of births and deaths for each person. How can we build a map that reveals useful connections among the persons in this set. Here we will consider the example of "Blues Guitarist", one of the 'roles' available via the RILM API.  
@@ -329,9 +338,9 @@ We could:
 - create a marker for the place of each musician's birth and death
 - connect those two places with a line
 - color the markers according to the name of the state in which they were born
-- populate the markers with 'hoverdata' to show their birth and death dates, as well as the names of the locations
+- add 'hoverdata' to the markers, to show the name, birth and death date of each musician associated with a given place, as well as the names of the locations themselves
 
-The result is revealing, for it shows some striking parallels as musicians from the Missisippi Delta mainly going to Chicago (and some to New York or Philadelphia), while musicians from East Texas and Oklahoma heading to the West Coast.  But of course there are some exceptions, since we also see (by hovering!) that Blind Lemon Jefferson also went from Texas to Chicago. 
+The result is revealing, for it shows some striking parallels as musicians from the Missisippi Delta mainly going to Chicago (and some to New York or Philadelphia), while musicians from East Texas and Oklahoma heading to the West Coast. But of course there are some exceptions, since we also see (by hovering!) that Blind Lemon Jefferson also went from Texas to Chicago. 
 
 Such patterns of migration follow similar trajectories among non-musicians, of course. But connections could be arrayed against other evidence about musical style and influence. 
 
@@ -432,7 +441,11 @@ Here are the columns we need:
 -   deathplace = 'd_place_uplvl1'
 -   color for markers and lines = 'color'
 
-We will pass these into our Graph Objects, and add the marker and lines as shown in the code below using the `iterrows` method from the **itertools** Python library.
+We will pass these into our Graph Objects, and add the marker and lines as shown in the code below using the `iterrows` method from the **itertools** Python library.  And this is how we add lines between each 'pair' of locations in each row.  We are adding the `mode='lines'` at the same time we create the pair of markers (each with their own latitude and longitude).  
+
+Our `df.iterrows()` object is a list, which we loop through, using each `row` but discarding a temporary variable `_` that we might otherwise have created with some kind of function in other contexts.  But we pass the data in each `row` to `fig.add_trace()` and build up the appropriate pairs and their attributes.
+
+Here is how we did it:
 
 ```python
 # create the figure
@@ -476,3 +489,4 @@ fig.update_layout(mapbox_style="open-street-map",
 fig.show()
 ```
 
+You can adapt this process for your own data, and make use of the many options for modifying the appearance and behavior of your map.
