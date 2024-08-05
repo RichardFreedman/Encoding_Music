@@ -105,7 +105,7 @@ def _search_entry_items_only(results, search_term):
     return results
 
 # this is the main search function.  Pass in term and `limit to top entries` choice
-def get_query_data(search_term, limit_to_top_entries=False):
+def get_query_data(search_term, limit_to_entries=False):
     """ Returns the results of an API query for the given search term """
     # query the API
     params = {
@@ -135,10 +135,10 @@ def get_query_data(search_term, limit_to_top_entries=False):
                                   'cat': 'category', 
                                   'full_acc': 'full_id'}, 
                        inplace=True)
-        if limit_to_top_entries:
+        if limit_to_entries:
             results = _search_entry_items_only(results, search_term)
             return results
-        elif not limit_to_top_entries:
+        elif not limit_to_entries:
             return results
     else:
         return(print("SORRY! There were no results for the folowing term: " + search_term))
@@ -173,7 +173,8 @@ Our `get_query_data` function takes in a search term and two optional lists:  se
 search_term = 'symphonies, no. 9, op. 125'
 year_list = None
 categories = None
-results = clean_query_data(get_query_data(search_term), year_list, categories)
+limit_to_entries=False
+results = clean_query_data(get_query_data(search_term, limit_to_entries), year_list, categories)
 ```
 
 The resulting dataframe is more than 5,000 lines long! Of course there does not mean there are 5,000 individual writings about the Ninth.  
@@ -210,10 +211,13 @@ These are the **year** of publication and a **RILM "item" number** for that year
 
 #### `entry` and `level` values
 
-Now we begin to understand how the data are organized.  Each 'row' corresponds to  *one level* of *one subject entry* for that article. And so if we further limit these results to only those where `ent` is 1, we will find a tiny dataframe that includes (in order) each of the successive "levels" (see the `lvl` colum for that entry).  
+Now we begin to understand how the data are organized.  Each 'row' corresponds to  *one level* of *one subject entry* for that article. And so if we further limit these results to only those where the `entry` is 1, we will find a tiny dataframe that includes (in order) each of the successive "levels" (see the `level` colum for that entry).  
 
 - An 'entry' can have more than one 'level'.  
 - A given 'level' can only belong to one 'entry'.
+
+
+
 
 <br>
 
@@ -231,6 +235,19 @@ entry_1
 Reading *down* the `level` column would allow us to reconstruct the entire subject entry:
 
 "Beethoven==>reception==>symphonies, no.9, op. 125==>relationship to 9/11 terrorist attacks"
+
+
+Note that by setting `limit_to_entries=True` we can constrain the results so that the only "entries" shown are those explicitly containing our given search term(s).
+
+```python
+search_term = 'symphonies, no. 9, op. 125'
+limit_to_entries=False
+results = clean_query_data(get_query_data(search_term, limit_to_entries))
+results
+```
+
+
+See other methods of constraining years and categories returned in the details below.
 
 
 #### Controlled Vocabulary:  the `id` Value
@@ -286,13 +303,14 @@ Of course with Pandas it is possible to filter our search results in all kinds o
 
 But we can also use our original functions to limit the data in the first place.   Here we 'sample' the years of so that we take only every fifth year in the range between 1980 and 2021 (remember that the end number in these range functions is _exclusive_, so if we want to include 2020 we will to put our upper limit as 2021).
 
-Meanwhile we also limit our search to only 
+Remember also that we can narrow our results at the time we call the `get_query_data()` by adding making `limit_to_entries=True`.  This will constrain the results so that the only "entries" shown are those explicitly containing our given search term(s).
 
 ```python
 search_term = 'symphonies, no. 9, op. 125'
 year_list = [*range(1980, 2021, 5)]
 categories = ['G', "N", "W", "T"]
-results = clean_query_data(get_query_data(search_term), year_list, categories)
+limit_to_entries=False
+results = clean_query_data(get_query_data(search_term, limit_to_entries), year_list, categories)
 results
 ```
 
@@ -1044,7 +1062,7 @@ def _search_entry_items_only(results, search_term):
     results = pd.concat(list_temp_results)
     return results
 
-def get_query_data(search_term, limit_to_top_entries=False):
+def get_query_data(search_term, limit_to_entries=False):
     """ Returns the results of an API query for the given search term """
     # query the API
     params = {
@@ -1074,10 +1092,10 @@ def get_query_data(search_term, limit_to_top_entries=False):
                                   'cat': 'category', 
                                   'full_acc': 'full_id'}, 
                        inplace=True)
-        if limit_to_top_entries:
+        if limit_to_entries:
             results = _search_entry_items_only(results, search_term)
             return results
-        elif not limit_to_top_entries:
+        elif not limit_to_entries:
             return results
     else:
         return(print("SORRY! There were no results for the folowing term: " + search_term))
