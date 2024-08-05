@@ -11,7 +11,6 @@ Comparison of three Beatles songs:
 | Eleanor Rigby	        | 0.280	    | 0.8130	| 0.581         |
 | When I'm Sixty Four   | 0.241	    | 0.6610	| 0.704         |
 | Back in the USSR	    | 0.969	    | 0.4940	| 0.480         |
-<br><br>
 </blockquote>
 
 # Computing Similarity
