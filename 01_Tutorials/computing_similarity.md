@@ -48,7 +48,7 @@ We can imagine each song as a point on a graph, with the x-value representing en
 
 > Note: We could choose any number of dimensions, but it is easiest to visualize a 2-dimensional graph
 
-**[VIZ: create axes and place points]**
+https://github.com/user-attachments/assets/14534fa3-4cfe-4dbc-b540-1e0968c0c658
 
 As the values of energy and valence change, the position of the point will change on the graph. If we draw a line from the origin to this point (a **vector**), we can also see that the changing energy and valence will change the **direction** one must travel from the origin to reach the point. Thus, we can use **direction** (measured as angles $ \theta $ and $ \phi $ from the horizontal) as a single value to compare two multi-faceted data points.
 
