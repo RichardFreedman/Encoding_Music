@@ -88,9 +88,24 @@ HEADERS = {
     "Authorization": f"Bearer {BEARER_TOKEN}"
 }
 
-# the api request function
 
-def get_query_data(search_term):
+# this helper allows us to limit the results to -top level- entries only
+def _search_entry_items_only(results, search_term):
+    # for items that match the search term, find pairs that represent the full_id and entry number to match the search
+    filtered_results_1 = results[results["term"] == search_term]
+    full_id_list = filtered_results_1['full_id'].to_list()
+    entry_number_list = filtered_results_1['entry'].to_list() 
+    item_entry_pairs = list(set((zip(full_id_list, entry_number_list))))
+    # for every pair, make a group of the rows that match the ID and Entry Number, then append just those rows to the final list
+    list_temp_results = []
+    for pair in item_entry_pairs:
+        temp_result = results[(results["full_id"].values == pair[0]) & (results["entry"].values == pair[1])]
+        list_temp_results.append(temp_result)
+    results = pd.concat(list_temp_results)
+    return results
+
+# this is the main search function.  Pass in term and `limit to top entries` choice
+def get_query_data(search_term, limit_to_top_entries=False):
     """ Returns the results of an API query for the given search term """
     # query the API
     params = {
@@ -109,10 +124,25 @@ def get_query_data(search_term):
     data = response.json()
     results = pd.DataFrame(data)
     results = results.fillna('')
+    if len(results) > 0:
     # # combines year and accession number to make unique id for each item
-    results['full_acc'] = results.ry.apply(str) + "-"  + results.ac.apply(str)
-    results.rename(columns = {'ry':'year', 'ac': 'item', 'ent' : 'entry', 'lvl': 'level', 'name': 'term', 'cat': 'category', 'full_acc': 'full_id'}, inplace=True)
-    return results
+        results['full_acc'] = results.ry.apply(str) + "-"  + results.ac.apply(str)
+        results.rename(columns = {'ry':'year', 
+                                  'ac': 'item', 
+                                  'ent' : 'entry', 
+                                  'lvl': 'level', 
+                                  'name': 'term', 
+                                  'cat': 'category', 
+                                  'full_acc': 'full_id'}, 
+                       inplace=True)
+        if limit_to_top_entries:
+            results = _search_entry_items_only(results, search_term)
+            return results
+        elif not limit_to_top_entries:
+            return results
+    else:
+        return(print("SORRY! There were no results for the folowing term: " + search_term))
+        return results
 
 # clean up column names and provide for a way to filter by year and categories of terms
 def clean_query_data(results, year_list, categories):
@@ -268,8 +298,121 @@ results
 
 There are 610 rows and 416 abstracts.
 
+## Multi-Term Search
 
-## Charts and Networks with RILM Data
+Here we show how to search for more than one term, then assemble the results into a single dataframe.
+
+
+```python
+# Set the search terms and other variables here
+search_terms = ['travel explorations', "explorers and travelers", "travel writings"]
+year_list = [*range(2000, 2024, 1)]
+categories = ["G", "T"]
+limit_to_entries = True
+network_file_name = "Tina's Travelogue"
+
+# iterate through the list and collect results as a list of dfs
+list_results = []
+for term in search_terms:
+    temp_results = get_query_data(term, limit_to_entries)
+    if temp_results is not None: 
+        results = clean_query_data(temp_results, year_list, categories)
+        list_results.append(results)
+
+# concatenate the list of final_results
+final_results = pd.concat(list_results)
+if len(final_results) < 1:
+    print("There were no results for any terms in your search")
+
+# print result
+else: 
+final_results
+```
+
+You can in turn pass these final results to the histogram method explained elsewhere in this tutorial:
+
+```python
+# histogram count
+num_hist_terms = 20
+# show network
+term_hist(final_results, num_terms=num_hist_terms)
+```
+
+Or show a network:
+
+```python
+# weights for network (1 is default)
+weight_threshold=1
+# name for 
+network_file_name = 'my_network'
+concept_map_name = network_file_name + ".html"
+create_concept_map(final_results, weight_threshold=weight_threshold).show(concept_map_name)
+
+```
+
+</Details>
+
+<br>
+
+## Author Search
+
+It is also possible to search RILM by **author** of the various articles and books.
+
+
+<Details>
+
+<Summary>One Author Search Code</Summary>
+
+```python
+def author_search(author_name):
+    
+    params = {
+            "authorName": author_name,
+            "includeAuthors": True
+        }
+
+    # and get the response
+    response = requests.get(
+        URLS["author"], 
+        headers=HEADERS, 
+        params=params
+    )
+
+    # get the data
+    data = response.json()
+    results = pd.DataFrame(data)
+    
+    if len(results) > 0:
+    # # combines year and accession number to make unique id for each item
+        results = results.fillna('')
+        results['full_acc'] = results.ry.apply(str) + "-"  + results.ac.apply(str)
+        results.rename(columns = {'ry':'year', 
+                                  'ac': 'item', 
+                                  'ent' : 'entry', 
+                                  'lvl': 'level', 
+                                  'name': 'term', 
+                                  'cat': 'category', 
+                                  'full_acc': 'full_id'}, inplace=True)
+        
+        
+        return results
+    else:
+        return(print("SORRY! There were no results for the folowing author: " + author_name))
+        return results
+```
+
+</Details>
+
+
+Here is how we would run an author search:
+
+```python
+my_author_results = author_search("Taruskin, Richard")
+```
+
+And of course we could filter or group these results in any way we like. Or pass them to the Charts and Networks methods explained below.  
+
+## Charts and Networks with RILM Data--Subject and Authors
 
 
 We can also render the results of our search in various kinds of charts and networks that will help us see the changing character of research.
@@ -362,9 +505,11 @@ Finally, we can also use networkX and Pyvis to create a revealing network of rel
 
 Note that in addition to filtering by years and categories, we also need to add a `weight_threshold` value, which represents the _proportion_ of that term among the graphed results.  1 is the default, but depending on how many results you return, this could be a very dense graph.
 
-Here we look at just the years between 2000 and 2004, in order to take a measure of where our Tregear article fits in:
+Here we look at just the years between 2000 and 2004, in order to take a measure of where our Tregear article fits in.
 
-
+- size of nodes = how many times that term appears
+- color of nodes = Place, Person, or Term
+- thickness of edges = how often those terms appear in the same item
 
 ```python
 search_term = 'symphonies, no. 9, op. 125'
@@ -456,15 +601,15 @@ def create_concept_map(results, weight_threshold=1):
 
     # create network
     G = nx.Graph()
-    # cmap = Network(notebook=True, width=1000, height = 800)
     
-    cmap = Network(notebook=True,
+    network_graph = net.Network(notebook=True,
                    width="1500px",
                           height="1500px",
                           bgcolor="black", 
                           font_color="white")
     # Set the physics layout of the network
-    cmap.set_options("""
+
+    network_graph.set_options("""
     {
     "physics": {
     "enabled": true,
@@ -484,14 +629,595 @@ def create_concept_map(results, weight_threshold=1):
     for pair, weight in weighted_plist:
 
         G.add_edge(pair[0], pair[1], value=weight, title=str(weight))
-    cmap.from_nx(G)
+    network_graph.from_nx(G)
     # return the network
-    
-    return cmap
+    return network_graph
 ```
 
 </Details>
 
 
+### One Author Graph
+
+It's possible to return the results for _all_ items by a particular author, then make a graph of these.  Here is how you would do it:
+
+```python
+# author
+author_name = "Vendrix, Philippe"
+results = author_search(author_name)
+one_author_graph(author_name, results)
+```
+
+You could begin with a _subject search_, then explore which authors seem most important to that topic with `results`['author'].value_counts()`.Remember that for still other refinement you could 'limit' the search to top-level entries for a broader view of the subject.
+
+From here you might choose to show a graph for just one author.  Here is how to do it:
+
+```python
+# select search term then author
+limit_to_entries = True
+search_term = "religion and religious music--Judaism"
+results = simple_search(search_term, limit_to_entries)
+
+# select author, and pass in their name and the results created above
+author_name = "Kosskoff, Ellen"
+one_author_graph(author_name, results)
+```
+
+Sample Results
+
+![alt text](../01_Tutorials/images/RILM_one_author_entries.png)
+
+<Details>
+
+<Summary> Code for One Author Graph</Summary>
+
+```python
+# This function removes pairs of terms that are just the same term 2x, 
+# or ones that are reverses of each other
+# it's used below
+def _clean_pairs(list_of_pairs): 
+    pairs_no_reverse = [] 
+    pairs_cleaned = []
+    for item in list_of_pairs: 
+        if set(item) not in pairs_no_reverse: 
+            pairs_no_reverse.append(set(item))
+    for pair in pairs_no_reverse:
+        if len(set(pair)) > 1:
+            pairs_cleaned.append(pair)
+    pairs_cleaned = [tuple(s) for s in pairs_cleaned]
+    return pairs_cleaned
+
+# this function gets the top terms for the given author, along with counts and groups
+# the returned values are then used to create nodes (the terms) and the edges (the pairs of terms)
+def _get_author_terms_and_values(author_name, results):
+    # select the author
+    selected_results = results[results['author'] == author_name]
+    # a dictionary of the nodes and their counts
+    term_node_values = selected_results['term'].value_counts().to_dict()
+    # limiting the dictionary to counts above X (5, for instance), in order to avoid a dense graph
+    top_term_node_values = {key: value for (key, value) in term_node_values.items() if value > 2 }
+    # and just the keys of that subset
+    top_keys = top_term_node_values.keys()
+    # now narrow the results so that we only see the top keys for our author
+    top_keys_for_author = selected_results[selected_results['term'].isin(top_keys)]
+    # and group them according to the bibliographical item and terem
+    author_terms_grouped = top_keys_for_author.groupby(['full_id'])['term'].apply(list).reset_index()
+    return author_terms_grouped, top_keys, top_term_node_values
+
+def _get_pairs(author_terms_grouped): 
+    pairs = author_terms_grouped['term'].apply(lambda x: list(combinations(x, 2)))
+    unique_pairs = pairs.explode().dropna().unique()
+    final_pairs = _clean_pairs(unique_pairs)
+    return final_pairs
+
+def add_communities(G):
+    G = deepcopy(G)
+    partition = community_louvain.best_partition(G)
+    nx.set_node_attributes(G, partition, "group")
+    return G
+
+# Initialize size and color
+
+def one_author_graph(author_name, results):
+    author_terms_and_values = _get_author_terms_and_values(author_name, results)
+    author_terms = author_terms_and_values[1]
+    author_term_values = author_terms_and_values[2]
+    author_terms_grouped = author_terms_and_values[0]
+    final_pairs = _get_pairs(author_terms_grouped)
+    network_graph = net.Network(notebook=True, width="1800", 
+                          height="600", 
+                          bgcolor="black", 
+                          font_color="white")
+    G = nx.Graph()
+
+    # add nodes, and sizes, one at a time
+    for node in author_terms:
+        G.add_node(node, size=author_term_values[node])
+    # add the edges
+        G.add_edges_from(final_pairs)
+    # visualize with pyvis
+    G = add_communities(G)
+
+    # update physics
+    network_graph.set_options("""
+    {
+    "physics": {
+    "enabled": true,
+    "forceAtlas2Based": {
+        "springLength": 1
+    },
+    "solver": "forceAtlas2Based"
+    }
+    }
+    """)
+    
+    network_graph.from_nx(G)
+    html_file_name = author_name + " graph.html"
+
+
+    display(network_graph.show(html_file_name))  
+```
+
+</Details>
+
+
+<br>
+
+## Network Authors
+
+- Here we find terms shared by several authors.  The authors become the nodes.  The shared terms become the edges.
+- There can be hundreds (even thousands) of authors for a given initial search.  One way to limit the number of nodes is to return only authors who are prominent in a given field.  This is the `author_impact_ratio`.  
+- Thus number could vary, from <b>1.0</b> (which means that you will authors whose work represents 1% or more of the field) for a field with lots of authors to  <b>0.3</b> or less (which means their work is 0.3% of the total.  We find this by counting the total number of authors and total number of unique articles/books, and the total per author.  The latter pair provides a ratio.
+- You also need to provide a name for the graph.  This can be anything meaningful to you!
+
+Sample usage:
+
+```python
+# select search term
+search_term = "religion and religious music--Judaism"
+author_impact_ratio = 0.7
+results = simple_search(search_term)
+graph_name = "jewish studies authors"
+
+graph_author_communities(results, author_impact_ratio, graph_name)
+```
+
+Sample Network:
+
+![alt text](../01_Tutorials/images/rilm_author_comm.png)
+
+
+## All the RILM Functions Code
+
+Get all the functions here.
+
+<Details>
+
+```python
+# a function to deal with pairs
+def pairwise(iterable):
+    "s -> (s0,s1), (s1,s2), (s2, s3), ..."
+    a, b = tee(iterable)
+    next(b, None)
+    return tuple(zip(a, b))
+
+def author_search(author_name):
+    
+    params = {
+            "authorName": author_name,
+            "includeAuthors": True
+        }
+
+    # and get the response
+    response = requests.get(
+        URLS["author"], 
+        headers=HEADERS, 
+        params=params
+    )
+
+    # get the data
+    data = response.json()
+    results = pd.DataFrame(data)
+    
+    if len(results) > 0:
+    # # combines year and accession number to make unique id for each item
+        results = results.fillna('')
+        results['full_acc'] = results.ry.apply(str) + "-"  + results.ac.apply(str)
+        results.rename(columns = {'ry':'year', 
+                                  'ac': 'item', 
+                                  'ent' : 'entry', 
+                                  'lvl': 'level', 
+                                  'name': 'term', 
+                                  'cat': 'category', 
+                                  'full_acc': 'full_id'}, inplace=True)
+        
+        
+        return results
+    else:
+        return(print("SORRY! There were no results for the folowing author: " + author_name))
+        return results
+
+def simple_search(search_term, limit_to_entries=False):
+    
+    params = {
+            "termName": search_term,
+            "includeAuthors": True
+        }
+
+    # and get the response
+    response = requests.get(
+        URLS["index"], 
+        headers=HEADERS, 
+        params=params
+    )
+
+    # get the data
+    data = response.json()
+    results = pd.DataFrame(data)
+    
+    if len(results) > 0:
+    # # combines year and accession number to make unique id for each item
+        results = results.fillna('')
+        results['full_acc'] = results.ry.apply(str) + "-"  + results.ac.apply(str)
+        results.rename(columns = {'ry':'year', 
+                                  'ac': 'item', 
+                                  'ent' : 'entry', 
+                                  'lvl': 'level', 
+                                  'name': 'term', 
+                                  'cat': 'category', 
+                                  'full_acc': 'full_id'}, inplace=True)
+        
+        if limit_to_entries:
+            results = _search_entry_items_only(results, search_term)
+            return results
+        elif not limit_to_entries:
+            return results
+    else:
+        return(print("SORRY! There were no results for the folowing term: " + search_term))
+        return results
+    
+# This function removes pairs of terms that are just the same term 2x, 
+# or ones that are reverses of each other
+# it's used below
+def _clean_pairs(list_of_pairs): 
+    pairs_no_reverse = [] 
+    pairs_cleaned = []
+    for item in list_of_pairs: 
+        if set(item) not in pairs_no_reverse: 
+            pairs_no_reverse.append(set(item))
+    for pair in pairs_no_reverse:
+        if len(set(pair)) > 1:
+            pairs_cleaned.append(pair)
+    pairs_cleaned = [tuple(s) for s in pairs_cleaned]
+    return pairs_cleaned
+
+# this function gets the top terms for the given author, along with counts and groups
+# the returned values are then used to create nodes (the terms) and the edges (the pairs of terms)
+def _get_author_terms_and_values(author_name, results):
+    # select the author
+    selected_results = results[results['author'] == author_name]
+    # a dictionary of the nodes and their counts
+    term_node_values = selected_results['term'].value_counts().to_dict()
+    # limiting the dictionary to counts above X (5, for instance), in order to avoid a dense graph
+    top_term_node_values = {key: value for (key, value) in term_node_values.items() if value > 2 }
+    # and just the keys of that subset
+    top_keys = top_term_node_values.keys()
+    # now narrow the results so that we only see the top keys for our author
+    top_keys_for_author = selected_results[selected_results['term'].isin(top_keys)]
+    # and group them according to the bibliographical item and terem
+    author_terms_grouped = top_keys_for_author.groupby(['full_id'])['term'].apply(list).reset_index()
+    return author_terms_grouped, top_keys, top_term_node_values
+
+def _get_pairs(author_terms_grouped): 
+    pairs = author_terms_grouped['term'].apply(lambda x: list(combinations(x, 2)))
+    unique_pairs = pairs.explode().dropna().unique()
+    final_pairs = _clean_pairs(unique_pairs)
+    return final_pairs
+
+def add_communities(G):
+    G = deepcopy(G)
+    partition = community_louvain.best_partition(G)
+    nx.set_node_attributes(G, partition, "group")
+    return G
+
+# Initialize size and color
+
+def one_author_graph(author_name, results):
+    author_terms_and_values = _get_author_terms_and_values(author_name, results)
+    author_terms = author_terms_and_values[1]
+    author_term_values = author_terms_and_values[2]
+    author_terms_grouped = author_terms_and_values[0]
+    final_pairs = _get_pairs(author_terms_grouped)
+    network_graph = net.Network(notebook=True, width="1800", 
+                          height="600", 
+                          bgcolor="black", 
+                          font_color="white")
+    G = nx.Graph()
+
+    # add nodes, and sizes, one at a time
+    for node in author_terms:
+        G.add_node(node, size=author_term_values[node])
+    # add the edges
+        G.add_edges_from(final_pairs)
+    # visualize with pyvis
+    G = add_communities(G)
+
+    # update physics
+    network_graph.set_options("""
+    {
+    "physics": {
+    "enabled": true,
+    "forceAtlas2Based": {
+        "springLength": 1
+    },
+    "solver": "forceAtlas2Based"
+    }
+    }
+    """)
+    
+    network_graph.from_nx(G)
+    html_file_name = author_name + " graph.html"
+
+
+    display(network_graph.show(html_file_name))  
+
+def _author_pairs(results, author_impact_ratio):
+#     author_impact_ratio = author_impact_ratio # <== put your ratio here .3 is about right to start.
+    # a dictionary of the nodes and their counts
+    author_node_values = results['author'].value_counts().to_dict()
+    # find number of unique writings
+    number_unique_ids = results['full_id'].nunique()
+    # dictionary that tells us how many items each author wrote
+    items_per_author = results.groupby(['author'])['full_id'].nunique().to_dict()
+    # finding the 'top' authors, according to author_impact_ratio set above
+    top_authors = []
+    author_ratios = {}
+    for author in items_per_author.items():
+        author_ratio = (author[1]/number_unique_ids)*100
+        author_ratios.update({author[0]:author_ratio})
+        if author_ratio > author_impact_ratio:
+            top_authors.append(author[0])
+    # now narrow the results so that we only see the top keys for our author
+    items_for_top_authors = results[results['author'].isin(top_authors)]
+    # and group them:  for each 'term' in the results, make a list of authors connected with that term
+    authors_by_term = items_for_top_authors.groupby(['term'])['author'].apply(list).reset_index()
+    # create pairs for edges
+    pairs = authors_by_term['author'].apply(lambda x: list(combinations(x, 2)))
+    unique_pairs = pairs.explode().dropna().unique()
+    final_author_pairs = _clean_pairs(unique_pairs)
+    return top_authors, final_author_pairs, author_ratios
+    
+    
+def _add_author_communities(G):
+    G = deepcopy(G)
+    partition = community_louvain.best_partition(G)
+    nx.set_node_attributes(G, partition, "group")
+    return G
+
+# Initialize size and color
+def graph_author_communities(results, author_impact_ratio, graph_name):
+    top_author_pairs_and_names = _author_pairs(results, author_impact_ratio)
+    top_authors = top_author_pairs_and_names[0]
+    top_author_pairs = top_author_pairs_and_names[1]
+    author_ratios = top_author_pairs_and_names[2]
+    network_graph = net.Network(notebook=True, width="1800", 
+                          height="800", 
+                          bgcolor="black", 
+                          font_color="white")
+    G = nx.Graph()
+
+    # add nodes, and sizes, one at a time
+    for node in top_authors:
+        G.add_node(node, size=(author_ratios[node]*25))
+    # add the edges
+        G.add_edges_from(top_author_pairs)
+    # visualize with pyvis
+    G = _add_author_communities(G)
+    
+    # update physics for legibility
+    network_graph.set_options("""
+    {
+    "physics": {
+    "enabled": true,
+    "forceAtlas2Based": {
+        "springLength": 1
+    },
+    "solver": "forceAtlas2Based"
+    }
+    }
+    """)
+    network_graph.from_nx(G)
+
+    display(network_graph.show(graph_name + "_graph.html"))    
+
+def _search_entry_items_only(results, search_term):
+    # for items that match the search term, find pairs that represent the full_id and entry number to match the search
+    filtered_results_1 = results[results["term"] == search_term]
+    full_id_list = filtered_results_1['full_id'].to_list()
+    entry_number_list = filtered_results_1['entry'].to_list() 
+    item_entry_pairs = list(set((zip(full_id_list, entry_number_list))))
+    # for every pair, make a group of the rows that match the ID and Entry Number, then append just those rows to the final list
+    list_temp_results = []
+    for pair in item_entry_pairs:
+        temp_result = results[(results["full_id"].values == pair[0]) & (results["entry"].values == pair[1])]
+        list_temp_results.append(temp_result)
+    results = pd.concat(list_temp_results)
+    return results
+
+def get_query_data(search_term, limit_to_top_entries=False):
+    """ Returns the results of an API query for the given search term """
+    # query the API
+    params = {
+        "termName": search_term,
+        "includeAuthors": True
+    }
+
+    # and get the response
+    response = requests.get(
+        URLS["index"], 
+        headers=HEADERS, 
+        params=params
+    )
+
+    # get the data
+    data = response.json()
+    results = pd.DataFrame(data)
+    results = results.fillna('')
+    if len(results) > 0:
+    # # combines year and accession number to make unique id for each item
+        results['full_acc'] = results.ry.apply(str) + "-"  + results.ac.apply(str)
+        results.rename(columns = {'ry':'year', 
+                                  'ac': 'item', 
+                                  'ent' : 'entry', 
+                                  'lvl': 'level', 
+                                  'name': 'term', 
+                                  'cat': 'category', 
+                                  'full_acc': 'full_id'}, 
+                       inplace=True)
+        if limit_to_top_entries:
+            results = _search_entry_items_only(results, search_term)
+            return results
+        elif not limit_to_top_entries:
+            return results
+    else:
+        return(print("SORRY! There were no results for the folowing term: " + search_term))
+        return results
+
+
+def clean_query_data(results, year_list, categories):
+    """
+    Cleans the query results for a given a search term, list of years, and list of categories
+    results : pandas dataframe containing the results from the API query
+    year : list of ints
+    category : list of strings
+    """
+    # parse results for corresponding entries
+    if year_list is not None:
+        results = results[results['year'].isin(year_list)]
+    if categories is not None:
+        # results = results[results['category'] == category]
+        results = results[results['category'].isin(categories)]
+    results = results.drop_duplicates(['term', 'full_id'])
+    return results
+
+
+def create_concept_map(results, weight_threshold=1):
+    """
+    Creates a concept map given cleaned query results
+    results : pandas dataframe containing the results from the API query cleaned for a given a search term, list of 
+                years, and list of categories
+    """
+    
+    # get dictionary with key=full_id, value=list of unique terms
+    terms_dict = {}
+
+    past_id = results.iloc[0]['full_id']
+    terms_list = []
+    for index, row in results.iterrows():
+        curr_id = row['full_id']
+        if curr_id == past_id:
+            terms_list.append(row['term'])
+        else:
+            terms_dict[past_id] = terms_list
+            past_id = curr_id
+            terms_list = [row['term']]
+    terms_dict[past_id] = terms_list
+
+    # get list of all combinations of pairs for each entry
+    pairs_list = []
+    for key, value in terms_dict.items():
+        pairs_list += list(combinations(value, 2))
+        
+    # get edge weights and unique nodes
+    for i, p in enumerate(pairs_list):
+        pairs_list[i] = tuple(sorted(p))
+        
+    if weight_threshold == 0:
+        weighted_plist = [[elem, count] for elem, count, in Counter(pairs_list).items() if count >= weight_threshold]
+        nodes = results['term'].unique()
+    else:
+        nodes = set()
+        weighted_plist = []
+        for ele, count in Counter(pairs_list).items():
+            if count >= weight_threshold:
+                weighted_plist.append([ele, count])
+                if weight_threshold > 0:
+                    nodes.add(ele[0])
+                    nodes.add(ele[1])
+                    
+    # get the information about each unique node [category, list of years, number of years]
+    nodes_dict = {}
+    for node in nodes:
+        node_info = []
+        node_info.append(results[results['term'] == node]['category'].unique()[0])
+        node_info.append(results[results['term'] == node]['year'].unique())
+        node_info.append(len(node_info[1]))
+        nodes_dict[node] = node_info
+
+    # create network
+    G = nx.Graph()
+    
+    network_graph = net.Network(notebook=True,
+                   width="1500px",
+                          height="1500px",
+                          bgcolor="black", 
+                          font_color="white")
+    # Set the physics layout of the network
+
+    network_graph.set_options("""
+    {
+    "physics": {
+    "enabled": true,
+    "forceAtlas2Based": {
+        "springLength": 1
+    },
+    "solver": "forceAtlas2Based"
+    }
+    }
+    """)
+    
+    for name, info in nodes_dict.items():
+        years = f"years: {*info[1],}"
+        
+        G.add_node(name, value=info[2], group=info[0], title=years)
+        
+    for pair, weight in weighted_plist:
+
+        G.add_edge(pair[0], pair[1], value=weight, title=str(weight))
+    network_graph.from_nx(G)
+    # return the network
+    return network_graph
+
+def term_hist(cleaned_df, num_terms=5):
+    """Creates, shows, and returns a histogram showing the number of times each term appears in the DataFrame using Plotly Express.
+    
+    @param cleaned_df: the cleaned DataFrame to count the term occurrences in
+    @param num_terms: the number of terms to show on the histogram
+    @return: the Plotly figure object of the histogram
+    """
+    # Count the occurrences of each term
+    counts = dict(cleaned_df['term'].value_counts())
+    # Create a DataFrame from the counts
+    counts_frame = pd.DataFrame({'term': counts.keys(), 'occurences': counts.values()})
+    # Sort the DataFrame by the number of occurrences in descending order
+    counts_frame = counts_frame.sort_values(by='occurences', ascending=False)
+    # Limit the DataFrame to the top num_terms terms
+    counts_frame = counts_frame.head(num_terms)
+    
+    # Create the bar chart using Plotly Express
+    fig = px.bar(counts_frame, x='term', y='occurences', title='Number of Occurences of Terms')
+    
+    # Update the layout to make the plot vertical and place the legend at the side
+    fig.update_layout(
+        legend=dict(orientation="v", yanchor="top", y=1.1, xanchor="right", x=1),
+        autosize=True,
+        margin=dict(l=50, r=50, t=50, b=100),
+        height=600
+    )
+    fig.show()
+    
+    return fig
+
+</Details>
 
 
