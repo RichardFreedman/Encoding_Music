@@ -255,30 +255,8 @@ else:
 final_results
 ```
 
-You can in turn pass these final results to the histogram method explained elsewhere in this tutorial:
+You can in turn pass these final results to the **histogram**, **scatterplot**, or **network**, as explained elsewhere in this tutorial.
 
-```python
-# histogram count
-num_hist_terms = 20
-# show network
-term_hist(final_results, num_terms=num_hist_terms)
-```
-
-Or show a network:
-
-```python
-# weights for network (1 is default)
-weight_threshold=1
-# name for 
-network_file_name = 'my_network'
-concept_map_name = network_file_name + ".html"
-create_concept_map(final_results, weight_threshold=weight_threshold).show(concept_map_name)
-
-```
-
-</Details>
-
-<br>
 
 ## Author Search
 
@@ -299,12 +277,16 @@ search_term = 'symphonies, no. 9, op. 125'# the search term
 year_list = [*range(2000, 2024, 1)] # set year range
 categories = ['G', "N", "W", "T"] # select categories
 num_hist_terms = 20 # number of terms to show in histogram
-
+title="Beethoven's Ninth in RILM" # title of the chart
 # get results 
 results = clean_query_data(get_query_data(search_term), year_list, categories)
 
 # make the chart
-term_hist(results, num_terms=num_hist_terms)
+term_hist(results, num_terms=num_hist_terms, title)
+
+
+(Note that it is also possible to adjust the size of the chart by passing in height=800 and width=800 [for example]).
+
 ```
 
 <br>
@@ -329,6 +311,35 @@ In these we can see the rise of terms like 'reception' and the relative decline 
 <br>
 
 
+### Scatter Plot of Terms over Time
+
+The `scatter_plot` function in our library will create an interesting representation of a topic over time:
+
+
+![alt text](../01_Tutorials/images/rilm_scatter.png)
+
+Here is how we do it:
+
+```python
+search_term = 'symphonies, no. 9, op. 125' # search term
+year_list = [*range(1980, 2021, 1)] # year list
+categories = ["T"] # term category list
+limit_to_entries=False # option to filter to 'levels' containing your term only
+results = clean_query_data(get_query_data(search_term, limit_to_entries), year_list, categories)
+# rename for safety
+final_results = results
+# show scatterplot
+term_threshold = 10 # higher = more important; lower = less important
+legend = False # show or hide list of authors at right
+title = "Beethoven's Ninth in RILM" # title of the chart
+scatter_plot(final_results, term_threshold=term_threshold, legend=legend, title=title)
+```
+
+(Note that it is also possible to adjust the size of the chart by passing in height=800 and width=800 [for example]).
+
+
+<br>
+
 ### A Network of Concepts, People, Places, and Works
 
 Finally, we can also use **networkX** and **Pyvis** to create a revealing network of related terms (learn more about Network theory [here](https://github.com/RichardFreedman/Encoding_Music/blob/main/01_Tutorials/09_Pandas_Networks.md)). 
@@ -346,11 +357,11 @@ Here we look at just the years between 2000 and 2004, in order to take a measure
 - thickness of edges = how often those terms appear in the same item
 
 ```python
-search_term = 'symphonies, no. 9, op. 125'
-year_list = [*range(2000, 2005, 1)]
-categories = ['G', "N", "W", "T"]
-weight_threshold=2
-concept_map_name = "concept_map.html"
+search_term = 'symphonies, no. 9, op. 125' # search term
+year_list = [*range(2000, 2005, 1)]  # year list
+categories = ['G', "N", "W", "T"] # RILM term category list
+weight_threshold=2 # relative 'impact' of that term in the results
+concept_map_name = "concept_map.html" # name of your graph file when saved
 
 results = clean_query_data(get_query_data(search_term), year_list, categories)
 create_concept_map(results, weight_threshold=weight_threshold).show(concept_map_name)
@@ -391,14 +402,14 @@ From here you might choose to show a graph for just one author.  Here is how to 
 
 ```python
 # select search term,  then author
-limit_to_entries = True
-year_list = None
-categories = None
-search_term = "religion and religious music--Judaism"
+limit_to_entries = True # limits to 'level' items that include the search term
+year_list = None # list to limit by year
+categories = None # list to RILM term categories
+search_term = "religion and religious music--Judaism" # the search term
 results = clean_query_data(get_query_data(search_term), year_list, categories)
 
 # select author, and pass in their name and the results created above
-author_name = "Kosskoff, Ellen"
+author_name = "Kosskoff, Ellen" # the author's name
 one_author_graph(author_name, results)
 ```
 
@@ -420,13 +431,13 @@ Sample usage:
 
 ```python
 # select search term
-search_term = "religion and religious music--Judaism"
-limit_to_entries = True
-year_list = None
-categories = None
-author_impact_ratio = 0.7
+search_term = "religion and religious music--Judaism" # the search term
+limit_to_entries = True # option to limit to level items containing your search term
+year_list = None # limit to list of years
+categories = None # limit to list of RILM term categories
+author_impact_ratio = 0.7 # relative 'impact' of authors shown (higher means fewer authors displayed)
 results = clean_query_data(get_query_data(search_term), year_list, categories)
-graph_name = "jewish studies authors"
+graph_name = "jewish studies authors" # name for saved graph file
 
 graph_author_communities(results, author_impact_ratio, graph_name)
 ```
@@ -852,11 +863,12 @@ def create_concept_map(results, weight_threshold=1):
     for pair, weight in weighted_plist:
 
         G.add_edge(pair[0], pair[1], value=weight, title=str(weight))
+    
     network_graph.from_nx(G)
     # return the network
     return network_graph
 
-def term_hist(cleaned_df, num_terms=5):
+def term_hist(cleaned_df, num_terms=5, height=600, width=800, title=None):
     """Creates, shows, and returns a histogram showing the number of times each term appears in the DataFrame using Plotly Express.
     
     @param cleaned_df: the cleaned DataFrame to count the term occurrences in
@@ -873,18 +885,50 @@ def term_hist(cleaned_df, num_terms=5):
     counts_frame = counts_frame.head(num_terms)
     
     # Create the bar chart using Plotly Express
-    fig = px.bar(counts_frame, x='term', y='occurences', title='Number of Occurences of Terms')
+    fig = px.bar(counts_frame, x='term', y='occurences', title=title)
     
     # Update the layout to make the plot vertical and place the legend at the side
     fig.update_layout(
         legend=dict(orientation="v", yanchor="top", y=1.1, xanchor="right", x=1),
         autosize=True,
         margin=dict(l=50, r=50, t=50, b=100),
-        height=600
+        height=height,
+        width=width,
+        title=title
     )
     fig.show()
     
     return fig
+
+# scatter plot shows terms over time
+def scatter_plot(final_results, term_threshold=5, legend=True, height=600, width=800, title=None):
+    # Filter out terms appearing less frequently than term_threshold
+    filtered_df = final_results.groupby('term').filter(lambda x: len(x) > term_threshold)
+    
+    # Calculate the size of markers based on term occurrence per year
+    value_counts = filtered_df.groupby(['term', 'year']).size().reset_index(name='marker_size')
+    
+    # Merge filtered_df with value_counts to ensure marker_size is correctly aligned
+    filtered_df = pd.merge(filtered_df, value_counts, on=['term', 'year'], how='left')
+    
+    # Create scatter plot
+    fig_scatter = px.scatter(filtered_df,
+                             x='year', y='term',
+                             hover_data=['author'],
+                             color='author',
+                             labels={'term': "Term", "author": "Author", "year": "Publication Year"},
+                             size='marker_size',
+                             height=height,
+                             width=width,
+                             title=title)
+    
+    # Customize layout
+    fig_scatter.update_layout(height=800)
+    fig_scatter.update_layout(showlegend=legend)
+    fig_scatter.update_yaxes(categoryorder='category descending')
+    
+    # Show plot
+    fig_scatter.show()
 
 </Details>
 
