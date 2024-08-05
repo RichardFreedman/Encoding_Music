@@ -30,9 +30,9 @@ Imagine we want to compare these three songs. The simplest way to compare the so
 | When I'm Sixty Four   | 0.241	    |
 | Back in the USSR	    | 0.969	    |
 
-We can do this visually using a bar chart:
+We can do this visually using a bar chart: **[TODO: replace with static image. This is just a demonstration of video capability!]**
 
-**[VIZ: bar chart comparing energy]**
+https://github.com/user-attachments/assets/ec51b419-a149-4a92-b366-a2d15b16c0fa
 
 We could evaluate similarity in a few ways, like finding the difference in energy between two songs, or the ratio of energy - none too complicated.
 
@@ -128,9 +128,9 @@ Let's now compare When I'm Sixty Four and Back in the USSR.
 
 The cosine similarity of these tracks is `0.732`. This differs slightly from the ERY-BUR comparison, but by a tiny amount. Why is this?
 
-When we use cosine similarity, we represent each song as a vector, and then compare the **directions** of these vectors. However, this ignores the second aspect of vectors: their **magnitude**, or how long they are. We can see this even more clearly when comparing ERY and WSF. We have to zoom in to even see the angle between them!
+When we use cosine similarity, we represent each song as a vector, and then compare the **directions** of these vectors. However, this ignores the second aspect of vectors: their **magnitude**, or how long they are. We can see this even more clearly when comparing ERY and WSF. We have to zoom in to even see the angle between them! **[TODO: replace video with updated version if necessary]**
 
-**[VIZ: angle between ERY and WSF, w/ cosine similarity]**
+https://github.com/user-attachments/assets/ec329b3d-5807-432c-8bbb-2413d6bc2a88
 
 Despite having somewhat different vectors, Eleanor Rigby and When I'm Sixty Four have a cosine similarity of `0.999`.
 
