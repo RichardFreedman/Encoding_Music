@@ -1,12 +1,6 @@
-# Computing Similarity
-
-As we work with data, making **comparisons** is a common occurence. For instance, in our Beatles data, we may want to compare two songs. We can make comparisons of varying complexity. We can simply compare two songs based on one attribute, like "valence". But it is also possible to compute similarity based on several attributes at once. This tutorial will explain two key methods for computing similarity, **cosine similarity** and **Euclidean distance**, and provide code examples for computing each.
-
-## Cosine Similarity
-
 <blockquote>
 
-### Draft Notes
+### Draft Notes (for use while creating)
 Comparison of three Beatles songs:
 - Eleanor Rigby
 - When I'm Sixty Four
@@ -17,15 +11,14 @@ Comparison of three Beatles songs:
 | Eleanor Rigby	        | 0.280	    | 0.8130	| 0.581         |
 | When I'm Sixty Four   | 0.241	    | 0.6610	| 0.704         |
 | Back in the USSR	    | 0.969	    | 0.4940	| 0.480         |
-
-At first, compare just 1 attribute: energy
-- ERY: 0.280
-- WSF: 0.241
-- BUR: 0.969
-
-ERY and WSF are quite similar, whereas BUR is quite different. Easy to tell using **bar chart**.
 <br><br>
 </blockquote>
+
+# Computing Similarity
+
+As we work with data, making **comparisons** is a common occurence. For instance, in our Beatles data, we may want to compare two songs. We can make comparisons of varying complexity. We can simply compare two songs based on one attribute, like "valence". But it is also possible to compute similarity based on several attributes at once. This tutorial will explain two key methods for computing similarity, **cosine similarity** and **Euclidean distance**, and provide code examples for computing each.
+
+## Cosine Similarity
 
 Let's consider three songs from our Beatles spotify dataset: Eleanor Rigby, When I'm Sixty Four, and Back in the USSR. For the purposes of this tutorial, these may be abbreviated as ERY, WSF, and BUR, respectively.
 
