@@ -442,7 +442,26 @@ Get all the functions here and add them to your notebook.
 
 <Details>
 
+
+
 ```python
+
+
+BASE = "https://api-ibis.rilm.org/200/haverford/"
+
+# this will need to be supplied for authorized user
+BEARER_TOKEN="my_secret"  # replace with real token
+
+URLS = {
+    "year": BASE + "rilm_index_RYs",
+    "terms": BASE + "rilm_index_top_terms",
+    "index": BASE + "rilm_index",
+    "author" : BASE + "rilm_index_by_author"
+}
+
+HEADERS = {
+    "Authorization": f"Bearer {BEARER_TOKEN}"
+}
 # a function to deal with pairs
 def pairwise(iterable):
     "s -> (s0,s1), (s1,s2), (s2, s3), ..."
