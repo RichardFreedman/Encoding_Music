@@ -8,7 +8,7 @@ The **Global Jukebox** (https://www.theglobaljukebox.org/) builds on the work of
 
 As a scholar and archivisit, Lomax formulated a rich scheme for the systematic study of musical style and context:  [Cantometrics](https://en.wikipedia.org/wiki/Cantometrics), which seeks to catalog the diversity of human musical expression through patterns of melody, rhythm, sound ideal, and (especially) social organization and purpose.  Judged by today's methods in ethnography (which often explain musical expression through its particularity), Lomax and his collaborators were curious to know the *universals* of human expression--the ways in which similar social structures (egalatarian, or not) might give rise to similar musical structures (preferences for certain kinds of interplay, or sounds).  
 
-Lomax's work continues through the **[Cultural Equity](https://www.culturalequity.org/)** project, which is directed by his daughter, Anna Lomax, through the **[Alan Lomax Collection and Archive](https://www.loc.gov/collections/alan-lomax-manuscripts/about-this-collection/)** (a vast repository of recordings and writings, now at the Library of Congress), and  **[The Global Jukebox](https://theglobaljukebox.org/)**, a digital project created by folks at Cultural Equity that aims to explore the sonic archive he created through the lens of the various geographical, cultural, and musical facets that Lomax cataloged.  Theirs is truly a global vision of musical style.
+Lomax's work continues through the **[Cultural Equity](https://www.culturalequity.org/)** project, which is directed by his daughter, Anna Lomax Wood, through the **[Alan Lomax Collection and Archive](https://www.loc.gov/collections/alan-lomax-manuscripts/about-this-collection/)** (a vast repository of recordings and writings, now at the Library of Congress), and  **[The Global Jukebox](https://theglobaljukebox.org/)**, a digital project created by folks at Cultural Equity that aims to explore the sonic archive he created through the lens of the various geographical, cultural, and musical facets that Lomax cataloged.  Theirs is truly a global vision of musical style.
 
 
 ![alt text](../01_Tutorials/images/gjb_4.png)
@@ -21,15 +21,13 @@ You will need to **create a login with GJ** for the best results.
 
 ![alt text](../01_Tutorials/images/gjb_2.png)
 
-As you will learn, there are many ways for you to explore this site, as you search by cultural group, musical genre, or place.  These in turn lead to you find connections among disparate group, and think about the ways in which social and musical forms interact with each other.
+As you will learn, there are many ways for you to explore this site, as you search by cultural group, musical genre, or place.  These in turn lead to you find connections among disparate groups, and think about the ways in which social and musical forms interact with each other.
 
 It's important to understand that the recordings assembled here were collected over many decades, and indeed many of them are many decades old (they represent, after all, Lomax's own journeys, and are often the same ones he included on the famous *Smithsonian Folkways* recording series (we own many of these here in the Harris Music Library) he directed).  They definitely don't represent _all_ musical traditions, nor do they represent current-day trends in commerical popular music, much less the extremely rapid hybridization of forms and practices we witness in a digital world. 
 
-
-
 ## An Ethnographic Spotify?
 
-As Anna Lomax and her colleagues describe in a [recent report](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0275469) the **Global Jukebox** returns to the original **Cantometrics** dataset, which explored over 5700 traditional songs from over 1000 distinct societies.  These are indexed according to a 'controlled vocabulary' of **37 different types of musical or social features** (like the rhythmic flow of the music, or the economic basis of the society), each of which was coded using an elaborate system of up to **13 different categorical values** that describe the particular characteristic of that feature (a slow piece might have one value, a highly varied piece might have another, etc).  
+As Anna Lomax Wood and her colleagues describe in a [recent report](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0275469) the **Global Jukebox** returns to the original **Cantometrics** dataset, which explored over 5700 traditional songs from over 1000 distinct societies.  These are indexed according to a 'controlled vocabulary' of **37 different types of musical or social features** (like the rhythmic flow of the music, or the economic basis of the society), each of which was coded using an elaborate system of up to **13 different categorical values** that describe the particular characteristic of that feature (a slow piece might have one value, a highly varied piece might have another, etc).  
 
 The basic coding for these took place decades ago on punch cards (more on the legacy data structure below), but for the digital update modern researchers were carefully trained in the methods and reviewed to validate the original ratings. 
 
@@ -39,9 +37,9 @@ See the full list of datasets [here](https://journals.plos.org/plosone/article/f
 
 Learn more about *Cantometrics* and *The Global Jukebox* here:
 
-Wood, Anna Lomax, Roswell Rudd, and Alan Lomax. 2021. *Songs of Earth : Aesthetic and Social Codes in Music : Based upon Alan Lomax’s Cantometrics : An Approach to the Anthropology of Music*  Jackson: University Press of Mississippi, 2021.  Available at **Harris Music Library**:   ML3799 S66 2021
+    Wood, Anna Lomax, Roswell Rudd, and Alan Lomax. 2021. *Songs of Earth : Aesthetic and Social Codes in Music : Based upon Alan Lomax’s Cantometrics : An Approach to the Anthropology of Music*  Jackson: University Press of Mississippi, 2021.  Available at Harris Music Library:   ML3799 S66 2021
 
-In the course of working on any particular set of genres or examples, you will probably want to focus on a subset of the huge range of data available through the Global Jukebox (see below).  Consider, for example, Anna Lomax's advice on how to think about **Lullabies**, which afford some interesting possibilities for study.  Read [here]('https://docs.google.com/document/d/1S1M5p9Zfkdft5IQlTM0p-liNrNj83yh6UeQ1yL6TtfY/edit?usp=sharing').  We show how to create this kind of data subset below.
+In the course of working on any particular set of genres or examples, you will probably want to focus on a subset of the huge range of data available through the Global Jukebox (see below).  Consider, for example, Anna Lomax Wood's advice on how to think about **Lullabies**, which afford some interesting possibilities for study.  Read [here]('https://docs.google.com/document/d/1S1M5p9Zfkdft5IQlTM0p-liNrNj83yh6UeQ1yL6TtfY/edit?usp=sharing').  We show how to create this kind of data subset below.
 
 ## The Global Jukebox Data Types
 
@@ -67,7 +65,7 @@ lines_explained = 'https://raw.githubusercontent.com/theglobaljukebox/cantometri
 
 ### Initial Cleanup of Files
 
-The raw files from Github include 'non breaking spaces' ('\xa0') that we need to clean up so that we can work with the contents more easily.  You can do this with a simple function at the time you import the files:
+The raw files from Github include 'non breaking spaces' (`\xa0`) that we need to clean up so that we can work with the contents more easily.  You can do this with a simple function at the time you import the files:
 
 ```python
 # List of URLs to the data files
@@ -147,9 +145,9 @@ As we see, this table contains not only a verbal description of the kind of feat
 - a 'type' column that characterizes the data--an ordinal (or scalar), a categorical, etc
 
 
+With Pandas we could easily group or filter these lines to show those belonging to a particular class. 
 
-
-With Pandas we could easily group or filter these lines to show those belonging to a particular class. Here, for instance, are all the 'lines' that belong to the Musical Organization class, which we found by filtering the original df:  `lines_explained_df[lines_explained_df['category'] == "Ornament"]`.  From here you could read each of the 'definitions' in detail to understand how the Global Jukebox team understands this feature.
+Here, for instance, are all the 'lines' that belong to the Musical Organization class, which we found by filtering the original df:  `lines_explained_df[lines_explained_df['category'] == "Ornament"]`.  From here you could read each of the 'definitions' in detail to understand how the Global Jukebox team understands this feature.
 
 ![alt text](../01_Tutorials/images/gjb_lines_ornament.png)
 
@@ -162,7 +160,7 @@ my_dict = pd.Series(lines_explained.short_title.values, index=lines_explained.id
 my_dict
 ```
 
-It would certainly be overwhelming to consider 37 different dimensions of musical recordings at once.  More reasonable--as part of your plan to answer a particular research question--would be to on data of a particular type.  If you wanted to look at melodic style across some corpus, these would be the among the features you would want to consider.  Here is a quick list of all the 'categories' in the **lines_explained** table:
+It would certainly be overwhelming to consider 37 different dimensions of musical recordings at once!  More reasonable--as part of your plan to answer a particular research question--would be to on data of a particular type.  If you wanted to look at melodic style across some corpus, these would be the among the features you would want to consider.  Here is a quick list of all the 'categories' (or classes) in the **lines_explained** table:
 
 
 ```python
@@ -185,10 +183,10 @@ lines_explained['category'].unique().tolist()
 
 <br>
 
-Below we show an example of how you might filter the canto data down to a set of dimensions particularly relevant for the study of Lullabies.
+Below we show an example of how you might filter the canto data down to a set of dimensions particularly relevant for the study of Lullabies.  The exact subset of columns you might want to explore will depend on your research question, or the character of the particular pieces that interest you!
 
 ```python
-canto_name_dict = {'line_1': 'Social_Org_Group', 
+lullaby_canto_name_dict = {'line_1': 'Social_Org_Group', 
 'line_10': 'Repetition',
 'line_11': 'Vocal_Rhythm',
 'line_16': 'Melodic_Form',
@@ -200,10 +198,9 @@ canto_name_dict = {'line_1': 'Social_Org_Group',
 'line_28': 'Glissando'}
 ```
 
-### The Codes and Raw_Codes Tables
 
 
-### Canto Codes:  37 features 'lines':  12 categoricals and 25 ordinals
+### 37 feature 'lines':  12 categoricals and 25 ordinals
 
 The 'codes' tell us what the ratings actually mean for each line (musical type). These are integers for each of the 37 possible lines for each table.
 
@@ -329,10 +326,11 @@ codes[codes['var_id'] == 'line_32']
 ```
 
 
-
 ![alt text](../01_Tutorials/images/gjb_l32.png)
 
-**Finally it's Clear!**  Here we learn that 4 represents "High. Usually head register" and 7 represents "Mid-voice".  So **both** of these features are present in the given recording.
+#### Finally:  It's Clear!
+
+At last we learn that 4 represents "High. Usually head register" and 7 represents "Mid-voice".  So **both** of these features are present in the given recording.  Since we know from our work above that "Vocal Register" is an **ordinal** data type, we now understand that **the values of 7 and 4 are on a sliding scale:  the higher the number, the higher the range.**  This could be part an average calculation, or some other approach to the scalar character of the data.
 
 But how do we learn more about the recording and the people who made it?  That is revealed in the songs and societies tables, as we now explain.
 
@@ -341,22 +339,7 @@ But how do we learn more about the recording and the people who made it?  That i
 
 
 
-SHOW SHORT SLICE OF EACH?  BELOW THE DESCRIPTIONS ABOVE?
 
-DATA CLEANUP OF SELECTED COLUMNS TO REMOVE NON-BREAKS
-
-EXPLAIN THE LINES
-
-EXPLAIN THE CODES AND POWER OF 2 SYSTEM
-
-THEN A SAMPLE SUBSET
-
-
-### Understanding the 'Lines'
-
-- Load lines to df
-- Clean up columns (replace the non-breaks)
-- Variable Types
 
 ### A Sample Subset:  Lullabies
 
@@ -372,7 +355,7 @@ As far as texts go, lullabies are curious in that their intented audience is unl
 
 With these generalities in mind, it might be helpful (as Anna Wood suggests) to focus on a subset of the 37 cantometrics categories that suit the purpose.  Looking at the complete list of columns
 
-
+```python
 # cantometrics data contain the ratings for each item
 # here we are making a 'short' df of the columns suggested by A Wood for the Lullaby project
 
@@ -403,5 +386,5 @@ canto_lullaby_features = canto_short.drop(columns="society_id")
 # canto_lullaby_features.iloc[0]['Vocal_Rhythm']
 canto_lullaby_features.head()
 
-
+```
 
