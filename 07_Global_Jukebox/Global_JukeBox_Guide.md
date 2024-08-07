@@ -449,11 +449,11 @@ selected_song_cols = ['song_id',
 
  <br>
 
- Now get a new df with just those columns:
+Now get a new df with just those columns:
 
- ```python
- songs_some_cols = songs[selected_song_cols].copy()
- ```
+```python
+songs_some_cols = songs[selected_song_cols].copy()
+```
 
 <br>
 
@@ -718,7 +718,7 @@ lullaby_name_dict = {'line_1': 'Social_Org_Group',
 'line_28': 'Glissando'}
 
 # rename cols
-canto_selected_features = canto_selected_features.rename(columns=canto_name_dict)
+canto_selected_features = canto_selected_features.rename(columns=lullaby_name_dict)
 
 # Now we select only the columns (lines) that Anna suggests are relevant to the Lullaby Project
 canto_selected_features = canto_selected_features.iloc[:,[0, 1, 2, 3, 12, 13, 20, 22, 26, 27, 28, 30]]
@@ -865,9 +865,14 @@ A chart will help us make sense of the regional difference.
 # make sure you import the library!
 import plotly.express as px
 
-# the plot
-fig = px.bar(regional_lullabies, x="Region", y="Song_Count", color="Melodic_Range",
-             category_orders={"Melodic_Range": sorted(set([tuple(x) for x in regional_lullabies['Melodic_Range'].tolist()]))})
+# clean the tuple as list
+
+regional_lullabies_plot_data = regional_lullabies.copy()
+regional_lullabies_plot_data['Melodic_Range'] = regional_lullabies_plot_data['Melodic_Range'].apply(lambda x: x[0])
+
+# plot
+fig = px.bar(regional_lullabies_plot_data, x="Region", y="Song_Count", color="Melodic_Range",
+             category_orders={"Melodic_Range": sorted(set(regional_lullabies_plot_data['Melodic_Range']))})
 
 # Show the figure
 fig.show()
@@ -884,3 +889,254 @@ fig.show()
 
 We would need to think more carefully about how to normalize the data for the various sample sizes.  But Oceana and South America seem very different from Central America, Africa, Europe, and North America in the prevalence of Lullabies with very high melodic ranges.  Does this correlate with variation in other features?  We could explore!
 
+
+
+## Round Up of All the Code Used in Guide
+
+
+<Details>
+
+<Summary>Round Up of All the Code Used in Guide</Summary>
+
+```
+python
+
+import pandas as pd
+import plotly.express as px
+from itertools import combinations
+import numpy as np
+
+# import jgb data
+# List of URLs to the data files
+data_files_list = [
+    'https://raw.githubusercontent.com/theglobaljukebox/cantometrics/main/raw/data.csv',
+    'https://raw.githubusercontent.com/theglobaljukebox/cantometrics/main/raw/societies.csv',
+    'https://raw.githubusercontent.com/theglobaljukebox/cantometrics/main/raw/songs.csv',
+    'https://raw.githubusercontent.com/theglobaljukebox/cantometrics/main/etc/codes.csv',
+    'https://raw.githubusercontent.com/theglobaljukebox/cantometrics/main/etc/variables.csv',
+    'https://raw.githubusercontent.com/theglobaljukebox/cantometrics/main/etc/raw_codes.csv'
+]
+
+# Short names for DataFrames
+short_names = ['canto', 'societies', 'songs', 'codes', 'lines_explained', 'raw_codes']
+
+# Initialize empty variables for each DataFrame
+canto = None
+societies = None
+songs = None
+codes = None
+lines_explained = None
+raw_codes = None
+
+# Loop through the list of URLs and short names
+for url, short_name in zip(data_files_list, short_names):
+    # Read the CSV file from the URL into a DataFrame
+    df = pd.read_csv(url)
+    
+    # Replace non-breaking spaces in column names with regular spaces
+    df.columns = df.columns.str.replace('\xa0', ' ')
+    
+    # Iterate over each column to replace non-breaking spaces in cell values
+    for col in df.columns:
+        # Check if the column contains string values
+        if df[col].dtype == 'object':
+            df[col] = df[col].str.replace('\xa0', ' ')
+    
+    # Assign the modified DataFrame to the corresponding variable
+    globals()[short_name] = df
+
+
+
+# lines explained dictionary of lines and short titles
+my_dict = pd.Series(lines_explained.short_title.values, index=lines_explained.id).to_dict()
+my_dict
+
+
+#  code to unpack powers of 2
+# 2 to the n for all n values from 1 to 13
+powers = [2**n for n in range(1, 14)] 
+
+# make a list of all combinations of the previous, for 1, 2, and 3 numbers
+combo_list = list(combinations(powers, 1)) + list(combinations(powers, 2)) + list(combinations(powers, 3)) 
+
+# a dictionary that maps the original sums to the combinations
+sums = [{"sum" : sum(t), "full_tuple": t} for t in combo_list]  
+
+# as a df
+sums_df = pd.DataFrame(sums) 
+
+# clean up tuples and sort
+sums_df['sorted_original_values'] = sums_df.full_tuple.apply(lambda x: tuple(sorted([np.log2(value) for value in x], reverse=True))) 
+sums_df.sort_values(by="sum") 
+
+#create a dictionary that maps the summed values to their original meanings:
+dictionary_of_value_sets = dict(zip(sums_df["sum"], sums_df["sorted_original_values"]))
+
+# create ictionary of lines and short title meanings
+short_title_dict = pd.Series(lines_explained.short_title.values, index=lines_explained.id).to_dict() 
+
+# unpack the sums for all 'line' columns, using dict of value sets created above, using only the 'line' cols
+canto_transformed_features = canto.iloc[:, 3:].map(lambda x : dictionary_of_value_sets.get(x, 0)) 
+
+# put the transformed columns back in place with the song names, etc
+canto_unpacked = pd.concat([canto.iloc[:, :3], canto_transformed_features], axis="columns") 
+
+ # rename the columns with short_title dictionary
+canto_renamed = canto_unpacked.rename(columns=my_dict)
+canto_unpacked = canto_renamed
+
+
+# song metadata with selected columns
+
+selected_song_cols = ['song_id',
+ 'Genre',
+ 'Performers',
+ 'Instruments',
+ 'Vocalist_gender',
+ 'Year',
+ 'society_id',
+ 'Region',
+ 'Division',
+ 'Subregion',
+ 'Area',
+ 'Local_latitude',
+ 'Local_longitude',
+ 'Preferred_name',
+ 'Society_location'
+ ]
+
+songs_some_cols = songs[selected_song_cols].copy()
+
+# split strings and explode:  'genre' as example
+songs_some_cols = songs[selected_song_cols].copy()
+songs_some_cols['Genre'].unique().tolist()
+
+# selected output
+
+['Responsorial Song; Call & Response',
+ 'Dance Song',
+ 'Ceremonial Song; Song For Royalty',
+ 'Spirit Song; Dance Song; Cult Song',
+ "Boys' Song; Adolescents' Song",
+ 'Funeral Song; Mourning Song',
+ "Wedding Song; Girls' Song; Responsorial Song",
+ 'Chant; Song For Royalty',
+ "Men's Song; Song For Royalty"]
+
+# copy the data so we avoid problems
+songs_some_cols  = songs[selected_song_cols].copy()
+# split the long strings at the ";"
+songs_some_cols['Genre'] = songs_some_cols['Genre'].str.split(';')
+# explode the complete df on the 'genre' column to tidy the data
+songs_exploded = songs_some_cols.explode('Genre')
+# remove trailing/leading spaces that might remain in the individual strings
+songs_exploded["Genre"] = songs_exploded["Genre"].str.strip()
+# fillnas
+songs_exploded = songs_exploded.fillna('')
+
+# lullaby project
+
+
+# copy to safeguard data
+canto_selected_features =  canto.copy()
+
+# song_id is number, so convert to string for matching
+canto_selected_features['song_id'] = canto_selected_features['song_id'].astype('str')
+
+# dict to rename columns with more useful names
+lullaby_name_dict = {'line_1': 'Social_Org_Group', 
+'line_10': 'Repetition',
+'line_11': 'Vocal_Rhythm',
+'line_16': 'Melodic_Form',
+'line_18': 'Number_Phrases',
+'line_20': 'Melodic_Range',
+'line_24': 'Tempo',
+'line_25': 'Volume',
+'line_26': 'Vocal_Rubato',
+'line_28': 'Glissando'}
+
+# rename cols
+canto_selected_features = canto_selected_features.rename(columns=lullaby_name_dict)
+
+# Now we select only the columns (lines) that Anna suggests are relevant to the Lullaby Project
+canto_selected_features = canto_selected_features.iloc[:,[0, 1, 2, 3, 12, 13, 20, 22, 26, 27, 28, 30]]
+
+# unpack powers of 2
+
+# 2 to the n for all n values from 1 to 13
+powers = [2**n for n in range(1, 14)] 
+# make a list of all combinations of the previous, for 1, 2, and 3 numbers
+combo_list = list(combinations(powers, 1)) + list(combinations(powers, 2)) + list(combinations(powers, 3)) 
+# a dictionary that maps the original sums to the combinations
+sums = [{"sum" : sum(t), "full_tuple": t} for t in combo_list]  
+# as a df
+sums_df = pd.DataFrame(sums) 
+# clean up tuples and sort
+sums_df['sorted_original_values'] = sums_df.full_tuple.apply(lambda x: tuple(sorted([np.log2(value) for value in x], reverse=True))) 
+sums_df.sort_values(by="sum") 
+#create a dictionary that maps the summed values to their original meanings:
+dictionary_of_value_sets = dict(zip(sums_df["sum"], sums_df["sorted_original_values"]))
+my_dict = pd.Series(lines_explained.short_title.values, index=lines_explained.id).to_dict()
+canto_transformed_features = canto_selected_features.iloc[:, 3:].map(lambda x : dictionary_of_value_sets.get(x, 0))
+canto_unpacked = pd.concat([canto_selected_features.iloc[:, :3], canto_transformed_features], axis="columns")
+canto_unpacked = canto_unpacked.rename(columns=my_dict)
+# fix song_id as string
+canto_unpacked['song_id'] = canto_unpacked['song_id'].astype('str')
+
+
+# Find Lullabies from the Song Table, and Collect Metadata
+
+# a shortlist of columns to use from songs table
+selected_song_cols = ['song_id',
+'Genre',
+'Performers',
+'Instruments',
+'Vocalist_gender',
+'Year',
+'society_id',
+'Region',
+'Division',
+'Subregion',
+'Area',
+'Local_latitude',
+'Local_longitude',
+'Preferred_name',
+'Society_location'
+]
+
+
+# slicing out just the relevant columns
+songs_some_cols = songs[selected_song_cols].copy()
+
+# getting just the lullabies
+lullabies_metadata = songs_some_cols[songs_some_cols['Genre'].notna() & songs_some_cols['Genre'].str.contains("Lullaby")]
+
+# combine the Feature Data with Context Data
+
+
+
+lullabies_final = pd.merge(lullabies_metadata, canto_unpacked,
+how='left', on='song_id')
+lullabies_final = lullabies_final.fillna('')
+
+
+# groups based on features
+
+grouped = lullabies_final.groupby(['Region', 'Melodic_Range'])['song_id'].count()
+regional_lullabies = pd.DataFrame(grouped)
+regional_lullabies = regional_lullabies.reset_index()
+regional_lullabies = regional_lullabies.rename(columns={'song_id' : 'Song_Count'})
+
+# copy and prepare data
+regional_lullabies_plot_data = regional_lullabies.copy()
+regional_lullabies_plot_data['Melodic_Range'] = regional_lullabies_plot_data['Melodic_Range'].apply(lambda x: x[0])
+
+# plot
+fig = px.bar(regional_lullabies_plot_data, x="Region", y="Song_Count", color="Melodic_Range",
+             category_orders={"Melodic_Range": sorted(set(regional_lullabies_plot_data['Melodic_Range']))})
+
+# Show the figure
+fig.show()
+```
+
+</Details>
