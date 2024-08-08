@@ -5,7 +5,8 @@
 - [Make a Folder, Create a Notebook](#Make-a-Folder,-Create-a-Notebook)
 - [Markdown and Code Cells](#Markdown-and-Code-Cells)
 - [Display Options  Side by Side and Code Line Numbers](#side-by-side-view-and-code-line-numbers)
-- [Notebook Frozen or Errors](#Notebook-Frozen-or-Errors)
+- [Notebook Frozen?](#notebook-frozen)
+- [Debugging and Inspecting Variables](#debugging-and-inspecting-variables)
 - [Viewing and Saving Charts and Graphics](#Viewing-and-Saving-Charts-and-Graphics)
 - [Saving DataFrames as CSV Files (and Loading Datframes from CSV)](#Saving-DataFrames-as-CSV-Files-(and-Loading-Datframes-from-CSV))
 - [Copy, Save, and Download Notebook](#Copy,-Save,-and-Download-Notebook)
@@ -163,7 +164,7 @@ While the Tab Syntax tool is active, you will also see a full description of the
 
 <br>
 
-## Debugging and Inspecting Variable
+## Debugging and Inspecting Variables
 
 JupyterLab has a built-in system for debugging your code.  It cannot quite compare with the power of VS Code.  But it does offer some good features
 
