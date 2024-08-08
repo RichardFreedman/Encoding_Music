@@ -34,7 +34,7 @@ We can imagine each song as a point on a graph, with the x-value representing en
 
 https://github.com/user-attachments/assets/14534fa3-4cfe-4dbc-b540-1e0968c0c658
 
-As the values of energy and valence change, the position of the point will change on the graph. If we draw a line from the origin to this point (a **vector**), we can also see that the changing energy and valence will change the **direction** one must travel from the origin to reach the point. Thus, we can use **direction** (measured as angles $` \theta `$ and $ \phi $ from the horizontal) as a single value to compare two multi-faceted data points.
+As the values of energy and valence change, the position of the point will change on the graph. If we draw a line from the origin to this point (a **vector**), we can also see that the changing energy and valence will change the **direction** one must travel from the origin to reach the point. Thus, we can use **direction** (measured as angles $` \theta `$ and $` \phi `$ from the horizontal) as a single value to compare two multi-faceted data points.
 
 **[VIZ: points moving around, lines being drawn to the points, angles for each line changing]**
 
@@ -46,7 +46,7 @@ As an example, we can compute the cosine similarity between Eleanor Rigby (ERY) 
 
 <blockquote><details><summary>Python will compute cosine similarity for us, but if you're curious, click here for a cosine similarity formula breakdown</summary><br>
 
-Cosine similarity is computed between two vectors, say vector $\vec{A}$ and vector $\vec{B}$. We're working with 2-dimensional vectors right now (dimensions "energy" and "valence"), but this method works with n-dimensions.
+Cosine similarity is computed between two vectors, say vector $`\vec{A}`$ and vector $`\vec{B}`$. We're working with 2-dimensional vectors right now (dimensions "energy" and "valence"), but this method works with n-dimensions.
 
 Represent the vectors in terms of their components:
 
@@ -70,7 +70,7 @@ $$
 {\vec{A} \cdot \vec{B} \over \|\vec{A}\| \|\vec{B}\|}
 $$
 
-where $ \vec{A} \cdot \vec{B} $ represents the **dot product** of vectors $\vec{A}$ and $\vec{B}$, and $\|\vec{A}\| \|\vec{B}\|$ represents the product of the **magnitudes** of vectors $\vec{A}$ and $\vec{B}$ (the magnitude of $\vec{A}$ is $\|\vec{A}\|$).
+where $` \vec{A} \cdot \vec{B} `$ represents the **dot product** of vectors $`\vec{A}`$ and $`\vec{B}`$, and $`\|\vec{A}\| \|\vec{B}\|`$ represents the product of the **magnitudes** of vectors $`\vec{A}`$ and $`\vec{B}`$ (the magnitude of $`\vec{A}`$ is $`\|\vec{A}\|`$).
 
 The dot product is a method of measuring the degree to which the direction of one vector is similar to another.
 
@@ -90,7 +90,7 @@ $$
 
 Khan Academy has an article covering dot products [here][khan-academy-dot-products].
 
-The magnitude of a vector, $\|\vec{A}\|$, is the distance between its initial and terminal points. In our case, all vectors simply extend from the origin. We can compute magnitude with a method based on the Pythagorean theorem:
+The magnitude of a vector, $`\|\vec{A}\|`$, is the distance between its initial and terminal points. In our case, all vectors simply extend from the origin. We can compute magnitude with a method based on the Pythagorean theorem:
 
 $$
 \|\vec{A}\| = \sqrt{a_1^2 + a_2^2}
@@ -150,9 +150,9 @@ $$
 \sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2}
 $$
 
-where $p_1$ and $p_2$ represent the $x$ and $y$ coordinates of point $p$, and likewise for point $q$.
+where $`p_1`$ and $`p_2`$ represent the $`x`$ and $`y`$ coordinates of point $`p`$, and likewise for point $`q`$.
 
-In $n$ dimensions, the Euclidean distance between points $p$ and $q$ is represented as follows:
+In $`n`$ dimensions, the Euclidean distance between points $`p`$ and $`q`$ is represented as follows:
 
 $$
 \sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2 + ... + (p_n - q_n)^2}
