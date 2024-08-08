@@ -14,9 +14,9 @@ Imagine we want to compare these three songs. The simplest way to compare the so
 | When I'm Sixty Four   | 0.241	    |
 | Back in the USSR	    | 0.969	    |
 
-We can do this visually using a bar chart: **[TODO: replace with static image. This is just a demonstration of video capability!]**
+We can do this visually using a bar chart:
 
-https://github.com/user-attachments/assets/ec51b419-a149-4a92-b366-a2d15b16c0fa
+![c917cd73-a26b-46b0-926c-11f3a839a982](https://github.com/user-attachments/assets/645982c1-6d18-473b-adfd-73961427516a)
 
 We could evaluate similarity in a few ways, like finding the difference in energy between two songs, or the ratio of energy - none too complicated.
 
