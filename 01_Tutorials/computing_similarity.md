@@ -1,18 +1,3 @@
-<blockquote>
-
-### Draft Notes (for use while creating)
-Comparison of three Beatles songs:
-- Eleanor Rigby
-- When I'm Sixty Four
-- Back in the USSR
-
-| Song	                | Energy    | Valence	| Danceability  |
-|-----------------------|-----------|-----------|---------------|
-| Eleanor Rigby	        | 0.280	    | 0.8130	| 0.581         |
-| When I'm Sixty Four   | 0.241	    | 0.6610	| 0.704         |
-| Back in the USSR	    | 0.969	    | 0.4940	| 0.480         |
-</blockquote>
-
 # Computing Similarity
 
 As we work with data, making **comparisons** is a common occurence. For instance, in our Beatles data, we may want to compare two songs. We can make comparisons of varying complexity. We can simply compare two songs based on one attribute, like "valence". But it is also possible to compute similarity based on several attributes at once. This tutorial will explain two key methods for computing similarity, **cosine similarity** and **Euclidean distance**, and provide code examples for computing each.
@@ -35,7 +20,7 @@ https://github.com/user-attachments/assets/ec51b419-a149-4a92-b366-a2d15b16c0fa
 
 We could evaluate similarity in a few ways, like finding the difference in energy between two songs, or the ratio of energy - none too complicated.
 
-But what if we want to compare songs using more than one attribute? Let's now consider "valence", in addition to "energy":
+But what if we want to compare songs using more than one attribute? Let's now consider "valence", in addition to "energy".
 
 | Song	                | Energy    | Valence	|
 |-----------------------|-----------|-----------|
@@ -43,9 +28,9 @@ But what if we want to compare songs using more than one attribute? Let's now co
 | When I'm Sixty Four   | 0.241	    | 0.6610	|
 | Back in the USSR	    | 0.969	    | 0.4940	|
 
-We can imagine each song as a point on a graph, with the x-value representing energy and the y-value representing valence.
+We can imagine each song as a point on a graph, with the x-value representing energy and the y-value representing valence. We could choose any number of dimensions, but it is easiest to visualize a 2-dimensional graph.
 
-> Note: We could choose any number of dimensions, but it is easiest to visualize a 2-dimensional graph
+> Note: Eleanor Rigby has a valence value of 0.8130. If you listen to Eleanor Rigby, would you agree with that value for valence? This attribute brings up a key factor: understanding the nature of the data we're working with. Not all of these values make sense!
 
 https://github.com/user-attachments/assets/14534fa3-4cfe-4dbc-b540-1e0968c0c658
 
@@ -131,7 +116,7 @@ When we use cosine similarity, we represent each song as a vector, and then comp
 
 https://github.com/user-attachments/assets/ec329b3d-5807-432c-8bbb-2413d6bc2a88
 
-Despite having somewhat different vectors, Eleanor Rigby and When I'm Sixty Four have a cosine similarity of `0.999`.
+Despite having somewhat different vectors, Eleanor Rigby and When I'm Sixty Four have a cosine similarity of `0.964`.
 
 With cosine similarity, you can get some sense of the similarity of two songs, but the method can be flawed: if two songs have attributes in a similar **ratio** to each other, their vector directions will also be very similar, even if the magnitudes of these attributes are quite different.
 
@@ -153,7 +138,35 @@ Previously, we have imagined songs as **vectors**. With Euclidean distance, we n
 
 **[VIZ: graph as points]**
 
-**[TODO: this section is incomplete]**
+Euclidean distance is a relatively straightforward method of comparison: how far are two points from each other?
+
+Using a method based on the Pythagorean Theorem, we can easily evaluate this.
+
+<blockquote><details><summary>Python can also implement Euclidean distance for us, but click here to learn more about the formula</summary>
+
+In two dimensions, the Euclidean distance between points $p$ and $q$ is represented as follows:
+
+$$
+\sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2}
+$$
+
+where $p_1$ and $p_2$ represent the $x$ and $y$ coordinates of point $p$, and likewise for point $q$.
+
+In $n$ dimensions, the Euclidean distance between points $p$ and $q$ is represented as follows:
+
+$$
+\sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2 + ... + (p_n - q_n)^2}
+$$
+
+</details></blockquote>
+
+With Euclidean distance, you take into account the magnitudes of all the attributes of two songs, and the differences between them. This helps provide more clarity in our example with Eleanor Rigby, When I'm Sixty Four, and Back in the USSR:
+
+**[VIZ: euclidean distances between ERY, WSF, BUR]**
+
+Similar to cosine similarity, Euclidean distance works with any number of attributes. This means you could easily make comparisons across a wide number of Spotify attributes using Euclidean distance.
+
+However, you have to keep in mind the pitfalls of Euclidean distance. Unlike cosine similarity, where all values are computed on the same scale, Euclidean distance simply finds the magnitude of the distance between two points. So in this case, **lower numbers indicate higher similarity**, while higher numbers indicate less similarity. There is no cap to the potential "greatest distance" between two points, so take care to **normalize** your data. Trying to keep all data points on a consistent scale (like `0`-`1`) will prevent unusually large numbers from having an outsize impact, like the value for `'duration_ms'`.
 
 ## Implementing Cosine Similarity and Euclidean Distance in Python
 
@@ -228,7 +241,241 @@ First, we'll go over a simple example of comparing two songs:
 
 You can also use the `cosine_similarity` and `euclidean_distances` methods on your Pandas dataframes to create lots of comparisons very quickly.
 
+Let's use the example of the `beatles_spotify` dataset. First import Pandas:
 
+```python
+import pandas as pd
+```
+
+And import the Beatles Spotify dataset:
+
+```python
+beatles_spotify_csv = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRCv45ldJmq0isl2bvWok7AbD5C6JWA0Xf1tBqow5ngX7_ox8c2d846PnH9iLp_SikzgYmvdPHe9k7G/pub?output=csv'
+
+beatles_spotify = pd.read_csv(beatles_spotify_csv)
+```
+
+Let's decide which attributes you want to include when computing similarity. The easiest ones to use will be `'danceability'`, `'energy'`, `'speechiness'`, `'acousticness'`, `'liveness'`, and `'valence'`, since they're all rated on the same scale (`0`-`1`). To work with the methods for computing similarity, we need to translate just those attributes to a NumPy array:
+
+```python
+attributes = beatles_spotify[['danceability', 'energy', 'speechiness', 'acousticness', 'liveness', 'valence']].to_numpy()
+```
+
+Here is where we let our similarity computation methods work their magic: in just one line, we can create a dataframe in which **every song** is compared to **every other song** using our chosen method.
+
+```python
+# Perform cosine similarity comparisons
+cosine_sim_df = pd.DataFrame(cosine_similarity(attributes), index=beatles_spotify['song'], columns=beatles_spotify['song'])
+
+# Perform Euclidean distance comparisons
+euclid_dist_df = pd.DataFrame(euclidean_distances(attributes), index=beatles_spotify['song'], columns=beatles_spotify['song'])
+```
+
+The result is a square table, where each row represents a song, and each column represents a song. For example, as you go down the row for `"eleanor rigby"`, each cell represents the comparison (either cosine similarity or euclidean distance) between `"eleanor rigby"` and the song labeled in that column.
+
+We can use `.iloc` to see an excerpt of a few rows and columns from the dataframes:
+
+```python
+cosine_sim_df.iloc[82:87, 103:108]
+```
+
+<table border="0">
+    <tr>
+        <th valign="top">Output:</th>
+        <td>
+            <table border="1">
+            <thead>
+                <tr style="text-align: right;">
+                <th>song</th>
+                <th>being for the benefit of mr.kite!</th>
+                <th>within you without you</th>
+                <th>when im sixty four</th>
+                <th>lovely rita</th>
+                <th>good morning good mornng</th>
+                </tr>
+                <tr>
+                <th>song</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th>run for your life</th>
+                <td>0.930658</td>
+                <td>0.770031</td>
+                <td>0.778433</td>
+                <td>0.976672</td>
+                <td>0.866748</td>
+                </tr>
+                <tr>
+                <th>taxman</th>
+                <td>0.919839</td>
+                <td>0.857034</td>
+                <td>0.766162</td>
+                <td>0.961830</td>
+                <td>0.961051</td>
+                </tr>
+                <tr>
+                <th>eleanor rigby</th>
+                <td>0.906773</td>
+                <td>0.838166</td>
+                <td>0.964172</td>
+                <td>0.761517</td>
+                <td>0.743661</td>
+                </tr>
+                <tr>
+                <th>im only sleeping</th>
+                <td>0.975058</td>
+                <td>0.903786</td>
+                <td>0.882474</td>
+                <td>0.968913</td>
+                <td>0.947792</td>
+                </tr>
+                <tr>
+                <th>love you to</th>
+                <td>0.942388</td>
+                <td>0.850944</td>
+                <td>0.921329</td>
+                <td>0.826849</td>
+                <td>0.757408</td>
+                </tr>
+            </tbody>
+            </table>
+        </td>
+    </tr>
+</table>
+
+```python
+euclid_dist_df.iloc[82:87, 103:108]
+```
+
+<table border="0">
+    <tr>
+        <th valign="top">Output:</th>
+        <td>
+            <table border="1">
+            <thead>
+                <tr style="text-align: right;">
+                <th>song</th>
+                <th>being for the benefit of mr.kite!</th>
+                <th>within you without you</th>
+                <th>when im sixty four</th>
+                <th>lovely rita</th>
+                <th>good morning good mornng</th>
+                </tr>
+                <tr>
+                <th>song</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th>run for your life</th>
+                <td>0.460338</td>
+                <td>0.782970</td>
+                <td>0.801886</td>
+                <td>0.326353</td>
+                <td>0.735168</td>
+                </tr>
+                <tr>
+                <th>taxman</th>
+                <td>0.446877</td>
+                <td>0.590346</td>
+                <td>0.793619</td>
+                <td>0.324571</td>
+                <td>0.490573</td>
+                </tr>
+                <tr>
+                <th>eleanor rigby</th>
+                <td>0.656752</td>
+                <td>0.831812</td>
+                <td>0.429158</td>
+                <td>0.931319</td>
+                <td>1.039502</td>
+                </tr>
+                <tr>
+                <th>im only sleeping</th>
+                <td>0.231732</td>
+                <td>0.444603</td>
+                <td>0.554768</td>
+                <td>0.256579</td>
+                <td>0.589390</td>
+                </tr>
+                <tr>
+                <th>love you to</th>
+                <td>0.426561</td>
+                <td>0.657262</td>
+                <td>0.479238</td>
+                <td>0.689563</td>
+                <td>0.966851</td>
+                </tr>
+            </tbody>
+            </table>
+        </td>
+    </tr>
+</table>
+
+Or you could just get the comparison of two songs using `.loc`:
+
+```python
+cosine_sim_df.loc['eleanor rigby', 'when im sixty four']
+```
+
+<table border="0">
+    <tr>
+        <th valign="top">Output:</th>
+        <td>
+            <pre>
+0.9641715334882657</pre>
+        </td>
+    </tr>
+</table>
+
+```python
+euclid_dist_df.loc['eleanor rigby', 'when im sixty four']
+```
+
+<table border="0">
+    <tr>
+        <th valign="top">Output:</th>
+        <td>
+            <pre>
+0.42915788469979127</pre>
+        </td>
+    </tr>
+</table>
+
+### Using the Results
+
+You can now generate cosine similarity and Euclidean distances between data points. But what can you do with that? True, you know the extremes:
+
+* Cosine similarity of `1` indicates complete similarity
+* Cosine similarity of `0` indicates complete opposition
+* Euclidean distance of `0` indicates complete similarity
+
+But data rarely exists on these extremes. You have to decide **how to interpret** these similarity ratings. What is the threshold for similarity?
+
+To give you some help, you can calculate statistics on the comparison dataframes. `cosine_sim_df.describe()` and `euclid_dist_df.describe()` will give insight into key figures, like the mean and standard deviation. These can help you interpret your data.
+
+And always remember:
+
+* These results are based on Spotify data - is that data a good assessment?
+* "Similar" according one method might not be "similar" according to another, as we have seen.
+
+### Things You Need to Consider
+
+In this example, we didn't clean our data. This could present problems down the line, particularly since we used the entries in the `'song'` column as our indices in our comparison table. Here are potential issues to consider:
+* Song titles have inconsistent formatting, e.g. capitalization
+* Some songs have duplicate entries from different albums, e.g. `"yellow submarine"`
+* Not all attributes are normalized (`0`-`1`), e.g. `'duration_ms'`, and this could influence your result
 
 ## Summary
 
