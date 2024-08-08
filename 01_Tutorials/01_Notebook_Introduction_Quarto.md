@@ -4,6 +4,7 @@
 - [Log In to Jupyter Hub](#Log-In-to-Jupyter-Hub)
 - [Make a Folder, Create a Notebook](#Make-a-Folder,-Create-a-Notebook)
 - [Markdown and Code Cells](#Markdown-and-Code-Cells)
+- [Display Options  Side by Side and Code Line Numbers](#side-by-side-view-and-code-line-numbers)
 - [Notebook Frozen or Errors](#Notebook-Frozen-or-Errors)
 - [Viewing and Saving Charts and Graphics](#Viewing-and-Saving-Charts-and-Graphics)
 - [Saving DataFrames as CSV Files (and Loading Datframes from CSV)](#Saving-DataFrames-as-CSV-Files-(and-Loading-Datframes-from-CSV))
@@ -87,6 +88,8 @@ Code cells must of course be valid Python code.  They can contain comments (line
 
 Learn about markdown [here](https://quarto.org/docs/authoring/markdown-basics.html)
 
+
+
 As written:
 
 ![](<images/em_6_md.png>)
@@ -96,9 +99,108 @@ As displayed:
 
 ![](images/em_7_md.png)
 
-## Notebook Frozen or Errors
+<br>
+
+You can also find a link to a Markdown Guide built right into the Notebook!  Look under the **Help** menu in the Jupyterlab browser:
+
+
+![alt text](images/nb_help.png)
+
+<br>
+
+
+## Side by Side View and Code Line Numbers
+
+If you explore the **View** menu in the Jupyterlab Browser you will see that there are some useful options for viewing cells and outputs.  
+
+But two there are two important options you might want to consider:
+
+- Try the **Side by Side** display option if you want to see the a code cell and it's output at the same time.  This can be especially helpful when producing charts, since it will allow you to see results without the need to scroll up and down.
+
+Select Side by Side:
+
+<br>
+
+![alt text](images/nb_side_1.png)
+
+
+<br>
+
+What you'll see:
+
+
+![alt text](images/nb_side_2.png)
+
+<br>
+
+- Try the **Show Line Numbers** option if you are getting error messages, which often refer you to specific lines of code that are having problems.
+
+<br>
+
+![alt text](images/nb_line_nos.png)
+
+<br>
+
+
+## Notebook Frozen?
 
 If your Notebook becomes unresponsive, or you are simply stuck in some other way, one solution is to **Restart the Kernel** and begin again from the top.  Look for the **Kernel** menu or function.
+
+
+
+## Syntax Completion and Help
+
+JupyterLab really cannot compare with the power of VSCode and other Integrated Development Environments when it comes to highlighting Python syntax and anticipating problems in your code.  But it does have a **Tab Syntax Completion and Documentation** system that you will find helpful.  
+
+For instance, let's say you were about to add the `fillna('')` method to a dataframe, but you could not quite recall exactly what it was called (`fillna('')`, or `fill_na('')`.  Nor could you recall exactly what went inside the parentheses.  But if you knew enough to type `f`, then press the `TAB` key, you will see a list of options from which to choose (keep typing additional letters to narrow the choices, or navigate to the one you want and press `ENTER` to select it).  
+
+While the Tab Syntax tool is active, you will also see a full description of the various options and arguments for this method.  This will work for all Python libraries, so it is a good way to understand things like `px.barchart()`, and so on.
+
+<br>
+
+
+![alt text](images/nb_tab_complete.png)
+
+<br>
+
+## Debugging and Inspecting Variable
+
+JupyterLab has a built-in system for debugging your code.  It cannot quite compare with the power of VS Code.  But it does offer some good features
+
+As noted above, using the **Code Line Number**s option is a good way to move between error messages and your code cells.  But sometimes you might find it useful to "inspect" the active variables, particularly if what is happening in a given cell requires several different objects to work together. 
+
+But the **Debugger Panel** offers some more detailed options.  You can access it under the View menu, or at the far right via the "bug" icon.
+
+<br>
+
+
+![alt text](images/nb_debug_1.png)
+
+
+<br>
+
+With the **Debugger Panel** active, click on the **Variables** dropdown at top right, and also click the **Tree** icon at the top right, which will produce a list of all the active variables in your Notebook.
+
+<br>
+
+![alt text](images/nb_debug_2.png)
+
+<br>
+
+
+
+Now you can use the **dropdown arrows** to view details of each variable, or click the **inspector glass** to open it in its own window.  
+
+In the case of this `groupby` operation, for instance, it seemed useful to look at the contents of the original `beatles_spotify` dataframe that was being passed to the `groupby` operation.  We can see which columns are which, and even use nested dropdown arrows to see the details of each column or datatype.
+
+
+
+<br>
+
+
+![alt text](images/nb_debug_3.png)
+
+<br>
 
 
 ## Viewing and Saving Charts and Graphics
@@ -143,7 +245,7 @@ beatles_spotify = pd.read_csv(beatles_spotify_csv)
 
 ## Copy, Save, and Download Notebook
 
-It's a good idea to make a Copy of your Notebook before you run or edit it.  Rename with "_dev" at the end, for instance, so you can distinguish it from the original.
+It's a good idea to **make a Copy of your Notebook before you run or edit it**.  Rename with "_dev" at the end, for instance, so you can distinguish it from the original.
 
 ### Download ipynb File from Jupyter Hub (Encoding Music)
 
@@ -194,7 +296,7 @@ Note that here we have set the code cells to 'fold' by default.  This means that
 
 If you want to 'show' all code by default, then set `code-fold: false`.
 
-### Add Special Code Cell for Managing Altair and Plotly
+### Add Special Code Cell for Managing Altair and Plotly in Quarto
 
 You will also need to include the following as a `code` cell in your notebook.  This can be done as part of all the initial import of libraries, or in a separate cell.  It does *not* need to be the first cell, and should *not* be part of the YAML cell shown above.
 
