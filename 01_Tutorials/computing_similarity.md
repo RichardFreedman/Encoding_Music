@@ -50,7 +50,7 @@ Cosine similarity is computed between two vectors, say vector $`\vec{A}`$ and ve
 
 Represent the vectors in terms of their components:
 
-$$
+```math
 \vec{A: } \begin{bmatrix}
 a_1 \\
 a_2
@@ -62,13 +62,13 @@ a_2
 b_1 \\
 b_2
 \end{bmatrix}
-$$
+```
 
 The formula for cosine similarity is:
 
-$$
+```math
 {\vec{A} \cdot \vec{B} \over \|\vec{A}\| \|\vec{B}\|}
-$$
+```
 
 where $` \vec{A} \cdot \vec{B} `$ represents the **dot product** of vectors $`\vec{A}`$ and $`\vec{B}`$, and $`\|\vec{A}\| \|\vec{B}\|`$ represents the product of the **magnitudes** of vectors $`\vec{A}`$ and $`\vec{B}`$ (the magnitude of $`\vec{A}`$ is $`\|\vec{A}\|`$).
 
@@ -76,7 +76,7 @@ The dot product is a method of measuring the degree to which the direction of on
 
 There is a shortcut for computing the dot product: multiply the corresponding components of each vector and sum the products. Therefore:
 
-$$
+```math
 \vec{A} \cdot \vec{B} = \begin{bmatrix}
 a_1 \\
 a_2
@@ -86,15 +86,15 @@ a_2
 b_1 \\
 b_2
 \end{bmatrix} = a_1 b_1 + a_2 b_2
-$$
+```
 
 Khan Academy has an article covering dot products [here][khan-academy-dot-products].
 
 The magnitude of a vector, $`\|\vec{A}\|`$, is the distance between its initial and terminal points. In our case, all vectors simply extend from the origin. We can compute magnitude with a method based on the Pythagorean theorem:
 
-$$
+```math
 \|\vec{A}\| = \sqrt{a_1^2 + a_2^2}
-$$
+```
 
 Khan Academy has a video covering vector magnitudes [here][khan-academy-vector-magnitudes].
 
@@ -146,17 +146,17 @@ Using a method based on the Pythagorean Theorem, we can easily evaluate this.
 
 In two dimensions, the Euclidean distance between points $p$ and $q$ is represented as follows:
 
-$$
+```math
 \sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2}
-$$
+```
 
 where $`p_1`$ and $`p_2`$ represent the $`x`$ and $`y`$ coordinates of point $`p`$, and likewise for point $`q`$.
 
 In $`n`$ dimensions, the Euclidean distance between points $`p`$ and $`q`$ is represented as follows:
 
-$$
+```math
 \sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2 + ... + (p_n - q_n)^2}
-$$
+```
 
 </details></blockquote>
 
