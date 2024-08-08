@@ -861,7 +861,7 @@ This is just the beginning of the grouped data, but we can clearly see the value
 
 A chart will help us make sense of the regional difference.
 
-```
+```python
 # make sure you import the library!
 import plotly.express as px
 
