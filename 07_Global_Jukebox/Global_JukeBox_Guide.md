@@ -898,8 +898,7 @@ We would need to think more carefully about how to normalize the data for the va
 
 <Summary>Round Up of All the Code Used in Guide</Summary>
 
-```
-python
+```python
 
 import pandas as pd
 import plotly.express as px
