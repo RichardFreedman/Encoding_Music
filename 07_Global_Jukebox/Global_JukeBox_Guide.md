@@ -13,7 +13,7 @@ Lomax's work continues through the **[Cultural Equity](https://www.culturalequit
 
 ![alt text](../01_Tutorials/images/gjb_4.png)
 
-From [Lomax, et al, 2022](https://journals.plos.org/plosone/article/figure?id=10.1371/journal.pone.0275469.g001)
+From [Wood, et al, 2022](https://journals.plos.org/plosone/article/figure?id=10.1371/journal.pone.0275469.g001)
 
 ## Exploring Cantometrics and the Global Jukebox
 
@@ -23,13 +23,13 @@ You will need to **create a login with GJ** for the best results.
 
 As you will learn, there are many ways for you to explore this site, as you search by cultural group, musical genre, or place.  These in turn lead to you find connections among disparate groups, and think about the ways in which social and musical forms interact with each other.
 
-It's important to understand that the recordings assembled here were collected over many decades, and indeed many of them are many decades old (they represent, after all, Lomax's own journeys, and are often the same ones he included on the famous *Smithsonian Folkways* recording series (we own many of these here in the Harris Music Library) he directed).  They definitely don't represent _all_ musical traditions, nor do they represent current-day trends in commerical popular music, much less the extremely rapid hybridization of forms and practices we witness in a digital world. 
+It's important to understand that the recordings assembled here were collected over many decades, and indeed many of them are many decades old. They represent, after all, Lomax's own journeys, and are often the same ones he included on the famous *Smithsonian Folkways* recording series (we own many of these here in the Harris Music Library) he directed.  They definitely don't represent _all_ musical traditions, nor do they represent current-day trends in commerical popular music, much less the extremely rapid hybridization of forms and practices we witness in a digital world. 
 
 ## An Ethnographic Spotify?
 
 As Anna Lomax Wood and her colleagues describe in a [recent report](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0275469) the **Global Jukebox** returns to the original **Cantometrics** dataset, which explored over 5700 traditional songs from over 1000 distinct societies.  These are indexed according to a 'controlled vocabulary' of **37 different types of musical or social features** (like the rhythmic flow of the music, or the economic basis of the society), each of which was coded using an elaborate system of up to **13 different categorical values** that describe the particular characteristic of that feature (a slow piece might have one value, a highly varied piece might have another, etc).  
 
-The basic coding for these took place decades ago on [IBM Punch Card](https://www.ibm.com/history/punched-card), which featured 12 columns and 80 rows.  In today's world, data are largely dematerialized, but in the time of Cantometrics, they had decidedly physical form, and very clear limitations on the _amount_ of data that could be captured.  The 80x12 card could contain only 80 bytes of information!  Compare that with even the tinyest file today!
+The basic coding for these took place decades ago on [IBM Punch Card](https://www.ibm.com/history/punched-card), which featured 12 columns and 80 rows.  In today's world, data are largely dematerialized, but in the time of Cantometrics, they had decidedly physical form, and very clear limitations on the _amount_ of data that could be captured.  The 80x12 card could contain only 80 bytes of information!  Compare that with even the tinyest file today--the smallest of which might be 8 *kilobytes*!  It would take 100 such cards to store the equivalent amount of data!
 
 *The 12 columns of the IBM cards is why the Cantometrics team has only 13 original codes!*  As we learn below, they nevertheless found clever ways to make the most of these!  See **The Powers of 2** section of this guide.
 
@@ -128,7 +128,159 @@ Now that we have imported and cleaned up the data, let's take a close look at ea
 
 Here for instance we see the start of the **canto** table.  
 
-![alt text](../01_Tutorials/images/gjb_canto.png)
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>song_id</th>
+      <th>Preferred_name</th>
+      <th>society_id</th>
+      <th>line_1</th>
+      <th>line_2</th>
+      <th>line_3</th>
+      <th>line_4</th>
+      <th>line_5</th>
+      <th>line_6</th>
+      <th>line_7</th>
+      <th>...</th>
+      <th>line_28</th>
+      <th>line_29</th>
+      <th>line_30</th>
+      <th>line_31</th>
+      <th>line_32</th>
+      <th>line_33</th>
+      <th>line_34</th>
+      <th>line_35</th>
+      <th>line_36</th>
+      <th>line_37</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4241</td>
+      <td>'Are'are</td>
+      <td>10000</td>
+      <td>64</td>
+      <td>2</td>
+      <td>2</td>
+      <td>8192</td>
+      <td>1024</td>
+      <td>1024</td>
+      <td>2</td>
+      <td>...</td>
+      <td>512</td>
+      <td>128</td>
+      <td>16</td>
+      <td>8192</td>
+      <td>1024</td>
+      <td>1024</td>
+      <td>16</td>
+      <td>128</td>
+      <td>1024</td>
+      <td>128</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4246</td>
+      <td>'Are'are</td>
+      <td>10000</td>
+      <td>64</td>
+      <td>4096</td>
+      <td>8192</td>
+      <td>128</td>
+      <td>8192</td>
+      <td>8192</td>
+      <td>8192</td>
+      <td>...</td>
+      <td>8192</td>
+      <td>2</td>
+      <td>8192</td>
+      <td>128</td>
+      <td>1024</td>
+      <td>8192</td>
+      <td>16</td>
+      <td>1024</td>
+      <td>1024</td>
+      <td>8192</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>30075</td>
+      <td>'Are'are</td>
+      <td>10000</td>
+      <td>8208</td>
+      <td>2</td>
+      <td>2</td>
+      <td>8192</td>
+      <td>8192</td>
+      <td>1024</td>
+      <td>2</td>
+      <td>...</td>
+      <td>512</td>
+      <td>2</td>
+      <td>1024</td>
+      <td>8192</td>
+      <td>144</td>
+      <td>1024</td>
+      <td>8192</td>
+      <td>8192</td>
+      <td>8192</td>
+      <td>8192</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>30120</td>
+      <td>'Are'are</td>
+      <td>10000</td>
+      <td>8208</td>
+      <td>2</td>
+      <td>2</td>
+      <td>8192</td>
+      <td>1024</td>
+      <td>1024</td>
+      <td>2</td>
+      <td>...</td>
+      <td>32</td>
+      <td>2</td>
+      <td>128</td>
+      <td>8192</td>
+      <td>128</td>
+      <td>256</td>
+      <td>1024</td>
+      <td>8192</td>
+      <td>8192</td>
+      <td>1024</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>30121</td>
+      <td>'Are'are</td>
+      <td>10000</td>
+      <td>32</td>
+      <td>2</td>
+      <td>2</td>
+      <td>8192</td>
+      <td>1024</td>
+      <td>1024</td>
+      <td>2</td>
+      <td>...</td>
+      <td>32</td>
+      <td>128</td>
+      <td>128</td>
+      <td>8192</td>
+      <td>128</td>
+      <td>256</td>
+      <td>1024</td>
+      <td>8192</td>
+      <td>8192</td>
+      <td>1024</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 40 columns</p>
+</div>
 
 The first three columns identify:
 
@@ -145,7 +297,92 @@ The subsequent columns (**line_1**, **line_2**, etc) contain the observational '
 
 Of course the individual "cantometric lines" in these tables represent very different things--some are what we would call "audio features" (like tempo, or the level of ornamentation). Others concern the number and relation of performers (the presence of a vocal soloist, or the role of an accompanying chorus).  Still others concern the social setting or organization where the performance was heard or recorded.  The meaning of each is detailed in the **lines_explained** table:
 
-![alt text](../01_Tutorials/images/gjb_lines.png)
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>category</th>
+      <th>title</th>
+      <th>definition</th>
+      <th>type</th>
+      <th>units</th>
+      <th>source</th>
+      <th>changes</th>
+      <th>notes</th>
+      <th>short_title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>line_1</td>
+      <td>Social organization</td>
+      <td>The social organization of the vocal group</td>
+      <td>This line describes the social organization of...</td>
+      <td>Categorical</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Social Org Vocal</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>line_2</td>
+      <td>Orchestra</td>
+      <td>Relationship of orchestra to vocal parts</td>
+      <td>The term “orchestra” refers to the performers ...</td>
+      <td>Categorical</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Social Org Voc/Orch</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>line_3</td>
+      <td>Orchestra</td>
+      <td>Social organization of the orchestra</td>
+      <td>Line 3 and Line 1 (Social Organization of the ...</td>
+      <td>Categorical</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Social Org Orch</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>line_4</td>
+      <td>Musical organization</td>
+      <td>Musical organization of the vocal part</td>
+      <td>The musical coordination amongst the singers i...</td>
+      <td>Categorical</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Musical Org Vocal</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>line_5</td>
+      <td>Musical organization</td>
+      <td>Tonal blend of the vocal group</td>
+      <td>Both diffuse and cohesive sounds are pleasing ...</td>
+      <td>Ordinal</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Tonal Blend Vocal</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 As we see, this table contains not only a verbal description of the kind of feature or context, but also information about:
 
@@ -155,9 +392,107 @@ As we see, this table contains not only a verbal description of the kind of feat
 
 With Pandas we could easily group or filter these lines to show those belonging to a particular class. 
 
-Here, for instance, are all the 'lines' that belong to the Musical Organization class, which we found by filtering the original df:  `lines_explained_df[lines_explained_df['category'] == "Ornament"]`.  From here you could read each of the 'definitions' in detail to understand how the Global Jukebox team understands this feature.
+Here, for instance, are all the 'lines' that belong to the Musical Organization class, which we found by filtering the original df:  `lines_explained[lines_explained['category'] == "Ornament"]`.  From here you could read each of the 'definitions' in detail to understand how the Global Jukebox team understands this feature.
 
-![alt text](../01_Tutorials/images/gjb_lines_ornament.png)
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>category</th>
+      <th>title</th>
+      <th>definition</th>
+      <th>type</th>
+      <th>units</th>
+      <th>source</th>
+      <th>changes</th>
+      <th>notes</th>
+      <th>short_title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>22</th>
+      <td>line_23</td>
+      <td>Ornament</td>
+      <td>Embellishment</td>
+      <td>Embellishment is one of several devices used b...</td>
+      <td>Ordinal</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Embellishment</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>line_28</td>
+      <td>Ornament</td>
+      <td>Glissando</td>
+      <td>Glissando is the effect created when the voice...</td>
+      <td>Ordinal</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Glissando</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>line_29</td>
+      <td>Ornament</td>
+      <td>Melisma</td>
+      <td>The same syllable of text sung to two or more ...</td>
+      <td>Ordinal</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Melisma</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>line_30</td>
+      <td>Ornament</td>
+      <td>Tremolo</td>
+      <td>Tremolo is a quavering or shaking in the voice...</td>
+      <td>Ordinal</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Tremolo</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>line_31</td>
+      <td>Ornament</td>
+      <td>Glottal</td>
+      <td>Glottal articulation is the product of noticea...</td>
+      <td>Ordinal</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Glottal</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 <br>
 
@@ -672,6 +1007,7 @@ As far as texts go, lullabies are curious in that their intented audience is unl
 
 With these generalities in mind, it might be helpful [(as Anna Lomax Wood suggests here)](('https://docs.google.com/document/d/1S1M5p9Zfkdft5IQlTM0p-liNrNj83yh6UeQ1yL6TtfY/edit?usp=sharing')) to focus on a *subset* of the 37 cantometrics categories that suit the purpose.  Looking at the complete list of columns from the **lines_explained** table, she proposes:
 
+```python
 'line_1': 'Social_Org_Group', 
 'line_10': 'Repetition',
 'line_11': 'Vocal_Rhythm',
@@ -682,7 +1018,7 @@ With these generalities in mind, it might be helpful [(as Anna Lomax Wood sugges
 'line_25': 'Volume',
 'line_26': 'Vocal_Rubato',
 'line_28': 'Glissando'
-
+```
 
 ### Combining Data from Song and Canto sets
 
@@ -865,14 +1201,15 @@ A chart will help us make sense of the regional difference.
 # make sure you import the library!
 import plotly.express as px
 
-# clean the tuple as list
-
+# copy and prepare data
 regional_lullabies_plot_data = regional_lullabies.copy()
 regional_lullabies_plot_data['Melodic_Range'] = regional_lullabies_plot_data['Melodic_Range'].apply(lambda x: x[0])
 
 # plot
 fig = px.bar(regional_lullabies_plot_data, x="Region", y="Song_Count", color="Melodic_Range",
-             category_orders={"Melodic_Range": sorted(set(regional_lullabies_plot_data['Melodic_Range']))})
+             category_orders={"Melodic_Range": sorted(set(regional_lullabies_plot_data['Melodic_Range']))},
+			 labels={'Melodic_Range': 'Melodic Range'},
+			 title="Comparison of Melodic Range Ratings for Lullabies across Regions")
 
 # Show the figure
 fig.show()
@@ -881,7 +1218,7 @@ fig.show()
 
 <br>
 
-![alt text](../01_Tutorials/images/gjb_lullaby_6.png)
+![alt text](../01_Tutorials/images/gjb_lullaby_10.png)
 
 
 <br>
@@ -1132,7 +1469,9 @@ regional_lullabies_plot_data['Melodic_Range'] = regional_lullabies_plot_data['Me
 
 # plot
 fig = px.bar(regional_lullabies_plot_data, x="Region", y="Song_Count", color="Melodic_Range",
-             category_orders={"Melodic_Range": sorted(set(regional_lullabies_plot_data['Melodic_Range']))})
+             category_orders={"Melodic_Range": sorted(set(regional_lullabies_plot_data['Melodic_Range']))},
+			 labels={'Melodic_Range': 'Melodic Range'},
+			 title="Comparison of Melodic Range Ratings for Lullabies across Regions")
 
 # Show the figure
 fig.show()
