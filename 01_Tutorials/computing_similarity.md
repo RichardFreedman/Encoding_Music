@@ -44,7 +44,7 @@ The method of **cosine similarity** will compare the directions of the two vecto
 
 As an example, we can compute the cosine similarity between Eleanor Rigby (ERY) and Back in the USSR (BUR).
 
-> <details>
+<details>
  <summary><strong>Python will compute cosine similarity for us, but if you're curious, click here for a cosine similarity formula breakdown</strong>
  </summary>
  
