@@ -50,7 +50,7 @@ Cosine similarity is computed between two vectors, say vector $`\vec{A}`$ and ve
 
 Represent the vectors in terms of their components:
 
- ```math
+$$
  \vec{A: } \begin{bmatrix}
  a_1 \\
  a_2
@@ -62,7 +62,7 @@ Represent the vectors in terms of their components:
  b_1 \\
  b_2
  \end{bmatrix}
- ```
+ $$
 
 The formula for cosine similarity is:
 
