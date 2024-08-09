@@ -122,7 +122,7 @@ Euclidean distance is a relatively straightforward method of comparison: how far
 
 Using a method based on the Pythagorean Theorem, we can easily evaluate this.
 
-<blockquote><details><summary>Python can also implement Euclidean distance for us, but click here to learn more about the formula</summary>
+<blockquote><details><summary>Python can also implement Euclidean distance for us, but click here to learn more about the formula</summary><br>
 
 In two dimensions, the Euclidean distance between points $p$ and $q$ is represented as follows:
 
