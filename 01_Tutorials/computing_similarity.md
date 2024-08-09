@@ -82,21 +82,21 @@ Khan Academy has a video covering vector magnitudes [here][khan-academy-vector-m
 
 The cosine similarity of Eleanor Rigby and Back in the USSR, based on energy and valence, is `0.720`.
 
-**[VIZ: angle between ERY and BUR, cosine similarity labeled]**
+![d01d675b-a4da-45e5-b17a-d872acb42fa3](https://github.com/user-attachments/assets/86195214-f09b-442a-9f4f-9353ef875a63)
 
 We can't make much sense of this because we haven't seen any other computed cosine similarities, but it does make sense that these tracks have a cosine similarity noticeably lower than `1.000` (perfect similarity).
 
 Let's now compare When I'm Sixty Four and Back in the USSR.
 
-**[VIZ: angle between WSF and BUR, cosine similarity labeled]**
+![6533dfc6-ca85-4994-9fd7-62889b40fa1e](https://github.com/user-attachments/assets/230d6448-4bab-4eae-b85d-ea428b21f89b)
 
-The cosine similarity of these tracks is `0.732`. This differs slightly from the ERY-BUR comparison, but by a tiny amount. Why is this?
+The cosine similarity of these tracks is `0.732`. This differs slightly from the ERY-BUR comparison, but only by a tiny amount. Why is this?
 
 When we use cosine similarity, we represent each song as a vector, and then compare the **directions** of these vectors. However, this ignores the second aspect of vectors: their **magnitude**, or how long they are. We can see this even more clearly when comparing ERY and WSF. We have to zoom in to even see the angle between them! **[TODO: replace video with updated version if necessary]**
 
-https://github.com/user-attachments/assets/ec329b3d-5807-432c-8bbb-2413d6bc2a88
+https://github.com/user-attachments/assets/2227cca6-7301-4710-9391-e7298574157f
 
-Despite having somewhat different vectors, Eleanor Rigby and When I'm Sixty Four have a cosine similarity of `0.964`.
+Despite having somewhat different vectors, Eleanor Rigby and When I'm Sixty Four have a very high cosine similarity of `0.964`.
 
 With cosine similarity, you can get some sense of the similarity of two songs, but the method can be flawed: if two songs have attributes in a similar **ratio** to each other, their vector directions will also be very similar, even if the magnitudes of these attributes are quite different.
 
@@ -116,7 +116,7 @@ Euclidean distance is a method for measuring the distance between two points in 
 
 Previously, we have imagined songs as **vectors**. With Euclidean distance, we no longer care about direction, just the position of each song on the plane. So let's re-visualize our graph as a collection of points:
 
-**[VIZ: graph as points]**
+https://github.com/user-attachments/assets/b70111bb-acd7-4d24-bc05-827541e62359
 
 Euclidean distance is a relatively straightforward method of comparison: how far are two points from each other?
 
