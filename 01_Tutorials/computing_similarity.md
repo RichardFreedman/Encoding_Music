@@ -36,7 +36,7 @@ https://github.com/user-attachments/assets/dc9d4d31-157d-488d-a5dc-d0630cf6d45f
 
 As the values of energy and valence change, the position of the point will change on the graph. If we draw a line from the origin to this point (a **vector**), we can also see that the changing energy and valence will change the **direction** one must travel from the origin to reach the point. Thus, we can use **direction** (measured as angles $` \theta `$ and $` \phi `$ from the horizontal) as a single value to compare two multi-faceted data points.
 
-**[VIZ: points moving around, lines being drawn to the points, angles for each line changing]**
+https://github.com/user-attachments/assets/5c772430-f211-4116-844d-28ec6b77303b
 
 The method of **cosine similarity** will compare the directions of the two vectors, producing a single value measuring how similar those directions are. If the directions are identical, cosine similarity will be `1`. If they are perpendicular, cosine similarity will be `0`.
 
