@@ -44,13 +44,13 @@ The method of **cosine similarity** will compare the directions of the two vecto
 
 As an example, we can compute the cosine similarity between Eleanor Rigby (ERY) and Back in the USSR (BUR).
 
-<details><summary>Python will compute cosine similarity for us, but if you're curious, click here for a cosine similarity formula breakdown</summary><br>
+**<details><summary>Python will compute cosine similarity for us, but if you're curious, click here for a cosine similarity formula breakdown</summary><br>**
 
 Cosine similarity is computed between two vectors, say vector $`\vec{A}`$ and vector $`\vec{B}`$. We're working with 2-dimensional vectors right now (dimensions "energy" and "valence"), but this method works with n-dimensions.
 
 Represent the vectors in terms of their components:
 
-$$
+```math
  \vec{A: } \begin{bmatrix}
  a_1 \\
  a_2
@@ -62,7 +62,7 @@ $$
  b_1 \\
  b_2
  \end{bmatrix}
- $$
+ ```
 
 The formula for cosine similarity is:
 
