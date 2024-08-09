@@ -8,11 +8,11 @@ Let's consider three songs from our Beatles spotify dataset: Eleanor Rigby, When
 
 Imagine we want to compare these three songs. The simplest way to compare the songs is based on a single attribute, say, "energy".
 
-| Song	                | Energy    |
-|-----------------------|-----------|
-| Eleanor Rigby	        | 0.280	    |
-| When I'm Sixty Four   | 0.241	    |
-| Back in the USSR	    | 0.969	    |
+| Song	               | Energy    |
+|---------------------|-----------|
+| Eleanor Rigby	      | `0.280`	  |
+| When I'm Sixty Four | `0.241`	  |
+| Back in the USSR	   | `0.969`	  |
 
 We can do this visually using a bar chart:
 
@@ -22,11 +22,11 @@ We could evaluate similarity in a few ways, like finding the difference in energ
 
 But what if we want to compare songs using more than one attribute? Let's now consider "valence", in addition to "energy".
 
-| Song	                 | Energy    | Valence	|
-|-----------------------|-----------|---------|
-| Eleanor Rigby	        | 0.280	    | 0.8130	 |
-| When I'm Sixty Four   | 0.241	    | 0.6610	 |
-| Back in the USSR	     | 0.969	    | 0.4940	 |
+| Song	                 | Energy      | Valence	  |
+|-----------------------|-------------|-----------|
+| Eleanor Rigby	        | `0.280`	    | `0.8130`	 |
+| When I'm Sixty Four   | `0.241`	    | `0.6610`	 |
+| Back in the USSR	     | `0.969`	    | `0.4940`	 |
 
 We can imagine each song as a point on a graph, with the x-value representing energy and the y-value representing valence. We could choose any number of dimensions, but it is easiest to visualize a 2-dimensional graph.
 
