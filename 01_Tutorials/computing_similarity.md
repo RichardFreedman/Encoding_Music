@@ -94,9 +94,9 @@ The cosine similarity of these tracks is `0.732`. This differs slightly from the
 
 When we use cosine similarity, we represent each song as a vector, and then compare the **directions** of these vectors. However, this ignores the second aspect of vectors: their **magnitude**, or how long they are. We can see this even more clearly when comparing ERY and WSF. We have to zoom in to even see the angle between them!
 
-https://github.com/user-attachments/assets/2227cca6-7301-4710-9391-e7298574157f
+https://github.com/user-attachments/assets/3de7e73a-fd84-404d-8f55-a3ef82845415
 
-Despite having somewhat different vectors, Eleanor Rigby and When I'm Sixty Four have a very high cosine similarity of `0.964`.
+Despite having somewhat different vectors, Eleanor Rigby and When I'm Sixty Four have a very high cosine similarity of `0.999`.
 
 With cosine similarity, you can get some sense of the similarity of two songs, but the method can be flawed: if two songs have attributes in a similar **ratio** to each other, their vector directions will also be very similar, even if the magnitudes of these attributes are quite different.
 
@@ -248,6 +248,8 @@ euclid_dist_df = pd.DataFrame(euclidean_distances(attributes), index=beatles_spo
 ```
 
 The result is a square table, where each row represents a song, and each column represents a song. For example, as you go down the row for `"eleanor rigby"`, each cell represents the comparison (either cosine similarity or euclidean distance) between `"eleanor rigby"` and the song labeled in that column.
+
+> Note that the values here are different from our earlier example. Remember, we've expanded the number of attributes we're using, from just 2 to 6!
 
 We can use `.iloc` to see an excerpt of a few rows and columns from the dataframes:
 
