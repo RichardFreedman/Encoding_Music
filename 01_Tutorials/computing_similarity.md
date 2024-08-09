@@ -50,19 +50,19 @@ As an example, we can compute the cosine similarity between Eleanor Rigby (ERY) 
 >
 >Represent the vectors in terms of their components:
 >
->```math
->\vec{A: } \begin{bmatrix}
->a_1 \\
->a_2
->\end{bmatrix}
->
->\hspace{1cm}
->
->\vec{B: } \begin{bmatrix}
->b_1 \\
->b_2
->\end{bmatrix}
->```
+> ```math
+> \vec{A: } \begin{bmatrix}
+> a_1 \\
+> a_2
+> \end{bmatrix}
+> 
+> \hspace{1cm}
+> 
+> \vec{B: } \begin{bmatrix}
+> b_1 \\
+> b_2
+> \end{bmatrix}
+> ```
 >
 >The formula for cosine similarity is:
 >
