@@ -136,9 +136,9 @@ $` \sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2 + ... + (p_n - q_n)^2} `$
 
 </details></blockquote>
 
-With Euclidean distance, you take into account the magnitudes of all the attributes of two songs, and the differences between them. This helps provide more clarity in our example with Eleanor Rigby, When I'm Sixty Four, and Back in the USSR:
+With Euclidean distance, you take into account the magnitudes of all the attributes of two songs, and the differences between them. This provdes another way to compute similarity:
 
-**[VIZ: euclidean distances between ERY, WSF, BUR]**
+https://github.com/user-attachments/assets/4e410689-fb3f-4901-afad-c7d2a9dc244c
 
 Similar to cosine similarity, Euclidean distance works with any number of attributes. This means you could easily make comparisons across a wide number of Spotify attributes using Euclidean distance.
 
