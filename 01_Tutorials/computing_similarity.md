@@ -126,17 +126,13 @@ Using a method based on the Pythagorean Theorem, we can easily evaluate this.
 
 In two dimensions, the Euclidean distance between points $p$ and $q$ is represented as follows:
 
-```math
-\sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2}
-```
+$` \sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2} `$
 
 where $`p_1`$ and $`p_2`$ represent the $`x`$ and $`y`$ coordinates of point $`p`$, and likewise for point $`q`$.
 
 In $`n`$ dimensions, the Euclidean distance between points $`p`$ and $`q`$ is represented as follows:
 
-```math
-\sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2 + ... + (p_n - q_n)^2}
-```
+$` \sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2 + ... + (p_n - q_n)^2} `$
 
 </details></blockquote>
 
