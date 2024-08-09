@@ -40,7 +40,7 @@ https://github.com/user-attachments/assets/d65a91ea-fe66-4746-b066-5ee4ebb84718
 
 The method of **cosine similarity** will compare the directions of the two vectors, producing a single value measuring how similar those directions are. If the directions are identical, cosine similarity will be `1`. If they are perpendicular, cosine similarity will be `0`.
 
-**[VIZ: points perpendicular, cosine sim 0, points overlaid, cosine sim 1]**
+https://github.com/user-attachments/assets/eff1fbe1-8fe8-4d06-83c6-b33199a073e9
 
 As an example, we can compute the cosine similarity between Eleanor Rigby (ERY) and Back in the USSR (BUR).
 
