@@ -92,7 +92,7 @@ Let's now compare When I'm Sixty Four and Back in the USSR.
 
 The cosine similarity of these tracks is `0.732`. This differs slightly from the ERY-BUR comparison, but only by a tiny amount. Why is this?
 
-When we use cosine similarity, we represent each song as a vector, and then compare the **directions** of these vectors. However, this ignores the second aspect of vectors: their **magnitude**, or how long they are. We can see this even more clearly when comparing ERY and WSF. We have to zoom in to even see the angle between them! **[TODO: replace video with updated version if necessary]**
+When we use cosine similarity, we represent each song as a vector, and then compare the **directions** of these vectors. However, this ignores the second aspect of vectors: their **magnitude**, or how long they are. We can see this even more clearly when comparing ERY and WSF. We have to zoom in to even see the angle between them!
 
 https://github.com/user-attachments/assets/2227cca6-7301-4710-9391-e7298574157f
 
