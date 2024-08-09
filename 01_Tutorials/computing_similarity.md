@@ -22,11 +22,11 @@ We could evaluate similarity in a few ways, like finding the difference in energ
 
 But what if we want to compare songs using more than one attribute? Let's now consider "valence", in addition to "energy".
 
-| Song	                | Energy    | Valence	|
-|-----------------------|-----------|-----------|
-| Eleanor Rigby	        | 0.280	    | 0.8130	|
-| When I'm Sixty Four   | 0.241	    | 0.6610	|
-| Back in the USSR	    | 0.969	    | 0.4940	|
+| Song	                 | Energy    | Valence	|
+|-----------------------|-----------|---------|
+| Eleanor Rigby	        | 0.280	    | 0.8130	 |
+| When I'm Sixty Four   | 0.241	    | 0.6610	 |
+| Back in the USSR	     | 0.969	    | 0.4940	 |
 
 We can imagine each song as a point on a graph, with the x-value representing energy and the y-value representing valence. We could choose any number of dimensions, but it is easiest to visualize a 2-dimensional graph.
 
@@ -44,7 +44,13 @@ The method of **cosine similarity** will compare the directions of the two vecto
 
 As an example, we can compute the cosine similarity between Eleanor Rigby (ERY) and Back in the USSR (BUR).
 
-**<details><summary>Python will compute cosine similarity for us, but if you're curious, click here for a cosine similarity formula breakdown</summary><br>**
+<details>
+ <summary>
+  
+  **Python will compute cosine similarity for us, but if you're curious, click here for a cosine similarity formula breakdown**
+ </summary>
+ 
+<br>
 
 Cosine similarity is computed between two vectors, say vector $`\vec{A}`$ and vector $`\vec{B}`$. We're working with 2-dimensional vectors right now (dimensions "energy" and "valence"), but this method works with n-dimensions.
 
