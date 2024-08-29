@@ -13,7 +13,7 @@
 | 9. | [**Recommended Artists and Songs and Genres**](#recommended-artists-and-songs-and-genres) |
 | 10. | [**Charting Data:  Scatterplots, Correlations and Radar Plots**](#charting-data--scatterplots-correlations-and-radar-plots) |
 | 11. | [**Categories and Bins:  From Continuous to Discrete Variable**](#categories-and-bins--from-continuous-to-discrete-variables)
-| 12. | [**Networks of Songs and Artists with Spotify Data**](#networks-of-songs-and-artists-with-spotify-data |
+| 12. | [**Networks of Songs and Artists with Spotify Data**](#networks-of-songs-and-artists-with-spotify-data) |
 
 
 
