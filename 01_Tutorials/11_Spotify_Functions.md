@@ -1,5 +1,22 @@
 # Spotify Functions for the Encoding Music Course
 
+|    | Contents of this Tutorial               | 
+|----|-----------------------------------------|
+| 1. | [**Brief Introduction: Spotify, APIs, Spotify API, and Spotipy**](#brief-introduction-spotify-apis-spotify-api-and-spotipy) |
+| 2. | [**Installing SpotiPy, The Encoding Music Spotify Tools, and other Libraries**](#installing-spotipy-the-encoding-music-spotify-tools-and-other-libraries) |
+| 3. | [**Import Libraries**](#import-libraries) |
+| 4. | [**Establish Credentials for the Spotify API**](#establish-credentials-for-the-spotify-api) |
+| 5. | [**Get Basic Metadata for One or More Tracks**](#get-basic-metadata-for-one-or-more-tracks) |
+| 6. | [**Get Audio Features for a Single Playlist (or Song)**](#get-audio-features-for-a-single-playlist-or-song) |
+| 7. | [**Get Audio from Multiple Playlists**](#get-audio-from-multiple-playlists) |
+| 8. | [**Get All of a Particular User's Tracks**](#get-all-of-a-particular-users-tracks) |
+| 9. | [**Recommended Artists and Songs and Genres**](#recommended-artists-and-songs-and-genres) |
+| 10. | [**Charting Data:  Scatterplots, Correlations and Radar Plots**](#charting-data--scatterplots-correlations-and-radar-plots) |
+| 11. | [**Categories and Bins:  From Continuous to Discrete Variable**](#categories-and-bins--from-continuous-to-discrete-variables)
+| 12. | [**Networks of Songs and Artists with Spotify Data**](#networks-of-songs-and-artists-with-spotify-data |
+
+
+
 ## Brief Introduction: Spotify, APIs, Spotify API, and Spotipy
 
 **Spotify** is a paid music streaming web application launched in 2006. The service has about 182 million subscribers and hosts more than 70 million tracks. In 2014, Spotify released **Spotify API**, a web-based interface that allows anyone with a Spotify account to search, analyze, and manipulate Spotify's music metadata. In short, **an API** is a piece of software that enables two or more programs to talk to each other. You can learn more about APIs [here](https://en.wikipedia.org/wiki/API).
@@ -8,46 +25,31 @@ As this tutorial explains, you'll be able to request Spotify API access for your
 
 Thanks to [Max Hilsdorf](https://towardsdatascience.com/how-to-create-large-music-datasets-using-spotipy-40e7242cc6a6), whose Spotipy library does the heavy lifting of bringing Spotify data to your Notebook. 
 
-Note that as part of the **Encoding Music** course, we have created a special `spotipy_tools.py` library that includes all of the key functions explained below.  This library is _already_ part of the Encoding Music Jupyter Hub.  But if you create your own local JupyterLab via Anaconda, then you will need to install this library (among others).
 
-<!---
+## Installing SpotiPy, The Encoding Music Spotify Tools, and other Libraries
 
-Where are installation instructions?
+SKIP THIS STEP if you are working with the Encoding Music Jupyter Hub! 
 
---->
+Note that as part of the **Encoding Music** course, we have created a special `spotipy_tools.py` library that includes all of the key functions explained below.  This library is _already_ part of the Encoding Music Jupyter Hub.  But if you create your own local JupyterLab via Anaconda, then you will need to install this library (among others).  Here is how to do it:
 
-## Table of Contents: The Spotify Tools at a Glance
-0. [Option for Google Colab](#google-colab)
-1. [Import Libraries](#import-libraries)
-2. [Establish Credentials for the Spotify API](#establish-credentials)
-3. [Get Basic Metadata for One or More Tracks](#full-metadata)
-4. [Get Audio Features for a Single Playlist (or Song)](#playlist_audio)
-5. [Get Audio from Multiple Playlists](#audio_multiple_playlists)
-6. [Get All of a Particular User's Tracks](#analyze-user-tracks)
-7. [Recommended Artists and Songs and Genres](#recommended-artists-and-songs-and-genres)
-8. [Charting Data:  Scatterplots, Correlations and Radar Plots](#charting-data)
-9. [Categories and Bins:  From Continuous to Discrete Variable](#categories)
-10 [Networks of Songs and Artists with Spotify Data](#networks-of-songs-and-artists-with-spotify-data)
-
-##  Using Google Colab (An Alternative to Encoding Music Jupyter Hub)
-
-If you have gmail, you can alternatively use all this code on Google Colab, which will avoid some of the Max Retries errors we have encountered.
-
-1. Log in to your Google Account (HC students can just proceed as usual)
-2. Visit [Google Colab](https://colab.google/) and "Start New Notebook".  Name the notebook, and then you will see it saved in a folder in your Gdrive called Colab Notebooks, where you can find it again later
-
-3. Before you Import Libraries, you will first need to *install* a few of them that are not already active on Google Colab put the following in a new cell at the top of your Notebook:
+* **Launch Anaconda** and **open the environment** you are using for your work (this will be the same one in which you installed all the other required libraries used in the course)
+* Open a new **terminal session** (this could be done from the Anaconda Navigator page, or from a Launcher within JupyterLab.)
+* type the folowing two commands:
 
 ```python
-!pip install spotipy
-!pip install git+https://github.com/RichardFreedman/Encoding_Music.git
-!pip install pyvis
-!pip install time
+pip install git+https://github.com/RichardFreedman/Encoding_Music.git@main
+pip install spotipy
+pip install time
+pip install pyvis
 ```
+
+Now you should be ready to use the tools as explained below!
+
+
 4. Now follow the **Import Libraries** and **Establish Credential** steps bel
 
 
-## Import Libraries
+## Import Libraries 
 
 In order to make use of the Spotify data, you will need the following libraries:
 
@@ -98,7 +100,7 @@ To create your own key and secret, you will need to:
 
 #### Add Your Credentials to a Notebook on Encoding Music JupyterHub (Recommended)
 
-You will need to include your "Client_ID" and "Client_Secret" in your Notebook.  Make a dedicated cell for these using the following code (of course you will replace the "MY_ID" (and other similar unique strings) your own!
+You will need to include your "Client_ID" and "Client_Secret" in your Notebook.  Make a dedicated cell for these using the following code. You will replace the "MY_ID" (and other similar unique strings) your own!
 
 Here is the code for this special authentication cell:
 
@@ -638,7 +640,7 @@ As you can see, tracks are stored as **JSON objects** (think Dictionaries), whic
 Each Track object has many attributes, including "album", "artists", "id", "duration", "popularity", "name" etc. Some of these are extremely useful to us! You can learn more about Spotify's Track features [here](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-track).
 
 
-##  Get Audio Features for a Single Playlist
+##  Get Audio Features for a Single Playlist (or Song)
 
 So far we have gathered a lot of contextual information about the items in our playlist.  But Spotify also offers information about what they call the **Audio Features** of each track. These are derived using advanced signal analysis, including information about tempo, loudness, key, and even some strangely abstract concepts like the 'danceability' or 'energy' of a track. 
 
@@ -1075,9 +1077,6 @@ As we explain in the [Encoding Music Tutorial for Pandas Networks](09_Pandas_Net
 ![alt text](images/nw_day_recommend_2.png)
 
 
-
-
-
 ##  Charting Data:  Scatterplots, Correlations and Radar Plots
 
 Now that we have a collection of data points that represent different feature values for one complete playlist, we should be able to graph our findings using the [Plotly Express](https://plotly.com/python/plotly-express) library, which allows for interactive visualizations and more complex/powerful graphs with less code. The Plotly Express documentation details the very wide range of **bar charts, histograms, scatter plots, heat maps, polar (radar) figures** you can create, and various ways of adding **captions, legends, colors, hover data**, etc.  Visit the [Graphs and Charts Tutorial](08_Pandas_Graphs_and_Charts.md) to learn more. Please pay special attention to the need for **captions and titles** to indentify and describe the charts you include in your Notebook and Quarto publications.  
@@ -1420,3 +1419,5 @@ A network of all the Beatles Songs, here represented as a continous web of adjac
 Or a network based on binned (categorical) treatment of the same information, here for the years 1967-1968:
 
 ![alt text](images/nw_beatles_spot_2_cuts_66-67.png)
+
+Learn more about [Network Graphs](/09_Pandas_Networks.md)

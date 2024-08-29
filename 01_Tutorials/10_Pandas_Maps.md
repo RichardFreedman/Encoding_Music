@@ -5,6 +5,19 @@ In this tutorial you will learn about maps, and how to build them with Python, P
 
 Note that for some of the demonstrations offered below you will be working with some pre-defined data derived from the RILM project. For other projects you will need to bring your own data.
 
+Contents of this Tutorial
+
+|    | Contents of this Tutorial               | 
+|----|-----------------------------------------|
+| 1. | [**Maps with Plotly**](#maps-with-plotly) |
+| 2. | [**Getting Latitude and Longititude with GeoPy**](#getting-latlong-coordinates-automatically-from-geopy-with-nominatim-api) |
+| 3. | [**Map Type, Size, Center and Zoom**](#map-type-size-center-and-zoom) |
+| 4. | [**Marker Size and Color**](#marker-size-and-color) |
+| 5. | [**Hover Data**](#hover-data) |
+| 6. | [**Connect Markers witn Lines**](#connect-markers-with-lines) |
+| 7. | [**From Dataframe to Map**](#from-dataframe-to-map) |
+
+
 ## Maps with Plotly
 
 Our main [Plotly](https://plotly.com/python/maps/) library supports a wide variety of maps.  

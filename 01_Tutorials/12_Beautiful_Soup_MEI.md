@@ -13,6 +13,28 @@ In the case of music files, the common encoding standard is **MEI**, which stand
 
 In this tutorial we will explore the possibilities.
 
+
+|    | Contents of this Tutorial               | 
+|----|-----------------------------------------|
+| 1. | [**Setup: Importing Python Libraries**](#setup-importing-python-libraries) |
+| 2. | [**Import Data (XML files!)**](#import-data-xml-filess) |
+| 3. | [**Import Libraries**](#import-libraries) |
+| 4. | [**Explore the XML File**](#explore-the-xml-file) |
+| 5. | [**Visualizing XML as Network Graphs**](#visualizing-xml-as-network-graphs) |
+| 6. | [**Finding Elements and Attributes**](#finding-elements-and-attributes) |
+| 7. | [**Matching  Text Strings in Elements s**](#matching--text-strings-in-elements) |
+| 8. | [**Match Elements and Attributes with Dictionaries**](#match-elements-and-attributes-with-dictionaries) |
+| 9. | [**Family Matters:  Working with Children, Siblings, and Parents**](#family-matters--working-with-children-siblings-and-parents) |
+| 10. | [**Return the Text of a Tag**](#return-the-text-of-a-tag) |
+| 11. | [**Edit (or Update) a Tag**](#edit-or-update-a-tag) |
+| 12. | [**Finding Attributes within Tags**](#finding-attributes-within-tags) |
+| 13. | [**Edit an Attribute**](#edit-an-attribute) |
+| 14. | [**Save Revised XML document**](#save-revised-xml-document) |
+| 15. | [**Working with MEI `music`:  Measures, Staves, Notes**](#working-with-mei-music--measures-staves-notes) |
+
+
+
+
 ------
 ## Setup: Importing Python Libraries
 
@@ -346,11 +368,11 @@ It's possible to return all the tags of a given type that **match a particular t
 - All the instances of the `persName` tag that **match a certain text string**:  `soup.find_all("persName", string="Vincent Besson")`.
 - All the instances of the `persName` tag that contain **a substring anywhere in the text of the tag**:  `soup(lambda tag: tag.name == "persName" and "Vin" in tag.text)`.  In this case we are simply matching "Vin".
 
-### Match Elements and Attributes with Dictionaries
+## Match Elements and Attributes with Dictionaries
 
 `soup.find_all('Your_Element_Name', {'Your_Attribute_Name' : 'Your_Attribute_Value)` will return only those elements that match both the given type and attribute.
 
-## More About Finding and Matching Tag Strings
+### More About Finding and Matching Tag Strings
 
 - It is also possible to pass in lists (to return several different tags), regular expressions (to return tags matching various conditions), and even a dictionary (to match attributes of tags). Read more in the [Beautiful Soup documentation](https://tedboy.github.io/bs4_doc/6_searching_the_tree.html).
 - We can *edit* tags and their attributes, and even *add or delete* tags.  For instance we might want to change or add the name of an editor in a certain file, or to update information about copyright in a folder of files.  Read more in the [Beautiful Soup documentation](https://tedboy.github.io/bs4_doc/7_modifying_the_tree.html).
