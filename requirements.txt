@@ -110,7 +110,7 @@ pickleshare==0.7.5
 Pillow==9.3.0
 pkginfo==1.8.3
 platformdirs==2.6.0
-plotly==5.9.0
+plotly==5.19.0
 prometheus-client==0.15.0
 prompt-toolkit==3.0.36
 psutil==5.9.4
