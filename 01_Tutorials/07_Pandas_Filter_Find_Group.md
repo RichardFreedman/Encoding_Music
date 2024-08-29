@@ -22,7 +22,7 @@ Contents of this Tutorial
 |----|-----------------------------------------|
 | 1. | [**A Basic Filter**](#a-basic-filter) |
 | 2. | [**Using Filters**](#using-filters) |
-| 3. | [**Bins: From Continuous to Categorical Data**](#bins-from-continuous-to-categorical-data) |
+| 3. | [**Bins: From Continuous to Categorical Data**](#bins--from-continuous-to-categorical-data) |
 | 4. | [**Groupby Functions**](#groupby-functions) |
 
 ## Create a Notebook and Load the Pandas library
