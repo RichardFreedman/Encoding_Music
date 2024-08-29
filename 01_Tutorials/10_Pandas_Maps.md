@@ -265,7 +265,7 @@ As we will discover in the **From Dataframe to Map** section below, there is an 
 
 Perhaps you want to show some relationship between certain markers.  We can do this by modifying the `go.Figure(mode=)` object.  
 
-![alt text](maps_9.png)
+![alt text](images/maps_9.png)
 
 Here is how to do use `mode='markers+lines'`.
 
