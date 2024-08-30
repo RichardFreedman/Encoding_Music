@@ -10,7 +10,7 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = ">=3.9"
 spotipy = "^2.20.0"
-plotly = "^5.24.0"
+plotly = "5.19.0"
 
 [tool.poetry.dev-dependencies]
 pytest = ">6.2.4"
