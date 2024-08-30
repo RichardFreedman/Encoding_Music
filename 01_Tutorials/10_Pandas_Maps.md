@@ -5,7 +5,6 @@ In this tutorial you will learn about maps, and how to build them with Python, P
 
 Note that for some of the demonstrations offered below you will be working with some pre-defined data derived from the RILM project. For other projects you will need to bring your own data.
 
-Contents of this Tutorial
 
 |    | Contents of this Tutorial               | 
 |----|-----------------------------------------|
