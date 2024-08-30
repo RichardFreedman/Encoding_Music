@@ -7,6 +7,18 @@ Haverford, Bryn Mawr, and Swarthmore College subscribe to this database, which y
 **Note**:  the complete code for the functions described here appears at the [end of this tutorial](#all-the-rilm-functions-code)
 
 
+
+|    | Contents of this Tutorial               | 
+|----|-----------------------------------------|
+| 1. | [**What do RILM Abstracts Look Like**](#what-do-rilm-abstracts-look-like) |
+| 2. | [**From RILM Search to DataFrame**](#from-rilm-search-to-dataframe) |
+| 3. | [**A Guide to the RILM Column Headings**](#a-guide-to-the-rilm-column-headings) |
+| 4. | [**Multi-Term Search**](#multi-term-search) |
+| 5. | [**Author Search**](#author-search) |
+| 6. | [**Charts and Networks with RILM Data--Subject and Authors**](#charts-and-networks-with-rilm-data--subject-and-authors) |
+| 7. | [**All the RILM Functions Code**](#all-the-rilm-functions-code) |
+
+
 ## What do RILM Abstracts Look Like?
 
 Let's take a single entry in RILM as a point of departure.  What kinds of information do we find here?  Here is an item returned from a search for `symphonies, no. 9, op. 125`. 

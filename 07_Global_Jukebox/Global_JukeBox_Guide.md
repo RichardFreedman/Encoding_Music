@@ -1,10 +1,32 @@
 # The Global Jukebox:  Guide to the Project and Data
 
+
 ## About the Global Jukebox
 
 The **Global Jukebox** (https://www.theglobaljukebox.org/) builds on the work of [**Alan Lomax**](https://en.wikipedia.org/wiki/Alan_Lomax) (1915-2022), a musician, folklorist, and activist.  He was a key figure in the American and British folk-music revivals of the 1940s through 1960s, and a key figure at the Library of Congress and Smithsonian Institution.  
 
 ![alt text](../01_Tutorials/images/gjb_3.png)
+
+
+
+|    | Contents of this Tutorial               | 
+|----|-----------------------------------------|
+| 1. | [**Alan Lomax and Cantometrics**](#alan-lomax-and-cantometrics) |
+| 2. | [**Exploring Cantometrics and the Global Jukebox**](#exploring-cantometrics-and-the-global-jukebox) |
+| 3. | [**An Ethnographic Spotify?**](#an-ethnographic-spotify) |
+| 4. | [**The Global Jukebox Data Types**](#the-global-jukebox-data-types) |
+| 5. | [**A Closer Look at the Global Jukebox Data**](#a-closer-look-at-the-global-jukebox-data) |
+| 6. | [**'Powers of 2' and the 'raw_code' Table**](#but-wait-theres-more--powers-of-2-and-the-raw_code-table) |
+| 7. | [**The Songs and Societies Tables**](#the-songs-and-societies-tables) |
+| 8. | [**A Sample Subset:  Lullabies**](#a-sample-subset--lullabies) |
+| 9. | [**Round Up of All the Code Used in Guide**](#round-up-of-all-the-code-used-in-guide) | 
+
+
+
+
+
+
+## Alan Lomax and Cantometrics
 
 As a scholar and archivisit, Lomax formulated a rich scheme for the systematic study of musical style and context:  [Cantometrics](https://en.wikipedia.org/wiki/Cantometrics), which seeks to catalog the diversity of human musical expression through patterns of melody, rhythm, sound ideal, and (especially) social organization and purpose.  Judged by today's methods in ethnography (which often explain musical expression through its particularity), Lomax and his collaborators were curious to know the *universals* of human expression--the ways in which similar social structures (egalatarian, or not) might give rise to similar musical structures (preferences for certain kinds of interplay, or sounds).  
 
@@ -14,6 +36,7 @@ Lomax's work continues through the **[Cultural Equity](https://www.culturalequit
 ![alt text](../01_Tutorials/images/gjb_4.png)
 
 From [Wood, et al, 2022](https://journals.plos.org/plosone/article/figure?id=10.1371/journal.pone.0275469.g001)
+
 
 ## Exploring Cantometrics and the Global Jukebox
 

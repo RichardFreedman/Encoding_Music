@@ -13,6 +13,16 @@ XML is used widely on the web--**HTML** files are a kind of XML, in this case us
 **Beautiful Soup** can also be a good way to harvest information from structured webpages. In this tutorial we will explore the possibilities.
 
 ------
+
+|    | Contents of this Tutorial               | 
+|----|-----------------------------------------|
+| 1. | [**Setup: Importing Python Libraries**](#setup-importing-python-libraries) |
+| 2. | [**All Beautiful Soup Methods**](#all-beautiful-soup-methods) |
+| 3. | [**Working with Billboard Data:  One Artist**](#working-with-billboard-data--one-artist) |
+| 4. | [**Scraping Tabular Data**](#scraping-tabular-data) |
+| 5. | [**One Artist vs Top 100 Lists**](#one-artist-vs-top-100-lists) |
+
+
 ## Setup: Importing Python Libraries
 
 ```python
@@ -29,12 +39,18 @@ import glob
 
 ```
 
+## All Beautiful Soup Methods
+
 A list of all Beautiful Soup methods.  The most important for our work will be those that "find" elements and that 'get' the strings associated with various attributes and tags.
 
 
 ```python
 dir(bs)
 ```
+
+<Details>
+
+<Summary>Read the List of Soup Methods</Summary>
 
 
     ['ASCII_SPACES',
@@ -195,28 +211,14 @@ dir(bs)
      'wrap']
 
 
+</Details>
 
 
+## Working with Billboard Data:  One Artist
 
-
-
-```python
-import os
-from bs4 import BeautifulSoup as bs
-import optparse
-import sys
-from pathlib import Path
-import requests
-import pandas as pd
-import re
-from collections import Counter
-import glob
-```
-
+Let's look at one artist's page in Billboard.  We will star with Mile Davis.
 
 ```python
-
-
 
 # Replace this with the URL of the artist or chart you are trying to scrape.  In the case of individual artists, remember to include the full URL shown here (including the `chart-history`)
 url = "https://www.billboard.com/artist/miles-davis/chart-history/tlp/"  
@@ -281,7 +283,12 @@ chart_data.append({
             'total_weeks': total_weeks,
         })
 ```
+
+<br>
+
 Finally the list of dictionaries becomes a dataframe:
+
+<br>
 
 ```python
 df = pd.DataFrame(chart_data)
@@ -290,61 +297,9 @@ df
 
 
 
-## Artist vs Top 100 Lists
+## One Artist vs Top 100 Lists
 
-The tables for Artist and Top 100 charts are slightly different in their arrangement.  The code below checks the URL to which you have selected, and creates the tables accordingly
-
-
-
-
-```python
-
-
-if 'artist' in url:
-    chart_data = []
-    all_songs = soup.find_all(attrs={'class' : 'o-chart-results-list-row'})
-    # iterate over all the songs in the chart
-    for this_song in all_songs:
-        title = this_song.h3.get_text(strip=True)
-        author = this_song.h3.find_next('span').get_text(strip=True)
-        this_song_details = this_song.find_all(attrs={'class': 'o-chart-results-list__item'})
-        release_date = this_song_details[0].find_next(attrs={'class': 'o-chart-results-list__item'}).get_text(strip=True)
-        peak_weeks = this_song_details[1].find_next(attrs={'class': 'o-chart-results-list__item'}).get_text(strip=True)
-        peak_date = this_song_details[2].find_next(attrs={'class': 'o-chart-results-list__item'}).get_text(strip=True)
-        total_weeks = this_song_details[3].find_next(attrs={'class': 'o-chart-results-list__item'}).get_text(strip=True)
-        chart_data.append({
-            'title': title,
-            'author': author,
-            'release_date': release_date,
-            'peak_weeks': peak_weeks,
-            'peak_date': peak_date,
-            'total_weeks': total_weeks,
-        })
-
-    df = pd.DataFrame(chart_data)
-    df
-
-elif 'charts' in url:
-    data = []
-    for e in soup.find_all(attrs={'class':'o-chart-results-list-row-container'}):
-        # spans = e.find_all('span')
-        this_week = e.span.get_text(strip=True)
-        last_week = e.h3.find_next('span').find_next('span').get_text(strip=True)
-        peak_position = e.h3.find_next('span').find_next('span').find_next('span').get_text(strip=True)
-        weeks_on_chart = e.h3.find_next('span').find_next('span').find_next('span').find_next('span').get_text(strip=True)
-        data.append({
-            'title':e.h3.get_text(strip=True),
-            'author':e.h3.find_next('span').get_text(strip=True),
-            'this_week' : this_week,
-            'last_week': last_week,
-            'peak_position': peak_position,
-            'weeks_on_chart': weeks_on_chart
-        })
-    df = pd.DataFrame(data)
-    df
-    
-df
-```
+The tables for Artist and Top 100 charts are slightly different in their arrangement.  The code below checks the URL to which you have selected, and creates the tables accordingly.
 
 
 
@@ -650,24 +605,62 @@ df
 </table>
 </div>
 
+<br>
 
+
+<Details>
+
+<Summary>Get the Code</Summary>
 
 
 ```python
+
+if 'artist' in url:
+    chart_data = []
+    all_songs = soup.find_all(attrs={'class' : 'o-chart-results-list-row'})
+    # iterate over all the songs in the chart
+    for this_song in all_songs:
+        title = this_song.h3.get_text(strip=True)
+        author = this_song.h3.find_next('span').get_text(strip=True)
+        this_song_details = this_song.find_all(attrs={'class': 'o-chart-results-list__item'})
+        release_date = this_song_details[0].find_next(attrs={'class': 'o-chart-results-list__item'}).get_text(strip=True)
+        peak_weeks = this_song_details[1].find_next(attrs={'class': 'o-chart-results-list__item'}).get_text(strip=True)
+        peak_date = this_song_details[2].find_next(attrs={'class': 'o-chart-results-list__item'}).get_text(strip=True)
+        total_weeks = this_song_details[3].find_next(attrs={'class': 'o-chart-results-list__item'}).get_text(strip=True)
+        chart_data.append({
+            'title': title,
+            'author': author,
+            'release_date': release_date,
+            'peak_weeks': peak_weeks,
+            'peak_date': peak_date,
+            'total_weeks': total_weeks,
+        })
+
+    df = pd.DataFrame(chart_data)
+    df
+
+elif 'charts' in url:
+    data = []
+    for e in soup.find_all(attrs={'class':'o-chart-results-list-row-container'}):
+        # spans = e.find_all('span')
+        this_week = e.span.get_text(strip=True)
+        last_week = e.h3.find_next('span').find_next('span').get_text(strip=True)
+        peak_position = e.h3.find_next('span').find_next('span').find_next('span').get_text(strip=True)
+        weeks_on_chart = e.h3.find_next('span').find_next('span').find_next('span').find_next('span').get_text(strip=True)
+        data.append({
+            'title':e.h3.get_text(strip=True),
+            'author':e.h3.find_next('span').get_text(strip=True),
+            'this_week' : this_week,
+            'last_week': last_week,
+            'peak_position': peak_position,
+            'weeks_on_chart': weeks_on_chart
+        })
+    df = pd.DataFrame(data)
+    df
+    
+df
+
 df.to_csv("Miles_Davis_Billboard.csv")
 ```
 
-
-```python
-
-```
-
-
-```python
-
-```
-
-
-```python
-
-```
+</Details>
