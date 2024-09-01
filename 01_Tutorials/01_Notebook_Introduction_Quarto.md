@@ -34,11 +34,6 @@ There are several ways to run, edit, and create notebooks. Students in Encoding 
 ![Alt text](images/em_1_log.png)
 
 
-Your screen should look now look like this on your first login. Create a new notebook by clicking on the icon.  An 'untitled.ipynb' file will appear in the folder at the left.
-
-
-![Alt text](images/em_2_new_nb.png)
-
 It is also possible to run Notebooks locally in VS Code. See more [here](02_Anaconda_VS_Code_Jupyter.md).
 
 ## Make a Folder, Create a Notebook
@@ -48,20 +43,30 @@ You will want to make a folder for your work, and perhaps different folders for 
 `Right+click` to rename or delete the folder:
 
 
-![Alt text](images/nb 24.png)
+![alt text](<images/nb 24.png>)
 
+<br>
 
 Now you can create a Notebook within that Folder. 
 
 
 ![](<images/nb 25.png>)
 
+<br>
+
+
 
 `Ctr+Shift` (Mac) or `Right+Click` (Windows) lets you interact with a range of options for renaming, duplicating, and downloading files.
+
+<br>
 
 ![](<images/em_3_options.png>)
 
 It is also good practice to **copy and rename** any notebook you work on in order to preserve the original version of it.  See more below to learn how.
+
+
+**Note**:  You can also simply "drag and drop" a Notebook that you've downloaded or saved to your computer and put it directly in your JupyterLab workspace or a specific folder.  You can use the [Model Notebook](https://github.com/RichardFreedman/Encoding_Music/blob/main/01_Tutorials/00_M255_NoteBook_Model.ipynb) in this way.
+
 ### How to Create, Navigate, and Run Cells
 
 Now you are ready to create some code and commentary!
@@ -127,7 +132,9 @@ Select Side by Side:
 
 <br>
 
-What you'll see:
+**Now What you'll see:**
+
+<br>
 
 
 ![alt text](images/nb_side_2.png)
@@ -146,7 +153,6 @@ What you'll see:
 ## Notebook Frozen?
 
 If your Notebook becomes unresponsive, or you are simply stuck in some other way, one solution is to **Restart the Kernel** and begin again from the top.  Look for the **Kernel** menu or function.
-
 
 
 ## Syntax Completion and Help
