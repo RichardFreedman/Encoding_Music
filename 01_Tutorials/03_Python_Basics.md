@@ -236,7 +236,7 @@ my_concert['work_1']['work_title']
 my_concert['work_1']["librettist"] = 'Schickaneder'
 ```
 
-**Query the combined dictionaries to return the value for a particular key for each item:
+**Query the combined dictionaries** to return the value for a particular key for each item:
 
 ```
 # Create a list of 'work' keys
