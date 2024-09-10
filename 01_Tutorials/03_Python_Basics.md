@@ -235,6 +235,19 @@ my_concert['work_1']['work_title']
 ```
 my_concert['work_1']["librettist"] = 'Schickaneder'
 ```
+
+**Query the combined dictionaries to return the value for a particular key for each item:
+
+```
+# Create a list of 'work' keys
+work_keys = list(my_concert.keys())
+
+# Now a for loop to get the _all_ the values and then print the one we want
+for work in my_concert.values():
+    print(work['date'])
+```
+
+
 ### From CSV to Dictionary
 
 CSV means 'comma separated values' and is a common interchange standard for tabular information.  You can easily obtain a CSV from Excel or Google Sheets.
