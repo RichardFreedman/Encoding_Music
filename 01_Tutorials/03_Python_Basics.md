@@ -210,6 +210,7 @@ my_concert = {
         "work_genre" : "opera",
         "date" : "1871",
         "first_performance_place" : "Cairo"}
+}
 ```
 
 Access the **top-level key** 'work_1':
