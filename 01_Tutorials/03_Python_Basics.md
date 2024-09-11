@@ -256,19 +256,27 @@ As we will learn, it is actually very simple to build a Pandas dataframe from a 
 
 But it's also possible to build Python dictionaries from CSV files.  In this case you will obtain a _list_ of dictionaries---you can imagine each dictionary as the row of your original spreadsheet.
 
-You will need to import a new library, 'csv', in order to make this work.  Note that you will need to upload your csv file to the same folder where your current notebook resides, and change the `sample.csv` in the code below to the name of your file.  Of course you can also load this from some URL or space on your computer, but in that case will need the file path.
+You will need to import a new library, 'csv', in order to make this work.  Note that you will need to upload your csv file to the same folder where your current notebook resides, and change the `sample.csv` in the code below to the name of your file.  Of course you can also load this from some URL or space on your computer, but in that case will need the file path.  Upload the CSV to a local folder (like `saved_csv`) in your Jupyter Hub, then import it as follows:
 
-```
+
+```python
+# load library
 import csv
 
-with open('sample.csv', 'r') as data:
+# define path to csv
+csv_data = "saved_csv/OurVoyager.csv"
+
+# load the file
+list_of_dicts = []
+with open(csv_data, 'r') as data:
     dict_reader = csv.DictReader(data)
-    list_of_dict = list(dict_reader)
-    
-print(list_of_dict)
+    list_of_dicts = list(dict_reader)
+
+# print the list of dictionaries
+print(list_of_dicts)
 
 ```
-
+Now you can query the list as shown above.
 
 
 
