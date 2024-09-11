@@ -276,18 +276,9 @@ with open(csv_data, 'r') as data:
 print(list_of_dicts)
 
 ```
-Now you can query the list as shown above.
 
 
-
-
-
-Here is the first row of a CSV file with three columns.  There is a pair of 'works', and a 'percentage' of their relatedness:
-
-![Alt text](images/csv_sample.png)
-
-
-It's possible to _search_ and _filter) this sort of list to return items that match a particular condition.  See more below.
+Now it's possible to _search_ and _filter this sort of list to return items that match a particular condition.  See more below.
 
 Depending on the length of your csv, the output of the print statement might be _very long_.  So you might want to print just one entry instead.  The '0' item in the list is the first.  Of course Python will allow to 'slice' lists like this in lots of different ways.  Look up the documentation via w3schools.
 
