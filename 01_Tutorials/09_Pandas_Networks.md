@@ -82,8 +82,13 @@ G.add_nodes_from(["John", "Paul"])
 # add edges between any pair of nodes that are connected
 G.add_edge("John", "Paul")
 
-# render with pyvis
-pyvis_graph = net.Network(notebook=True, width="800", height="800", bgcolor="white", font_color="black")
+# render with pyvis.  Notice how we set the size and color with arguments
+pyvis_graph = net.Network(notebook=True, 
+                          width="400", 
+                          height="400", 
+                          bgcolor="white", 
+                          font_color="black")
+
 pyvis_graph.from_nx(G)
 pyvis_graph.show('my_graph.html')
 ```
@@ -116,15 +121,15 @@ G = nx.Graph()
 # add the nodes and edges
 G.add_edges_from(my_edge_list)
 
-# render with pyvis, and define layout and color
+# render with pyvis.  Notice how we set the size and color with arguments
 pyvis_graph = net.Network(notebook=True, 
-width="800", 
-height="800", 
-bgcolor="white", 
-font_color="black")
+                          width="400", 
+                          height="400", 
+                          bgcolor="black", 
+                          font_color="red")
 
 pyvis_graph.from_nx(G)
-pyvis_graph.show('my_graph.html')
+pyvis_graph.show('my_new_graph.html')
 ```
 <br>
 
@@ -810,7 +815,18 @@ We can start to see something that makes more sense, putting "A Day in the Life"
 ![alt text](images/nw_bb_title_filtered.png)
 
 
-## Spotify Networks with Categorical (Binned) and Continuous (Scalar) Data
+## Spotify Networks with Continuous (Scalar), Euclidian Distance (based on Scalar), and Binned (Categorical) Data
+
+
+
+Here we will explore two ways of working with Spotify data to build a network.
+
+- Yaggy's method for a 'continuous web' of similar pieces, based on a given threshold between values for a single audio feature
+- Russo-Batterham and Yaggy's method for using Cosine Similarity or Euclidean distances on more than one audio feature at once
+- Freedman's system for binning the scalar audio data into categorical labels and connecting pieces with more than audio feature
+
+
+### Continuous Data With Yaggy
 
 Now let's see what Networks can show us about Beatles Spotify Audio Feature data, which are derived based on various proprietary algorithms.  They include some categorical labels for key (0=C), and mode (1=major, 0=minor). But there are floats features like 'loudness' (which is in decibels) and tempo (beats per minute) and scalars (floats from 0 to 1) for things things like 'danceability', 'acousticness', and 'valence'.  Learn more from Spotify [here](https://developer.spotify.com/documentation/web-api/reference/get-audio-features).
 
@@ -852,10 +868,10 @@ import pandas as pd
 from itertools import combinations
 from copy import deepcopy
 
-def find_matches(row, feature, df, threshold=0.05):
+def find_matches(row, feature, df, song_column, threshold):
     feature_value = row[feature]
-    song = row['song']
-    return df.loc[(abs(df[feature] - feature_value) <= threshold) & (df['song'] != song)]['song'].tolist()
+    song = row[song_column]
+    return df.loc[(abs(df[feature] - feature_value) <= threshold) & (df[song_column] != song)][song_column].tolist()
 
 def add_weights(row, max_weight):
     u = row['edge'][0]
@@ -869,49 +885,52 @@ def add_communities(G):
     nx.set_node_attributes(G, partition, "group")
     return G
 
-def feature_network(feature, threshold=0.05, output_name='feature_network.html'):
+def feature_network(df, song_column, feature, threshold, output_name):
     if not output_name[-5:] == '.html':
         raise TypeError('Your output file must end in .html')
     
-    beatles_spotify_csv = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRCv45ldJmq0isl2bvWok7AbD5C6JWA0Xf1tBqow5ngX7_ox8c2d846PnH9iLp_SikzgYmvdPHe9k7G/pub?output=csv'
-    beatles_spotify = pd.read_csv(beatles_spotify_csv)
-
-    # beatles_spotify = beatles_spotify.sample(50).copy
+    if not feature in df.columns:
+        raise KeyError(f"Not a valid feature. Features are: {str(df.iloc[:, -7:-1].columns.tolist()).strip('[').strip(']')}")
     
-    if not feature in beatles_spotify.columns:
-        raise KeyError(f"Not a valid feature. Features are: {str(beatles_spotify.iloc[:, -7:-1].columns.tolist()).strip('[').strip(']')}")
+    df[feature] = df[feature].astype('float64')
+
+    df_song_feature = df[[song_column, feature]]
+    df_song_feature = df_song_feature.copy()
+    df_song_feature['matches'] = df_song_feature.apply(lambda row: find_matches(row, feature, df, song_column, threshold), axis=1)
     
-    beatles_spotify[feature] = beatles_spotify[feature].astype('float64')
+    # exploding the data
+    df_song_feature_exploded = df_song_feature.explode('matches')
+    df_song_feature_exploded = df_song_feature_exploded.dropna(subset=['matches'])
+    df_song_feature_exploded['edge'] = list(zip(df_song_feature_exploded[song_column], df_song_feature_exploded['matches']))
+    df_song_feature_exploded['edge'] = df_song_feature_exploded['edge'].apply(lambda x: tuple(sorted([str(e) for e in x])))
+    
+    # make the edges
+    df_edges = df_song_feature_exploded.drop_duplicates(subset='edge')[[song_column, 'edge', feature]]
 
-    bsv = beatles_spotify[['song', 'album', feature]]
+    # make the weights
+    df_edges['weight'] = df_edges['edge'].apply(lambda match: abs(df_song_feature.drop_duplicates(subset=song_column).set_index(song_column).loc[match[0], feature] - df_song_feature.drop_duplicates(subset=song_column).set_index(song_column).loc[match[1], feature]))
+    max_weight = df_edges['weight'].max()
+    df_edges['weighted_edge'] = df_edges.apply(lambda row: add_weights(row, max_weight), axis=1)
 
-    bsv['matches'] = bsv.apply(lambda row: find_matches(row, feature, bsv, threshold), axis=1)
-
-    bsv_exploded = bsv.explode('matches')
-
-    bsv_exploded = bsv_exploded.dropna(subset=['matches'])
-
-    bsv_exploded['edge'] = list(zip(bsv_exploded['song'], bsv_exploded['matches']))
-
-    bsv_exploded['edge'] = bsv_exploded['edge'].apply(lambda x: tuple(sorted([str(e) for e in x])))
-
-    bsv_edges = bsv_exploded.drop_duplicates(subset='edge')[['song', 'edge', feature]]
-
-    bsv_edges['weight'] = bsv_edges['edge'].apply(lambda match: abs(bsv.drop_duplicates(subset='song').set_index('song').loc[match[0], feature] - bsv.drop_duplicates(subset='song').set_index('song').loc[match[1], feature]))
-
-    max_weight = bsv_edges['weight'].max()
-    bsv_edges['weighted_edge'] = bsv_edges.apply(lambda row: add_weights(row, max_weight), axis=1)
-
+    # create the Graph and add nodes and edges
     G = nx.Graph()
-    G.add_nodes_from(bsv_exploded['song'])
-    G.add_weighted_edges_from(bsv_edges['weighted_edge'])
+    G.add_nodes_from(df_song_feature_exploded[song_column])
+    G.add_weighted_edges_from(df_edges['weighted_edge'])
+    
+    # detect Louvain communities
     G = add_communities(G)
     for node in G.nodes():
-        G.nodes[node]['title'] = f"{feature}: {bsv_exploded.loc[bsv_exploded['song'] == node, feature].iloc[0]}"
+        G.nodes[node]['title'] = f"{feature}: {df_song_feature_exploded.loc[df_song_feature_exploded[song_column] == node, feature].iloc[0]}"
+    
+    # set size and color
     network_graph = net.Network(
         bgcolor="black",
-        font_color="white"
+        font_color="white",
+        width = '1000',
+        height = '1000'
     )
+    
+    # set physics
     network_graph.set_options("""
         {
         "physics": {
@@ -926,15 +945,181 @@ def feature_network(feature, threshold=0.05, output_name='feature_network.html')
     network_graph.from_nx(G)
     network_graph.save_graph(output_name)
 
-# run the functions and return the graph:
 
-feature_network('valence', 0.1, 'valence.html')
+# run the functions and return the graph
+
+# note:  this will probably NOT open in your Notebook.  Look for it in your files and open separately (and click 'Trust HTML').  
+# Or download and open in browser
+
+# pick df to use
+df = beatles_spotify
+
+# provide name of song column
+song_column = 'song'
+
+# select the audio feature
+audio_feature = 'valence'
+
+# set threshold for edge
+threshold = 0.01
+
+# name your graph
+output_name = 'thematic_continuous_valence_graph2.html'
+
+# run the functions
+feature_network(df, song_column, audio_feature, threshold, output_name)
+
 ```
 </Details>
 
 <br>
 
+### Russo-Batterham's and Yaggy's Network based on Euclidean Distasce (or Cosine Similarity) of Multiple Audio Features
 
+Could you do the previous with more than one feature?  Not directly.  
+
+But you could first run a **cosine similarity** or **Euclidean distance** process on all your pieces using more than one audio feature.  
+
+The resulting 'distance table' could then be used to determine edges, at least once we For this you would need to create a Boolean Mask on your table--the mask would return "True" for any pair of pieces whose similarity measurement was within a given threshold of each other.
+
+```python
+# get some data
+df = beatles_spotify # <== you could use your own data, or filter first!
+
+# select audio features
+attributes = df[['danceability', 'energy', 'speechiness', 'acousticness', 'liveness', 'valence']].to_numpy()
+
+# now get Euclidean distances.  Note that your 'song' column might have a different name!
+euclid_dist_df = pd.DataFrame(euclidean_distances(attributes), index=df['song'], columns=df['song'])
+```
+
+It will look like this:
+
+
+![alt text](euclid_dist.png)
+
+Now check the distribution of values in the table, so you know how to filter it:
+
+
+```python
+fig = px.histogram(stack, x='distance', nbins=50)
+fig
+```
+
+![alt text](screenshot_3522.png)
+
+
+Filter the data accordingly:
+
+```python
+# stack the distance table and clean up column and index
+stack = euclid_dist_df.stack().rename("distance")
+new_index = stack.index.set_names(["songs", "match_songs"])
+stack.index = new_index
+stack = stack.reset_index()
+
+# filter the distance table to return only pieces that 'match' within a given threshold 
+lower_limit = 0
+upper_limit = 0.15
+pairs = stack[stack['distance'].between(lower_limit, upper_limit, inclusive='right')].sort_values(by='distance')
+```
+
+The result:
+
+![alt text](euclid_pairs.png)
+
+
+Now the network:
+
+```python
+output_name = 'euclid.html'
+
+G = nx.from_pandas_edgelist(pairs, source='songs', target='match_songs')
+G = add_communities(G)
+
+# set size and color
+network_graph = net.Network(
+    bgcolor="black",
+    font_color="white",
+    width = '1000',
+    height = '1000'
+)
+
+# set physics
+network_graph.set_options("""
+    {
+    "physics": {
+    "enabled": true,
+    "forceAtlas2Based": {
+        "springLength": 1
+    },
+    "solver": "forceAtlas2Based"
+    }
+    }
+    """)
+network_graph.from_nx(G)
+network_graph.save_graph(output_name)
+```
+
+
+
+![alt text](euclid.png)
+
+<Details>
+<Summary> Complete Code for Euclidean Distance Network </Summary>
+
+```python
+output_name = 'euclid.html'
+    
+# get some data
+df = beatles_spotify # <== you could use your own data, or filter first!
+
+# select audio features
+attributes = df[['danceability', 'energy', 'speechiness', 'acousticness', 'liveness', 'valence']].to_numpy()
+
+# now get Euclidean distances.  Note that your 'song' column might have a different name!
+euclid_dist_df = pd.DataFrame(euclidean_distances(attributes), index=df['song'], columns=df['song'])
+
+# stack the distance table and clean up column and index
+stack = euclid_dist_df.stack().rename("distance")
+new_index = stack.index.set_names(["songs", "match_songs"])
+stack.index = new_index
+stack = stack.reset_index()
+
+# filter the distance table to return only pieces that 'match' within a given threshold 
+lower_limit = 0
+upper_limit = 0.15
+pairs = stack[stack['distance'].between(lower_limit, upper_limit, inclusive='right')].sort_values(by='distance')
+
+# make the network
+G = nx.from_pandas_edgelist(pairs, source='songs', target='match_songs')
+G = add_communities(G)
+
+# set size and color
+network_graph = net.Network(
+    bgcolor="black",
+    font_color="white",
+    width = '1000',
+    height = '1000'
+)
+
+# set physics
+network_graph.set_options("""
+    {
+    "physics": {
+    "enabled": true,
+    "forceAtlas2Based": {
+        "springLength": 1
+    },
+    "solver": "forceAtlas2Based"
+    }
+    }
+    """)
+network_graph.from_nx(G)
+network_graph.save_graph(output_name)
+```
+    
+</Details>
 
 ### Spotify Audio Features as Categorical (Binned) Data
 
@@ -962,7 +1147,21 @@ It turns out that "Yellow Submarine" was in fact released twice--as part of Revo
 
 #### A Network with More Than One Bin at Once?
 
+
+
+Here we take a slightly different approach.  First we transform our scalar audio features into categorical 'bins'.  We can have any number of bins, and use any combination of features.  Note that by using `qcut` to make the bins that we follow the distribution of the data.
+
 A network based on a single binned category is not very interesting.  But what if we include _more than one_ category as part of our network?  After all, two songs might each have a low rating for acousticness, but _different_ ratings for danceability.  Played out across many pieces, this reveal some interesting connections otherwise not obvious from different kinds of charts or plots.
+
+The result will differ from Yaggy's 'continuous' network, since the pieces will only have edges via the shared bins--the neighborhoods are thus more isolated, although there will still be some pieces that cross boundaries.
+
+The basic steps:
+
+- Bin the audio features with `qcut`
+- Select the column for nodes (normally, the 'song' or equivalent in your df)
+- Select which binned features to use (more than one!)
+- Create pairs of pieces that share a each bin for each feature (see below)
+- Create the edges and nodes from these pairings
 
 
 The full results for all 190+ songs in the Beatles Spotify dataset are too complex for us to make much sense of, although the network itself is certainly pretty:
@@ -985,38 +1184,23 @@ But if we filter the data for a pair of pivotal years in the Beatles output (196
 
 And focussing further on "A Day in the Life", we see it as a centrum of an entire set of tunes with which it shares both acousticness and valence ratings.  It would be interesting to compare this to what we learn from the "Continous" network we created above, and to claims about genre from earlier in this tutorial.
 
-<Details>
-
-<Summary> Code to Create Networks from Binned Spotify Data </Summary>
+<Details> 
+<Summary> Complete Code For Binned Data Network </Summary>
 
 ```python
-# First We Transform Scalar Ratings to Categoricals
-binned_cols = ['danceability', 'acousticness']
-# now make a copy of the dataframe
-selected_album = beatles_spotify
+# set graph options:
+graph_name = 'my_binned_network.html'
+graph_height = 800
+graph_width = 800
+detect_louvain_communities = True
+add_forceAtlas2Based_physics = True
+minimum_count_for_pair = 1 # minumum number of features to match
 
-# selected_album = beatles_spotify[beatles_spotify['album'] == 'Rubber Soul'].copy()
-# label the bins and count the number of labels for use below
-labels = ['1', '2', '3', '4', '5', '6']
-bin_count = len(labels)
-# loop over the columns and 'cut' the data, returning new columns with the individual rows labeled
-# note that here we need to `drop` items that might be duplicated across bins
-for column in binned_cols:
-    selected_album[f"{column}_q_binned"] = pd.qcut(selected_album[column], 
-                                                 q=bin_count,
-                                                labels = labels,
-                                                duplicates='drop')
-beatles_spotify_binned = selected_album
-# select columns to show
-cols_to_view = ['year', 'album', 'song','danceability', 'acousticness','valence', 'danceability_q_binned','acousticness_q_binned','valence_q_binned']
-beatles_spotify_binned[cols_to_view]
+# select column for nodes
+column_for_list_of_edges = 'song' # <-- for the nodes.  Your df might use a different name for this!
 
-# copy of our data, so we don't accidentally alter it
-# filter it by year, or some other criteria
-df = beatles_spotify_binned[(beatles_spotify_binned['year'] >= 1966) & (beatles_spotify_binned['year'] <= 1967)].copy()
-
-# select the binned features (this could be a list of one or more)
-features = ['valence_q_binned', 'acousticness_q_binned']
+# select the binned features for the edges.  Could be ANY number of them, but be sure to use the 'qb' columns~
+features = ['valence_qb', 'acousticness_qb']
 
 # define pair and edge lists
 all_pairs = []
@@ -1024,12 +1208,9 @@ edge_pair_dfs = []
 
 # group function, which iterates through the selected feature(s)
 for feature_to_groupby in features: 
-
-    # column for the edges
-    column_for_list_of_edges = 'song' # <-- this is the original df column that will contain the list of features that will become the nodes and edges
     
     # Group by 'feature_to_groupby' and extract a 'column_for_list_of_edges'
-    grouped_feature_with_edges = df.groupby(feature_to_groupby)[column_for_list_of_edges].unique().reset_index(name=column_for_list_of_edges)
+    grouped_feature_with_edges = df.groupby(feature_to_groupby, observed=True)[column_for_list_of_edges].unique().reset_index(name=column_for_list_of_edges)
     
     # Generate all pairs edges for each group
     for _, row in grouped_feature_with_edges.iterrows():
@@ -1050,17 +1231,9 @@ exploded_edge_pairs = edge_pair_df_filtered.explode(edge_pair_name)
 # get the pair counts
 pair_counts = exploded_edge_pairs[edge_pair_name].value_counts()
 
-# allow a filter for the number of times a given pair of genres occurs
-# this works with the original series of pair counts, not the df
+# filter according to threshold set above
+pair_counts_filtered = pair_counts[pair_counts >= minimum_count_for_pair]
 
-minimum_count_for_pair = 1
-pair_counts_filtered = pair_counts[pair_counts >= 1]
-
-# set graph options:
-graph_height = 800
-graph_width = 800
-detect_louvain_communities = True
-add_forceAtlas2Based_physics = True
 
 # Create an empty NetworkX graph
 G = nx.Graph()
@@ -1113,7 +1286,7 @@ if add_forceAtlas2Based_physics == True:
 
 network_graph.from_nx(G)
 # # return the network
-network_graph.show("network_graph.html")
+network_graph.show(graph_name)
 ```
 
 </Details>
