@@ -1199,6 +1199,12 @@ minimum_count_for_pair = 1 # minumum number of features to match
 # select column for nodes
 column_for_list_of_edges = 'song' # <-- for the nodes.  Your df might use a different name for this!
 
+# bin data in feature columns
+# modify this list of columns based on your df!
+columns_to_bin = ['valence', 'acousticness', 'danceability', 'energy', 'speechiness', 'liveness']
+for column in columns_to_bin:
+    df[feature + '_qb'] = pd.qcut(df[feature], q=4)
+
 # select the binned features for the edges.  Could be ANY number of them, but be sure to use the 'qb' columns~
 features = ['valence_qb', 'acousticness_qb']
 
