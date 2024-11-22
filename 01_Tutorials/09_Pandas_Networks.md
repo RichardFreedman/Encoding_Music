@@ -13,7 +13,7 @@ Note that for some of the demonstrations offered below you will be working with 
 | 2. | [**A Simple Network of Students**](#a-simple-example--a-network-of-students) |
 | 3. | [**Pyvis and NetworkX:  Python Tools for Networks**](#pyvis-and-networkx--python-tools-for-networks) |
 | 4. | [**Networks: Billboard Data to Edge Pairs with Groupby and Explode**](#from-dataframe-to-edge-pairs--groupby-and-explode) |
-| 5. | [**Networks with Spotify Data Two Ways:  Binned and Continuous**](#spotify-networks-with-categorical-binned-and-continuous-scalar-data) |
+| 5. | [**Networks with Spotify Data Two Ways:  Binned and Continuous**](#spotify-networks-with-continuous-scalar-euclidian-distance-based-on-scalar-and-binned-categorical-data) |
 | 6. | [**Complex Networks: Spotify Recommended Artists**](#social-networks--spotifys-recommended-artists) |
 | 7. | [**Complex Networks: Spotify Recommended Songs**](#social-networks--spotifys-recommended-songs) |
 | 8. | [**Louvain Community Detection:  The Ghost in the Machine**](#louvain-community-detection--the-ghost-in-the-machine) |
@@ -1199,16 +1199,22 @@ minimum_count_for_pair = 1 # minumum number of features to match
 # select column for nodes
 column_for_list_of_edges = 'song' # <-- for the nodes.  Your df might use a different name for this!
 
+# bin data in feature columns
+# modify this list of columns based on your df!
+columns_to_bin = ['valence', 'acousticness', 'danceability', 'energy', 'speechiness', 'liveness']
+for column in columns_to_bin:
+    df[feature + '_qb'] = pd.qcut(df[feature], q=4)
+
 # select the binned features for the edges.  Could be ANY number of them, but be sure to use the 'qb' columns~
 features = ['valence_qb', 'acousticness_qb']
 
 # define pair and edge lists
-all_pairs = []
 edge_pair_dfs = []
 
 # group function, which iterates through the selected feature(s)
 for feature_to_groupby in features: 
-    
+    all_pairs = []
+
     # Group by 'feature_to_groupby' and extract a 'column_for_list_of_edges'
     grouped_feature_with_edges = df.groupby(feature_to_groupby, observed=True)[column_for_list_of_edges].unique().reset_index(name=column_for_list_of_edges)
     
