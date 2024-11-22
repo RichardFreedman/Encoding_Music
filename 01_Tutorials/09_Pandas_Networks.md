@@ -1203,12 +1203,12 @@ column_for_list_of_edges = 'song' # <-- for the nodes.  Your df might use a diff
 features = ['valence_qb', 'acousticness_qb']
 
 # define pair and edge lists
-all_pairs = []
 edge_pair_dfs = []
 
 # group function, which iterates through the selected feature(s)
 for feature_to_groupby in features: 
-    
+    all_pairs = []
+
     # Group by 'feature_to_groupby' and extract a 'column_for_list_of_edges'
     grouped_feature_with_edges = df.groupby(feature_to_groupby, observed=True)[column_for_list_of_edges].unique().reset_index(name=column_for_list_of_edges)
     
