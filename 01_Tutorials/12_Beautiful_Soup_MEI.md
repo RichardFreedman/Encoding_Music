@@ -66,8 +66,6 @@ A list of all Beautiful Soup methods.  The most important for our work will be t
 
 ```python
 [m for m in dir(BeautifulSoup) if m[0].islower()]
-```
-
 
 ['append', 'childGenerator', 'children', 'clear', 'decode',
 'decode_contents',
@@ -165,11 +163,14 @@ A list of all Beautiful Soup methods.  The most important for our work will be t
  'text',
  'unwrap',
  'wrap']
+ ```
 
 
 
 ----
 ## Import Data (XML files!)
+
+### From the Web
 
 As your first and perhaps most important step, you'll have to go find some data. For this homework assignment, we will work with the [Models](https://crimproject.org/models/) and [Masses](https://crimproject.org/masses/) of the CRIM Project.  You can load individual pieces from the CRIM Website using sample urls:
 
@@ -202,6 +203,43 @@ Once you've imported a file, you should be able to **convert it into a Beautiful
 
 ```python
 soup = BeautifulSoup(xml_document, 'xml')
+```
+### From Local Folder:
+
+First, you will need to make sure you have a local folder for your files, like ```MEI```.
+
+Now use `glob` to import a list of filepaths:
+
+```python
+file_list = glob.glob('Updates/*')
+file_list = sorted(file_list)
+file_list
+```
+
+Now you can refer to any file in the list, or search for a particular string in the filename.
+
+Load the file as soup object with this function:
+
+```python
+def open_file(filename):
+    with open(filename, 'rb') as file:
+        # print(filename)
+        # Detect the encoding
+        result = chardet.detect(file.read())
+        # Seek to the beginning of the file
+        file.seek(0)
+        # Decode the file using the detected encoding
+        content = file.read().decode(result['encoding'])
+        # print(file_name)
+        soup = BeautifulSoup(content, 'xml')
+        
+        return soup
+```
+
+For instance, the first file in your list:
+
+```python
+soup = open_file(updated_file_list[0])
 ```
 
 ____________________
