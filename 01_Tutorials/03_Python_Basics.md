@@ -188,13 +188,55 @@ There are various ways to:
 * add a **key/value pair**:  `my_dict["language"] = "German"
 * remove a **key/value pair**: `my_dict.pop("language")
 
-It is also possible to encounter **nested dictionaries**, in which one dictionary contains another.  
+Sometimes you will encounter a **List of Dictionaries**:
 
-**Nested Dictionaries** are ones in which one dictionary contains another.  For example:
+```python
+list_work_dicts = [
+{"work_id": 'work_1',
+"composer_first_name" : "Wolfgang Amadeus",
+"composer_last_name" : "Mozart",     
+"work_title" : "The Magic Flute",
+"work_genre" : "singspiel",
+"date" : "1791",
+"first_performance_place" : "Vienna"},
+{"work_id": 'work_2',
+"composer_first_name" : "Giuseppe",
+"composer_last_name" : "Verdi",     
+"work_title" : "Aïda",
+"work_genre" : "opera",
+"date" : "1871",
+"first_performance_place" : "Cairo"}
+]
+```
+
+In this case we can iterate through each dictionary in the list, returning values in various ways.
+
+For instance, reporting each value for the `work_title` key:
+
+```python
+for work in list_work_dicts:
+    print(work['work_title'])
+The Magic Flute
+Aïda
+```
+
+Or now performing a logical test that allows us to report only certain values:
+
+```python
+for work in list_work_dicts:
+    if work['work_title'] == "The Magic Flute":
+        
+        print(work['composer_first_name'] + " " + work['composer_last_name'])
+Wolfgang Amadeus Mozart
+```
+
+
+
+**Nested Dictionaries** are ones in which one dictionary contains another.  These can be much more complex to work with.
 
 For example, this dictionary of works in a concert, each with their own details about composer, title, genre, etc.
 
-```
+```python
 my_concert = {
     "work_1": {
         "composer_first_name" : "Wolfgang Amadeus",
