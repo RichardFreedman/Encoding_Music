@@ -185,8 +185,8 @@ There are various ways to:
 * list all the **items** (both the keys and values): `my_dict.items()`
 * list the **value for a particular key**: `my_dict["date"]`
 * update the **value for a particular key**: `my_dict["date"] = "1789"`
-* add a **key/value pair**:  `my_dict["language"] = "German"
-* remove a **key/value pair**: `my_dict.pop("language")
+* add a **key/value pair**:  `my_dict["language"] = "German"`
+* remove a **key/value pair**: `my_dict.pop("language")`
 
 Sometimes you will encounter a **List of Dictionaries**:
 
@@ -220,7 +220,7 @@ The Magic Flute
 Aïda
 ```
 
-Or now performing a logical test that allows us to report only certain values:
+Or now performing a logical test that allows us to report *only certain values*:
 
 ```python
 for work in list_work_dicts:
