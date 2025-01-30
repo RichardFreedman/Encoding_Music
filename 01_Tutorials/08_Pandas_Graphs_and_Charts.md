@@ -239,7 +239,7 @@ The [Plotly Express](https://plotly.com/python/polar-chart/#polar-chart-with-plo
 
 ```python
 # first declare feature list:
-# feature_list = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "valence", "danceability"]
+# feature_list = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "acousticness", "valence", "danceability"]
 
 def audio_feature_radar(audio_feature_data, feature_list, chart_title):
     melted_data = pd.melt(audio_feature_data, id_vars=['track_title'], value_vars=feature_list)
@@ -254,7 +254,7 @@ def audio_feature_radar(audio_feature_data, feature_list, chart_title):
 Typical usage:
 
 ```python
-feature_list = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "valence", "danceability"]
+feature_list = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "acousticness", "valence", "danceability"]
 spotify_tools.audio_feature_radar(audio_feature_data, feature_list, "My Radar Plot")
 ```
 
