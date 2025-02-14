@@ -320,11 +320,11 @@ print(list_of_dicts)
 ```
 
 
-Now it's possible to _search_ and _filter this sort of list to return items that match a particular condition.  See more below.
+Now it's possible to _search_ and _filter_ this sort of list to return items that match a particular condition.  See more below.
 
 Depending on the length of your csv, the output of the print statement might be _very long_.  So you might want to print just one entry instead.  The '0' item in the list is the first.  Of course Python will allow to 'slice' lists like this in lots of different ways.  Look up the documentation via w3schools.
 
-`print(list_of_dict)[0]`
+`print(list_of_dicts[0])`
 
 [More about dictionaries from w3schools](https://www.w3schools.com/python/python_dictionaries.asp).
 
