@@ -1,24 +1,4 @@
-# functions to import MEI files directly from github repository.
-
-
-# # Example usage
-# base_url = "https://github.com/RichardFreedman/Encoding_Music"
-# manager = GitHubFileManager(base_url)
-
-# # List all files
-# print("All files:")
-# urls = manager.list_files("02_Lab_Data/Duos_For_Intervals")
-# for url in urls:
-#     print(url)
-
-# # List files matching pattern
-# print("\nFiles matching '*Bach*':")
-# bach_urls = manager.list_files("02_Lab_Data/Duos_For_Intervals", patterns=['*Bach*'])
-# for url in bach_urls:
-#     print(url)
-
-import requests
-from urllib.parse import urlparse
+import urllib3
 import json
 import fnmatch
 
@@ -27,6 +7,7 @@ class GitHubFileManager:
         """Initialize with a GitHub repository URL"""
         self.base_url = base_url
         self.owner, self.repo = self._parse_base_url(base_url)
+        self.http = urllib3.PoolManager()
         
     def _parse_base_url(self, url):
         """Parse repository owner and name from base URL"""
@@ -41,11 +22,11 @@ class GitHubFileManager:
             'X-GitHub-Api-Version': '2022-11-28'
         }
         
-        response = requests.get(api_url, headers=headers)
-        if response.status_code != 200:
-            raise Exception(f"Failed to fetch tree SHA: {response.text}")
+        response = self.http.request('GET', api_url, headers=headers)
+        if response.status != 200:
+            raise Exception(f"Failed to fetch tree SHA: {response.data.decode('utf-8')}")
             
-        return response.json()['object']['sha']
+        return json.loads(response.data.decode('utf-8'))['object']['sha']
     
     def _get_raw_url(self, path):
         """Convert API path to raw.githubusercontent.com URL"""
@@ -75,11 +56,11 @@ class GitHubFileManager:
             'X-GitHub-Api-Version': '2022-11-28'
         }
         
-        response = requests.get(api_url, params=params, headers=headers)
-        if response.status_code != 200:
-            raise Exception(f"Failed to fetch directory contents: {response.text}")
+        response = self.http.request('GET', api_url, fields=params, headers=headers)
+        if response.status != 200:
+            raise Exception(f"Failed to fetch directory contents: {response.data.decode('utf-8')}")
             
-        tree_data = response.json()
+        tree_data = json.loads(response.data.decode('utf-8'))
         urls = []
         
         for item in tree_data['tree']:
