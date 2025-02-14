@@ -240,12 +240,23 @@ The [Plotly Express](https://plotly.com/python/polar-chart/#polar-chart-with-plo
 ```python
 # first declare feature list:
 # feature_list = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "acousticness", "valence", "danceability"]
+# note that you will need to make sure all these features are in your dataset!
 
 def audio_feature_radar(audio_feature_data, feature_list, chart_title):
-    melted_data = pd.melt(audio_feature_data, id_vars=['track_title'], value_vars=feature_list)
-    fig = px.line_polar(melted_data, r='value', theta='variable', color='track_title', labels = {'track_title' : "Track Title"})
+    melted_data = pd.melt(audio_feature_data, id_vars=['title'], value_vars=feature_list)
+    closed_data = melted_data.copy()
+    closed_data.loc[len(closed_data)] = closed_data.iloc[0]
+    closed_data = closed_data.sort_values(['title', 'variable'])
+    fig = px.line_polar(closed_data, 
+                        r='value', 
+                        theta='variable', 
+                        color='title', 
+                        labels={'title': "Track Title"},
+                        line_close=True)  # Add this line
+    
     fig.update_layout(title=chart_title)
-    fig.show()
+    
+    return fig  
 ```
 </Details>
 
