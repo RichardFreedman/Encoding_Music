@@ -6,7 +6,7 @@ authors = ["Richard Freedman <rfreedma@haverford.edu>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = ">=3.9"
+python = ">=3.9,<4.0"
 spotipy = "^2.20.0"
 plotly = "5.19.0"
 urllib3 = ">=1.26.0"
