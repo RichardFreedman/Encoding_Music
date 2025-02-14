@@ -14,6 +14,7 @@ plotly = "5.19.0"
 
 [tool.poetry.dev-dependencies]
 pytest = ">6.2.4"
+urllib3 = ">=1.26.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
