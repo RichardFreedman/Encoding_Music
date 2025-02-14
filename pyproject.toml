@@ -1,9 +1,7 @@
-
-
 [tool.poetry]
-name = "encoding_music"
+name = "encoding-music"
 version = "0.1.0"
-description = "A Python library for encoding music in Spotify"
+description = "A Python library for encoding music"
 authors = ["Richard Freedman <rfreedma@haverford.edu>"]
 license = "MIT"
 
@@ -11,12 +9,11 @@ license = "MIT"
 python = ">=3.9"
 spotipy = "^2.20.0"
 plotly = "5.19.0"
+urllib3 = ">=1.26.0"
 
 [tool.poetry.dev-dependencies]
 pytest = ">6.2.4"
-urllib3 = ">=1.26.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
-
