@@ -2184,6 +2184,375 @@ The result stored in help is a dataframe\! You could perform any operation on he
 
 Since groupby is such a powerful but complex tool, it may be helpful to learn more about the various ways to use it.
 
+#### Using Categorical Data - Lambda Functions and `apply(list)`
+So far, the aggregations methods explored have been applied to numerical data. However, we can also use categorical data with groupby. This section will explore function calls: lambda functions and `apply(list)`.
+
+##### Lambda Functions and `.apply()`
+`.apply()` takes a data structure and applies a function to it. For example, you could make a new column in a dataframe with a Boolean value. In this example, we'll check if a given track in Help\! made it in the top 50 billboard.
+
+
+```python
+# get the group for the album Help!
+help = grouped.get_group('Help!') 
+
+# set up a boolean function
+def is_top_50(track_rank) -> bool:
+    # Function to check if a track is in the top 50.
+    return track_rank > 0
+
+# apply the function to the help group
+help['is_top_50'] = help['Top.50.Billboard'].apply(is_top_50)
+help
+```
+
+<details>
+<summary>Output</summary>
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Album.debut</th>
+      <th>Duration</th>
+      <th>Other.releases</th>
+      <th>Genre</th>
+      <th>Songwriter</th>
+      <th>Lead.vocal</th>
+      <th>Top.50.Billboard</th>
+      <th>is_top_50</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>16</th>
+      <td>Another Girl</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>124</td>
+      <td>9</td>
+      <td>Country Rock, Pop/Rock</td>
+      <td>McCartney</td>
+      <td>McCartney</td>
+      <td>-1</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>92</th>
+      <td>Help!</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>138</td>
+      <td>34</td>
+      <td>Folk Rock, Pop/Rock</td>
+      <td>Lennon, with McCartney</td>
+      <td>Lennon</td>
+      <td>14</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>114</th>
+      <td>I Need You</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>148</td>
+      <td>11</td>
+      <td>Pop/Rock</td>
+      <td>Harrison</td>
+      <td>Harrison</td>
+      <td>-1</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>261</th>
+      <td>The Night Before</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>153</td>
+      <td>13</td>
+      <td>Electronic Pop/Rock</td>
+      <td>McCartney</td>
+      <td>McCartney</td>
+      <td>-1</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>270</th>
+      <td>Ticket to Ride</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>190</td>
+      <td>31</td>
+      <td>Power Pop, Jangle Pop, Folk Rock, Pop/Rock</td>
+      <td>Lennon</td>
+      <td>Lennon, with McCartney</td>
+      <td>17</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>305</th>
+      <td>You're Going to Lose That Girl</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>140</td>
+      <td>6</td>
+      <td>Rock, Pop/Rock</td>
+      <td>Lennon</td>
+      <td>Lennon</td>
+      <td>-1</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>306</th>
+      <td>You've Got to Hide Your Love Away</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>131</td>
+      <td>12</td>
+      <td>FolkPop/Rock</td>
+      <td>Lennon</td>
+      <td>Lennon</td>
+      <td>-1</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+</details>
+
+
+However, many functions are small enough that they can be defined without a name - these are called lambda functions! The code below shows how to use a lambda function to do the same thing as the is_top_50 function above.
+
+
+```python
+# get the group for the album Help!
+help = grouped.get_group('Help!') 
+
+# use a lambda function to apply the is_top_50 function
+help['is_top_50'] = help['Top.50.Billboard'].apply(lambda x: x > 0)
+help
+```
+
+<details>
+<summary>Output</summary>
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Album.debut</th>
+      <th>Duration</th>
+      <th>Other.releases</th>
+      <th>Genre</th>
+      <th>Songwriter</th>
+      <th>Lead.vocal</th>
+      <th>Top.50.Billboard</th>
+      <th>is_top_50</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>16</th>
+      <td>Another Girl</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>124</td>
+      <td>9</td>
+      <td>Country Rock, Pop/Rock</td>
+      <td>McCartney</td>
+      <td>McCartney</td>
+      <td>-1</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>92</th>
+      <td>Help!</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>138</td>
+      <td>34</td>
+      <td>Folk Rock, Pop/Rock</td>
+      <td>Lennon, with McCartney</td>
+      <td>Lennon</td>
+      <td>14</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>114</th>
+      <td>I Need You</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>148</td>
+      <td>11</td>
+      <td>Pop/Rock</td>
+      <td>Harrison</td>
+      <td>Harrison</td>
+      <td>-1</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>261</th>
+      <td>The Night Before</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>153</td>
+      <td>13</td>
+      <td>Electronic Pop/Rock</td>
+      <td>McCartney</td>
+      <td>McCartney</td>
+      <td>-1</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>270</th>
+      <td>Ticket to Ride</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>190</td>
+      <td>31</td>
+      <td>Power Pop, Jangle Pop, Folk Rock, Pop/Rock</td>
+      <td>Lennon</td>
+      <td>Lennon, with McCartney</td>
+      <td>17</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>305</th>
+      <td>You're Going to Lose That Girl</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>140</td>
+      <td>6</td>
+      <td>Rock, Pop/Rock</td>
+      <td>Lennon</td>
+      <td>Lennon</td>
+      <td>-1</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>306</th>
+      <td>You've Got to Hide Your Love Away</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>131</td>
+      <td>12</td>
+      <td>FolkPop/Rock</td>
+      <td>Lennon</td>
+      <td>Lennon</td>
+      <td>-1</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+</details>
+
+Since we are already defining the column of interest, we can simply write `lambda x: x > 0`, and it will check if the value from the Top.50.Billboard column (*written as x, but could be any name*) is greater than 0 for each row, automatically entering the boolean response into is_top_50.
+
+##### Using `.apply(list)` with dataframes
+
+Now we're going to use the ``list`` function as an aggregation function, to work with genres and songs. Let's say we wanted a list of albums containing each Beatles genre.
+
+
+```python
+# First, we need to clean the data
+beatles_billboard['Genre'] = beatles_billboard['Genre'].str.lower().str.strip().fillna('') 
+beatles_billboard['Genre'] = beatles_billboard['Genre'].str.split(', ') 
+
+# Then, we need to explode the 'Genre' column
+beatles_exploded = beatles_billboard.explode('Genre')
+beatles_exploded
+
+# Now we can group by 'Genre' and aggregate the 'Title' column into a list
+grouped_list = beatles_exploded.groupby('Genre')['Album.debut'].apply(list)
+# But, this will have duplicates since multiple songs in each album can have the same genre tag. 
+
+# So, we'll have to combine this with a labmda function to remove duplicates - we can just use the built in "pd.unique".
+grouped_list = beatles_exploded.groupby('Genre')['Album.debut'].apply(lambda x: list(pd.unique(x)))
+grouped_list
+```
+
+<details>
+<summary>Output</summary>
+
+
+    Genre
+                       [Let It Be... Naked - Fly on the Wall bonus di...
+    acid rock                   [Magical Mystery Tour, Yellow Submarine]
+    acid rock[                                                [Revolver]
+    art pop                           [Magical Mystery Tour, Abbey Road]
+    art rock           [Sgt. Pepper's Lonely Hearts Club Band, Revolv...
+                                             ...                        
+    stage&screen            [UK: Please Please Me US: The Early Beatles]
+    sunshine pop                                              [Revolver]
+    swamp pop                                               [Abbey Road]
+    symphonic rock                                          [Abbey Road]
+    vaudeville rock                               [Magical Mystery Tour]
+    Name: Album.debut, Length: 81, dtype: object
+
+</details>
+
+
+Or, if we wanted to zoom in a little, we could get a list of every album containing a certain genre, like "psychedelic rock". The column that we group by serves as an index, so I can simply call it in the list.
+
+
+```python
+grouped_list["psychedelic rock"]
+```
+
+<details>
+<summary>Output</summary>
+
+
+    ["Sgt. Pepper's Lonely Hearts Club Band",
+     'Magical Mystery Tour',
+     'UK: Revolver US: Yesterday and Today',
+     'The Beatles',
+     'Yellow Submarine',
+     'Revolver',
+     'UK: A Collection of Beatles Oldies US: Hey Jude',
+     'UK: Rarities US: Hey Jude',
+     nan,
+     'Anthology 3']
+
+</details>
+
+
 #### Performing groupby on several columns
 
 What if I want to groupby on several columns?
