@@ -25,7 +25,7 @@ Contents of this Tutorial
 | 3. | [**Bins: From Continuous to Categorical Data**](#bins-from-continuous-to-categorical-data) |
 | 4. | [**Groupby Functions**](#groupby-functions) |
 
-## Create a Notebook and Load the Pandas library
+## Create a Notebook and Load the Pandas Library
 
 ```python
 import pandas as pd
@@ -516,9 +516,9 @@ As an example, you can filter for tracks both from one of the "Anthology" albums
 ```python
 beatles_billboard[(beatles_billboard['Album.debut'].str.contains('Anthology')) & (beatles_billboard['Year'] < 1965)]
 ```
+<a name="bins-from-continuous-to-categorical-data"></a>
+## Bins: From Continuous to Categorical Data
 
-<a name="#bins-from-continuous-to-categorical-data"><\a>
-## Bins:  From Continuous to Categorical Data
 
 Another important tool is being able to categorize data. Oftentimes, this is done through "binning" -- assigning the entry to one of several discrete categories based on some continuous value. 
 
@@ -666,6 +666,7 @@ The result of the groupby operation has been stored in the variable grouped. But
 ```python
 grouped
 ```
+Output:
 
 
 
@@ -680,6 +681,7 @@ One way to get around this is using `.value_counts()`, or an aggregate function 
 ```python
 grouped.value_counts()
 ```
+<details><summary>Output</summary>
 
 
 
@@ -698,13 +700,13 @@ grouped.value_counts()
                                                        Only a Northern Song            1967  207       9               Psychedelic Rock, Pop/Rock             Harrison                Harrison                                      -1                  1
     Name: count, Length: 282, dtype: int64
 
-
+</details>
 
 #### Examples of Aggregate Functions to Follow Groupby
 
-An aggregate function is a function that is applied to a group of data and returns a single value. So, using an aggregate function after groupby() will return one value for each “group” that groupby() created. 
+An aggregate function is a function that is applied to a group of data and returns a value. So, using an aggregate function after `.groupby()` will return one value for each *group* that `.groupby()` created. 
 
-If you’re confused by any of these or want to see sample output for our object above, see the examples of many of these in “More ways to use groupby” below
+If you’re confused by any of these or want to see sample output for our object above, see the examples of many of these in [these examples](#using-our-aggregate-functions-to-work-with-all-groups) below. It's worth noting that most of these simple aggregation functions work for quantitative data - see [More Ways to Use Groupby](#more-ways-to-use-groupby) for more information on how to display qualitative data.
 
 * `.count()` – Counts non-null values in each group.  
 * `.size()` – Returns the size (number of rows) of each group, including nulls.  
@@ -728,19 +730,17 @@ Imagine you want to find the average duration of tracks in the album "Help\!". W
 beatles_billboard[beatles_billboard['Album.debut'] == 'Help!']['Duration'].mean()
 ```
 
-.mean() returns the average of all the values in a numerical column
+*  *`.mean()` returns the average of all the values in a numerical column*
 
 This is perfectly good, concise code. But what if you want to find the average duration of *every* album? You would have to find all the album names, filter for each of them one at a time, then compute the average for each \- not a trivial task\!
 
-Instead, you can use groupby to separate your data into groups. Pandas can then apply the same operation to each group individually. In one line, this would be:
+Instead, you can use `.groupby()` to separate your data into groups. Pandas can then apply the same operation to each group individually. In one line, this would be:
 
 
 ```python
 beatles_billboard.groupby('Album.debut')['Duration'].mean()
 ```
-
-
-
+<details><summary>Output</summary>
 
     Album.debut
     Abbey Road                                                         166.411765
@@ -799,11 +799,12 @@ beatles_billboard.groupby('Album.debut')['Duration'].mean()
     Yellow Submarine                                                   229.750000
     Name: Duration, dtype: float64
 
-
+</details>
+<br>
 
 Pandas Tutor provides an excellent visualization of this with a subset of the data (just a few columns and albums) [here](https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0A%0Acsv%20%3D%20'''%0ATitle,Album.debut,Duration%0AAnother%20Girl,Help!,124%0AEleanor%20Rigby,Revolver,128%0AFor%20No%20One,Revolver,121%0AGirl,Rubber%20Soul,153%0AGood%20Day%20Sunshine,Revolver,129%0AGot%20to%20Get%20You%20into%20My%20Life,Revolver,147%0AHelp!,Help!,138%0A%22Here,%20There%20and%20Everywhere%22,Revolver,145%0AI%20Need%20You,Help!,148%0AI%20Want%20to%20Tell%20You,Revolver,149%0AI'm%20Looking%20Through%20You,Rubber%20Soul,147%0AIn%20My%20Life,Rubber%20Soul,148%0ALove%20You%20To,Revolver,181%0AMichelle,Rubber%20Soul,160%0ANorwegian%20Wood%20%28This%20Bird%20Has%20Flown%29,Rubber%20Soul,125%0ARun%20for%20Your%20Life,Rubber%20Soul,138%0AShe%20Said%20She%20Said,Revolver,157%0ATaxman,Revolver,159%0AThe%20Night%20Before,Help!,153%0AThe%20Word,Rubber%20Soul,161%0AThink%20for%20Yourself,Rubber%20Soul,138%0ATicket%20to%20Ride,Help!,190%0ATomorrow%20Never%20Knows,Revolver,178%0AWait,Rubber%20Soul,136%0AYellow%20Submarine,Revolver,158%0AYou%20Won't%20See%20Me,Rubber%20Soul,202%0AYou're%20Going%20to%20Lose%20That%20Girl,Help!,140%0AYou've%20Got%20to%20Hide%20Your%20Love%20Away,Help!,131%0A'''%0A%0Asongs%20%3D%20pd.read_csv%28io.StringIO%28csv%29%29%0Asongs%20%3D%20songs%5B%5B'Title',%20'Album.debut',%20'Duration'%5D%5D.sort_values%28'Album.debut'%29%0A%0Asongs.groupby%28'Album.debut'%29%5B'Duration'%5D.mean%28%29&d=2024-07-26&lang=py&v=v1). Copy and paste the code snippet below if it does not automatically load in.
 
-Code snippet for Pandas Tutor 
+<details><summary>Code snippet for Pandas Tutor</summary> 
 
 ```py
 import pandas as pd
@@ -847,75 +848,80 @@ songs = songs[['Title', 'Album.debut', 'Duration']].sort_values('Album.debut')
 songs.groupby('Album.debut')['Duration'].mean()
 ```
 
+</details>
+
 <a name="#additional-examples-using-groupby"></a>
 ### Additional Examples using groupby
 
-groupby functions allow you to organize and analyze data that share certain features.  For instance, we could find the number of songs per album:
-
+groupby functions allow you to organize and analyze data that share certain features. For instance, we could find the number of songs per album:
 
 ```python
 beatles_billboard.groupby("Album.debut")["Title"].count()
 ```
 
+<details>
+<summary>Output</summary>
 
+```
+Album.debut
+Abbey Road                                                         17
+Anthology 1                                                        21
+Anthology 2                                                         4
+Anthology 3                                                         9
+Help!                                                               7
+Let It Be                                                          12
+Let It Be... Naked - Fly on the Wall bonus disc                     4
+Live at the BBC                                                    31
+Live! at the Star-Club in Hamburg, Germany; 1962                    1
+Magical Mystery Tour                                               11
+On Air - Live at the BBC Volume 2                                   2
+Revolver                                                           11
+Rock 'n' Roll Music                                                 1
+Rubber Soul                                                        10
+Sgt. Pepper's Lonely Hearts Club Band                              13
+The Beatles                                                        30
+The Beatles Bootleg Recordings 1963                                 2
+The Beatles' Christmas Album                                        1
+UK: 1967-1970 US: Hey Jude                                          6
+UK: A Collection of Beatles Oldies US: 1962-1966                    1
+UK: A Collection of Beatles Oldies US: Beatles '65                  1
+UK: A Collection of Beatles Oldies US: Beatles VI                   1
+UK: A Collection of Beatles Oldies US: Hey Jude                     1
+UK: A Collection of Beatles Oldies US: Meet The Beatles!            1
+UK: A Collection of Beatles Oldies US: The Beatles Second Album     1
+UK: A Collection of Beatles Oldies US: Yesterday and Today          2
+UK: A Hard Day's Night US: 1962-1966                                1
+UK: A Hard Day's Night US: Beatles '65                              1
+UK: A Hard Day's Night US: Hey Jude                                 2
+UK: A Hard Day's Night US: Something New                            8
+UK: A Hard Day's Night US: The Beatles Second Album                 1
+UK: Beatles for Sale US: Beatles '65                                8
+UK: Beatles for Sale US: Beatles VI                                 6
+UK: Help! US: Beatles VI                                            3
+UK: Help! US: Rubber Soul                                           2
+UK: Help! US: Yesterday and Today                                   2
+UK: Past Masters Volume 1 US: The Beatles Second Album              2
+UK: Please Please Me US: Meet The Beatles!                          1
+UK: Please Please Me US: Rarities                                   2
+UK: Please Please Me US: The Early Beatles                         11
+UK: Rarities US: Beatles '65                                        1
+UK: Rarities US: Beatles VI                                         1
+UK: Rarities US: Hey Jude                                           1
+UK: Rarities US: Meet The Beatles!                                  1
+UK: Rarities US: Rarities                                           3
+UK: Rarities US: Something New                                      1
+UK: Rarities US: The Beatles Second Album                           1
+UK: Revolver US: Yesterday and Today                                3
+UK: Rock 'n' Roll Music US: Something New                           2
+UK: Rock 'n' Roll Music US: The Beatles Second Album                1
+UK: Rubber Soul US: Yesterday and Today                             4
+UK: With the Beatles US: Meet The Beatles!                          9
+UK: With the Beatles US: The Beatles Second Album                   5
+Yellow Submarine                                                    4
+Name: Title, dtype: int64
+```
 
-
-    Album.debut
-    Abbey Road                                                         17
-    Anthology 1                                                        21
-    Anthology 2                                                         4
-    Anthology 3                                                         9
-    Help!                                                               7
-    Let It Be                                                          12
-    Let It Be... Naked - Fly on the Wall bonus disc                     4
-    Live at the BBC                                                    31
-    Live! at the Star-Club in Hamburg, Germany; 1962                    1
-    Magical Mystery Tour                                               11
-    On Air - Live at the BBC Volume 2                                   2
-    Revolver                                                           11
-    Rock 'n' Roll Music                                                 1
-    Rubber Soul                                                        10
-    Sgt. Pepper's Lonely Hearts Club Band                              13
-    The Beatles                                                        30
-    The Beatles Bootleg Recordings 1963                                 2
-    The Beatles' Christmas Album                                        1
-    UK: 1967-1970 US: Hey Jude                                          6
-    UK: A Collection of Beatles Oldies US: 1962-1966                    1
-    UK: A Collection of Beatles Oldies US: Beatles '65                  1
-    UK: A Collection of Beatles Oldies US: Beatles VI                   1
-    UK: A Collection of Beatles Oldies US: Hey Jude                     1
-    UK: A Collection of Beatles Oldies US: Meet The Beatles!            1
-    UK: A Collection of Beatles Oldies US: The Beatles Second Album     1
-    UK: A Collection of Beatles Oldies US: Yesterday and Today          2
-    UK: A Hard Day's Night US: 1962-1966                                1
-    UK: A Hard Day's Night US: Beatles '65                              1
-    UK: A Hard Day's Night US: Hey Jude                                 2
-    UK: A Hard Day's Night US: Something New                            8
-    UK: A Hard Day's Night US: The Beatles Second Album                 1
-    UK: Beatles for Sale US: Beatles '65                                8
-    UK: Beatles for Sale US: Beatles VI                                 6
-    UK: Help! US: Beatles VI                                            3
-    UK: Help! US: Rubber Soul                                           2
-    UK: Help! US: Yesterday and Today                                   2
-    UK: Past Masters Volume 1 US: The Beatles Second Album              2
-    UK: Please Please Me US: Meet The Beatles!                          1
-    UK: Please Please Me US: Rarities                                   2
-    UK: Please Please Me US: The Early Beatles                         11
-    UK: Rarities US: Beatles '65                                        1
-    UK: Rarities US: Beatles VI                                         1
-    UK: Rarities US: Hey Jude                                           1
-    UK: Rarities US: Meet The Beatles!                                  1
-    UK: Rarities US: Rarities                                           3
-    UK: Rarities US: Something New                                      1
-    UK: Rarities US: The Beatles Second Album                           1
-    UK: Revolver US: Yesterday and Today                                3
-    UK: Rock 'n' Roll Music US: Something New                           2
-    UK: Rock 'n' Roll Music US: The Beatles Second Album                1
-    UK: Rubber Soul US: Yesterday and Today                             4
-    UK: With the Beatles US: Meet The Beatles!                          9
-    UK: With the Beatles US: The Beatles Second Album                   5
-    Yellow Submarine                                                    4
-    Name: Title, dtype: int64
+</details>
 
 
 
@@ -953,6 +959,8 @@ grouped.get_group("Lennon")
 
 
 
+<details>
+<summary>Output</summary>
 
 <div>
 <style scoped>
@@ -1121,6 +1129,8 @@ grouped.get_group("Lennon")
 <p>65 rows × 9 columns</p>
 </div>
 
+</details>
+
 
 
 And finally to compare the outputs by grouping via two columns, songwriter and year.
@@ -1131,30 +1141,33 @@ And finally to compare the outputs by grouping via two columns, songwriter and y
 ```python
 beatles_jl_pm.groupby(['Songwriter','Year']).size()
 ```
+<details>
+<summary>Output</summary>
 
+```
+Songwriter  Year
+Lennon      1960     1
+            1962     2
+            1963     6
+            1964    12
+            1965     7
+            1966     5
+            1967     3
+            1968    17
+            1969    12
+McCartney   1960     1
+            1962     4
+            1963     2
+            1964     7
+            1965     8
+            1966     9
+            1967     7
+            1968    14
+            1969    15
+dtype: int64
+```
 
-
-
-    Songwriter  Year
-    Lennon      1960     1
-                1962     2
-                1963     6
-                1964    12
-                1965     7
-                1966     5
-                1967     3
-                1968    17
-                1969    12
-    McCartney   1960     1
-                1962     4
-                1963     2
-                1964     7
-                1965     8
-                1966     9
-                1967     7
-                1968    14
-                1969    15
-    dtype: int64
+</details>
 
 
 
@@ -1167,7 +1180,8 @@ beatles_jl_pm.groupby(['Songwriter','Year']).count()
 
 
 
-
+<details>
+<summary>Output</summary>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1393,77 +1407,78 @@ beatles_jl_pm.groupby(['Songwriter','Year']).count()
   </tbody>
 </table>
 </div>
+</details>
 
-
-
-There are many other functions that can be applied to aggregate, filter and transform data within groups\!  See the supplemental essay on groupby functions for more in-depth information.
+There are many other functions that can be applied to aggregate, filter and transform data within groups! See the supplemental essay on groupby functions for more in-depth information.
 
 A count of track titles per album:
-
 
 ```python
 beatles_billboard.groupby("Album.debut")["Title"].count()
 ```
 
+<details>
+<summary>Output</summary>
 
-
-
-    Album.debut
-    Abbey Road                                                         17
-    Anthology 1                                                        21
-    Anthology 2                                                         4
-    Anthology 3                                                         9
-    Help!                                                               7
-    Let It Be                                                          12
-    Let It Be... Naked - Fly on the Wall bonus disc                     4
-    Live at the BBC                                                    31
-    Live! at the Star-Club in Hamburg, Germany; 1962                    1
-    Magical Mystery Tour                                               11
-    On Air - Live at the BBC Volume 2                                   2
-    Revolver                                                           11
-    Rock 'n' Roll Music                                                 1
-    Rubber Soul                                                        10
-    Sgt. Pepper's Lonely Hearts Club Band                              13
-    The Beatles                                                        30
-    The Beatles Bootleg Recordings 1963                                 2
-    The Beatles' Christmas Album                                        1
-    UK: 1967-1970 US: Hey Jude                                          6
-    UK: A Collection of Beatles Oldies US: 1962-1966                    1
-    UK: A Collection of Beatles Oldies US: Beatles '65                  1
-    UK: A Collection of Beatles Oldies US: Beatles VI                   1
-    UK: A Collection of Beatles Oldies US: Hey Jude                     1
-    UK: A Collection of Beatles Oldies US: Meet The Beatles!            1
-    UK: A Collection of Beatles Oldies US: The Beatles Second Album     1
-    UK: A Collection of Beatles Oldies US: Yesterday and Today          2
-    UK: A Hard Day's Night US: 1962-1966                                1
-    UK: A Hard Day's Night US: Beatles '65                              1
-    UK: A Hard Day's Night US: Hey Jude                                 2
-    UK: A Hard Day's Night US: Something New                            8
-    UK: A Hard Day's Night US: The Beatles Second Album                 1
-    UK: Beatles for Sale US: Beatles '65                                8
-    UK: Beatles for Sale US: Beatles VI                                 6
-    UK: Help! US: Beatles VI                                            3
-    UK: Help! US: Rubber Soul                                           2
-    UK: Help! US: Yesterday and Today                                   2
-    UK: Past Masters Volume 1 US: The Beatles Second Album              2
-    UK: Please Please Me US: Meet The Beatles!                          1
-    UK: Please Please Me US: Rarities                                   2
-    UK: Please Please Me US: The Early Beatles                         11
-    UK: Rarities US: Beatles '65                                        1
-    UK: Rarities US: Beatles VI                                         1
-    UK: Rarities US: Hey Jude                                           1
-    UK: Rarities US: Meet The Beatles!                                  1
-    UK: Rarities US: Rarities                                           3
-    UK: Rarities US: Something New                                      1
-    UK: Rarities US: The Beatles Second Album                           1
-    UK: Revolver US: Yesterday and Today                                3
-    UK: Rock 'n' Roll Music US: Something New                           2
-    UK: Rock 'n' Roll Music US: The Beatles Second Album                1
-    UK: Rubber Soul US: Yesterday and Today                             4
-    UK: With the Beatles US: Meet The Beatles!                          9
-    UK: With the Beatles US: The Beatles Second Album                   5
-    Yellow Submarine                                                    4
-    Name: Title, dtype: int64
+```
+Album.debut
+Abbey Road                                                         17
+Anthology 1                                                        21
+Anthology 2                                                         4
+Anthology 3                                                         9
+Help!                                                               7
+Let It Be                                                          12
+Let It Be... Naked - Fly on the Wall bonus disc                     4
+Live at the BBC                                                    31
+Live! at the Star-Club in Hamburg, Germany; 1962                    1
+Magical Mystery Tour                                               11
+On Air - Live at the BBC Volume 2                                   2
+Revolver                                                           11
+Rock 'n' Roll Music                                                 1
+Rubber Soul                                                        10
+Sgt. Pepper's Lonely Hearts Club Band                              13
+The Beatles                                                        30
+The Beatles Bootleg Recordings 1963                                 2
+The Beatles' Christmas Album                                        1
+UK: 1967-1970 US: Hey Jude                                          6
+UK: A Collection of Beatles Oldies US: 1962-1966                    1
+UK: A Collection of Beatles Oldies US: Beatles '65                  1
+UK: A Collection of Beatles Oldies US: Beatles VI                   1
+UK: A Collection of Beatles Oldies US: Hey Jude                     1
+UK: A Collection of Beatles Oldies US: Meet The Beatles!            1
+UK: A Collection of Beatles Oldies US: The Beatles Second Album     1
+UK: A Collection of Beatles Oldies US: Yesterday and Today          2
+UK: A Hard Day's Night US: 1962-1966                                1
+UK: A Hard Day's Night US: Beatles '65                              1
+UK: A Hard Day's Night US: Hey Jude                                 2
+UK: A Hard Day's Night US: Something New                            8
+UK: A Hard Day's Night US: The Beatles Second Album                 1
+UK: Beatles for Sale US: Beatles '65                                8
+UK: Beatles for Sale US: Beatles VI                                 6
+UK: Help! US: Beatles VI                                            3
+UK: Help! US: Rubber Soul                                           2
+UK: Help! US: Yesterday and Today                                   2
+UK: Past Masters Volume 1 US: The Beatles Second Album              2
+UK: Please Please Me US: Meet The Beatles!                          1
+UK: Please Please Me US: Rarities                                   2
+UK: Please Please Me US: The Early Beatles                         11
+UK: Rarities US: Beatles '65                                        1
+UK: Rarities US: Beatles VI                                         1
+UK: Rarities US: Hey Jude                                           1
+UK: Rarities US: Meet The Beatles!                                  1
+UK: Rarities US: Rarities                                           3
+UK: Rarities US: Something New                                      1
+UK: Rarities US: The Beatles Second Album                           1
+UK: Revolver US: Yesterday and Today                                3
+UK: Rock 'n' Roll Music US: Something New                           2
+UK: Rock 'n' Roll Music US: The Beatles Second Album                1
+UK: Rubber Soul US: Yesterday and Today                             4
+UK: With the Beatles US: Meet The Beatles!                          9
+UK: With the Beatles US: The Beatles Second Album                   5
+Yellow Submarine                                                    4
+Name: Title, dtype: int64
+```
+</details>
 
 
 
@@ -1474,72 +1489,69 @@ When you work with all groups simultaneously, there are a number of possible ope
 
 ##### See the size (number of rows) of each group
 
+<details>
+<summary>Output</summary>
 
-```python
-grouped = beatles_billboard.groupby('Album.debut')
-grouped.size()
+```
+Album.debut
+Abbey Road                                                         17
+Anthology 1                                                        21
+Anthology 2                                                         4
+Anthology 3                                                         9
+Help!                                                               7
+Let It Be                                                          12
+Let It Be... Naked - Fly on the Wall bonus disc                     4
+Live at the BBC                                                    31
+Live! at the Star-Club in Hamburg, Germany; 1962                    1
+Magical Mystery Tour                                               11
+On Air - Live at the BBC Volume 2                                   2
+Revolver                                                           11
+Rock 'n' Roll Music                                                 1
+Rubber Soul                                                        10
+Sgt. Pepper's Lonely Hearts Club Band                              13
+The Beatles                                                        30
+The Beatles Bootleg Recordings 1963                                 2
+The Beatles' Christmas Album                                        1
+UK: 1967-1970 US: Hey Jude                                          6
+UK: A Collection of Beatles Oldies US: 1962-1966                    1
+UK: A Collection of Beatles Oldies US: Beatles '65                  1
+UK: A Collection of Beatles Oldies US: Beatles VI                   1
+UK: A Collection of Beatles Oldies US: Hey Jude                     1
+UK: A Collection of Beatles Oldies US: Meet The Beatles!            1
+UK: A Collection of Beatles Oldies US: The Beatles Second Album     1
+UK: A Collection of Beatles Oldies US: Yesterday and Today          2
+UK: A Hard Day's Night US: 1962-1966                                1
+UK: A Hard Day's Night US: Beatles '65                              1
+UK: A Hard Day's Night US: Hey Jude                                 2
+UK: A Hard Day's Night US: Something New                            8
+UK: A Hard Day's Night US: The Beatles Second Album                 1
+UK: Beatles for Sale US: Beatles '65                                8
+UK: Beatles for Sale US: Beatles VI                                 6
+UK: Help! US: Beatles VI                                            3
+UK: Help! US: Rubber Soul                                           2
+UK: Help! US: Yesterday and Today                                   2
+UK: Past Masters Volume 1 US: The Beatles Second Album              2
+UK: Please Please Me US: Meet The Beatles!                          1
+UK: Please Please Me US: Rarities                                   2
+UK: Please Please Me US: The Early Beatles                         11
+UK: Rarities US: Beatles '65                                        1
+UK: Rarities US: Beatles VI                                         1
+UK: Rarities US: Hey Jude                                           1
+UK: Rarities US: Meet The Beatles!                                  1
+UK: Rarities US: Rarities                                           3
+UK: Rarities US: Something New                                      1
+UK: Rarities US: The Beatles Second Album                           1
+UK: Revolver US: Yesterday and Today                                3
+UK: Rock 'n' Roll Music US: Something New                           2
+UK: Rock 'n' Roll Music US: The Beatles Second Album                1
+UK: Rubber Soul US: Yesterday and Today                             4
+UK: With the Beatles US: Meet The Beatles!                          9
+UK: With the Beatles US: The Beatles Second Album                   5
+Yellow Submarine                                                    4
+dtype: int64
 ```
 
-
-
-
-    Album.debut
-    Abbey Road                                                         17
-    Anthology 1                                                        21
-    Anthology 2                                                         4
-    Anthology 3                                                         9
-    Help!                                                               7
-    Let It Be                                                          12
-    Let It Be... Naked - Fly on the Wall bonus disc                     4
-    Live at the BBC                                                    31
-    Live! at the Star-Club in Hamburg, Germany; 1962                    1
-    Magical Mystery Tour                                               11
-    On Air - Live at the BBC Volume 2                                   2
-    Revolver                                                           11
-    Rock 'n' Roll Music                                                 1
-    Rubber Soul                                                        10
-    Sgt. Pepper's Lonely Hearts Club Band                              13
-    The Beatles                                                        30
-    The Beatles Bootleg Recordings 1963                                 2
-    The Beatles' Christmas Album                                        1
-    UK: 1967-1970 US: Hey Jude                                          6
-    UK: A Collection of Beatles Oldies US: 1962-1966                    1
-    UK: A Collection of Beatles Oldies US: Beatles '65                  1
-    UK: A Collection of Beatles Oldies US: Beatles VI                   1
-    UK: A Collection of Beatles Oldies US: Hey Jude                     1
-    UK: A Collection of Beatles Oldies US: Meet The Beatles!            1
-    UK: A Collection of Beatles Oldies US: The Beatles Second Album     1
-    UK: A Collection of Beatles Oldies US: Yesterday and Today          2
-    UK: A Hard Day's Night US: 1962-1966                                1
-    UK: A Hard Day's Night US: Beatles '65                              1
-    UK: A Hard Day's Night US: Hey Jude                                 2
-    UK: A Hard Day's Night US: Something New                            8
-    UK: A Hard Day's Night US: The Beatles Second Album                 1
-    UK: Beatles for Sale US: Beatles '65                                8
-    UK: Beatles for Sale US: Beatles VI                                 6
-    UK: Help! US: Beatles VI                                            3
-    UK: Help! US: Rubber Soul                                           2
-    UK: Help! US: Yesterday and Today                                   2
-    UK: Past Masters Volume 1 US: The Beatles Second Album              2
-    UK: Please Please Me US: Meet The Beatles!                          1
-    UK: Please Please Me US: Rarities                                   2
-    UK: Please Please Me US: The Early Beatles                         11
-    UK: Rarities US: Beatles '65                                        1
-    UK: Rarities US: Beatles VI                                         1
-    UK: Rarities US: Hey Jude                                           1
-    UK: Rarities US: Meet The Beatles!                                  1
-    UK: Rarities US: Rarities                                           3
-    UK: Rarities US: Something New                                      1
-    UK: Rarities US: The Beatles Second Album                           1
-    UK: Revolver US: Yesterday and Today                                3
-    UK: Rock 'n' Roll Music US: Something New                           2
-    UK: Rock 'n' Roll Music US: The Beatles Second Album                1
-    UK: Rubber Soul US: Yesterday and Today                             4
-    UK: With the Beatles US: Meet The Beatles!                          9
-    UK: With the Beatles US: The Beatles Second Album                   5
-    Yellow Submarine                                                    4
-    dtype: int64
-
+</details>
 
 
 ##### See the number of rows, excluding those with missing values, in each *column* of each group
@@ -1548,7 +1560,10 @@ grouped.size()
 grouped.count()
 ```
 
-Output
+
+
+<details>
+<summary>Output</summary>
 
 |  | Title | Year | Duration | Other.releases | Genre | Songwriter | Lead.vocal | Top.50.Billboard |
 | :---: | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
@@ -1567,13 +1582,16 @@ Output
 
 54 rows × 8 columns
 
+</details>
+
 ##### See the number of unique rows in each *column* of each group
 
 ```py
 grouped.nunique()
 ```
+<details>
+<summary>Output</summary>
 
-Output
 
 |  | Title | Year | Duration | Other.releases | Genre | Songwriter | Lead.vocal | Top.50.Billboard |
 | :---: | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
@@ -1592,78 +1610,82 @@ Output
 
 54 rows × 8 columns
 
+</details>
+
 Now that you have a better sense of what the data looks like, you can begin to perform operations on it. These operations should be performed on a specific column, or just a few columns. For example, while it makes sense to compute the mean of the 'Duration' column, it doesn't make sense to compute the mean of the 'Title' column (and in fact you can't)\!
 
 You can select columns to operate on the same way you would with a regular dataframe, using square brackets: grouped\['column\_name'\] or grouped\[\['column\_1', 'column\_2'\]\].
 
-You can perform the same counting operations (.size(), .count(), .nunique()):
+You can perform the same counting operations (`.size()`, `.count()`, `.nunique()`):
 
 ##### See the size (number of rows), *in the specified column(s)*, for each group
-
 
 ```python
 grouped['Duration'].size()
 ```
 
+<details>
+<summary>Output</summary>
 
-
-
-    Album.debut
-    Abbey Road                                                         17
-    Anthology 1                                                        21
-    Anthology 2                                                         4
-    Anthology 3                                                         9
-    Help!                                                               7
-    Let It Be                                                          12
-    Let It Be... Naked - Fly on the Wall bonus disc                     4
-    Live at the BBC                                                    31
-    Live! at the Star-Club in Hamburg, Germany; 1962                    1
-    Magical Mystery Tour                                               11
-    On Air - Live at the BBC Volume 2                                   2
-    Revolver                                                           11
-    Rock 'n' Roll Music                                                 1
-    Rubber Soul                                                        10
-    Sgt. Pepper's Lonely Hearts Club Band                              13
-    The Beatles                                                        30
-    The Beatles Bootleg Recordings 1963                                 2
-    The Beatles' Christmas Album                                        1
-    UK: 1967-1970 US: Hey Jude                                          6
-    UK: A Collection of Beatles Oldies US: 1962-1966                    1
-    UK: A Collection of Beatles Oldies US: Beatles '65                  1
-    UK: A Collection of Beatles Oldies US: Beatles VI                   1
-    UK: A Collection of Beatles Oldies US: Hey Jude                     1
-    UK: A Collection of Beatles Oldies US: Meet The Beatles!            1
-    UK: A Collection of Beatles Oldies US: The Beatles Second Album     1
-    UK: A Collection of Beatles Oldies US: Yesterday and Today          2
-    UK: A Hard Day's Night US: 1962-1966                                1
-    UK: A Hard Day's Night US: Beatles '65                              1
-    UK: A Hard Day's Night US: Hey Jude                                 2
-    UK: A Hard Day's Night US: Something New                            8
-    UK: A Hard Day's Night US: The Beatles Second Album                 1
-    UK: Beatles for Sale US: Beatles '65                                8
-    UK: Beatles for Sale US: Beatles VI                                 6
-    UK: Help! US: Beatles VI                                            3
-    UK: Help! US: Rubber Soul                                           2
-    UK: Help! US: Yesterday and Today                                   2
-    UK: Past Masters Volume 1 US: The Beatles Second Album              2
-    UK: Please Please Me US: Meet The Beatles!                          1
-    UK: Please Please Me US: Rarities                                   2
-    UK: Please Please Me US: The Early Beatles                         11
-    UK: Rarities US: Beatles '65                                        1
-    UK: Rarities US: Beatles VI                                         1
-    UK: Rarities US: Hey Jude                                           1
-    UK: Rarities US: Meet The Beatles!                                  1
-    UK: Rarities US: Rarities                                           3
-    UK: Rarities US: Something New                                      1
-    UK: Rarities US: The Beatles Second Album                           1
-    UK: Revolver US: Yesterday and Today                                3
-    UK: Rock 'n' Roll Music US: Something New                           2
-    UK: Rock 'n' Roll Music US: The Beatles Second Album                1
-    UK: Rubber Soul US: Yesterday and Today                             4
-    UK: With the Beatles US: Meet The Beatles!                          9
-    UK: With the Beatles US: The Beatles Second Album                   5
-    Yellow Submarine                                                    4
-    Name: Duration, dtype: int64
+```
+Album.debut
+Abbey Road                                                         17
+Anthology 1                                                        21
+Anthology 2                                                         4
+Anthology 3                                                         9
+Help!                                                               7
+Let It Be                                                          12
+Let It Be... Naked - Fly on the Wall bonus disc                     4
+Live at the BBC                                                    31
+Live! at the Star-Club in Hamburg, Germany; 1962                    1
+Magical Mystery Tour                                               11
+On Air - Live at the BBC Volume 2                                   2
+Revolver                                                           11
+Rock 'n' Roll Music                                                 1
+Rubber Soul                                                        10
+Sgt. Pepper's Lonely Hearts Club Band                              13
+The Beatles                                                        30
+The Beatles Bootleg Recordings 1963                                 2
+The Beatles' Christmas Album                                        1
+UK: 1967-1970 US: Hey Jude                                          6
+UK: A Collection of Beatles Oldies US: 1962-1966                    1
+UK: A Collection of Beatles Oldies US: Beatles '65                  1
+UK: A Collection of Beatles Oldies US: Beatles VI                   1
+UK: A Collection of Beatles Oldies US: Hey Jude                     1
+UK: A Collection of Beatles Oldies US: Meet The Beatles!            1
+UK: A Collection of Beatles Oldies US: The Beatles Second Album     1
+UK: A Collection of Beatles Oldies US: Yesterday and Today          2
+UK: A Hard Day's Night US: 1962-1966                                1
+UK: A Hard Day's Night US: Beatles '65                              1
+UK: A Hard Day's Night US: Hey Jude                                 2
+UK: A Hard Day's Night US: Something New                            8
+UK: A Hard Day's Night US: The Beatles Second Album                 1
+UK: Beatles for Sale US: Beatles '65                                8
+UK: Beatles for Sale US: Beatles VI                                 6
+UK: Help! US: Beatles VI                                            3
+UK: Help! US: Rubber Soul                                           2
+UK: Help! US: Yesterday and Today                                   2
+UK: Past Masters Volume 1 US: The Beatles Second Album              2
+UK: Please Please Me US: Meet The Beatles!                          1
+UK: Please Please Me US: Rarities                                   2
+UK: Please Please Me US: The Early Beatles                         11
+UK: Rarities US: Beatles '65                                        1
+UK: Rarities US: Beatles VI                                         1
+UK: Rarities US: Hey Jude                                           1
+UK: Rarities US: Meet The Beatles!                                  1
+UK: Rarities US: Rarities                                           3
+UK: Rarities US: Something New                                      1
+UK: Rarities US: The Beatles Second Album                           1
+UK: Revolver US: Yesterday and Today                                3
+UK: Rock 'n' Roll Music US: Something New                           2
+UK: Rock 'n' Roll Music US: The Beatles Second Album                1
+UK: Rubber Soul US: Yesterday and Today                             4
+UK: With the Beatles US: Meet The Beatles!                          9
+UK: With the Beatles US: The Beatles Second Album                   5
+Yellow Submarine                                                    4
+Name: Duration, dtype: int64
+```
+</details>
 
 
 
@@ -1673,7 +1695,8 @@ grouped['Duration'].size()
 grouped[['Title', 'Lead.vocal']].count()
 ```
 
-Output
+<details>
+<summary>Output</summary>
 
 |  | Title | Lead.vocal |
 | :---: | ----- | ----- |
@@ -1690,74 +1713,77 @@ Output
 | UK: With the Beatles US: The Beatles Second Album | 5 | 5 |
 | Yellow Submarine | 4 | 4 |
 
-54 rows × 2 columns
+</details>
 
-##### See the number of unique rows, *in the specified column(s)*, for each group
-
+##### See the number of unique rows, in the specified column(s), for each group
 
 ```python
 grouped['Other.releases'].nunique()
 ```
 
+<details>
+<summary>Output</summary>
 
+```
+Album.debut
+Abbey Road                                                          9
+Anthology 1                                                         3
+Anthology 2                                                         2
+Anthology 3                                                         1
+Help!                                                               7
+Let It Be                                                           9
+Let It Be... Naked - Fly on the Wall bonus disc                     1
+Live at the BBC                                                     2
+Live! at the Star-Club in Hamburg, Germany; 1962                    1
+Magical Mystery Tour                                                8
+On Air - Live at the BBC Volume 2                                   1
+Revolver                                                            9
+Rock 'n' Roll Music                                                 1
+Rubber Soul                                                        10
+Sgt. Pepper's Lonely Hearts Club Band                               5
+The Beatles                                                        10
+The Beatles Bootleg Recordings 1963                                 1
+The Beatles' Christmas Album                                        1
+UK: 1967-1970 US: Hey Jude                                          6
+UK: A Collection of Beatles Oldies US: 1962-1966                    1
+UK: A Collection of Beatles Oldies US: Beatles '65                  1
+UK: A Collection of Beatles Oldies US: Beatles VI                   1
+UK: A Collection of Beatles Oldies US: Hey Jude                     1
+UK: A Collection of Beatles Oldies US: Meet The Beatles!            1
+UK: A Collection of Beatles Oldies US: The Beatles Second Album     1
+UK: A Collection of Beatles Oldies US: Yesterday and Today          2
+UK: A Hard Day's Night US: 1962-1966                                1
+UK: A Hard Day's Night US: Beatles '65                              1
+UK: A Hard Day's Night US: Hey Jude                                 2
+UK: A Hard Day's Night US: Something New                            6
+UK: A Hard Day's Night US: The Beatles Second Album                 1
+UK: Beatles for Sale US: Beatles '65                                6
+UK: Beatles for Sale US: Beatles VI                                 5
+UK: Help! US: Beatles VI                                            3
+UK: Help! US: Rubber Soul                                           2
+UK: Help! US: Yesterday and Today                                   2
+UK: Past Masters Volume 1 US: The Beatles Second Album              2
+UK: Please Please Me US: Meet The Beatles!                          1
+UK: Please Please Me US: Rarities                                   2
+UK: Please Please Me US: The Early Beatles                         11
+UK: Rarities US: Beatles '65                                        1
+UK: Rarities US: Beatles VI                                         1
+UK: Rarities US: Hey Jude                                           1
+UK: Rarities US: Meet The Beatles!                                  1
+UK: Rarities US: Rarities                                           3
+UK: Rarities US: Something New                                      1
+UK: Rarities US: The Beatles Second Album                           1
+UK: Revolver US: Yesterday and Today                                3
+UK: Rock 'n' Roll Music US: Something New                           2
+UK: Rock 'n' Roll Music US: The Beatles Second Album                1
+UK: Rubber Soul US: Yesterday and Today                             4
+UK: With the Beatles US: Meet The Beatles!                          8
+UK: With the Beatles US: The Beatles Second Album                   5
+Yellow Submarine                                                    4
+Name: Other.releases, dtype: int64
+```
 
-
-    Album.debut
-    Abbey Road                                                          9
-    Anthology 1                                                         3
-    Anthology 2                                                         2
-    Anthology 3                                                         1
-    Help!                                                               7
-    Let It Be                                                           9
-    Let It Be... Naked - Fly on the Wall bonus disc                     1
-    Live at the BBC                                                     2
-    Live! at the Star-Club in Hamburg, Germany; 1962                    1
-    Magical Mystery Tour                                                8
-    On Air - Live at the BBC Volume 2                                   1
-    Revolver                                                            9
-    Rock 'n' Roll Music                                                 1
-    Rubber Soul                                                        10
-    Sgt. Pepper's Lonely Hearts Club Band                               5
-    The Beatles                                                        10
-    The Beatles Bootleg Recordings 1963                                 1
-    The Beatles' Christmas Album                                        1
-    UK: 1967-1970 US: Hey Jude                                          6
-    UK: A Collection of Beatles Oldies US: 1962-1966                    1
-    UK: A Collection of Beatles Oldies US: Beatles '65                  1
-    UK: A Collection of Beatles Oldies US: Beatles VI                   1
-    UK: A Collection of Beatles Oldies US: Hey Jude                     1
-    UK: A Collection of Beatles Oldies US: Meet The Beatles!            1
-    UK: A Collection of Beatles Oldies US: The Beatles Second Album     1
-    UK: A Collection of Beatles Oldies US: Yesterday and Today          2
-    UK: A Hard Day's Night US: 1962-1966                                1
-    UK: A Hard Day's Night US: Beatles '65                              1
-    UK: A Hard Day's Night US: Hey Jude                                 2
-    UK: A Hard Day's Night US: Something New                            6
-    UK: A Hard Day's Night US: The Beatles Second Album                 1
-    UK: Beatles for Sale US: Beatles '65                                6
-    UK: Beatles for Sale US: Beatles VI                                 5
-    UK: Help! US: Beatles VI                                            3
-    UK: Help! US: Rubber Soul                                           2
-    UK: Help! US: Yesterday and Today                                   2
-    UK: Past Masters Volume 1 US: The Beatles Second Album              2
-    UK: Please Please Me US: Meet The Beatles!                          1
-    UK: Please Please Me US: Rarities                                   2
-    UK: Please Please Me US: The Early Beatles                         11
-    UK: Rarities US: Beatles '65                                        1
-    UK: Rarities US: Beatles VI                                         1
-    UK: Rarities US: Hey Jude                                           1
-    UK: Rarities US: Meet The Beatles!                                  1
-    UK: Rarities US: Rarities                                           3
-    UK: Rarities US: Something New                                      1
-    UK: Rarities US: The Beatles Second Album                           1
-    UK: Revolver US: Yesterday and Today                                3
-    UK: Rock 'n' Roll Music US: Something New                           2
-    UK: Rock 'n' Roll Music US: The Beatles Second Album                1
-    UK: Rubber Soul US: Yesterday and Today                             4
-    UK: With the Beatles US: Meet The Beatles!                          8
-    UK: With the Beatles US: The Beatles Second Album                   5
-    Yellow Submarine                                                    4
-    Name: Other.releases, dtype: int64
+</details>
 
 
 
@@ -1769,9 +1795,8 @@ This will work with textual data, but it doesn't make sense\! All the text entri
 ```python
 grouped['Duration'].sum()
 ```
-
-
-
+<details>
+<summary>Output</summary>
 
     Album.debut
     Abbey Road                                                         2829
@@ -1830,7 +1855,7 @@ grouped['Duration'].sum()
     Yellow Submarine                                                    919
     Name: Duration, dtype: int64
 
-
+</details>
 
 ##### See the maximum value in the specified column(s) for each group
 
@@ -1841,7 +1866,8 @@ Only works with numerical data
 grouped['Top.50.Billboard'].max()
 ```
 
-
+<details>
+<summary>Output</summary>
 
 
     Album.debut
@@ -1901,7 +1927,7 @@ grouped['Top.50.Billboard'].max()
     Yellow Submarine                                                   -1
     Name: Top.50.Billboard, dtype: int64
 
-
+</details>
 
 ##### See the minimum value in the specified column(s) for each group
 
@@ -1910,6 +1936,9 @@ Only works with numerical data
 ```py
 grouped[['Other.releases', 'Top.50.Billboard']].min()
 ```
+
+<details>
+<summary>Output</summary>
 
 Output
 
@@ -1930,6 +1959,8 @@ Output
 
 54 rows × 2 columns
 
+</details>
+
 ##### See the average value in the specified column(s) for each group
 
 Only works with numerical data
@@ -1939,7 +1970,8 @@ Only works with numerical data
 grouped['Top.50.Billboard'].mean()
 ```
 
-
+<details>
+<summary>Output</summary>
 
 
     Album.debut
@@ -1999,7 +2031,7 @@ grouped['Top.50.Billboard'].mean()
     Yellow Submarine                                                   -1.000000
     Name: Top.50.Billboard, dtype: float64
 
-
+</details>
 
 ##### See the standard deviation in the specified column(s) for each group
 
@@ -2010,7 +2042,8 @@ Only works with numerical data
 grouped['Duration'].std()
 ```
 
-
+<details>
+<summary>Output</summary>
 
 
     Album.debut
@@ -2070,7 +2103,7 @@ grouped['Duration'].std()
     Yellow Submarine                                                   110.738054
     Name: Duration, dtype: float64
 
-
+</details>
 
 Note that some of the standard deviations are NaN\! Can you guess why?
 
@@ -2093,7 +2126,8 @@ grouped.groups returns a dictionary, wherein each key is a group name and each v
 
 If we want to see all of the group names, we only need the keys of this dictionary. However, grouped.groups.keys() comes out in a weird format. We can fix this by converting the output to a list, using list(). The result is a nicely formatted list of every group name in the groupby object.
 
-Output
+<details>
+<summary>Output</summary>
 
 \['Abbey Road',<br>
  'Anthology 1',<br>
@@ -2106,6 +2140,8 @@ Output
  'UK: With the Beatles US: Meet The Beatles\!',<br>
  'UK: With the Beatles US: The Beatles Second Album',<br>
  'Yellow Submarine'\]
+
+</details> 
 
 ##### Check the number of groups
 
@@ -2126,7 +2162,8 @@ help = grouped.get_group('Help!')
 help
 ```
 
-Output
+<details>
+<summary>Output</summary>
 
 |  | Title | Year | Album.debut | Duration | Other.releases | Genre | Songwriter | Lead.vocal | Top.50.Billboard |
 | :---: | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
@@ -2137,6 +2174,8 @@ Output
 | 270 | Ticket to Ride | 1965 | Help\! | 190 | 31 | Power Pop, Jangle Pop, Folk Rock, Pop/Rock | Lennon | Lennon, with McCartney | 17 |
 | 305 | You're Going to Lose That Girl | 1965 | Help\! | 140 | 6 | Rock, Pop/Rock | Lennon | Lennon | \-1 |
 | 306 | You've Got to Hide Your Love Away | 1965 | Help\! | 131 | 12 | FolkPop/Rock | Lennon | Lennon | \-1 |
+
+</details>
 
 The result stored in help is a dataframe\! You could perform any operation on help that you would on a dataframe.
 
