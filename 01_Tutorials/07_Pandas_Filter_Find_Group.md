@@ -628,19 +628,57 @@ However, `groupby` also requires special attention to the tidiness of your data 
 
 There will be a supplemental essay on groupby functions available on Moodle or GDrive. That will be a more in-depth view of the topic, whereas the below guide to groupby focuses on some of the core features.
 
-In this section:
 
-[Introduction to groupby](#introduction-to-groupby)
+|    | In this section               | 
+|----|-----------------------------------------|
+| 1. | [**Cleaning Data for groupby**](#cleaning-data-for-groupby) |
+| 2. | [**Introduction to groupby**](#introduction-to-groupby) |
+| 3. | [**Additional Examples using groupby**](#additional-examples-using-groupby) |
+| 4. | [**Groupby Functions**](#groupby-functions) |
+| 5. | [**Working With a Single Group**](#working-with-a-single-group) |
+| 6. | [**More ways to use groupby**](#more-ways-to-use-groupby) |
 
-[Additional Examples using groupby](#additional-examples-using-groupby)
+<a name="cleaning-data-for-groupby"></a>
+### Cleaning Data for groupby
 
-[Using our Aggregate Functions to Work With All Groups](#using-our-aggregate-functions-to-work-with-all-groups)
+When you use groupby, you choose a *grouping column*. In the example below, we will use the 'Album.debut' column. This column is easy to work with, since (almost) every track has exactly one album; each row had exactly one *group name* (the album title).
 
-[Working With a Single Group](#working-with-a-single-group)
+This is not always the case, and for this reason you may have to tidy your data before being able to group it. Consider the following example:
 
-[More ways to use groupby](#more-ways-to-use-groupby)
+Imagine you want to group by genre. Consider the song "Golden Slumbers", which has the genre 'Rock, Baroque Pop, Pop/Rock'. Our ideal result is that Golden Slumbers is placed into three groups: one group for 'Rock', one for 'Baroque Pop', and one for 'Pop/Rock'. However, if we try to group by genre without tidying the data, Golden Slumbers will be placed into a 'Rock, Baroque Pop, Pop/Rock' group, containing only songs with identical genres, written in the same order. How can we fix this? Using explode\!
 
-[Cleaning Data for groupby](#cleaning-data-for-groupby)
+As you learned in [Pandas: Tidy Data][pandas-tidy], you can explode a column containing several observations into several rows, each containing a single observation (e.g. one genre).
+
+Code to explode genre 
+
+```py
+# clean the data before exploding
+beatles_billboard['Genre'] = beatles_billboard['Genre'].str.lower().str.strip().fillna('').str.split(', ')
+
+# explode the data
+beatles_billboard_exploded = beatles_billboard.explode('Genre').reset_index(drop=True)
+
+# clean individual problems in the exploded data with str.replace() and str.strip()
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.strip('[')
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('pop/rock', 'pop rock')
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('r&b', 'rhythm and blues')
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('rock and roll', 'rock')
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('experimental music', 'experimental')
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace("children's music", "children's")
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace("stage&screen", "stage and screen")
+```
+
+The result for Golden Slumbers would look like this:
+
+|  | Title | Year | Album.debut | Duration | Other.releases | Genre | Songwriter | Lead.vocal | Top.50.Billboard |
+| :---: | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
+| 154 | Golden Slumbers | 1969 | Abbey Road | 91 | 5 | rock | McCartney | McCartney | \-1 |
+| 155 | Golden Slumbers | 1969 | Abbey Road | 91 | 5 | baroque pop | McCartney | McCartney | \-1 |
+| 156 | Golden Slumbers | 1969 | Abbey Road | 91 | 5 | pop/rock | McCartney | McCartney | \-1 |
+
+Now, when you use groupby on the 'Genre' column, Golden Slumbers will be correctly placed into three groups: 'rock', 'baroque pop', and 'pop/rock'.
+
+This example demonstrates the importance of tidying your data whenever appropriate for a specific operation (like groupby). Your *grouping column* should contain exactly one *group name* per row. Refer to the techniques in [Pandas: Clean Data][pandas-clean] and [Pandas: Tidy Data][pandas-tidy] for instructions and examples.
 
 ### Introduction to groupby
 
@@ -706,7 +744,7 @@ grouped.value_counts()
 
 An aggregate function is a function that is applied to a group of data and returns a value. So, using an aggregate function after `.groupby()` will return one value for each *group* that `.groupby()` created. 
 
-If you’re confused by any of these or want to see sample output for our object above, see the examples of many of these in [these examples](#using-our-aggregate-functions-to-work-with-all-groups) below. It's worth noting that most of these simple aggregation functions work for quantitative data - see [More Ways to Use Groupby](#more-ways-to-use-groupby) for more information on how to display qualitative data.
+If you’re confused by any of these or want to see sample output for our object above, see the examples of many of these in [these examples](#using-our-aggregate-functions-to-work-with-all-groups) below. It's worth noting that most of these simple aggregation functions work for quantitative data - see [More Ways to Use Groupby](#more-ways-to-use-groupby) for more information on how to display qualitative data. Also see [Pandas documentation](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.agg.html) for agg, to use aggregation functions with different columns or to aggregate using one or more operations over the specified axis.
 
 * `.count()` – Counts non-null values in each group.  
 * `.size()` – Returns the size (number of rows) of each group, including nulls.  
@@ -801,6 +839,8 @@ beatles_billboard.groupby('Album.debut')['Duration'].mean()
 
 </details>
 <br>
+
+If you wanted to round your result, you could use .round() after .mean() with a specified number of decimal points.
 
 Pandas Tutor provides an excellent visualization of this with a subset of the data (just a few columns and albums) [here](https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0A%0Acsv%20%3D%20'''%0ATitle,Album.debut,Duration%0AAnother%20Girl,Help!,124%0AEleanor%20Rigby,Revolver,128%0AFor%20No%20One,Revolver,121%0AGirl,Rubber%20Soul,153%0AGood%20Day%20Sunshine,Revolver,129%0AGot%20to%20Get%20You%20into%20My%20Life,Revolver,147%0AHelp!,Help!,138%0A%22Here,%20There%20and%20Everywhere%22,Revolver,145%0AI%20Need%20You,Help!,148%0AI%20Want%20to%20Tell%20You,Revolver,149%0AI'm%20Looking%20Through%20You,Rubber%20Soul,147%0AIn%20My%20Life,Rubber%20Soul,148%0ALove%20You%20To,Revolver,181%0AMichelle,Rubber%20Soul,160%0ANorwegian%20Wood%20%28This%20Bird%20Has%20Flown%29,Rubber%20Soul,125%0ARun%20for%20Your%20Life,Rubber%20Soul,138%0AShe%20Said%20She%20Said,Revolver,157%0ATaxman,Revolver,159%0AThe%20Night%20Before,Help!,153%0AThe%20Word,Rubber%20Soul,161%0AThink%20for%20Yourself,Rubber%20Soul,138%0ATicket%20to%20Ride,Help!,190%0ATomorrow%20Never%20Knows,Revolver,178%0AWait,Rubber%20Soul,136%0AYellow%20Submarine,Revolver,158%0AYou%20Won't%20See%20Me,Rubber%20Soul,202%0AYou're%20Going%20to%20Lose%20That%20Girl,Help!,140%0AYou've%20Got%20to%20Hide%20Your%20Love%20Away,Help!,131%0A'''%0A%0Asongs%20%3D%20pd.read_csv%28io.StringIO%28csv%29%29%0Asongs%20%3D%20songs%5B%5B'Title',%20'Album.debut',%20'Duration'%5D%5D.sort_values%28'Album.debut'%29%0A%0Asongs.groupby%28'Album.debut'%29%5B'Duration'%5D.mean%28%29&d=2024-07-26&lang=py&v=v1). Copy and paste the code snippet below if it does not automatically load in.
 
@@ -963,19 +1003,6 @@ grouped.get_group("Lennon")
 <summary>Output</summary>
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1183,19 +1210,7 @@ beatles_jl_pm.groupby(['Songwriter','Year']).count()
 <details>
 <summary>Output</summary>
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1411,6 +1426,8 @@ beatles_jl_pm.groupby(['Songwriter','Year']).count()
 
 There are many other functions that can be applied to aggregate, filter and transform data within groups! See the supplemental essay on groupby functions for more in-depth information.
 
+You may also notice that there is a lot of redundancy in this table. To only list the results of one column, you can specify just like any other pandas operation using \[column-name] before .count(). See the next example.
+
 A count of track titles per album:
 
 ```python
@@ -1489,6 +1506,10 @@ When you work with all groups simultaneously, there are a number of possible ope
 
 ##### See the size (number of rows) of each group
 
+```python
+grouped.size()
+```
+
 <details>
 <summary>Output</summary>
 
@@ -1554,36 +1575,6 @@ dtype: int64
 </details>
 
 
-##### See the number of rows, excluding those with missing values, in each *column* of each group
-
-```py
-grouped.count()
-```
-
-
-
-<details>
-<summary>Output</summary>
-
-|  | Title | Year | Duration | Other.releases | Genre | Songwriter | Lead.vocal | Top.50.Billboard |
-| :---: | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
-| Album.debut |  |  |  |  |  |  |  |  |
-| Abbey Road | 17 | 17 | 17 | 17 | 17 | 17 | 17 | 17 |
-| Anthology 1 | 21 | 21 | 21 | 21 | 21 | 21 | 19 | 21 |
-| Anthology 2 | 4 | 4 | 4 | 4 | 4 | 4 | 3 | 4 |
-| Anthology 3 | 9 | 9 | 9 | 9 | 9 | 9 | 9 | 9 |
-| Help\! | 7 | 7 | 7 | 7 | 7 | 7 | 7 | 7 |
-| ... | ... | ... | ... | ... | ... | ... | ... | ... |
-| UK: Rock 'n' Roll Music US: The Beatles Second Album | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
-| UK: Rubber Soul US: Yesterday and Today | 4 | 4 | 4 | 4 | 4 | 4 | 4 | 4 |
-| UK: With the Beatles US: Meet The Beatles\! | 9 | 9 | 9 | 9 | 9 | 9 | 9 | 9 |
-| UK: With the Beatles US: The Beatles Second Album | 5 | 5 | 5 | 5 | 5 | 5 | 5 | 5 |
-| Yellow Submarine | 4 | 4 | 4 | 4 | 4 | 4 | 4 | 4 |
-
-54 rows × 8 columns
-
-</details>
-
 ##### See the number of unique rows in each *column* of each group
 
 ```py
@@ -1616,7 +1607,7 @@ Now that you have a better sense of what the data looks like, you can begin to p
 
 You can select columns to operate on the same way you would with a regular dataframe, using square brackets: grouped\['column\_name'\] or grouped\[\['column\_1', 'column\_2'\]\].
 
-You can perform the same counting operations (`.size()`, `.count()`, `.nunique()`):
+You can perform any of the common counting operations—.size(), .count(), or .nunique()—individually, depending on your needs. Here is an example of each, applied to a different column or columns:
 
 ##### See the size (number of rows), *in the specified column(s)*, for each group
 
@@ -2033,6 +2024,8 @@ grouped['Top.50.Billboard'].mean()
 
 </details>
 
+With the Top 50 Billboard, we took the max, min, and average. In the min, we discovered that -1 is a placeholder value for when a title does not make the top 50. So, our averages don't actually mean much, and we would want to filter the data to greater than 0 before doing these operations. This is why it is important to look into your data before doing one operation and drawing conclusions.
+
 ##### See the standard deviation in the specified column(s) for each group
 
 Only works with numerical data
@@ -2210,19 +2203,7 @@ help
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -2355,19 +2336,6 @@ help
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -2502,7 +2470,7 @@ beatles_exploded
 grouped_list = beatles_exploded.groupby('Genre')['Album.debut'].apply(list)
 # But, this will have duplicates since multiple songs in each album can have the same genre tag. 
 
-# So, we'll have to combine this with a labmda function to remove duplicates - we can just use the built in "pd.unique".
+# So, we'll have to combine this with a lambda function to remove duplicates - we can just use the built in "pd.unique".
 grouped_list = beatles_exploded.groupby('Genre')['Album.debut'].apply(lambda x: list(pd.unique(x)))
 grouped_list
 ```
@@ -2567,66 +2535,8 @@ Then any operation you perform will be performed on the subgroup of 'Lead.vocal'
 
 Note that using groupby with several grouping columns will complicate the operations you perform later. Use the documentation\!
 
-#### Changing the number of displayed rows
+<br>
 
-By default, Pandas only displays 10 rows. If you want to see the entire object, you can change this setting, but be careful: your computer could run slowly or crash if it tries to display too many rows\!
-
-To increase the limit, create a new code block with the following code, run it, and then run the code to display your data.
-
-```py
-# sets maximum number of rows to display
-pd.set_option('display.max_rows', None) # you can replace None with a number
-```
-
-After displaying your data, you should reset the setting. You could just set the option back to 10, or use reset\_option:
-
-```py
-pd.reset_option('display.max_rows')
-```
-
-Now you've created a groupby object, what can you do with it?
-
-<a name="cleaning-data-for-groupby"></a>
-### Cleaning Data for groupby
-
-When you use groupby, you choose a *grouping column*. In the above example, we used the 'Album.debut' column. This column was easy to work with, since (almost) every track has exactly one album; each row had exactly one *group name* (the album title).
-
-This is not always the case, and for this reason you may have to tidy your data before being able to group it. Consider the following example:
-
-Imagine you want to group by genre. Consider the song "Golden Slumbers", which has the genre 'Rock, Baroque Pop, Pop/Rock'. Our ideal result is that Golden Slumbers is placed into three groups: one group for 'Rock', one for 'Baroque Pop', and one for 'Pop/Rock'. However, if we try to group by genre without tidying the data, Golden Slumbers will be placed into a 'Rock, Baroque Pop, Pop/Rock' group, containing only songs with identical genres, written in the same order. How can we fix this? Using explode\!
-
-As you learned in \[Pandas: Tidy Data\]\[pandas-tidy\], you can explode a column containing several observations into several rows, each containing a single observation (e.g. one genre).
-
-Code to explode genre 
-
-```py
-# clean the data before exploding
-beatles_billboard['Genre'] = beatles_billboard['Genre'].str.lower().str.strip().fillna('').str.split(', ')
-
-# explode the data
-beatles_billboard_exploded = beatles_billboard.explode('Genre').reset_index(drop=True)
-
-# clean individual problems in the exploded data with str.replace() and str.strip()
-beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.strip('[')
-beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('pop/rock', 'pop rock')
-beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('r&b', 'rhythm and blues')
-beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('rock and roll', 'rock')
-beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('experimental music', 'experimental')
-beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace("children's music", "children's")
-beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace("stage&screen", "stage and screen")
-```
-
-The result for Golden Slumbers would look like this:
-
-|  | Title | Year | Album.debut | Duration | Other.releases | Genre | Songwriter | Lead.vocal | Top.50.Billboard |
-| :---: | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
-| 154 | Golden Slumbers | 1969 | Abbey Road | 91 | 5 | rock | McCartney | McCartney | \-1 |
-| 155 | Golden Slumbers | 1969 | Abbey Road | 91 | 5 | baroque pop | McCartney | McCartney | \-1 |
-| 156 | Golden Slumbers | 1969 | Abbey Road | 91 | 5 | pop/rock | McCartney | McCartney | \-1 |
-
-Now, when you use groupby on the 'Genre' column, Golden Slumbers will be correctly placed into three groups: 'rock', 'baroque pop', and 'pop/rock'.
-
-This example demonstrates the importance of tidying your data whenever appropriate for a specific operation (like groupby). Your *grouping column* should contain exactly one *group name* per row. Refer to the techniques in \[Pandas: Clean Data\]\[pandas-clean\] and \[Pandas: Tidy Data\]\[pandas-tidy\] for instructions and examples.
 
 | [Pandas Basics][pandas-basics] | [Clean Data][pandas-clean] | [Tidy Data][pandas-tidy] | **Filtering, Finding, and Grouping** | [Graphs and Charts][pandas-graphs] | [Networks][pandas-networks] |
 |--------|--------|--------|--------|-------|-------|
