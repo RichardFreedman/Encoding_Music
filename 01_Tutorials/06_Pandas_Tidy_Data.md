@@ -237,6 +237,18 @@ The last case to handle is albums that didn't specifiy separate UK/US releases. 
 
 If you have any problems, you may need to handle the missing data in the `'Album.debut'` column before trying to perform operations on it.
 
+## Fixing Multiple Observations in One Row: **`explode`** vs **`melt`**
+
+| Feature                 | **`explode()`**                                             | **`melt()`**                                               |
+|-------------------------|------------------------------------------------------------|------------------------------------------------------------|
+| **Function**            | Splits **list-like values** in rows into multiple rows     | "Unpivots" **columns** into rows                           |
+| **Transformation**      | List &rarr; Rows                                            | Wide (columns) &rarr; Long (rows)                          |
+| **Operates on**         | A single column with list, tuple, or array values          | Multiple columns                                           |
+| **Input**               | **Column:** `genres = ['rock', 'pop']`                     | **Columns:** `danceability`, `energy`, `valence`, ...      |
+| **Code**                | `df.explode('genres')`                                     | `pd.melt(df, id_vars=[...], value_vars=[...])`             |
+| **Useful for**          | Filtering, grouping, or joining on individual list items   | Grouping by variable, **plotting!**                        |
+
+
 ## Fixing Multiple Observations in One Row: `explode`
 
 In the `'Genre'` column of the `beatles_billboard` dataset, there are often several genres listed. We can see this in Golden Slumbers:
@@ -469,88 +481,54 @@ beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.re
 
 You'll see an example of this in the [Networks tutorial][pandas-networks].
 
-## Fixing Multiple Observations in One Row: `melt`
+## Fixing Multiple Observations in One Row: melt 
 
-In `beatles_spotify`, we have six columns of feature data. In other words, there are six musical feature observations in each row. You may decide that a better method of organization is to only make one music feature observation in each row, like this:
+So, what is melt? Let’s take the `beatles_spotify` dataset. It contains audio features — `danceability`, `energy`, `valence`, etc. — spread across separate columns:
 
-<blockquote><table>
-  <tr>
-    <td>
-      <table>
-        <tr>
-          <th>song</th>
-          <td><code>'danceability'</code></td>
-          <td><code>'energy'</code></td>
-          <td><code>'speechiness'</code></td>
-          <td><code>'acousticness'</code></td>
-          <td><code>'liveness'</code></td>
-          <td><code>'valence'</code></td>
-        </tr>
-          <td><code>'yesterday'</code></td>
-          <td><code>0.3320</code></td>
-          <td><code>0.1790</code></td>
-          <td><code>0.0326</code></td>
-          <td><code>0.8790</code></td>
-          <td><code>0.0886</code></td>
-          <td><code>0.3150</code></td>
-        <tr>
-      </table>
-    </td>
-  </tr>
-    <td><strong>↓</strong></td>
-  <tr>
-    <td>
-      <table>
-        <tr>
-          <th>song</th>
-          <th>variable</th>
-          <th>value</th>
-        </tr>
-          <td><code>'yesterday'</code></td>
-          <td><code>'danceability'</code></td>
-          <td><code>0.3320</code></td>
-        <tr>
-        </tr>
-          <td><code>'yesterday'</code></td>
-          <td><code>'energy'</code></td>
-          <td><code>0.1790</code></td>
-        <tr>
-        </tr>
-          <td><code>'yesterday'</code></td>
-          <td><code>'speechiness'</code></td>
-          <td><code>0.0326</code></td>
-        <tr>
-        </tr>
-          <td><code>'yesterday'</code></td>
-          <td><code>'acousticness'</code></td>
-          <td><code>0.8790</code></td>
-        <tr>
-        </tr>
-          <td><code>'yesterday'</code></td>
-          <td><code>'liveness'</code></td>
-          <td><code>0.0886</code></td>
-        <tr>
-        </tr>
-          <td><code>'yesterday'</code></td>
-          <td><code>'valence'</code></td>
-          <td><code>0.3150</code></td>
-        <tr>
-      </table>
-    </td>
-  </tr>
-</table></blockquote>
+| song       | danceability | energy | speechiness | acousticness | liveness | valence |
+|------------|--------------|--------|-------------|--------------|----------|---------|
+| yesterday  | 0.3320       | 0.1790 | 0.0326      | 0.8790       | 0.0886   | 0.3150  |
+
+Many visualization libraries (especially Plotly, which we will be working with frequently) work better with **long-format** data, where each row represents a single feature measurement. This is what our data should look like:
+
+| song       | variable      | value  |
+|------------|---------------|--------|
+| yesterday  | danceability  | 0.3320 |
+| yesterday  | energy        | 0.1790 |
+| yesterday  | speechiness   | 0.0326 |
+| yesterday  | acousticness  | 0.8790 |
+| yesterday  | liveness      | 0.0886 |
+| yesterday  | valence       | 0.3150 |
+
+---
 
 This is where the Pandas `.melt()` method comes in. We can pass `.melt()` our dataframe, the column(s) that differentiate each row (`id_vars`), and the columns we want to be "melted" (`value_vars`).
 
-This will create a new table, which we can save separately, and will *only* contain the information we have specifically passed to the `.melt()` method.
+This will create a new table, which we can save separately, and will only contain the information we have specifically passed to the .melt() method.
 
-In this example, we also sort the songs after melting so all of a song's musical features are grouped together, and then reset the index (since we just rearranged everything).
-
+#### Basic syntax:
 ```python
-melted_feature_data = pd.melt(beatles_spotify, id_vars=['song'], value_vars=["danceability", "energy", "speechiness", "acousticness", "liveness", "valence"]).sort_values('song').reset_index(drop=True)
+pd.melt(dataframe, id_vars=..., value_vars=...) 
 ```
 
-The resulting dataframe will look like this:
+#### Example: Melting `beatles_spotify`
+
+```python
+# Choose our ID Vars, or identifiers - the column to keep fixed
+id_vars = ['song']
+
+# Choose our value_vars, or columns to "unpivot" into a single "variable" column.
+value_vars = ['danceability', 'energy', 'speechiness', 'acousticness', 'liveness', 'valence']
+
+# Using melt
+melted_feature_data = pd.melt(
+    beatles_spotify, # Dataset
+    id_vars=id_vars, # Pivot
+    value_vars=value_vars # Values
+).sort_values('song').reset_index(drop=True) # Sorting
+```
+
+**Resulting Table:**
 
 <table border="1">
   <thead>
@@ -612,6 +590,9 @@ The resulting dataframe will look like this:
     </tr>
   </tbody>
 </table>
+
+
+
 
 ## Tuple Trouble (and How to Cure It)
 
