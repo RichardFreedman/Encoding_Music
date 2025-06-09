@@ -2178,7 +2178,7 @@ The result stored in help is a dataframe\! You could perform any operation on he
 Since groupby is such a powerful but complex tool, it may be helpful to learn more about the various ways to use it.
 
 #### Using Categorical Data - Lambda Functions and `apply(list)`
-So far, the aggregations methods explored have been applied to numerical data. However, we can also use categorical data with groupby. This section will explore function calls: lambda functions and `apply(list)`.
+So far, the aggregations methods explored have been applied to numerical data. However, we can also use categorical data with groupby. This section will explore function calls: lambda functions and `apply(list)`. While neither of these are aggregation functions, they can be extremely useful in transforming and analyzing our data, especially categorical data.
 
 ##### Lambda Functions and `.apply()`
 `.apply()` takes a data structure and applies a function to it. For example, you could make a new column in a dataframe with a Boolean value. In this example, we'll check if a given track in Help\! made it in the top 50 billboard.
