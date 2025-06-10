@@ -2,7 +2,6 @@
 
 **[Mermaid Markdown](https://mermaid.js.org/)** allows you to create diagrams and flowcharts in Markdown-style text. It can be a great tool for visually explaining your processes to the reader. Don't think of this as a coding tool to show your data visually like Plotly, rather a tool to explain your methods in your markdown cells. 
 
----
 
 ## How to Use Mermaid in Markdown
 
@@ -35,7 +34,7 @@ You can choose the shape of each box:
 | Gantt Chart        | `gantt`            | Plan  timelines or schedules      |
 | Class Diagram      | `classDiagram`     | Represent structures or  relationships |
 
----
+
 
 ## Example: Simple Data Flow for Music Analysis
 
@@ -88,7 +87,7 @@ pie title Spotify Audio Feature Breakdown
 
 Though you have the ability to make pie charts in mermaid, most of the time you will be working with dataframes and should use the Plotly library to make your actual data-backed visuals.
 
----
+
 
 ## Tips for Using Mermaid 
 
