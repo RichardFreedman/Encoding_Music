@@ -324,7 +324,7 @@ Quarto renders your Notebook as a 'stand-alone' HTML file, including all markdow
 But before you 'render' with Quarto, make sure all the outputs are as you expect.  
 
 * Run all the cells, from top to bottom.
-* When finished running the cells, be sure to `save` your Notebook.  This ensures that Quarto will render all the output.
+* **When finished running the cells, be sure to `save` your Notebook!!**  This ensures that Quarto will render all the output.
 
 When you are ready to 'render', follow these steps:
 
@@ -339,6 +339,10 @@ When you are ready to 'render', follow these steps:
 * At the `command prompt`, type the following text (edited to match the name of your notebook!)
 
 `jupyter-hc_test@encodingmusic:~$ quarto render My_Notebook.ipynb`
+
+* Double check before clicking enter that you:
+	* Included the raw cell at the top
+ 	* Saved your notebook before rendering
 
 After a few seconds you will see a **new HTML file** in your Jupyter Lab folder.  It will have the *same name as your original notebook*.  **Download it** and open it with your preferred browser.
 
