@@ -85,13 +85,13 @@ pie title Spotify Audio Feature Breakdown
   "Speechiness" : 10
 ```
 
-Though you have the ability to make pie charts in mermaid, most of the time you will be working with dataframes and should use the Plotly library to make your actual data-backed visuals.
+Though you have the ability to make pie charts in mermaid, you should use the Plotly library to make your actual data-backed visuals.
 
 
 
 ## Tips for Using Mermaid 
 
-- Once integrated in Jupyter, you should be able to include this markdown code right in your markdown cells.
+- Once integrated in Jupyter, you will be able to include mermaid code right in your markdown cells.
 - Use short, clear node labels to avoid clutter.
 - Use `graph TD` for top-to-bottom diagrams, or `graph LR` for left-to-right.
 - Use the `pie` chart for simple percentage-based data.
