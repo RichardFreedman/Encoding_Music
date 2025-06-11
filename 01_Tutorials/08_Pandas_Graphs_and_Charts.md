@@ -53,8 +53,6 @@ Here's an example of a bar chart showing mean values for selected Spotify featur
 grouped_data = beatles_spotify.groupby(['year', "album"])[['danceability', 'energy', 'acousticness']].mean().copy()
 grouped_data = grouped_data.reset_index()
 
-<details><summary>Bar Chart Code</summary>
-
 fig = px.bar(grouped_data,
              x='album',
              y=['danceability', 'energy', 'acousticness'], # If you wanted a simpler bar chart, you could use a single feature
@@ -130,20 +128,9 @@ fig.show()
 
 ### Scatter Plot with Variable Marker Size
 
-Here we combine several data features to make a more interesting kind of Scatter Plot, showing the changing representation of various places over time.  The examples draw from RILM Abstracts, the leading database of writings about music, all over the world.  In this case we searched for the terms "travel explorations", "explorers and travelers", and "travel writings" in the RILM Database.  We also restricted our results to only those subject entries that concerned "places" (the "G" category in the RILM Term taxonomy). This resulted in the following dataframe:
+Here we combine several data features to make a more interesting kind of Scatter Plot.
 
-
-![alt text](images/rilm_g_df.png)
-
-<br>
-
-This was in turn passed to the our scatterplot function. The occurences of the place names (the Y axis) are plotted over time (X axis).  The size of the marker reflects the relative number of occurences of that term in that year (the minimum is set with the 'term_threshold' argument).  Terms that occur in the work of the same author are given the same color (we can show or hide these with the 'legend' argument).  The title of the image is set with the 'title' argument.  We can also set the heighth and width of the image with two other variables
-
-With the following result:
-
-![alt text](images/rilm_g_scatter.png)
-
-<br>
+![png](images/complex_scatter_beatles.png)
 
 Here is the code to do it:
 
@@ -153,39 +140,43 @@ Here is the code to do it:
 
 
 ```python
-final_results = final_results
-term_threshold = 5
-legend = False
-title = 'Travelogue Places'
+genre_counts = beatles_data.groupby(['album', 'year', 'songwriter'])['genre'].value_counts().reset_index()
 
-# scatter plot shows terms over time
-# Filter out terms appearing less frequently than term_threshold
-filtered_df = final_results.groupby('term').filter(lambda x: len(x) > term_threshold)
-    
-# Calculate the size of markers based on term occurrence per year
-value_counts = filtered_df.groupby(['term', 'year']).size().reset_index(name='marker_size')
-    
-# Merge filtered_df with value_counts to ensure marker_size is correctly aligned
-filtered_df = pd.merge(filtered_df, value_counts, on=['term', 'year'], how='left')
-    
-# Create scatter plot
-fig_scatter = px.scatter(filtered_df,
-    x='year', y='term',
-    hover_data=['author'],
-    color='author',
-    labels={'term': "Term", "author": "Author", "year": "Publication Year"},
-    size='marker_size',
-    height=height,
-    width=width,
-    title=title)
-    
-# Customize layout
-fig_scatter.update_layout(height=800)
-fig_scatter.update_layout(showlegend=legend)
-fig_scatter.update_yaxes(categoryorder='category descending')
-    
-# Show plot
-fig_scatter.show()
+substrings = ['Lennon', 'McCartney']
+
+
+john_paul = genre_counts[genre_counts['songwriter'].str.contains('|'.join(substrings))]
+
+
+# Create the scatter plot
+fig = px.scatter(
+    john_paul,
+    x='year',
+    y='genre',
+    size='count',
+    color='songwriter',
+    hover_data=['count'],
+    labels={
+        'x': 'Year',
+        'y': 'Genre',
+        'size': 'Number of Songs',
+        'color': 'Genre'
+    },
+    title="Number of Songs by Genre Over Time"
+)
+
+# Customize the plot
+fig.update_layout(
+    xaxis_title="Year",
+    yaxis_title="Genre",
+    showlegend=True,
+
+    width=800,  # Set width to 800px
+    height=800,  # Set height to 800px
+)
+
+# Show the plot
+fig.show()
 ```
 
 </Details>
