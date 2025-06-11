@@ -383,7 +383,7 @@ beatles_billboard[~(beatles_billboard['Year'] > 1964)]
 To search for strings within a column, there are two methods:
 
 *  `str.contains()`, which checks whether a cell contains the given substring
-*  `isin(["string_1", "string_2"])`, which checks whether the cell contents are equal to any string in the given list
+*  `.contains("str1 | str2 | str3")`, which checks whether the cell contents contain any string in the given list
 
 #### The `str.contains()` Method
 
@@ -493,6 +493,14 @@ beatles_billboard[beatles_billboard['Album.debut'].str.contains('Anthology')]
 > beatles_billboard['Album.debut'] = beatles_billboard['Album.debut'].dropna()
 > ```
 > &nbsp;
+
+#### Using `.contains` with multiple strings
+
+To create a filter that checks if the column contains one string **OR** another, you can use `.contains("string1 | string2")`. Make sure that the `|` (which means or) is within the parentheses.
+
+```python
+Lennon_or_McCartney = genre_counts[genre_counts['songwriter'].str.contains("Lennon | McCartney")]
+```
 
 #### The `.isin()` Method
 
