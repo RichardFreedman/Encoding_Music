@@ -15,6 +15,12 @@ graph TD
 ```
 ````
 
+Important:
+- Use a markdown cell, not a code or raw cell.
+- Include three backticks at the top and bottom. Make sure they're backticks (`), not apostrophes (').
+- Place "mermaid" touching the first three backticks, without a space.
+- Make sure there are no special characters. Any attempt to write comments with # or include special characters in text boxes will result in an error.
+
 You can choose the shape of each box:
 - `[text]` = Rectangle
 - `{text}` = Diamond
@@ -47,6 +53,8 @@ graph TD   # Flowchart
   C --> E((explode))   # Circle shape
   D --> F([Plot with Plotly])  # Oval / Stadium Shape
   E --> F
+
+# DO NOT INCLUDE COMMENTS IN YOUR OWN CODE - IT WON'T RENDER!
 ```
 ````
 
@@ -91,7 +99,7 @@ Though you have the ability to make pie charts in mermaid, you should use the Pl
 
 ## Tips for Using Mermaid 
 
-- Once integrated in Jupyter, you will be able to include mermaid code right in your markdown cells.
+- You can include mermaid code directly in your markdown cells! Make sure the cell is markdown, not code.
 - Use short, clear node labels to avoid clutter.
 - Use `graph TD` for top-to-bottom diagrams, or `graph LR` for left-to-right.
 - Use the `pie` chart for simple percentage-based data.
