@@ -1,4 +1,4 @@
-| **Pandas Basics** | [Clean Data][pandas-clean] | [Tidy Data][pandas-tidy] | [Filtering, Finding, and Grouping][pandas-filter-find-group] | [Graphs and Charts][pandas-graphs] | [Networks][pandas-networks] |
+grouped_mel| **Pandas Basics** | [Clean Data][pandas-clean] | [Tidy Data][pandas-tidy] | [Filtering, Finding, and Grouping][pandas-filter-find-group] | [Graphs and Charts][pandas-graphs] | [Networks][pandas-networks] |
 |--------|--------|--------|--------|-------|-------|
 
 # Pandas: Basics

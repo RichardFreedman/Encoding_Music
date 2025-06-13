@@ -1,0 +1,3993 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.45">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>pandas_basics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="04_Pandas_Basics_files/libs/clipboard/clipboard.min.js"></script>
+<script src="04_Pandas_Basics_files/libs/quarto-html/quarto.js"></script>
+<script src="04_Pandas_Basics_files/libs/quarto-html/popper.min.js"></script>
+<script src="04_Pandas_Basics_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="04_Pandas_Basics_files/libs/quarto-html/anchor.min.js"></script>
+<link href="04_Pandas_Basics_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="04_Pandas_Basics_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="04_Pandas_Basics_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="04_Pandas_Basics_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="04_Pandas_Basics_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>grouped_mel</th>
+<th><strong>Pandas Basics</strong></th>
+<th><a href="05_Pandas_Clean_Data.md">Clean Data</a></th>
+<th><a href="06_Pandas_Tidy_Data.md">Tidy Data</a></th>
+<th><a href="07_Pandas_Filter_Find_Group.md">Filtering, Finding, and Grouping</a></th>
+<th><a href="08_Pandas_Graphs_and_Charts.md">Graphs and Charts</a></th>
+</tr>
+</thead>
+
+</table>
+<section id="pandas-basics" class="level1">
+<h1>Pandas: Basics</h1>
+<p><em>Pandas: The Python library for Data Analysis</em></p>
+<p>Pandas is a Python library which allows for the creation and manipulation of DataFrames, which are two dimensional objects designed to store data. Below are a few of the many ways in which pandas DataFrames can be modified, filtered, or transformed:</p>
+<ul>
+<li>High-performance manipulation of text, integers, numbers, dates</li>
+<li>Data alignment, reshaping, pivoting</li>
+<li>Intelligent slicing, grouping, and subsetting</li>
+<li>Merging and joining of sets</li>
+<li>Integrated modules for analysis, plots, visualizations, maps, networks</li>
+</ul>
+<p>Read the official Pandas <a href="https://pandas.pydata.org/about/">documentation</a>.</p>
+<p>Find tutorials at <a href="https://www.w3schools.com/python/pandas/default.asp">W3Schools</a>.</p>
+<p>A helpful <a href="https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf">Pandas Cheat Sheet</a>.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Contents of this Tutorial</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.</td>
+<td><a href="#introduction-to-dataframes"><strong>Introduction to DataFrames</strong></a></td>
+</tr>
+<tr class="even">
+<td>2.</td>
+<td><a href="#working-with-rows"><strong>Working with Rows</strong></a></td>
+</tr>
+<tr class="odd">
+<td>3.</td>
+<td><a href="#working-with-columns"><strong>Working with Columns</strong></a></td>
+</tr>
+<tr class="even">
+<td>4.</td>
+<td><a href="#sort-and-count"><strong>Sort and Count</strong></a></td>
+</tr>
+<tr class="odd">
+<td>5.</td>
+<td><a href="#combining-joining-and-merging-dataframes"><strong>Combine and Merge Data Frames</strong></a></td>
+</tr>
+<tr class="even">
+<td>6.</td>
+<td><a href="#making-the-most-of-pandas"><strong>Making the Most of Pandas</strong></a></td>
+</tr>
+</tbody>
+</table>
+<section id="introduction-to-dataframes" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-to-dataframes">Introduction to DataFrames</h2>
+<p>Pandas <strong>data frames</strong> are the basic unit upon which all operations take place. Dataframes are like spreadsheets, with columns and rows.</p>
+<p>Indeed, Pandas can easily import spreadsheets in <strong>CSV</strong> (comma separated values) format. We will also import data from databases in <strong>JSON</strong> format (Java Script Object Notation), similar to a Python dictionary. There are special scripts for working with JSON, too.</p>
+<p>Pandas can export as well as import these formats (among others).</p>
+<section id="create-a-notebook-and-load-the-pandas-library" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-notebook-and-load-the-pandas-library">Create a Notebook and Load the Pandas library</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="meet-the-beatles" class="level3">
+<h3 class="anchored" data-anchor-id="meet-the-beatles">Meet the Beatles</h3>
+<p>The Pandas library has a vast array of tools for sorting, filtering, grouping, analyzing, and even visualizing tabluar data of various kinds: strings, booleans, integers, floats, dates, and so on. We begin with data about the albums and songs issued by the Beatles. The data are drawn from two sources:</p>
+<ul>
+<li><p>A set from <strong>Spotify</strong> that includes information about 193 songs, albums, years, plus other acoustic ratings that Spotify uses to characterize tracks. View these data as a <a href="https://docs.google.com/spreadsheets/d/1CBiNbxqF4FHWMkFv-C6nl7AyOJUFqycrR-EvWvDZEWY/edit#gid=953807965">Google spreadsheet</a>.</p></li>
+<li><p>A set compiled by a team at the <strong>University of Belgrade (Serbia)</strong> that contains information about over 300 Beatles songs: author(s), lead singer(s), album, musical genre(s), and standing in the Top 50 Billboard charts. View these data on <a href="https://github.com/inteligentni/Class-05-Feature-engineering/blob/master/The%20Beatles%20songs%20dataset%2C%20v1%2C%20no%20NAs.csv">Github</a>.</p></li>
+</ul>
+<p>We will work with both of these sets, and in the process learn how to inspect, clean, combine, filter, group, and analyze the information they contain.</p>
+<p>We give the URL of the CSV file a name (simply for convenience), then pass that name to the <code>read_csv('source_file_name')</code> method, and name the resulting data frame.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>beatles_spotify_csv <span class="op">=</span> <span class="st">'https://docs.google.com/spreadsheets/d/e/2PACX-1vRCv45ldJmq0isl2bvWok7AbD5C6JWA0Xf1tBqow5ngX7_ox8c2d846PnH9iLp_SikzgYmvdPHe9k7G/pub?output=csv'</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>beatles_spotify <span class="op">=</span> pd.read_csv(beatles_spotify_csv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>and</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>beatles_billboard_csv <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/inteligentni/Class-05-Feature-engineering/master/The%20Beatles</span><span class="sc">%20s</span><span class="st">ongs</span><span class="sc">%20d</span><span class="st">ataset%2C%20v1%2C%20no%20NAs.csv'</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>beatles_billboard <span class="op">=</span> pd.read_csv(beatles_billboard_csv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="inspect-the-data-frame" class="level3">
+<h3 class="anchored" data-anchor-id="inspect-the-data-frame">Inspect the Data Frame</h3>
+<p>A quick look at the file as a dataframe using the <code>head()</code> method:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>beatles_billboard.head(<span class="dv">15</span>)  <span class="co"># Shows the first 15 rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table border="0">
+<tbody><tr>
+<th valign="top">
+Output:
+</th>
+<td>
+<table class="dataframe table table-sm table-striped small">
+<thead>
+<tr>
+<th>
+</th>
+<th>
+Title
+</th>
+<th>
+Year
+</th>
+<th>
+Album.debut
+</th>
+<th>
+Duration
+</th>
+<th>
+Other.releases
+</th>
+<th>
+Genre
+</th>
+<th>
+Songwriter
+</th>
+<th>
+Lead.vocal
+</th>
+<th>
+Top.50.Billboard
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+12-Bar Original
+</td>
+<td>
+1965
+</td>
+<td>
+Anthology 2
+</td>
+<td>
+174
+</td>
+<td>
+0
+</td>
+<td>
+Blues
+</td>
+<td>
+Lennon, McCartney, Harrison and Starkey
+</td>
+<td>
+NaN
+</td>
+<td>
+-1
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+A Day in the Life
+</td>
+<td>
+1967
+</td>
+<td>
+Sgt.&nbsp;Pepper’s Lonely Hearts Club Band
+</td>
+<td>
+335
+</td>
+<td>
+12
+</td>
+<td>
+Psychedelic Rock, Art Rock, Pop/Rock
+</td>
+<td>
+Lennon and McCartney
+</td>
+<td>
+Lennon and McCartney
+</td>
+<td>
+-1
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+A Hard Day’s Night
+</td>
+<td>
+1964
+</td>
+<td>
+UK: A Hard Day’s Night US: 1962-1966
+</td>
+<td>
+152
+</td>
+<td>
+35
+</td>
+<td>
+Rock, Electronic, Pop/Rock
+</td>
+<td>
+Lennon
+</td>
+<td>
+Lennon, with McCartney
+</td>
+<td>
+8
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+A Shot of Rhythm and Blues
+</td>
+<td>
+1963
+</td>
+<td>
+Live at the BBC
+</td>
+<td>
+104
+</td>
+<td>
+0
+</td>
+<td>
+R&amp;B, Pop/Rock
+</td>
+<td>
+Thompson
+</td>
+<td>
+Lennon
+</td>
+<td>
+-1
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+A Taste of Honey
+</td>
+<td>
+1963
+</td>
+<td>
+UK: Please Please Me US: The Early Beatles
+</td>
+<td>
+163
+</td>
+<td>
+29
+</td>
+<td>
+Pop/Rock, Jazz, Stage&amp;Screen
+</td>
+<td>
+Scott, Marlow
+</td>
+<td>
+McCartney
+</td>
+<td>
+-1
+</td>
+</tr>
+<tr>
+<th>
+…
+</th>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+</tr>
+<tr>
+<th>
+10
+</th>
+<td>
+All Things Must Pass
+</td>
+<td>
+1969
+</td>
+<td>
+Anthology 3
+</td>
+<td>
+227
+</td>
+<td>
+0
+</td>
+<td>
+Folk Rock, Pop/Rock
+</td>
+<td>
+Harrison
+</td>
+<td>
+Harrison
+</td>
+<td>
+-1
+</td>
+</tr>
+<tr>
+<th>
+11
+</th>
+<td>
+All Together Now
+</td>
+<td>
+1967
+</td>
+<td>
+Yellow Submarine
+</td>
+<td>
+130
+</td>
+<td>
+8
+</td>
+<td>
+Skiffle, Pop/Rock
+</td>
+<td>
+McCartney, with Lennon
+</td>
+<td>
+McCartney, with Lennon
+</td>
+<td>
+-1
+</td>
+</tr>
+<tr>
+<th>
+12
+</th>
+<td>
+All You Need Is Love
+</td>
+<td>
+1967
+</td>
+<td>
+Magical Mystery Tour
+</td>
+<td>
+237
+</td>
+<td>
+25
+</td>
+<td>
+Pop/Rock
+</td>
+<td>
+Lennon
+</td>
+<td>
+Lennon
+</td>
+<td>
+15
+</td>
+</tr>
+<tr>
+<th>
+13
+</th>
+<td>
+And I Love Her
+</td>
+<td>
+1964
+</td>
+<td>
+UK: A Hard Day’s Night US: Something New
+</td>
+<td>
+152
+</td>
+<td>
+29
+</td>
+<td>
+Pop/Rock
+</td>
+<td>
+McCartney, with Lennon
+</td>
+<td>
+McCartney
+</td>
+<td>
+37
+</td>
+</tr>
+<tr>
+<th>
+14
+</th>
+<td>
+And Your Bird Can Sing
+</td>
+<td>
+1966
+</td>
+<td>
+UK: Revolver US: Yesterday and Today
+</td>
+<td>
+121
+</td>
+<td>
+9
+</td>
+<td>
+Power Pop, Psychedelic Pop, Pop/Rock
+</td>
+<td>
+Lennon, with McCartney
+</td>
+<td>
+Lennon
+</td>
+<td>
+-1
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+15 rows × 9 columns
+</p>
+</td>
+</tr>
+</tbody></table>
+<p>Now we can look at the data in various ways to see what is here. The first column is the <code>index</code> (and begins with “0”).</p>
+<ul>
+<li><code>beatles_spotify.info()</code> will show the names, number and data types of the columns</li>
+<li><code>beatles_spotify.shape</code> will tell us the size of our frame: how many <strong>rows and columns</strong>, like <code>(193, 11)</code>. Note: normally these methods are followed by <code>()</code>. This one is not.</li>
+<li><code>beatles_spotify.describe()</code> delivers basic statistical information about the set, such as count, average, mean, standard deviation, and basic percentiles.</li>
+</ul>
+<table border="0">
+<tbody><tr>
+<th>
+Method:
+</th>
+<td>
+<code>beatles_spotify.info()</code>
+</td>
+<td>
+<code>beatles_spotify.shape</code>
+</td>
+<td>
+<code>beatles_spotify.describe()</code>
+</td>
+</tr>
+<tr>
+<th valign="top">
+Output:
+</th>
+<td>
+<pre>&lt;class&nbsp;'pandas.core.frame.DataFrame'&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+RangeIndex: 193 entries, 0 to 192
+Data columns (total 11 columns):
+ #   Column        Non-Null Count  Dtype  
+---  ------        --------------  -----  
+ 0   id            193 non-null    int64  
+ 1   year          193 non-null    int64  
+ 2   album         193 non-null    object 
+ 3   song          193 non-null    object 
+ 4   danceability  193 non-null    float64
+ 5   energy        193 non-null    float64
+ 6   speechiness   193 non-null    float64
+ 7   acousticness  193 non-null    float64
+ 8   liveness      193 non-null    float64
+ 9   valence       193 non-null    float64
+ 10  duration_ms   193 non-null    int64  
+dtypes: float64(6), int64(3), object(2)
+memory usage: 16.7+ KB</pre>
+</td>
+<td valign="top">
+<pre>(193, 11)</pre>
+</td>
+<td valign="top">
+<table border="1">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+id
+</th>
+<th>
+year
+</th>
+<th>
+danceability
+</th>
+<th>
+energy
+</th>
+<th>
+speechiness
+</th>
+<th>
+acousticness
+</th>
+<th>
+liveness
+</th>
+<th>
+valence
+</th>
+<th>
+duration_ms
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+count
+</th>
+<td>
+193.000000
+</td>
+<td>
+193.000000
+</td>
+<td>
+193.000000
+</td>
+<td>
+193.000000
+</td>
+<td>
+193.000000
+</td>
+<td>
+193.000000
+</td>
+<td>
+193.000000
+</td>
+<td>
+193.000000
+</td>
+<td>
+193.000000
+</td>
+</tr>
+<tr>
+<th>
+mean
+</th>
+<td>
+97.000000
+</td>
+<td>
+1966.290155
+</td>
+<td>
+0.519093
+</td>
+<td>
+0.536891
+</td>
+<td>
+0.046399
+</td>
+<td>
+0.375964
+</td>
+<td>
+0.228647
+</td>
+<td>
+0.642191
+</td>
+<td>
+163644.155440
+</td>
+</tr>
+<tr>
+<th>
+std
+</th>
+<td>
+55.858452
+</td>
+<td>
+2.256647
+</td>
+<td>
+0.138738
+</td>
+<td>
+0.193026
+</td>
+<td>
+0.035101
+</td>
+<td>
+0.287539
+</td>
+<td>
+0.200419
+</td>
+<td>
+0.250929
+</td>
+<td>
+57982.884527
+</td>
+</tr>
+<tr>
+<th>
+min
+</th>
+<td>
+1.000000
+</td>
+<td>
+1963.000000
+</td>
+<td>
+0.146000
+</td>
+<td>
+0.090200
+</td>
+<td>
+0.024700
+</td>
+<td>
+0.000043
+</td>
+<td>
+0.041400
+</td>
+<td>
+0.035700
+</td>
+<td>
+25987.000000
+</td>
+</tr>
+<tr>
+<th>
+25%
+</th>
+<td>
+49.000000
+</td>
+<td>
+1964.000000
+</td>
+<td>
+0.419000
+</td>
+<td>
+0.413000
+</td>
+<td>
+0.031400
+</td>
+<td>
+0.097400
+</td>
+<td>
+0.099400
+</td>
+<td>
+0.473000
+</td>
+<td>
+133507.000000
+</td>
+</tr>
+<tr>
+<th>
+50%
+</th>
+<td>
+97.000000
+</td>
+<td>
+1966.000000
+</td>
+<td>
+0.533000
+</td>
+<td>
+0.537000
+</td>
+<td>
+0.036400
+</td>
+<td>
+0.339000
+</td>
+<td>
+0.139000
+</td>
+<td>
+0.690000
+</td>
+<td>
+154200.000000
+</td>
+</tr>
+<tr>
+<th>
+75%
+</th>
+<td>
+145.000000
+</td>
+<td>
+1968.000000
+</td>
+<td>
+0.612000
+</td>
+<td>
+0.660000
+</td>
+<td>
+0.045300
+</td>
+<td>
+0.629000
+</td>
+<td>
+0.298000
+</td>
+<td>
+0.835000
+</td>
+<td>
+180213.000000
+</td>
+</tr>
+<tr>
+<th>
+max
+</th>
+<td>
+193.000000
+</td>
+<td>
+1970.000000
+</td>
+<td>
+0.880000
+</td>
+<td>
+0.969000
+</td>
+<td>
+0.342000
+</td>
+<td>
+0.971000
+</td>
+<td>
+0.922000
+</td>
+<td>
+0.975000
+</td>
+<td>
+502013.000000
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody></table>
+</section>
+</section>
+<section id="working-with-rows" class="level2">
+<h2 class="anchored" data-anchor-id="working-with-rows">Working with Rows</h2>
+<p>By default Pandas shows only the first and last five rows of any data frame. There are various ways to see others:</p>
+<ul>
+<li><strong>All rows</strong>, set <code>pd.set_option('display.max_rows', None)</code> or <code>pd.options.display.max_rows = 9999</code> before you display the frame.</li>
+<li><strong>Head</strong> rows (default of five from the start, but can be any number): <code>beatles_spotify.head(20)</code></li>
+<li><strong>Tail</strong> rows (default of five from the end, but can be any number): <code>beatles_spotify.tail(20)</code></li>
+<li><strong>Sample</strong> a random sample of rows (default of 1 , but can be any number): <code>beatles_spotify.sample(20)</code></li>
+</ul>
+<section id="selecting-rows-loc-and-iloc" class="level3">
+<h3 class="anchored" data-anchor-id="selecting-rows-loc-and-iloc">Selecting Rows: <code>loc</code> and <code>iloc</code></h3>
+<p><code>df.loc</code> and <code>df.iloc</code> are <em>not</em> the same!</p>
+</section>
+<section id="iloc-for-index-based-slices" class="level3">
+<h3 class="anchored" data-anchor-id="iloc-for-index-based-slices">iloc for Index-based slices</h3>
+<ul>
+<li><strong>iloc</strong>: to select rows by <strong>index number</strong> (the left-hand column) use <code>iloc</code>. A good way to remember this is that <code>iloc</code> will correspond to the <em>integer</em> value of the index (which starts with zero). The syntax puts rows before columns, as in <code>beatles_spotify.iloc[startrow:endrow, startcolumn:endcolumn]</code>.</li>
+</ul>
+<p>Note the use of square brackets <code>[ ]</code>: square brackets indicate we are taking a <em>slice</em> (a section) of an item.</p>
+<p>The first number is <em>inclusive</em> but the second is <em>exclusive</em>. So <code>beatles_spotify.iloc[10:15, 2:4]</code> will yield rows 10, 11, 12, 13, 14, and columns 2, 3, but <em>not</em> row 15 or column 4.</p>
+<p>As a shortcut, you can omit the first number of a range to start at the first possible index, and omit the last number of a range to end at the last possible index. You can also omit the column range to retrieve all columns.</p>
+<p>Thus rows 10-14 (and all columns) of our dataframe would be <code>beatles_spotify.iloc[10:15]</code> (or <code>beatles_spotify.iloc[10:15., :]</code>).</p>
+</section>
+<section id="loc-for-label-based-slices" class="level3">
+<h3 class="anchored" data-anchor-id="loc-for-label-based-slices">loc for Label-based slices</h3>
+<ul>
+<li><strong>loc</strong>: to select rows by <strong>label</strong> of the left-hand column (as when you might have an index of strings), use <code>loc</code>. This is useful when our index is a string rather than a number. It is especially useful for working with columns.</li>
+</ul>
+<p>Pandas Cheat Sheet: <a href="https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf">here</a>.</p>
+<p>Try:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>beatles_spotify.iloc[<span class="dv">10</span>:<span class="dv">15</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="dropping-rows" class="level3">
+<h3 class="anchored" data-anchor-id="dropping-rows">Dropping Rows</h3>
+<p>You can remove (what Pandas calls ‘dropping’) rows by referencing their index numbers. For example, to remove rows 0, 1, 5, and 6 from <code>beatles_billboard</code>:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>beatles_billboard <span class="op">=</span> beatles_billboard.drop([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">6</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Your dataset will now be missing rows with those indices. You can reset the indices of the dataset (so they are again continuous from 0 to the end of the dataset) using <code>.reset_index(drop=True)</code>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>beatles_billboard <span class="op">=</span> beatles_billboard.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="working-with-columns" class="level2">
+<h2 class="anchored" data-anchor-id="working-with-columns">Working with Columns</h2>
+<p>We now start to look more closely at the columns.</p>
+<section id="iloc-for-index-based-slices-1" class="level3">
+<h3 class="anchored" data-anchor-id="iloc-for-index-based-slices-1">iloc for Index-based slices</h3>
+<p>It’s possible to select colulmns with <code>iloc</code>, as shown above for rows. The syntax puts rows before columns, as in <code>beatles_spotify.iloc[startrow:endrow, startcolumn:endcolumn]</code>. The first column (and all rows) would be <code>beatles_spotify.iloc[:, 0]</code>. Thus the first <code>five</code> columns (and all rows) of our dataframe would be <code>beatles_spotify.iloc[:, 0:6]</code>. Note: the first number is <em>inclusive</em> but the second is <em>exclusive</em>.</p>
+<p>Want to count from the <em>end</em>? <code>-1</code> is the <em>last</em> column. So <code>beatles_spotify.iloc[:, -1]</code></p>
+</section>
+<section id="working-with-columns-by-name-or-label" class="level3">
+<h3 class="anchored" data-anchor-id="working-with-columns-by-name-or-label">Working with Columns by Name (or ‘label’)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Things you can do with columns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.</td>
+<td><a href="#show-all-the-columns-of-a-dataframe">Show all the columns of a dataframe</a></td>
+</tr>
+<tr class="even">
+<td>2.</td>
+<td><a href="#add-a-column">Add a column</a></td>
+</tr>
+<tr class="odd">
+<td>3.</td>
+<td><a href="#drop-a-column">Drop a column</a></td>
+</tr>
+<tr class="even">
+<td>4.</td>
+<td><a href="#rename-a-column-or-columns">Rename a column (or columns)</a></td>
+</tr>
+<tr class="odd">
+<td>5.</td>
+<td><a href="#show-the-data-types-of-the-columns">Show the data types of the columns</a></td>
+</tr>
+<tr class="even">
+<td>6.</td>
+<td><a href="#reorder-columns">Reorder columns</a></td>
+</tr>
+</tbody>
+</table>
+<section id="show-all-the-columns-of-a-dataframe" class="level4">
+<h4 class="anchored" data-anchor-id="show-all-the-columns-of-a-dataframe">Show all the columns of a dataframe</h4>
+<p>Show all the columns of a dataframe as a list (note the absence of <code>()</code>):</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>beatles_billboard.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table border="0">
+<tbody><tr>
+<th valign="top">
+Output:
+</th>
+<td>
+<pre>Index(['Title', 'Year', 'Album.debut', 'Duration', 'Other.releases', 'Genre', 'Songwriter', 'Lead.vocal', 'Top.50.Billboard'],
+      dtype='object')</pre>
+</td>
+</tr>
+</tbody></table>
+<p>You can also see the list of columns in alphabetical order:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>beatles_spotify.columns.sort_values()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="add-a-column" class="level4">
+<h4 class="anchored" data-anchor-id="add-a-column">Add a column</h4>
+<p>You can add a column based on another column. You assign a new column name to an expression that is then evaluated for each row:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>beatles_spotify[<span class="st">'sad'</span>] <span class="op">=</span> beatles_spotify[<span class="st">'valence'</span>] <span class="op">&lt;</span> <span class="fl">0.2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This example creates a new column, <code>'sad'</code>, in <code>beatles_spotify</code>. In each row, the <code>'sad'</code> column will have the value of the Boolean expression <code>beatles_spotify['valence'] &lt; 0.2</code>. This means if valence for that row is less than 0.2, <code>'sad'</code> will be <code>True</code>, and if not, <code>'sad'</code> will be <code>False</code>.</p>
+</section>
+<section id="drop-a-column" class="level4">
+<h4 class="anchored" data-anchor-id="drop-a-column">Drop a column</h4>
+<p>Note that these must be presented as a list, even if there is only one!</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>beatles_billboard <span class="op">=</span> beatles_billboard.drop(columns<span class="op">=</span>[<span class="st">'Album.debut'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="rename-a-column-or-columns" class="level4">
+<h4 class="anchored" data-anchor-id="rename-a-column-or-columns">Rename a column (or columns)</h4>
+<p>You can rename a single column like this:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># copy 'Album.debut' column to new 'album' column</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>beatles_billboard[<span class="st">"album"</span>] <span class="op">=</span> beatles_billboard[<span class="st">"Album.debut"</span>]</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># remove original 'Album.debut' column</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>beatles_billboard <span class="op">=</span> beatles_billboard.drop(columns<span class="op">=</span>[<span class="st">'Album.debut'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is the same as adding a new column, <code>'album'</code>, where every entry is the same as in the <code>'Album.debut'</code> column. You then have to get rid of the redundant <code>'Album.debut'</code> column, hence the drop.</p>
+<p>You can also rename columns by creating a dictionary that specifies which column names should be changed, and what they should be changed to:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>renaming_dict <span class="op">=</span> {</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Album.debut'</span>: <span class="st">'album'</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Title'</span>: <span class="st">'song'</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Year'</span>: <span class="st">'release_date'</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>beatles_billboard.rename(columns <span class="op">=</span> renaming_dict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="show-the-data-types-of-the-columns" class="level4">
+<h4 class="anchored" data-anchor-id="show-the-data-types-of-the-columns">Show the data types of the columns</h4>
+<p>Each column has a data type, which tells Pandas what form the column’s data is in. This affects what operations are possible on the column; if it is stored as a number, you can’t use string methods on the column, and if it is stored as a string, you can’t apply mathematical operations. You’ll learn more about working with data types in <a href="05_Pandas_Clean_Data.md">Pandas: Clean Data</a>.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>beatles_spotify.dtypes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table border="0">
+<tbody><tr>
+<th valign="top">
+Output:
+</th>
+<td>
+<pre>id                int64
+year              int64
+album            object
+song             object
+danceability    float64
+                 ...   
+speechiness     float64
+acousticness    float64
+liveness        float64
+valence         float64
+duration_ms       int64
+Length: 11, dtype: object</pre>
+</td>
+</tr>
+</tbody></table>
+<p>Note you can learn similar information about your dataframe using <code>beatles_spotify.info()</code>.</p>
+</section>
+<section id="reorder-columns" class="level4">
+<h4 class="anchored" data-anchor-id="reorder-columns">Reorder columns</h4>
+<p>To reorder columns, you simply specify a new order of the existing columns in a list. You can omit columns to exclude them from the new dataframe.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>column_list <span class="op">=</span> [<span class="st">'Year'</span>, <span class="st">'Title'</span>, <span class="st">'Album.debut'</span>, <span class="st">'Duration'</span>, <span class="st">'Other.releases'</span> <span class="st">'Genre'</span>, <span class="st">'Songwriter'</span>, <span class="st">'Lead.vocal'</span>, <span class="st">'Top.50.Billboard'</span>]</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>beatles_billboard_reordered <span class="op">=</span> beatles_billboard[column_list]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that this could also be done using the <code>index</code> values for the columns.</p>
+<p>With this method, we can make a <strong>new dataframe with just a subset of columns</strong>.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>column_list <span class="op">=</span> [<span class="st">'Title'</span>, <span class="st">'Year'</span>, <span class="st">'Album.debut'</span>, <span class="st">'Genre'</span>,<span class="st">'Songwriter'</span>, <span class="st">'Top.50.Billboard'</span>]</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>beatles_billboard_short <span class="op">=</span> beatles_billboard[column_list]</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>beatles_billboard_short</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table border="0">
+<tbody><tr>
+<th valign="top">
+Output:
+</th>
+<td>
+<table border="1">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Title
+</th>
+<th>
+Year
+</th>
+<th>
+Album.debut
+</th>
+<th>
+Genre
+</th>
+<th>
+Songwriter
+</th>
+<th>
+Top.50.Billboard
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+12-Bar Original
+</td>
+<td>
+1965
+</td>
+<td>
+Anthology 2
+</td>
+<td>
+Blues
+</td>
+<td>
+Lennon, McCartney, Harrison and Starkey
+</td>
+<td>
+-1
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+A Day in the Life
+</td>
+<td>
+1967
+</td>
+<td>
+Sgt.&nbsp;Pepper’s Lonely Hearts Club Band
+</td>
+<td>
+Psychedelic Rock, Art Rock, Pop/Rock
+</td>
+<td>
+Lennon and McCartney
+</td>
+<td>
+-1
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+A Hard Day’s Night
+</td>
+<td>
+1964
+</td>
+<td>
+UK: A Hard Day’s Night US: 1962-1966
+</td>
+<td>
+Rock, Electronic, Pop/Rock
+</td>
+<td>
+Lennon
+</td>
+<td>
+8
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+A Shot of Rhythm and Blues
+</td>
+<td>
+1963
+</td>
+<td>
+Live at the BBC
+</td>
+<td>
+R&amp;B, Pop/Rock
+</td>
+<td>
+Thompson
+</td>
+<td>
+-1
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+A Taste of Honey
+</td>
+<td>
+1963
+</td>
+<td>
+UK: Please Please Me US: The Early Beatles
+</td>
+<td>
+Pop/Rock, Jazz, Stage&amp;Screen
+</td>
+<td>
+Scott, Marlow
+</td>
+<td>
+-1
+</td>
+</tr>
+<tr>
+<th>
+…
+</th>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+</tr>
+<tr>
+<th>
+305
+</th>
+<td>
+You’re Going to Lose That Girl
+</td>
+<td>
+1965
+</td>
+<td>
+Help!
+</td>
+<td>
+Rock, Pop/Rock
+</td>
+<td>
+Lennon
+</td>
+<td>
+-1
+</td>
+</tr>
+<tr>
+<th>
+306
+</th>
+<td>
+You’ve Got to Hide Your Love Away
+</td>
+<td>
+1965
+</td>
+<td>
+Help!
+</td>
+<td>
+FolkPop/Rock
+</td>
+<td>
+Lennon
+</td>
+<td>
+-1
+</td>
+</tr>
+<tr>
+<th>
+307
+</th>
+<td>
+You’ve Really Got a Hold on Me
+</td>
+<td>
+1963
+</td>
+<td>
+UK: With the Beatles US: The Beatles Second Album
+</td>
+<td>
+Soul, Pop/Rock
+</td>
+<td>
+Robinson
+</td>
+<td>
+-1
+</td>
+</tr>
+<tr>
+<th>
+308
+</th>
+<td>
+Young Blood
+</td>
+<td>
+1963
+</td>
+<td>
+Live at the BBC
+</td>
+<td>
+Pop/Rock
+</td>
+<td>
+Leiber, Stoller
+</td>
+<td>
+-1
+</td>
+</tr>
+<tr>
+<th>
+309
+</th>
+<td>
+Your Mother Should Know
+</td>
+<td>
+1967
+</td>
+<td>
+Magical Mystery Tour
+</td>
+<td>
+Music Hall, Vaudeville Rock, Psychedelic Pop, …
+</td>
+<td>
+McCartney
+</td>
+<td>
+-1
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+310 rows × 6 columns
+</p>
+</td>
+</tr>
+</tbody></table>
+</section>
+</section>
+<section id="a-column-is-a-series" class="level3">
+<h3 class="anchored" data-anchor-id="a-column-is-a-series">A Column is a Series</h3>
+<p>An individual column is called a <strong>Series</strong>, which we can perform various operations on.</p>
+<ul>
+<li><strong>One column</strong> of the dataframe: <code>beatles_spotify["year"]</code> &gt; You can also reference a column like this: <code>beatles_spotify.year</code>. However, this syntax is not as clear and does not work with some column names, such as those with spaces or special characters (it is good practice to name your columns without spaces or special characters for this reason). Most examples here will use the bracketed syntax.</li>
+<li>Show all the unique entries in a single column: <code>beatles_spotify["album"].unique()</code></li>
+<li>Count the <strong>number of unique values</strong> in a single column: <code>beatles_spotify["album"].nunique()</code></li>
+</ul>
+<p>Pandas Cheat Sheet: <a href="https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf">here</a>.</p>
+</section>
+</section>
+<section id="sort-and-count" class="level2">
+<h2 class="anchored" data-anchor-id="sort-and-count">Sort and Count</h2>
+<p>Pandas affords many ways to take stock of your data, with built-in functions counts of values, means, averages, and other statistical information. Many of these are detailed on the <a href="https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf">Pandas Cheat Sheet</a>. But the following will be useful for us:</p>
+<ul>
+<li>Count the <strong>number of entries</strong> for each value in a column: <code>beatles_spotify["album"].value_counts()</code></li>
+</ul>
+<section id="sort-values" class="level3">
+<h3 class="anchored" data-anchor-id="sort-values">Sort Values</h3>
+<p><strong>Sort Values</strong> in any column. This ascending (alphabetically or numerically) by default, but can be reversed. Example:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>beatles_spotify.sort_values(<span class="st">"danceability"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table border="0">
+<tbody><tr>
+<th valign="top">
+Output:
+</th>
+<td>
+<table border="1">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+id
+</th>
+<th>
+year
+</th>
+<th>
+album
+</th>
+<th>
+song
+</th>
+<th>
+danceability
+</th>
+<th>
+energy
+</th>
+<th>
+speechiness
+</th>
+<th>
+acousticness
+</th>
+<th>
+liveness
+</th>
+<th>
+valence
+</th>
+<th>
+duration_ms
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+150
+</th>
+<td>
+151
+</td>
+<td>
+1968
+</td>
+<td>
+The Beatles (white album)
+</td>
+<td>
+good night
+</td>
+<td>
+0.146
+</td>
+<td>
+0.355
+</td>
+<td>
+0.0352
+</td>
+<td>
+0.865000
+</td>
+<td>
+0.1140
+</td>
+<td>
+0.1780
+</td>
+<td>
+193760
+</td>
+</tr>
+<tr>
+<th>
+143
+</th>
+<td>
+144
+</td>
+<td>
+1968
+</td>
+<td>
+The Beatles (white album)
+</td>
+<td>
+helter skelter
+</td>
+<td>
+0.166
+</td>
+<td>
+0.831
+</td>
+<td>
+0.0894
+</td>
+<td>
+0.000606
+</td>
+<td>
+0.8110
+</td>
+<td>
+0.2810
+</td>
+<td>
+269787
+</td>
+</tr>
+<tr>
+<th>
+152
+</th>
+<td>
+153
+</td>
+<td>
+1969
+</td>
+<td>
+Yellow Submarine
+</td>
+<td>
+only a northern song
+</td>
+<td>
+0.175
+</td>
+<td>
+0.731
+</td>
+<td>
+0.0705
+</td>
+<td>
+0.000341
+</td>
+<td>
+0.0846
+</td>
+<td>
+0.8010
+</td>
+<td>
+204493
+</td>
+</tr>
+<tr>
+<th>
+149
+</th>
+<td>
+150
+</td>
+<td>
+1968
+</td>
+<td>
+The Beatles (white album)
+</td>
+<td>
+revolution 9
+</td>
+<td>
+0.208
+</td>
+<td>
+0.615
+</td>
+<td>
+0.3420
+</td>
+<td>
+0.769000
+</td>
+<td>
+0.8240
+</td>
+<td>
+0.1010
+</td>
+<td>
+502013
+</td>
+</tr>
+<tr>
+<th>
+158
+</th>
+<td>
+159
+</td>
+<td>
+1969
+</td>
+<td>
+Yellow Submarine
+</td>
+<td>
+sea of time
+</td>
+<td>
+0.237
+</td>
+<td>
+0.096
+</td>
+<td>
+0.0387
+</td>
+<td>
+0.971000
+</td>
+<td>
+0.2030
+</td>
+<td>
+0.0629
+</td>
+<td>
+180213
+</td>
+</tr>
+<tr>
+<th>
+…
+</th>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+</tr>
+<tr>
+<th>
+32
+</th>
+<td>
+33
+</td>
+<td>
+1964
+</td>
+<td>
+A Hard Day’s Night
+</td>
+<td>
+And I Love Her
+</td>
+<td>
+0.767
+</td>
+<td>
+0.331
+</td>
+<td>
+0.0337
+</td>
+<td>
+0.640000
+</td>
+<td>
+0.0681
+</td>
+<td>
+0.6360
+</td>
+<td>
+149693
+</td>
+</tr>
+<tr>
+<th>
+90
+</th>
+<td>
+91
+</td>
+<td>
+1966
+</td>
+<td>
+Revolver
+</td>
+<td>
+good day sunshine
+</td>
+<td>
+0.770
+</td>
+<td>
+0.496
+</td>
+<td>
+0.0468
+</td>
+<td>
+0.719000
+</td>
+<td>
+0.1230
+</td>
+<td>
+0.5710
+</td>
+<td>
+129293
+</td>
+</tr>
+<tr>
+<th>
+125
+</th>
+<td>
+126
+</td>
+<td>
+1968
+</td>
+<td>
+The Beatles (white album)
+</td>
+<td>
+wild honey pie
+</td>
+<td>
+0.792
+</td>
+<td>
+0.763
+</td>
+<td>
+0.0506
+</td>
+<td>
+0.425000
+</td>
+<td>
+0.7890
+</td>
+<td>
+0.1520
+</td>
+<td>
+52973
+</td>
+</tr>
+<tr>
+<th>
+124
+</th>
+<td>
+125
+</td>
+<td>
+1968
+</td>
+<td>
+The Beatles (white album)
+</td>
+<td>
+obi-la -di, ob-la-da
+</td>
+<td>
+0.818
+</td>
+<td>
+0.728
+</td>
+<td>
+0.0314
+</td>
+<td>
+0.232000
+</td>
+<td>
+0.2510
+</td>
+<td>
+0.9750
+</td>
+<td>
+188960
+</td>
+</tr>
+<tr>
+<th>
+191
+</th>
+<td>
+192
+</td>
+<td>
+1970
+</td>
+<td>
+Let It Be
+</td>
+<td>
+for you blue
+</td>
+<td>
+0.880
+</td>
+<td>
+0.556
+</td>
+<td>
+0.0855
+</td>
+<td>
+0.240000
+</td>
+<td>
+0.2400
+</td>
+<td>
+0.9550
+</td>
+<td>
+152213
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+193 rows × 11 columns
+</p>
+</td>
+</tr>
+</tbody></table>
+</section>
+<section id="count-values" class="level3">
+<h3 class="anchored" data-anchor-id="count-values">Count Values</h3>
+<p>Pandas makes it easy to summarize the count of each value in any column. For example:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>beatles_billboard[<span class="st">"Album.debut"</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table border="0">
+<tbody><tr>
+<th valign="top">
+Output:
+</th>
+<td>
+<pre>Album.debut
+Live at the BBC                                        31
+The Beatles                                            30
+Anthology 1                                            21
+Abbey Road                                             17
+Sgt. Pepper's Lonely Hearts Club Band                  13
+                                                       ..
+UK: Rarities US: Beatles '65                            1
+UK: Rarities US: The Beatles Second Album               1
+UK: Rarities US: Meet The Beatles!                      1
+UK: Rarities US: Beatles VI                             1
+UK: A Hard Day's Night US: The Beatles Second Album     1
+Name: count, Length: 54, dtype: int64</pre>
+</td>
+</tr>
+</tbody></table>
+<p>You may want to store the result of the <code>.value_counts()</code> method in a new dataframe:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>counts <span class="op">=</span> pd.DataFrame(beatles_billboard[<span class="st">"Album.debut"</span>].value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="combining-joining-and-merging-dataframes" class="level2">
+<h2 class="anchored" data-anchor-id="combining-joining-and-merging-dataframes">Combining, Joining, and Merging DataFrames</h2>
+<p>As you are working with multiple datasets, you might find it useful to combine several datasets. There are two main ways to combine datasets: merging and concatenating. First, we ask you to explore <strong>concatenating DataFrames</strong> using Pandas’ built-in <em>pandas.concat</em>.</p>
+<p>You can read more about Concatenation <a href="https://pandas.pydata.org/docs/reference/api/pandas.concat.html">here</a>.</p>
+<p>While concatenating datasets usually means appending more entries that have the same features (columns), <strong>merging DataFrames</strong> enables appending new features (columns) for the same (or new) entries in your DataFrame. Here, we ask you to <strong>merge two datasets</strong> using Pandas’ built-in <em>pandas.DataFrame.merge</em>.</p>
+<p>You can read more about Merging <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html">here</a>.</p>
+<p><strong>Joining DataFrames</strong> is similar to merging, but is much less versatile. With <code>join</code>, you combine datasets based on index only.</p>
+<p>You can read more about Joining <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.join.html">here</a>.</p>
+<section id="concatenation-vs.-merging" class="level3">
+<h3 class="anchored" data-anchor-id="concatenation-vs.-merging">Concatenation vs.&nbsp;Merging</h3>
+<p>Concatenation is the most simple operation. If your data have identical column names, then you concatenate.</p>
+<p>If you have different numbers of columns, but otherwise share column names, you <em>might</em> be able to concatenate, assuming you don’t mind lots of missing data in some places.</p>
+<p>If your dataframes are quite different but share some common data, then you should merge.</p>
+</section>
+<section id="merging-example" class="level3">
+<h3 class="anchored" data-anchor-id="merging-example">Merging Example</h3>
+<p>We can merge the two Beatles data frame on the basis of some shared columns. It is not necessary for the columns to have the same name, but they need to share the same items (like ‘songs’).</p>
+<ul>
+<li>In this case the <strong>song</strong> column in the <strong>Spotify data</strong> corresponds to the <strong>Title</strong> column in the <strong>Billboard data</strong></li>
+<li>In Pandas, the two frames to be joined are called “left” and “right”</li>
+<li>The <code>left_on</code> and <code>right_on</code> arguments specify the names of the shared columns.</li>
+<li>The <code>how</code> argument specifies which keys to include in the resulting dataframe. For an <code>inner</code> merge, only rows with matching keys in both dataframes are retained.</li>
+<li>The optional <code>suffixes</code> argument tells Pandas how to handle fields that are otherwise named identically in the source files</li>
+</ul>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>beatles_combined <span class="op">=</span> pd.merge(right<span class="op">=</span>beatles_spotify, </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>         left<span class="op">=</span>beatles_billboard, </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>         right_on<span class="op">=</span><span class="st">"song"</span>, </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>         left_on<span class="op">=</span><span class="st">"Title"</span>, </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>         how<span class="op">=</span><span class="st">"inner"</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>beatles_combined</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table border="0">
+<tbody><tr>
+<th valign="top">
+Output:
+</th>
+<td>
+<table border="1">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Title
+</th>
+<th>
+Year
+</th>
+<th>
+Album.debut
+</th>
+<th>
+Duration
+</th>
+<th>
+Other.releases
+</th>
+<th>
+Genre
+</th>
+<th>
+Songwriter
+</th>
+<th>
+Lead.vocal
+</th>
+<th>
+Top.50.Billboard
+</th>
+<th>
+id
+</th>
+<th>
+year
+</th>
+<th>
+album
+</th>
+<th>
+song
+</th>
+<th>
+danceability
+</th>
+<th>
+energy
+</th>
+<th>
+speechiness
+</th>
+<th>
+acousticness
+</th>
+<th>
+liveness
+</th>
+<th>
+valence
+</th>
+<th>
+duration_ms
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+A Hard Day’s Night
+</td>
+<td>
+1964
+</td>
+<td>
+UK: A Hard Day’s Night US: 1962-1966
+</td>
+<td>
+152
+</td>
+<td>
+35
+</td>
+<td>
+Rock, Electronic, Pop/Rock
+</td>
+<td>
+Lennon
+</td>
+<td>
+Lennon, with McCartney
+</td>
+<td>
+8
+</td>
+<td>
+29
+</td>
+<td>
+1964
+</td>
+<td>
+A Hard Day’s Night
+</td>
+<td>
+A Hard Day’s Night
+</td>
+<td>
+0.590
+</td>
+<td>
+0.805
+</td>
+<td>
+0.0371
+</td>
+<td>
+0.137
+</td>
+<td>
+0.0996
+</td>
+<td>
+0.797
+</td>
+<td>
+154200
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+All My Loving
+</td>
+<td>
+1963
+</td>
+<td>
+UK: With the Beatles US: Meet The Beatles!
+</td>
+<td>
+124
+</td>
+<td>
+32
+</td>
+<td>
+Pop/Rock
+</td>
+<td>
+McCartney
+</td>
+<td>
+McCartney
+</td>
+<td>
+-1
+</td>
+<td>
+17
+</td>
+<td>
+1963
+</td>
+<td>
+With The Beatles
+</td>
+<td>
+All My Loving
+</td>
+<td>
+0.416
+</td>
+<td>
+0.563
+</td>
+<td>
+0.0298
+</td>
+<td>
+0.207
+</td>
+<td>
+0.3430
+</td>
+<td>
+0.900
+</td>
+<td>
+127853
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+And I Love Her
+</td>
+<td>
+1964
+</td>
+<td>
+UK: A Hard Day’s Night US: Something New
+</td>
+<td>
+152
+</td>
+<td>
+29
+</td>
+<td>
+Pop/Rock
+</td>
+<td>
+McCartney, with Lennon
+</td>
+<td>
+McCartney
+</td>
+<td>
+37
+</td>
+<td>
+33
+</td>
+<td>
+1964
+</td>
+<td>
+A Hard Day’s Night
+</td>
+<td>
+And I Love Her
+</td>
+<td>
+0.767
+</td>
+<td>
+0.331
+</td>
+<td>
+0.0337
+</td>
+<td>
+0.640
+</td>
+<td>
+0.0681
+</td>
+<td>
+0.636
+</td>
+<td>
+149693
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+Ask Me Why
+</td>
+<td>
+1962
+</td>
+<td>
+UK: Please Please Me US: The Early Beatles
+</td>
+<td>
+144
+</td>
+<td>
+24
+</td>
+<td>
+Pop/Rock
+</td>
+<td>
+Lennon, with McCartney
+</td>
+<td>
+Lennon
+</td>
+<td>
+-1
+</td>
+<td>
+6
+</td>
+<td>
+1963
+</td>
+<td>
+Please Please Me
+</td>
+<td>
+Ask Me Why
+</td>
+<td>
+0.605
+</td>
+<td>
+0.394
+</td>
+<td>
+0.0378
+</td>
+<td>
+0.767
+</td>
+<td>
+0.0967
+</td>
+<td>
+0.597
+</td>
+<td>
+146533
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+Baby It’s You
+</td>
+<td>
+1963
+</td>
+<td>
+UK: Please Please Me US: The Early Beatles
+</td>
+<td>
+162
+</td>
+<td>
+17
+</td>
+<td>
+Pop/Rock
+</td>
+<td>
+Bacharach, David, Dixon
+</td>
+<td>
+Lennon
+</td>
+<td>
+-1
+</td>
+<td>
+10
+</td>
+<td>
+1963
+</td>
+<td>
+Please Please Me
+</td>
+<td>
+Baby It’s You
+</td>
+<td>
+0.608
+</td>
+<td>
+0.494
+</td>
+<td>
+0.0345
+</td>
+<td>
+0.778
+</td>
+<td>
+0.0926
+</td>
+<td>
+0.879
+</td>
+<td>
+160520
+</td>
+</tr>
+<tr>
+<th>
+…
+</th>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+</tr>
+<tr>
+<th>
+16
+</th>
+<td>
+Please Please Me
+</td>
+<td>
+1962
+</td>
+<td>
+UK: Please Please Me US: The Early Beatles
+</td>
+<td>
+120
+</td>
+<td>
+35
+</td>
+<td>
+Merseybeat, Rock and Roll, Pop/Rock
+</td>
+<td>
+Lennon
+</td>
+<td>
+Lennon, with McCartney
+</td>
+<td>
+18
+</td>
+<td>
+7
+</td>
+<td>
+1963
+</td>
+<td>
+Please Please Me
+</td>
+<td>
+Please Please Me
+</td>
+<td>
+0.527
+</td>
+<td>
+0.480
+</td>
+<td>
+0.0280
+</td>
+<td>
+0.334
+</td>
+<td>
+0.0702
+</td>
+<td>
+0.706
+</td>
+<td>
+120853
+</td>
+</tr>
+<tr>
+<th>
+17
+</th>
+<td>
+Roll Over Beethoven
+</td>
+<td>
+1963
+</td>
+<td>
+UK: With the Beatles US: The Beatles Second Album
+</td>
+<td>
+168
+</td>
+<td>
+31
+</td>
+<td>
+Rock and Roll, Pop/Rock
+</td>
+<td>
+Berry
+</td>
+<td>
+Harrison
+</td>
+<td>
+-1
+</td>
+<td>
+22
+</td>
+<td>
+1963
+</td>
+<td>
+With The Beatles
+</td>
+<td>
+Roll Over Beethoven
+</td>
+<td>
+0.351
+</td>
+<td>
+0.749
+</td>
+<td>
+0.0312
+</td>
+<td>
+0.289
+</td>
+<td>
+0.0952
+</td>
+<td>
+0.967
+</td>
+<td>
+165467
+</td>
+</tr>
+<tr>
+<th>
+18
+</th>
+<td>
+There’s a Place
+</td>
+<td>
+1963
+</td>
+<td>
+UK: Please Please Me US: Rarities
+</td>
+<td>
+109
+</td>
+<td>
+24
+</td>
+<td>
+Merseybeat, Rock and Roll, Pop/Rock
+</td>
+<td>
+Lennon and McCartney
+</td>
+<td>
+Lennon and McCartney
+</td>
+<td>
+-1
+</td>
+<td>
+13
+</td>
+<td>
+1963
+</td>
+<td>
+Please Please Me
+</td>
+<td>
+There’s a Place
+</td>
+<td>
+0.455
+</td>
+<td>
+0.582
+</td>
+<td>
+0.0292
+</td>
+<td>
+0.629
+</td>
+<td>
+0.1720
+</td>
+<td>
+0.927
+</td>
+<td>
+110493
+</td>
+</tr>
+<tr>
+<th>
+19
+</th>
+<td>
+Till There Was You
+</td>
+<td>
+1963
+</td>
+<td>
+UK: With the Beatles US: Meet The Beatles!
+</td>
+<td>
+136
+</td>
+<td>
+22
+</td>
+<td>
+Pop/Rock
+</td>
+<td>
+Willson
+</td>
+<td>
+McCartney
+</td>
+<td>
+-1
+</td>
+<td>
+20
+</td>
+<td>
+1963
+</td>
+<td>
+With The Beatles
+</td>
+<td>
+Till There Was You
+</td>
+<td>
+0.727
+</td>
+<td>
+0.338
+</td>
+<td>
+0.0454
+</td>
+<td>
+0.790
+</td>
+<td>
+0.1050
+</td>
+<td>
+0.646
+</td>
+<td>
+133507
+</td>
+</tr>
+<tr>
+<th>
+20
+</th>
+<td>
+Twist and Shout
+</td>
+<td>
+1963
+</td>
+<td>
+UK: Please Please Me US: The Early Beatles
+</td>
+<td>
+125
+</td>
+<td>
+44
+</td>
+<td>
+Rock and Roll, R&amp;B, Pop/Rock
+</td>
+<td>
+Medley, Russell
+</td>
+<td>
+Lennon
+</td>
+<td>
+13
+</td>
+<td>
+14
+</td>
+<td>
+1963
+</td>
+<td>
+Please Please Me
+</td>
+<td>
+Twist and Shout
+</td>
+<td>
+0.482
+</td>
+<td>
+0.849
+</td>
+<td>
+0.0452
+</td>
+<td>
+0.641
+</td>
+<td>
+0.0414
+</td>
+<td>
+0.937
+</td>
+<td>
+155227
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+21 rows × 20 columns
+</p>
+</td>
+</tr></tbody></table>
+<p>This isn’t very useful! There are so few rows in this combined dataset because Pandas could only merge data for columns where the song title was formatted in exactly the same way. For this to work better, we should format the song titles in both frames the same way - perhaps all lowercase - before performing the merge:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>beatles_billboard[<span class="st">'Title'</span>] <span class="op">=</span> beatles_billboard[<span class="st">'Title'</span>].<span class="bu">str</span>.lower() <span class="co"># convert all titles in the "Title" column to lowercase</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>beatles_spotify[<span class="st">'song'</span>] <span class="op">=</span> beatles_spotify[<span class="st">'song'</span>].<span class="bu">str</span>.lower() <span class="co"># convert all titles in the "song" column to lowercase</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>With the song titles updated, let’s try that merge again:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>beatles_combined <span class="op">=</span> pd.merge(right<span class="op">=</span>beatles_spotify, </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>         left<span class="op">=</span>beatles_billboard, </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>         right_on<span class="op">=</span><span class="st">"song"</span>, </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>         left_on<span class="op">=</span><span class="st">"Title"</span>, </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>         how<span class="op">=</span><span class="st">"inner"</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>beatles_combined</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table border="0">
+<tbody><tr>
+<th valign="top">
+Output:
+</th>
+<td>
+<table border="1">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Title
+</th>
+<th>
+Year
+</th>
+<th>
+Album.debut
+</th>
+<th>
+Duration
+</th>
+<th>
+Other.releases
+</th>
+<th>
+Genre
+</th>
+<th>
+Songwriter
+</th>
+<th>
+Lead.vocal
+</th>
+<th>
+Top.50.Billboard
+</th>
+<th>
+id
+</th>
+<th>
+year
+</th>
+<th>
+album
+</th>
+<th>
+song
+</th>
+<th>
+danceability
+</th>
+<th>
+energy
+</th>
+<th>
+speechiness
+</th>
+<th>
+acousticness
+</th>
+<th>
+liveness
+</th>
+<th>
+valence
+</th>
+<th>
+duration_ms
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+a day in the life
+</td>
+<td>
+1967
+</td>
+<td>
+Sgt.&nbsp;Pepper’s Lonely Hearts Club Band
+</td>
+<td>
+335
+</td>
+<td>
+12
+</td>
+<td>
+Psychedelic Rock, Art Rock, Pop/Rock
+</td>
+<td>
+Lennon and McCartney
+</td>
+<td>
+Lennon and McCartney
+</td>
+<td>
+-1
+</td>
+<td>
+110
+</td>
+<td>
+1967
+</td>
+<td>
+Sgt.&nbsp;Pepper’s Lonely Hearts Club Band
+</td>
+<td>
+a day in the life
+</td>
+<td>
+0.364
+</td>
+<td>
+0.457
+</td>
+<td>
+0.0675
+</td>
+<td>
+0.290
+</td>
+<td>
+0.9220
+</td>
+<td>
+0.175
+</td>
+<td>
+337413
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+a hard day’s night
+</td>
+<td>
+1964
+</td>
+<td>
+UK: A Hard Day’s Night US: 1962-1966
+</td>
+<td>
+152
+</td>
+<td>
+35
+</td>
+<td>
+Rock, Electronic, Pop/Rock
+</td>
+<td>
+Lennon
+</td>
+<td>
+Lennon, with McCartney
+</td>
+<td>
+8
+</td>
+<td>
+29
+</td>
+<td>
+1964
+</td>
+<td>
+A Hard Day’s Night
+</td>
+<td>
+a hard day’s night
+</td>
+<td>
+0.590
+</td>
+<td>
+0.805
+</td>
+<td>
+0.0371
+</td>
+<td>
+0.137
+</td>
+<td>
+0.0996
+</td>
+<td>
+0.797
+</td>
+<td>
+154200
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+across the universe
+</td>
+<td>
+1968
+</td>
+<td>
+Let It Be
+</td>
+<td>
+230
+</td>
+<td>
+19
+</td>
+<td>
+Psychedelic folk, Pop/Rock
+</td>
+<td>
+Lennon
+</td>
+<td>
+Lennon
+</td>
+<td>
+-1
+</td>
+<td>
+184
+</td>
+<td>
+1970
+</td>
+<td>
+Let It Be
+</td>
+<td>
+across the universe
+</td>
+<td>
+0.257
+</td>
+<td>
+0.412
+</td>
+<td>
+0.0287
+</td>
+<td>
+0.361
+</td>
+<td>
+0.0702
+</td>
+<td>
+0.858
+</td>
+<td>
+228133
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+act naturally
+</td>
+<td>
+1965
+</td>
+<td>
+UK: Help! US: Yesterday and Today
+</td>
+<td>
+139
+</td>
+<td>
+14
+</td>
+<td>
+Country, Pop/Rock
+</td>
+<td>
+Russell, Morrison
+</td>
+<td>
+Starkey
+</td>
+<td>
+50
+</td>
+<td>
+63
+</td>
+<td>
+1965
+</td>
+<td>
+Help!
+</td>
+<td>
+act naturally
+</td>
+<td>
+0.702
+</td>
+<td>
+0.447
+</td>
+<td>
+0.0308
+</td>
+<td>
+0.366
+</td>
+<td>
+0.1530
+</td>
+<td>
+0.944
+</td>
+<td>
+150373
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+all i’ve got to do
+</td>
+<td>
+1963
+</td>
+<td>
+UK: With the Beatles US: Meet The Beatles!
+</td>
+<td>
+124
+</td>
+<td>
+9
+</td>
+<td>
+Pop/Rock
+</td>
+<td>
+Lennon
+</td>
+<td>
+Lennon
+</td>
+<td>
+-1
+</td>
+<td>
+16
+</td>
+<td>
+1963
+</td>
+<td>
+With The Beatles
+</td>
+<td>
+all i’ve got to do
+</td>
+<td>
+0.490
+</td>
+<td>
+0.579
+</td>
+<td>
+0.0344
+</td>
+<td>
+0.217
+</td>
+<td>
+0.0644
+</td>
+<td>
+0.879
+</td>
+<td>
+122573
+</td>
+</tr>
+<tr>
+<th>
+…
+</th>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+</tr>
+<tr>
+<th>
+124
+</th>
+<td>
+yellow submarine
+</td>
+<td>
+1966
+</td>
+<td>
+Revolver
+</td>
+<td>
+158
+</td>
+<td>
+24
+</td>
+<td>
+Children’s Music, Folk, Pop/Rock
+</td>
+<td>
+McCartney
+</td>
+<td>
+Starkey
+</td>
+<td>
+25
+</td>
+<td>
+152
+</td>
+<td>
+1969
+</td>
+<td>
+Yellow Submarine
+</td>
+<td>
+yellow submarine
+</td>
+<td>
+0.605
+</td>
+<td>
+0.536
+</td>
+<td>
+0.0421
+</td>
+<td>
+0.518
+</td>
+<td>
+0.5280
+</td>
+<td>
+0.688
+</td>
+<td>
+159720
+</td>
+</tr>
+<tr>
+<th>
+125
+</th>
+<td>
+yesterday
+</td>
+<td>
+1965
+</td>
+<td>
+UK: Help! US: Yesterday and Today
+</td>
+<td>
+123
+</td>
+<td>
+33
+</td>
+<td>
+Baroque Pop, Pop/Rock
+</td>
+<td>
+McCartney
+</td>
+<td>
+McCartney
+</td>
+<td>
+12
+</td>
+<td>
+68
+</td>
+<td>
+1965
+</td>
+<td>
+Help!
+</td>
+<td>
+yesterday
+</td>
+<td>
+0.332
+</td>
+<td>
+0.179
+</td>
+<td>
+0.0326
+</td>
+<td>
+0.879
+</td>
+<td>
+0.0886
+</td>
+<td>
+0.315
+</td>
+<td>
+125667
+</td>
+</tr>
+<tr>
+<th>
+126
+</th>
+<td>
+you like me too much
+</td>
+<td>
+1965
+</td>
+<td>
+UK: Help! US: Beatles VI
+</td>
+<td>
+155
+</td>
+<td>
+12
+</td>
+<td>
+Pop/Rock
+</td>
+<td>
+Harrison
+</td>
+<td>
+Harrison
+</td>
+<td>
+-1
+</td>
+<td>
+65
+</td>
+<td>
+1965
+</td>
+<td>
+Help!
+</td>
+<td>
+you like me too much
+</td>
+<td>
+0.555
+</td>
+<td>
+0.570
+</td>
+<td>
+0.0302
+</td>
+<td>
+0.415
+</td>
+<td>
+0.1910
+</td>
+<td>
+0.899
+</td>
+<td>
+156867
+</td>
+</tr>
+<tr>
+<th>
+127
+</th>
+<td>
+you never give me your money
+</td>
+<td>
+1969
+</td>
+<td>
+Abbey Road
+</td>
+<td>
+242
+</td>
+<td>
+7
+</td>
+<td>
+Rock, Pop/Rock
+</td>
+<td>
+McCartney
+</td>
+<td>
+McCartney
+</td>
+<td>
+-1
+</td>
+<td>
+173
+</td>
+<td>
+1969
+</td>
+<td>
+Abbey Road
+</td>
+<td>
+you never give me your money
+</td>
+<td>
+0.335
+</td>
+<td>
+0.416
+</td>
+<td>
+0.0348
+</td>
+<td>
+0.345
+</td>
+<td>
+0.1160
+</td>
+<td>
+0.223
+</td>
+<td>
+242973
+</td>
+</tr>
+<tr>
+<th>
+128
+</th>
+<td>
+your mother should know
+</td>
+<td>
+1967
+</td>
+<td>
+Magical Mystery Tour
+</td>
+<td>
+149
+</td>
+<td>
+13
+</td>
+<td>
+Music Hall, Vaudeville Rock, Psychedelic Pop, …
+</td>
+<td>
+McCartney
+</td>
+<td>
+McCartney
+</td>
+<td>
+-1
+</td>
+<td>
+115
+</td>
+<td>
+1967
+</td>
+<td>
+Magical Mystery Tour
+</td>
+<td>
+your mother should know
+</td>
+<td>
+0.698
+</td>
+<td>
+0.293
+</td>
+<td>
+0.0332
+</td>
+<td>
+0.784
+</td>
+<td>
+0.0936
+</td>
+<td>
+0.724
+</td>
+<td>
+148413
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+129 rows × 20 columns
+</p>
+</td>
+</tr>
+</tbody></table>
+<p>The result is significantly more useful - Pandas correctly matched many more songs across the two frames. This is a great example of why it is so important to <strong>clean</strong> our data - it is vital to ensure we get the results we expect and want. As you may have noticed, even this change was not enough for Pandas to correctly match every song in the <code>beatles_spotify</code> dataframe. Read more about cleaning data with Pandas in the <a href="05_Pandas_Clean_Data.md">next section</a>.</p>
+</section>
+</section>
+<section id="making-the-most-of-pandas" class="level2">
+<h2 class="anchored" data-anchor-id="making-the-most-of-pandas">Making the Most of Pandas</h2>
+<p>Pandas is a powerful library that makes complex data science easier. There are myriad features designed to handle an almost infinite set of applications. However, especially to those with prior experience in Python, it can feel easier to revert to Python code you already know how to write for complex tasks. This takes away from a crucial element of Pandas - you don’t need to reinvent the wheel! For example, you almost never need to write for loops in Pandas, because there are built-in methods that will apply an operation to an entire column or dataframe. To make sure you take full advantage of the benefits Pandas provides, be sure to search the <a href="https://pandas.pydata.org/about/">documentation</a> using the search bar whenever you’re attempting something new. You can also check the <a href="https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf">cheatsheet</a> or <a href="https://www.w3schools.com/python/pandas/default.asp">W3Schools</a>. Chances are, Pandas has a built-in way to accomplish your goal that will make your life easier.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th><strong>Pandas Basics</strong></th>
+<th><a href="05_Pandas_Clean_Data.md">Clean Data</a></th>
+<th><a href="06_Pandas_Tidy_Data.md">Tidy Data</a></th>
+<th><a href="07_Pandas_Filter_Find_Group.md">Filtering, Finding, and Grouping</a></th>
+<th><a href="08_Pandas_Graphs_and_Charts.md">Graphs and Charts</a></th>
+<th><a href="09_Pandas_Networks.md">Networks</a></th>
+</tr>
+</thead>
+
+</table>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

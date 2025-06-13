@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.45">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>pandas_graphs_and_charts</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="08_Pandas_Graphs_and_Charts_files/libs/clipboard/clipboard.min.js"></script>
+<script src="08_Pandas_Graphs_and_Charts_files/libs/quarto-html/quarto.js"></script>
+<script src="08_Pandas_Graphs_and_Charts_files/libs/quarto-html/popper.min.js"></script>
+<script src="08_Pandas_Graphs_and_Charts_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="08_Pandas_Graphs_and_Charts_files/libs/quarto-html/anchor.min.js"></script>
+<link href="08_Pandas_Graphs_and_Charts_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="08_Pandas_Graphs_and_Charts_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="08_Pandas_Graphs_and_Charts_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="08_Pandas_Graphs_and_Charts_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="08_Pandas_Graphs_and_Charts_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th><a href="04_Pandas_Basics.md">Pandas Basics</a></th>
+<th><a href="05_Pandas_Clean_Data.md">Clean Data</a></th>
+<th><a href="06_Pandas_Tidy_Data.md">Tidy Data</a></th>
+<th><a href="07_Pandas_Filter_Find_Group.md">Filtering, Finding, and Grouping</a></th>
+<th><strong>Graphs and Charts</strong></th>
+<th><a href="09_Pandas_Networks.md">Networks</a></th>
+</tr>
+</thead>
+
+</table>
+<section id="charts-and-plots-with-plotly-express" class="level1">
+<h1>Charts and Plots with Plotly Express</h1>
+<p>Our main resource is the <a href="https://plotly.com/python/plotly-express">Plotly Express</a> library, which allows for interactive visualizations and more complex/powerful graphs with less code. . The Plotly Express documentation details the very wide range of bar charts, histograms, scatter plots, heat maps, polar (radar) figures you can create, and various ways of adding captions, legends, colors, etc.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/plotlyexp.png" class="img-fluid figure-img"></p>
+<figcaption>Alt text</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Contents of this Tutorial</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.</td>
+<td><a href="#bar-charts"><strong>Bar Charts</strong></a></td>
+</tr>
+<tr class="even">
+<td>2.</td>
+<td><a href="#histograms"><strong>Histograms</strong></a></td>
+</tr>
+<tr class="odd">
+<td>3.</td>
+<td><a href="#scatter-plots"><strong>Scatter Plots</strong></a></td>
+</tr>
+<tr class="even">
+<td>4.</td>
+<td><a href="#radar-or-spider-plots"><strong>Radar or Spider Plots</strong></a></td>
+</tr>
+<tr class="odd">
+<td>5.</td>
+<td><a href="#correlation-plots-and-heatmaps"><strong>Correlation Plots and Heatmaps</strong></a></td>
+</tr>
+<tr class="even">
+<td>6.</td>
+<td><a href="#correlation-does-not-equal-causation"><strong>Correlation Does Not Equal Causation</strong></a></td>
+</tr>
+<tr class="odd">
+<td>7.</td>
+<td><a href="#adjusting-size-of-the-image"><strong>Adjusting Chart Size</strong></a></td>
+</tr>
+<tr class="even">
+<td>8.</td>
+<td><a href="#pick-custom-color-scheme"><strong>Pick Custom Color Scheme</strong></a></td>
+</tr>
+<tr class="odd">
+<td>9.</td>
+<td><a href="#axis-scaling-linear-or-logarithmic"><strong>Adjusting Axes</strong></a></td>
+</tr>
+<tr class="even">
+<td>10.</td>
+<td><a href="#adding-a-title"><strong>Adding a Title</strong></a></td>
+</tr>
+<tr class="odd">
+<td>11.</td>
+<td><a href="#labels-and-legends"><strong>Labels and Legends</strong></a></td>
+</tr>
+<tr class="even">
+<td>12.</td>
+<td><a href="#x-and-y-axis-tickmarks"><strong>X and Y Axis Tickmarks</strong></a></td>
+</tr>
+<tr class="odd">
+<td>13.</td>
+<td><a href="#hover-to-show-data-points"><strong>Hover Data</strong></a></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>The first step is always to import the relevant library:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>From here you will normally:</p>
+<ul>
+<li>Define a figure by passing a dataframe to a method (such as <code>fig = px.histogram(df_hist(df)</code>)</li>
+<li>Specify special labels, formatting, or other features</li>
+<li>Show the figure with <code>fig.show()</code>, or specify a file name if you would prefer to save it.</li>
+</ul>
+<section id="bar-charts" class="level2">
+<h2 class="anchored" data-anchor-id="bar-charts">Bar Charts</h2>
+<p>Bar charts are used to display categorical data. They consist of vertical or horizontal bars that represent different categories and their corresponding values. Bar charts are excellent for comparing data across different categories. Learn more at <a href="https://plotly.com/python/bar-charts/">Plotly Express</a></p>
+<p>Here’s an example of a bar chart showing the sales of different products:</p>
+<details>
+<summary>
+Sample Bar Chart Code
+</summary>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import libraries</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DataFrame for bar chart</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>bar_data <span class="op">=</span> {<span class="st">'categories'</span>: [<span class="st">'Product A'</span>, <span class="st">'Product B'</span>, <span class="st">'Product C'</span>],</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">'sales'</span>: [<span class="dv">100</span>, <span class="dv">150</span>, <span class="dv">120</span>]}</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>df_bar <span class="op">=</span> pd.DataFrame(bar_data)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># The barchart with Plotly Express specifying the source df, the columns to use as x and y axes, </span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># labels to use for those axes, and an overall title for the figure that will serve as your caption</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.bar(df_bar, </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>             x <span class="op">=</span> <span class="st">'categories'</span>, y<span class="op">=</span> <span class="st">'sales'</span>, </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>             labels<span class="op">=</span>{<span class="st">'categories'</span>: <span class="st">'Product Category'</span>, <span class="st">'sales'</span>: <span class="st">'Sales'</span>},</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>             title<span class="op">=</span><span class="st">'Figure 1: Sales Report'</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Set width and height in pixels</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>fig.update_layout(width<span class="op">=</span><span class="dv">600</span>, height<span class="op">=</span><span class="dv">400</span>) </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/bar.png" class="img-fluid figure-img"></p>
+<figcaption>Alt text</figcaption>
+</figure>
+</div>
+</section>
+<section id="histograms" class="level2">
+<h2 class="anchored" data-anchor-id="histograms">Histograms</h2>
+<p>Histograms are used to display the distribution of numerical data. They consist of a series of adjacent rectangles (bins) that represent the frequency or proportion of data falling within specific intervals. Histograms help us understand the shape and spread of data. Learn more at <a href="https://plotly.com/python/histograms/">Plotly Express</a></p>
+<p>Here’s an example of a histogram displaying the distribution of exam scores:</p>
+<details>
+<summary>
+Sample Histogram Code
+</summary>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DataFrame for bar chart</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>hist_data <span class="op">=</span> {<span class="st">'scores'</span>: [<span class="dv">80</span>, <span class="dv">85</span>, <span class="dv">90</span>, <span class="dv">70</span>, <span class="dv">75</span>, <span class="dv">88</span>, <span class="dv">82</span>, <span class="dv">95</span>, <span class="dv">92</span>, <span class="dv">78</span>, <span class="dv">87</span>, <span class="dv">80</span>, <span class="dv">85</span>, <span class="dv">90</span>, <span class="dv">73</span>, <span class="dv">79</span>, <span class="dv">83</span>]}</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>df_hist <span class="op">=</span> pd.DataFrame(hist_data)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># The histogram with Plotly Express specifying the source df, the column to use for the histogram,</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># and title for the </span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.histogram(df_hist, </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"scores"</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                   labels<span class="op">=</span>{<span class="st">'scores'</span>: <span class="st">'Test Scores'</span>},</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                   title<span class="op">=</span><span class="st">"Score Distribution"</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># option to rename the y axis</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>fig.update_yaxes(title_text<span class="op">=</span><span class="st">'Count of Scores'</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Set width and height in pixels</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>fig.update_layout(width<span class="op">=</span><span class="dv">600</span>, height<span class="op">=</span><span class="dv">400</span>) </span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/hist.png" class="img-fluid figure-img"></p>
+<figcaption>Alt text</figcaption>
+</figure>
+</div>
+</section>
+<section id="scatter-plots" class="level2">
+<h2 class="anchored" data-anchor-id="scatter-plots">Scatter Plots</h2>
+<p>Scatter plots are used to display the relationship between two numerical variables. Each point on the plot represents the values of the variables. Scatter plots are useful for identifying patterns, trends, and outliers in the data. Learn more at <a href="https://plotly.com/python/line-and-scatter/">Plotly Express</a></p>
+<p>Here’s an example of a scatter plot showing the relationship between study hours and exam scores:</p>
+<details>
+<summary>
+Sample Scatter Plot Code
+</summary>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotly</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DataFrame for scatter plot</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>scatter_data <span class="op">=</span> {<span class="st">'study_hours'</span>: [<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">6</span>],</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                <span class="st">'exam_scores'</span>: [<span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">65</span>, <span class="dv">90</span>, <span class="dv">95</span>, <span class="dv">85</span>, <span class="dv">75</span>, <span class="dv">80</span>, <span class="dv">70</span>, <span class="dv">90</span>]}</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>df_scatter <span class="op">=</span> pd.DataFrame(scatter_data)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotly Scatter Plot</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that here we include a Trend Line calculated using the Ordinary Least Squares (ols) method.</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># There are other methods, see documentation</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># also note options to change opacity of the plot points and the color of the trend line.</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>fig_scatter <span class="op">=</span> px.scatter(df_scatter,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>                         x <span class="op">=</span> <span class="st">'study_hours'</span>, y <span class="op">=</span> <span class="st">'exam_scores'</span>,</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>                         opacity<span class="op">=</span><span class="fl">1.00</span>, </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                         trendline<span class="op">=</span><span class="st">'ols'</span>, </span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                         trendline_color_override<span class="op">=</span><span class="st">'red'</span>,</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>                        labels<span class="op">=</span>{<span class="st">'study_hours'</span>: <span class="st">'Study Hours'</span>, <span class="st">'exam_scores'</span> : <span class="st">"Examination Scores"</span>},</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>                        title <span class="op">=</span> <span class="st">"Scatter Plot of Study Hours vs Exam Scores, with Regression Line"</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>fig_scatter.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/scatter.png" class="img-fluid figure-img"></p>
+<figcaption>Alt text</figcaption>
+</figure>
+</div>
+<p><a href="Regressions.md">See More Info on Regressions, here</a></p>
+<section id="scatter-plot-with-variable-marker-size" class="level3">
+<h3 class="anchored" data-anchor-id="scatter-plot-with-variable-marker-size">Scatter Plot with Variable Marker Size</h3>
+<p>Here we combine several data features to make a more interesting kind of Scatter Plot, showing the changing representation of various places over time. The examples draw from RILM Abstracts, the leading database of writings about music, all over the world. In this case we searched for the terms “travel explorations”, “explorers and travelers”, and “travel writings” in the RILM Database. We also restricted our results to only those subject entries that concerned “places” (the “G” category in the RILM Term taxonomy). This resulted in the following dataframe:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/rilm_g_df.png" class="img-fluid figure-img"></p>
+<figcaption>alt text</figcaption>
+</figure>
+</div>
+<p><br></p>
+<p>This was in turn passed to the our scatterplot function. The occurences of the place names (the Y axis) are plotted over time (X axis). The size of the marker reflects the relative number of occurences of that term in that year (the minimum is set with the ‘term_threshold’ argument). Terms that occur in the work of the same author are given the same color (we can show or hide these with the ‘legend’ argument). The title of the image is set with the ‘title’ argument. We can also set the heighth and width of the image with two other variables</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>final_results <span class="op">=</span> final_results</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>term_threshold <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>legend <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>title <span class="op">=</span> <span class="st">'Travelogue Places'</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>scatter_plot(final_results, term_threshold<span class="op">=</span>term_threshold, legend<span class="op">=</span>legend, title<span class="op">=</span>title)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>With the following result:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/rilm_g_scatter.png" class="img-fluid figure-img"></p>
+<figcaption>alt text</figcaption>
+</figure>
+</div>
+<p><br></p>
+<p>Here is the code to do it:</p>
+<details>
+<summary>
+Code for ScatterPlot with Variable Markers
+</summary>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># scatter plot shows terms over time</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> scatter_plot(final_results, term_threshold<span class="op">=</span><span class="dv">5</span>, legend<span class="op">=</span><span class="va">True</span>, height<span class="op">=</span><span class="dv">600</span>, width<span class="op">=</span><span class="dv">800</span>, title<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter out terms appearing less frequently than term_threshold</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    filtered_df <span class="op">=</span> final_results.groupby(<span class="st">'term'</span>).<span class="bu">filter</span>(<span class="kw">lambda</span> x: <span class="bu">len</span>(x) <span class="op">&gt;</span> term_threshold)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate the size of markers based on term occurrence per year</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    value_counts <span class="op">=</span> filtered_df.groupby([<span class="st">'term'</span>, <span class="st">'year'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'marker_size'</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Merge filtered_df with value_counts to ensure marker_size is correctly aligned</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    filtered_df <span class="op">=</span> pd.merge(filtered_df, value_counts, on<span class="op">=</span>[<span class="st">'term'</span>, <span class="st">'year'</span>], how<span class="op">=</span><span class="st">'left'</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create scatter plot</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    fig_scatter <span class="op">=</span> px.scatter(filtered_df,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>                             x<span class="op">=</span><span class="st">'year'</span>, y<span class="op">=</span><span class="st">'term'</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>                             hover_data<span class="op">=</span>[<span class="st">'author'</span>],</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>                             color<span class="op">=</span><span class="st">'author'</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>                             labels<span class="op">=</span>{<span class="st">'term'</span>: <span class="st">"Term"</span>, <span class="st">"author"</span>: <span class="st">"Author"</span>, <span class="st">"year"</span>: <span class="st">"Publication Year"</span>},</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>                             size<span class="op">=</span><span class="st">'marker_size'</span>,</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>                             height<span class="op">=</span>height,</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>                             width<span class="op">=</span>width,</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>                             title<span class="op">=</span>title)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Customize layout</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    fig_scatter.update_layout(height<span class="op">=</span><span class="dv">800</span>)</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    fig_scatter.update_layout(showlegend<span class="op">=</span>legend)</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    fig_scatter.update_yaxes(categoryorder<span class="op">=</span><span class="st">'category descending'</span>)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Show plot</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    fig_scatter.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</section>
+</section>
+<section id="radar-or-spider-plots" class="level2">
+<h2 class="anchored" data-anchor-id="radar-or-spider-plots">Radar or Spider Plots</h2>
+<p>Radar (or Polar) plots are a useful way to represent multiple variables at once, putting each of several variables around a central point: the distance from the center indicates the strength of that feature. There are many types of polar (radar) plots available in Plotly Express. Here we use the <code>line_polar</code> plot. Read more about the various features via <a href="https://plotly.com/python/radar-chart/">Plotly Express</a>.</p>
+<p>It is helpful in this instance to use the Pandas <code>melt</code> method to transform our ‘wide’ data (with multiple columns for the individual audio features) into ‘long’ form data (with each feature represented as an individual row:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pd.melt(sample, id_vars<span class="op">=</span>[<span class="st">'track_title'</span>], value_vars<span class="op">=</span>feature_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/melt_df.png" class="img-fluid figure-img"></p>
+<figcaption>Alt text</figcaption>
+</figure>
+</div>
+<p>The <a href="https://plotly.com/python/polar-chart/#polar-chart-with-plotly-express">Plotly Express</a> <code>line_polar</code> method in turn can easily read these long-form data to produce the feature-based plots. Here we define a function that takes in the original dataframe of audio features, a list of feature columns to plot, and a name for the final chart.</p>
+<details>
+<summary>
+Sample Radar Plot Code
+</summary>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># first declare feature list:</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># feature_list = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "acousticness", "valence", "danceability"]</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># note that you will need to make sure all these features are in your dataset!</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> audio_feature_radar(audio_feature_data, feature_list, chart_title):</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    melted_data <span class="op">=</span> pd.melt(audio_feature_data, id_vars<span class="op">=</span>[<span class="st">'title'</span>], value_vars<span class="op">=</span>feature_list)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    closed_data <span class="op">=</span> melted_data.copy()</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    closed_data.loc[<span class="bu">len</span>(closed_data)] <span class="op">=</span> closed_data.iloc[<span class="dv">0</span>]</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    closed_data <span class="op">=</span> closed_data.sort_values([<span class="st">'title'</span>, <span class="st">'variable'</span>])</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    fig <span class="op">=</span> px.line_polar(closed_data, </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                        r<span class="op">=</span><span class="st">'value'</span>, </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                        theta<span class="op">=</span><span class="st">'variable'</span>, </span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                        color<span class="op">=</span><span class="st">'title'</span>, </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>                        labels<span class="op">=</span>{<span class="st">'title'</span>: <span class="st">"Track Title"</span>},</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>                        line_close<span class="op">=</span><span class="va">True</span>)  <span class="co"># Add this line</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    fig.update_layout(title<span class="op">=</span>chart_title)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fig  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p><br></p>
+<p>Typical usage:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>feature_list <span class="op">=</span> [<span class="st">"danceability"</span>, <span class="st">"energy"</span>, <span class="st">"speechiness"</span>, <span class="st">"liveness"</span>, <span class="st">"instrumentalness"</span>, <span class="st">"acousticness"</span>, <span class="st">"valence"</span>, <span class="st">"danceability"</span>]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>spotify_tools.audio_feature_radar(audio_feature_data, feature_list, <span class="st">"My Radar Plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/radar_px.png" class="img-fluid figure-img"></p>
+<figcaption>Alt text</figcaption>
+</figure>
+</div>
+<p><br></p>
+</section>
+<section id="correlation-plots-and-heatmaps" class="level2">
+<h2 class="anchored" data-anchor-id="correlation-plots-and-heatmaps">Correlation Plots and Heatmaps</h2>
+<p>Correlation plots are used to visualize the strength and direction of the relationship between two numerical variables. They provide a numerical measure called the correlation coefficient, which ranges from -1 to 1. A value close to -1 indicates a strong negative correlation, a value close to 1 indicates a strong positive correlation, and a value close to 0 indicates no or weak correlation.</p>
+<p>One way to do this is via the <code>scatter_matrix</code> function in Plotly Express, which produces an individual scatterplot of all pairs of values in each pair of variables in your data. Here is an example using audio feature data from Spotify. Learn more at <a href="https://plotly.com/python/splom/">Plotly Express</a></p>
+<p>Note that to show trend lines as noted above, you would need to produce an individual scatterplot for each pair of variables.</p>
+<details>
+<summary>
+Sample Correlation Plot Code
+</summary>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>audio_features <span class="op">=</span> {</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'danceability'</span>: [<span class="fl">0.227</span>, <span class="fl">0.832</span>, <span class="fl">0.689</span>, <span class="fl">0.654</span>, <span class="fl">0.442</span>, <span class="fl">0.351</span>, <span class="fl">0.576</span>, <span class="fl">0.352</span>, <span class="fl">0.607</span>, <span class="fl">0.664</span>],</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'energy'</span>: [<span class="fl">0.431</span>, <span class="fl">0.346</span>, <span class="fl">0.676</span>, <span class="fl">0.285</span>, <span class="fl">0.527</span>, <span class="fl">0.903</span>, <span class="fl">0.759</span>, <span class="fl">0.424</span>, <span class="fl">0.411</span>, <span class="fl">0.283</span>],</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'acousticness'</span>: [<span class="fl">0.0432</span>, <span class="fl">0.036</span>, <span class="fl">0.288</span>, <span class="fl">0.0375</span>, <span class="fl">0.0314</span>, <span class="fl">0.0681</span>, <span class="fl">0.0599</span>, <span class="fl">0.0394</span>, <span class="fl">0.0414</span>, <span class="fl">0.0498</span>],</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'instrumentalness'</span>: [<span class="fl">0.575</span>, <span class="fl">0.688</span>, <span class="fl">0.865</span>, <span class="fl">0.148</span>, <span class="fl">0.453</span>, <span class="fl">0.354</span>, <span class="fl">0.501</span>, <span class="fl">0.141</span>, <span class="fl">0.412</span>, <span class="fl">0.558</span>],</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'speechiness'</span>: [<span class="fl">0.126</span>, <span class="fl">0.0945</span>, <span class="fl">0.0481</span>, <span class="fl">0.105</span>, <span class="fl">0.297</span>, <span class="fl">0.252</span>, <span class="fl">0.121</span>, <span class="fl">0.0664</span>, <span class="fl">0.103</span>, <span class="fl">0.345</span>]</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>audio_feature_df <span class="op">=</span> pd.DataFrame(audio_features)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># create matrix (and ignore non-numerical columns if they exist)</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>correlation_matrix <span class="op">=</span> audio_feature_df.corr(numeric_only<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co"># fig = px.scatter_matrix(correlation_matrix)</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter_matrix(audio_feature_df, dimensions<span class="op">=</span>audio_feature_df.columns)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co"># fig.update_yaxes(tickangle=90)</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>fig.update_layout(title<span class="op">=</span><span class="ss">f'Audio Feature Correlation: </span><span class="sc">{</span>correlation<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/corr_matrix_chart.png" class="img-fluid figure-img"></p>
+<figcaption>Alt text</figcaption>
+</figure>
+</div>
+<p>Another way to get a good sense of the high-level correlations among variables is by first making a correlation matrix with Pandas (that is: <code>correlation_matrix = data_to_correlate.corr()</code>) and then passing that result to the Plotly Express <code>imshow()</code> method, as seen below. Learn more at <a href="https://plotly.com/python/heatmaps/">Plotly Express</a></p>
+<details>
+<summary>
+Sample Code to Show Correlation Matrix as Plotly Heatmap
+</summary>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'danceability'</span>: [<span class="fl">0.227</span>, <span class="fl">0.832</span>, <span class="fl">0.689</span>, <span class="fl">0.654</span>, <span class="fl">0.442</span>, <span class="fl">0.351</span>, <span class="fl">0.576</span>, <span class="fl">0.352</span>, <span class="fl">0.607</span>, <span class="fl">0.664</span>],</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'energy'</span>: [<span class="fl">0.431</span>, <span class="fl">0.346</span>, <span class="fl">0.676</span>, <span class="fl">0.285</span>, <span class="fl">0.527</span>, <span class="fl">0.903</span>, <span class="fl">0.759</span>, <span class="fl">0.424</span>, <span class="fl">0.411</span>, <span class="fl">0.283</span>],</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'acousticness'</span>: [<span class="fl">0.0432</span>, <span class="fl">0.036</span>, <span class="fl">0.288</span>, <span class="fl">0.0375</span>, <span class="fl">0.0314</span>, <span class="fl">0.0681</span>, <span class="fl">0.0599</span>, <span class="fl">0.0394</span>, <span class="fl">0.0414</span>, <span class="fl">0.0498</span>],</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'instrumentalness'</span>: [<span class="fl">0.575</span>, <span class="fl">0.688</span>, <span class="fl">0.865</span>, <span class="fl">0.148</span>, <span class="fl">0.453</span>, <span class="fl">0.354</span>, <span class="fl">0.501</span>, <span class="fl">0.141</span>, <span class="fl">0.412</span>, <span class="fl">0.558</span>],</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'speechiness'</span>: [<span class="fl">0.126</span>, <span class="fl">0.0945</span>, <span class="fl">0.0481</span>, <span class="fl">0.105</span>, <span class="fl">0.297</span>, <span class="fl">0.252</span>, <span class="fl">0.121</span>, <span class="fl">0.0664</span>, <span class="fl">0.103</span>, <span class="fl">0.345</span>]</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>data_to_correlate <span class="op">=</span> pd.DataFrame(data)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>correlation_matrix <span class="op">=</span> data_to_correlate.corr()</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.imshow(correlation_matrix)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>fig.update_layout(title<span class="op">=</span><span class="ss">f'Correlation: </span><span class="sc">{</span>correlation<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/corrheatmap.png" class="img-fluid figure-img"></p>
+<figcaption>Alt text</figcaption>
+</figure>
+</div>
+<section id="correlation-does-not-equal-causation" class="level3">
+<h3 class="anchored" data-anchor-id="correlation-does-not-equal-causation">Correlation Does Not Equal Causation</h3>
+<p>It’s crucial to understand that correlation does not imply causation. Just because two variables are correlated does not mean that one variable causes the other. Correlation measures the statistical relationship between variables but cannot determine cause and effect.</p>
+<p>Always exercise caution when interpreting correlations and avoid making causal claims based solely on correlation. Other factors, such as confounding variables, might be influencing the observed relationship.</p>
+<p>Remember, correlation is not causation!</p>
+<p>For example: <img src="images/Correlation%20not%20Causation%20Example.png" class="img-fluid" alt="Alt text"> Image Source: <a href="https://www.tylervigen.com/spurious-correlations">Spurious Correlations by Tyler Vigen</a></p>
+<p>Although these two are strongly correlated, married couples that eat more margarine are not guaranteed to get divorced.</p>
+</section>
+</section>
+<section id="adjusting-the-size-title-color-and-labels-in-plotly-express-charts" class="level2">
+<h2 class="anchored" data-anchor-id="adjusting-the-size-title-color-and-labels-in-plotly-express-charts">Adjusting the Size, Title, Color, and Labels in Plotly Express Charts</h2>
+<p>In Plotly Express there are various ways to change the size of your final image, provide a title, adjust the scale of the X and Y axes, and provide special labels for the items noted each axis. It’s also possibe to provide additional data in ‘pop-up’ lists that appear when the user hovers over individual points on the chart.</p>
+<p>The Plotly Express documentation explains the main options. Here we summarize a few of the most important.</p>
+<section id="adjusting-size-of-the-image" class="level3">
+<h3 class="anchored" data-anchor-id="adjusting-size-of-the-image">Adjusting Size of the Image</h3>
+<p>Adjust the size by adding <code>fig.update_layout(width=600, height=400)</code> on the penultimate line of your chart code (immediately before <code>fig.show()</code>. The values for width and height are expressed in pixels. Learn more at <a href="https://plotly.com/python/setting-graph-size/">Plotly Express</a></p>
+<details>
+<summary>
+Sample Code to Adjust Size of Plotly Express Figure
+</summary>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DataFrame for bar chart</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>hist_data <span class="op">=</span> {<span class="st">'scores'</span>: [<span class="dv">80</span>, <span class="dv">85</span>, <span class="dv">90</span>, <span class="dv">70</span>, <span class="dv">75</span>, <span class="dv">88</span>, <span class="dv">82</span>, <span class="dv">95</span>, <span class="dv">92</span>, <span class="dv">78</span>, <span class="dv">87</span>, <span class="dv">80</span>, <span class="dv">85</span>, <span class="dv">90</span>, <span class="dv">73</span>, <span class="dv">79</span>, <span class="dv">83</span>]}</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>df_hist <span class="op">=</span> pd.DataFrame(hist_data)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the Figure</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.histogram(df_hist, </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"scores"</span>,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>                   labels<span class="op">=</span>{<span class="st">'scores'</span>: <span class="st">'Test Scores'</span>},</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>                   title<span class="op">=</span><span class="st">"Score Distribution"</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Set width and height in pixels</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>fig.update_layout(width<span class="op">=</span><span class="dv">600</span>, height<span class="op">=</span><span class="dv">400</span>) </span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p><br></p>
+</section>
+<section id="pick-custom-color-scheme" class="level3">
+<h3 class="anchored" data-anchor-id="pick-custom-color-scheme">Pick Custom Color Scheme</h3>
+<p>You can select an overall color palette from among several options. Here you need to add <code>color_discrete_sequence=px.colors.qualitative.Pastel</code> when you create the chart. Learn more at <a href="https://plotly.com/python/discrete-color/">Plotly Express</a></p>
+<details>
+<summary>
+Sample Code to Adjust Color Palette
+</summary>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the gapminder dataset</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> px.data.gapminder()</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a histogram of life expectancy, colored by continent</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.histogram(df, x<span class="op">=</span><span class="st">"lifeExp"</span>, nbins<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">"continent"</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                   color_discrete_sequence<span class="op">=</span>px.colors.qualitative.Pastel,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                   title<span class="op">=</span><span class="st">"Histogram of Life Expectancy, Colored by Continent"</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the figure</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/hist_color.png" class="img-fluid figure-img"></p>
+<figcaption>Alt text</figcaption>
+</figure>
+</div>
+</section>
+<section id="axis-scaling-linear-or-logarithmic" class="level3">
+<h3 class="anchored" data-anchor-id="axis-scaling-linear-or-logarithmic">Axis Scaling: Linear or Logarithmic?</h3>
+<p>Normally numerical values are shown on a linear scale. But it’s possible to use logarithmic scales, too. To use a logarithmic scale on the y axis, for instance, pass the following argument to the function: <code>log_y=True</code>. Learn more at <a href="https://plotly.com/python/log-plot/">Plotly Express</a></p>
+<details>
+<summary>
+Sample Code to Adjust Axis Scaling
+</summary>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter(x<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], y<span class="op">=</span>[<span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>],</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                log_y<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the plot</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/log.png" class="img-fluid figure-img"></p>
+<figcaption>Alt text</figcaption>
+</figure>
+</div>
+</details>
+<p><br></p>
+</section>
+<section id="adding-a-title" class="level3">
+<h3 class="anchored" data-anchor-id="adding-a-title">Adding a Title</h3>
+<p>To give your chart or graph an overall title, include <code>fig.update_layout(title_text="My Chart's Title")</code>. Learn more via the <a href="https://plotly.com/python/figure-labels/">Plotly Express documentation</a>.</p>
+<details>
+<summary>
+Sample Code to add Figure Title
+</summary>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the bar chart</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.bar(x<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], y<span class="op">=</span>[<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>])])</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a title</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>fig.update_layout(title_text<span class="op">=</span><span class="st">"Sales by Product"</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the chart</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/bar.png" class="img-fluid figure-img"></p>
+<figcaption>Alt text</figcaption>
+</figure>
+</div>
+</section>
+<section id="labels-and-legends" class="level3">
+<h3 class="anchored" data-anchor-id="labels-and-legends">Labels and Legends</h3>
+<p>You can label data so that each point or category is identified with a particular color, which is then explained in a legend at the side of the chart. Learn more via the <a href="https://plotly.com/python/figure-labels/">Plotly Express documentation</a>.</p>
+<details>
+<summary>
+Sample Code to Add Legend and Data Labels
+</summary>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter(data_df,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                x<span class="op">=</span><span class="st">'energy'</span>, y <span class="op">=</span> <span class="st">'loudness'</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                color <span class="op">=</span> <span class="st">'artist_name'</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/legend.png" class="img-fluid figure-img"></p>
+<figcaption>Alt text</figcaption>
+</figure>
+</div>
+</section>
+<section id="x-and-y-axis-tickmarks" class="level3">
+<h3 class="anchored" data-anchor-id="x-and-y-axis-tickmarks">X and Y Axis Tickmarks</h3>
+<p>The content of the x and y axes are termined via variables passed in when you create your plot. But the orientation, size and other graphical aspects of the scales themselves are determined via ‘tickmark’ adjustments. One useful technique when dealing with song titles from Spotify information is to angle the X-axis tickmarks by updating the figure with <code>fig.update_xaxes(tickangle=45)</code>. You can easily adjust many other aspects of the tickmarks and labelling style. See more at <a href="https://plotly.com/python/axes/">Plotly Express</a></p>
+<details>
+<summary>
+Sample Code to Adjust Tickmark Angle
+</summary>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create figure using selected columns from the dataframe</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter(sample_df,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>                 x<span class="op">=</span><span class="st">"track_title"</span>, y<span class="op">=</span><span class="st">'tempo'</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># update layout of title labels for the x axis</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>fig.update_xaxes(tickangle<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># sort the titles alphabetically</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>fig.update_xaxes(categoryorder<span class="op">=</span><span class="st">'category ascending'</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/plotly_tick_angle.png" class="img-fluid figure-img"></p>
+<figcaption>Alt text</figcaption>
+</figure>
+</div>
+</section>
+<section id="hover-to-show-data-points" class="level3">
+<h3 class="anchored" data-anchor-id="hover-to-show-data-points">Hover to Show Data Points</h3>
+<p>Include a list of <code>hover_data</code> columns when you create the Plotly Express figure. Learn more via the <a href="https://plotly.com/python/hover-text-and-formatting/">Plotly Express documentation</a>, and see the example below.</p>
+<details>
+<summary>
+Sample Code to Add Hover Data
+</summary>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter(data_df,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                x<span class="op">=</span><span class="st">'energy'</span>, y <span class="op">=</span> <span class="st">'loudness'</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                hover_data <span class="op">=</span> [<span class="st">'artist_name'</span>, <span class="st">'track_title'</span>, <span class="st">'track_id'</span>])</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/hover.png" class="img-fluid figure-img"></p>
+<figcaption>Alt text</figcaption>
+</figure>
+</div>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th><a href="04_Pandas_Basics.md">Pandas Basics</a></th>
+<th><a href="05_Pandas_Clean_Data.md">Clean Data</a></th>
+<th><a href="06_Pandas_Tidy_Data.md">Tidy Data</a></th>
+<th><a href="07_Pandas_Filter_Find_Group.md">Filtering, Finding, and Grouping</a></th>
+<th><strong>Graphs and Charts</strong></th>
+<th><a href="09_Pandas_Networks.md">Networks</a></th>
+</tr>
+</thead>
+
+</table>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
