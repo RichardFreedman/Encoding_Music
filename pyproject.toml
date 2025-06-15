@@ -6,6 +6,7 @@ readme = "README.md"
 authors = ["Richard Freedman <rfreedma@haverford.edu>"]
 license = "creative commons"
 repository = "https://github.com/RichardFreedman/Encoding_Music@rich_dev_22"  # Add your repository URL
+package-mode = false
 
 
 [tool.poetry.dependencies]
