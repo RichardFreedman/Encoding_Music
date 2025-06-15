@@ -5,7 +5,7 @@ description = "Encoding Music Packages"
 readme = "README.md"
 authors = ["Richard Freedman <rfreedma@haverford.edu>"]
 license = "creative commons"
-repository = "https://github.com/RichardFreedman/Encoding_Music"  # Add your repository URL
+repository = "https://github.com/RichardFreedman/Encoding_Music@rich_dev_22"  # Add your repository URL
 
 
 [tool.poetry.dependencies]
