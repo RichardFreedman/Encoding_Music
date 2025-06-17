@@ -26,9 +26,9 @@ But it is also possible to run all our notebooks (and also develop your own idea
 
 ### Install Jupyter Notebook and Visual Studio Code
 
-* From the 'home' page of your environment you will see an array of software packages.  The ones we will use are Jupyter Notebook and VS Code.  If they are already installed, you will see a button to 'launch'.  If you see 'install' then click that to do so. No need to launch either of them yet, however!
+* From the 'home' page of your environment you will see an array of software packages.  The ones we will use are JupyterLab and VS Code.  If they are already installed, you will see a button to 'launch'.  If you see 'install' then click that to do so. No need to launch either of them yet, however!
 
-![Alt text](images/screenshot_1615.png)
+![Alt text](images/conda_apps.png)
 
 ### Run VS Code Locally Using Encoding Music Server Remotely
 
@@ -45,7 +45,7 @@ The terminal prompt (in a new window), will look something like what you see bel
 Copy the following code and paste it directly after the terminal prompt, then press return/enter.
 
 ```python
-pip install -r https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/main/requirements.txt
+pip install git+https://github.com/RichardFreedman/Encoding_Music
 ```
 
 ![Alt text](images/screenshot_1621.png)
@@ -84,7 +84,7 @@ You might also want to install an extension called `live preview`, which will he
 
 It is also possible to use a *local* copy of VS Code but invoke the code *from the remote Encoding Music server*.  In this way you will not need to install the libraries, and you will still be able to use all the current features for our work.
 
-Here is how to do this:
+In development!  more to come!
 
 
 
