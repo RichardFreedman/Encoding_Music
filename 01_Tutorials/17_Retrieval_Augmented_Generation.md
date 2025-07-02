@@ -4,7 +4,7 @@ What is RAG? How do you use it? How do you build a RAG app?
 ## A Conceptual Introduction to RAG
 When using Large Language Models (LLMs), you have probably discovered that they can be quite helpful when working with large amounts of text. At some point, you've probably used an LLM to summarize a large chapter of a textbook, debug your code, or read your email draft. 
 
-A RAG app takes this concept and applies it to massive amount of data, often unstructured. When your data is neatly structured, like everything you've worked with in Encoding Music labs so far, it's easy enough to make queries with basic code. But, when you have thousands of PDF pages as your data source rather than a neatly structured spreadsheet, you can't do much with just Python and Pandas. That's where an LLM comes in.
+A RAG app takes this concept and applies it to a massive amount of data, often unstructured. When your data is neatly structured, like everything you've worked with in Encoding Music labs so far, it's easy enough to make queries with basic code. But, when you have thousands of PDF pages as your data source rather than a neatly structured spreadsheet, you can't do much with just Python and Pandas. That's where an LLM comes in.
 
 But, how do you upload 1000 pages to ChatGPT all at once? After all, when using their API, OpenAI charges you based on how much content you send to it. Well, you don't - that's where R (Retrieval) of R.A.G. comes in. Rather than attempting to give the LLM all of the context at once, a RAG app retrieves the most relevant chunks of documents and feeds them to the LLM with the question, then returns the answer. Here is a visual representation of the most basic process. More steps can be added along the way 
 
