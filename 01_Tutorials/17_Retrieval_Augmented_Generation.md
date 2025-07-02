@@ -4,9 +4,9 @@ What is RAG? How do you use it? How do you build a RAG app?
 ## A Conceptual Introduction to RAG
 When using Large Language Models (LLMs), you have probably discovered that they can be quite helpful when working with large amounts of text. At some point, you've probably used an LLM to summarize a large chapter of a textbook, debug your code, or read your email draft. 
 
-A RAG app takes this concept and applies it to a massive amount of data, often unstructured. When your data is neatly structured, like everything you've worked with in Encoding Music labs so far, it's easy enough to make queries with basic code. But, when you have thousands of PDF pages as your data source rather than a neatly structured spreadsheet, you can't do much with just Python and Pandas. That's where an LLM comes in.
+A RAG app takes this concept and applies it to a massive amount of data, often unstructured. When your data is neatly structured, like everything you've worked with in Encoding Music so far, it's easy enough to make queries with basic code. But, when you have thousands of PDF pages as your data source rather than a neatly structured spreadsheet, you can't do much with just Python and Pandas. That's where an LLM comes in.
 
-But, how do you upload 1000 pages to ChatGPT all at once? After all, when using their API, OpenAI charges you based on how much content you send to it. Well, you don't - that's where R (Retrieval) of R.A.G. comes in. Rather than attempting to give the LLM all of the context at once, a RAG app retrieves the most relevant chunks of documents and feeds them to the LLM with the question, then returns the answer. Here is a visual representation of the most basic process. More steps can be added along the way 
+But, how do you upload 1000 pages to ChatGPT all at once? After all, when using their API, OpenAI charges you based on how much content you send to it. Well, you don't - that's where the R (Retrieval) of R.A.G. comes in. Rather than attempting to give the LLM all of the context at once, a RAG app retrieves the most relevant chunks of documents and feeds them to the LLM with the question, then returns the answer. Here is a visual representation of the most basic process. More steps can be added along the way. 
 
 ```mermaid
 graph TD
@@ -19,13 +19,13 @@ D --> E[The LLM responds]
 ### Vector Databases and Embeddings
 How does a RAG know which chunks of documents are most relevant? Well, it stores them in a vector database. 
 
-When adding a document to a vector database, an LLM's embeddings model assigns each document a vector based on it's content and metadata. 
+When adding a document to a vector database, an LLM's embeddings model assigns each document a vector based on its content and metadata. 
 
 Let's look at an example. Pretend one document is simply "I had cereal for breakfast this morning." Let's generate some digits for our vector, as an LLM would.
-* Let's make the first digit "morningness". This seems like it'd be pretty associated with the morning, so we'll give it a value of 9. Our vector is now 9.
+* Let's make the first digit "morningness". This seems like it would be strongly associated with the morning, so we'll give it a value of 9. Our vector is now 9.
 * Our second digit can be "milkness". Since cereal is often associated with milk, this will be pretty high too - maybe a 7. Our sentence is now 97.
 * Let's add 3 more: foodiness (8), energy (3), and happiness (6). Our one sentence document is now stored as the vector 97836.
-* This value would sit close to another source in the database like "I dropped my carton of eggs on the way back from the store" (56972), but would be further away from a source like "I like to run a mile every evening"(11287).
+* This value would sit close to another source in the database like "I dropped my carton of eggs on the way back from the store" (56972), but would be further away from a source like "I like to run a mile every evening" (11287).
 
 Now, imagine the same process but with 2000-character documents, and 15,000 digit vectors for each chunk. This is how RAG systems store your document chunks, using cosine similarity to determine which documents are close and far from each other. 
 
@@ -46,7 +46,7 @@ An API essentially allows you to use a service without having to run it on your 
 * You need an API key to access certain API's, especially ones that cost money per call. This "key" is a unique identifier that allows you to use the service and is often tied to your account, and sometimes even your credit card.
     * When using an API key, it is really important to avoid storing it anywhere in your code. If you find yourself pasting the key directly into your code, you've done something wrong. Nobody should be able to access your key, even if they look at your code. 
     * The standard approach is storing it as an environmental variable on your computer that your code can access. 
-        * To permanently create an environmental variable on windows, you can open the terminal app or powershell and run  ```setx VARIABLE_NAME "value"```. For OpenAI with Langchain, name it ```OPENAI_API_KEY```.
+        * To permanently create an environmental variable on windows, you can open the Terminal app or PowerShell and run  ```setx VARIABLE_NAME "value"```. For OpenAI with Langchain, name it ```OPENAI_API_KEY```.
     * If you're unable to do this, you can have your code call for the key each time. Here's some sample code that checks for an environmental variable, and asks for the key if it can't find it. When you run the code, a window will pop up, and you can enter your key.
 
 
@@ -58,9 +58,9 @@ if not os.environ.get("OPENAI_API_KEY"):
   os.environ["OPENAI_API_KEY"] = getpass.getpass("Enter API key for OpenAI: ")
 ```
 
-It is also important to set up a persistent directory for Chroma to store your vector database locally. This ensures that you don't have to make a new one each time you restart the kernel - rather, you can restore it from the directory.
+It's important to set up a persistent directory for Chroma to store your vector database locally. This ensures that you don't have to make a new one each time you restart the kernel - rather, you can restore it from the directory.
 
-In this step, you'll choose your chat model and embedding model too. Start small. For embeddings, if you switch to large, you'll have to redo your whole database - you can't mix and match embedding models. Your chat model, however, if an easy switch if you need more performance.
+In this step, you'll choose your chat model and embedding model too. Start small. For embeddings, if you switch to a larger model, you'll have to redo your whole database - you can't mix and match embedding models. Your chat model, however, if an easy switch if you need more performance.
 
 Here's my full setup code for this example:
 
@@ -280,7 +280,7 @@ Be sure to double check the page content and metadata was done correctly before 
 ### Chunking Documents
 There are a lot of libraries that do this, but the basic LangChain library works well for most purposes. For character-based chunking, you determine the max number of characters for each chunk, plus an overlap. Having overlap is important to preserve context. Here's how the splitter works:
 * First, it looks for paragraph gaps around the limit.
-* If it can't find a good paragraph break, it look for a gap between sentences.
+* If it can't find a good paragraph break, it looks for a gap between sentences.
 * If that fails, it goes to words, then characters as a last resort. 
 
 <details><summary>Code</summary>
@@ -315,7 +315,7 @@ from typing_extensions import List, TypedDict
 from langchain_core.prompts import ChatPromptTemplate
 ```
 
-As a RAG app runs through steps, it stores each steps data in a State class. If you have never worked with classes before, you're essentially setting up a custom datatype with set parameters. Think of this one like a custom dictionary that you're filling in and passing along to each function.
+As a RAG app runs through steps, it stores each steps data in a State class. If you have never worked with classes before, you're essentially setting up a custom datatype with set parameters. Think of it as a custom dictionary that you're filling in and passing along to each function.
 
 ```python
 class State(TypedDict):
@@ -327,7 +327,7 @@ class State(TypedDict):
 #### Retrieval: Similarity search
 Now that you've established a vector database, you can similarity search. These calls are free. Essentially, you can input a question or phrase, and it'll pull the specified number of the most similar document chunks. For this example, we could do something like
 ```python
-vector_store.similarity_search("Who was the principle trumpet player in the Haverford-Bryn Mawr Orchestra in 2019?", 
+vector_store.similarity_search("Who was the principal trumpet player in the Haverford-Bryn Mawr Orchestra in 2019?", 
 k=4, filter={"Ensemble_Type": "Orchestra"})
 ```
 Since the k value is 4, it'll pull the four most similar document chunks. We can also add filters here based on metadata. We will use similarity search for the Retrieval part of Retrieval Augmented Generation. A full retrieval function looks something like this:
@@ -338,7 +338,7 @@ def retrieve(state: State):
     return {"context": retrieved_docs}
 ```
 
-With a lot of data, 10 is a good starting k value. If you're not working with much data, try a lower number like 5. You want to balance cost and performance here, as each token (4 characters) fed to the model is a fraction of a cent. Most models charge a few dollars per 1 million tokens. 
+With a lot of data, 10 is a good starting k value. If you're not working with much data, try a lower number like 5. You want to balance cost and performance here, as each token (4 characters) fed to the model costs a fraction of a cent. Most models charge a few dollars per million tokens. 
 
 #### Generation
 
@@ -378,7 +378,7 @@ graph = graph_builder.compile()
 ```
 
 ### Creating a single cell to reestablish your RAG
-When your kernel dies or you lose variables, it is important to reestablish without spending. Here's everything we need to reestablish:
+When your kernel dies or you lose variables, it is important to reestablish everything without incurring additional costs. Here's everything we need to reestablish:
 * Our Chroma Database (from persist directory)
 * Our Chat Models and API Key
 * Our LangGraph and sub-functions
