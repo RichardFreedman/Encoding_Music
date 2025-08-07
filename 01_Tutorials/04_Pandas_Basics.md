@@ -1609,7 +1609,7 @@ Pandas is a powerful library that makes complex data science easier. There are m
 [pandas-documentation]: https://pandas.pydata.org/about/
 [w3schools]: https://www.w3schools.com/python/pandas/default.asp
 [pandas-cheat-sheet]: https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf
-[beatles-spotify-spreadsheet]: https://docs.google.com/spreadsheets/d/1CBiNbxqF4FHWMkFv-C6nl7AyOJUFqycrR-EvWvDZEWY/edit#gid=953807965
+[beatles-spotify-spreadsheet]: https://github.com/RichardFreedman/Encoding_Music/blob/main/02_Lab_Data/Beatles/M_255_Beatles_Spotify_2025.csv
 [beatles-billboard-spreadsheet]: https://github.com/inteligentni/Class-05-Feature-engineering/blob/master/The%20Beatles%20songs%20dataset%2C%20v1%2C%20no%20NAs.csv
 [pandas-concat]: https://pandas.pydata.org/docs/reference/api/pandas.concat.html
 [pandas-merge]: https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html

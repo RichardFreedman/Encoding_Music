@@ -34,7 +34,7 @@ import pandas as pd
 
 We continue with our data about The Beatles:
 
-* A set from **Spotify** that includes information about 193 songs, albums, years, plus other acoustic ratings that Spotify uses to characterize tracks. View these data as a [Google spreadsheet](https://docs.google.com/spreadsheets/d/1CBiNbxqF4FHWMkFv-C6nl7AyOJUFqycrR-EvWvDZEWY/edit#gid=953807965).
+* A set from **Spotify** that includes information about 193 songs, albums, years, plus other acoustic ratings that Spotify uses to characterize tracks. View these data as a [github spreadsheet](https://github.com/RichardFreedman/Encoding_Music/blob/main/02_Lab_Data/Beatles/M_255_Beatles_Spotify_2025.csv).
 
 * A set compiled by a team at the **University of Belgrade (Serbia)** that contains information about over 300 Beatles songs:  author(s), lead singer(s), album, musical genre(s), and standing in the Top 50 Billboard charts.  View these data on [Github]('https://github.com/inteligentni/Class-05-Feature-engineering/blob/master/The%20Beatles%20songs%20dataset%2C%20v1%2C%20no%20NAs.csv').
 
@@ -43,7 +43,7 @@ We will work with both of these sets, and in the process learn how to clean and 
 Get the Spotify data:
 
 ```python
-beatles_spotify_csv = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRCv45ldJmq0isl2bvWok7AbD5C6JWA0Xf1tBqow5ngX7_ox8c2d846PnH9iLp_SikzgYmvdPHe9k7G/pub?output=csv'
+beatles_spotify_csv = 'https://github.com/RichardFreedman/Encoding_Music/blob/main/02_Lab_Data/Beatles/M_255_Beatles_Spotify_2025.csv'
 
 beatles_spotify = pd.read_csv(beatles_spotify_csv)
 ```
