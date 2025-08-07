@@ -104,7 +104,7 @@ year,album,song,danceability,energy,key,loudness,mode,speechiness,acousticness,i
 1967,Sgt. Pepper's Lonely Hearts Club Band,Lovely Rita,0.61,0.471,8,-9.151,0,0.0261,0.0634,0,0.118,0.63,87.379,https://open.spotify.com/track/6h9W5FxX4E9lUFsyq8j1AD,162093,4
 1967,Sgt. Pepper's Lonely Hearts Club Band,Lucy in the Sky with Diamonds,0.311,0.325,2,-9.042,1,2.83E-02,0.0469,0,0.139,0.668,65.09,https://open.spotify.com/track/25yQPHgC35WNnnOUqFhgVR,208467,1
 1970,Let It Be,Maggie Mae,0.516,0.515,2,-12.035,0,2.15E-01,0.379,0,0.103,0.524,169.039,https://open.spotify.com/track/2VsX1BoWSGiuVXGiFSUr6h,40040,4
-1967,Magical Mystery Tour,Magical Mystery Tour,0.297,).613,9,-9.065,1,0.0931,0.0385,0.0000398,0.0734,0.338,170.962,https://open.spotify.com/track/0qHMhBZqYb99yhX9BHcIkV,170107,4
+1967,Magical Mystery Tour,Magical Mystery Tour,0.297,0.613,9,-9.065,1,0.0931,0.0385,0.0000398,0.0734,0.338,170.962,https://open.spotify.com/track/0qHMhBZqYb99yhX9BHcIkV,170107,4
 1969,Yellow Submarine,march of the meanies,0.538,0.378,9,-14.117,0,3.87E-02,0.934,0.758,0.456,0.16,117.185,https://open.spotify.com/track/7zJKIrxcH2jY4TOqpvoLvH,139360,4
 1968,The Beatles (white album),Martha My Dear,0.472,0.292,10,-11.591,1,0.0321,0.872,0.0007,0.128,0.824,177.624,https://open.spotify.com/track/1swmf4hFMJYRNA8Rq9PVaW,148573,4
 1969,Abbey Road,Maxwell's Silver Hammer,0.764,0.426,2,-11.045,1,0.0405,0.629,0.000119,0.132,0.726,131.12,https://open.spotify.com/track/2S8xyNRJX1XQdo3qnTuovI,207920,4
@@ -189,4 +189,5 @@ year,album,song,danceability,energy,key,loudness,mode,speechiness,acousticness,i
 1965,Rubber Soul,You Won't See Me,0.488,0.539,9,-8.752,1,0.0304,0.136,0,0.0538,0.473,115.941,https://open.spotify.com/track/4LLBKnNCrSRrSjSTuiwjE9,199960,4
 1965,Help!,You've Got to Hide Your Love Away,0.398,0.392,7,-9.05,1,0.0282,0.207,0,0.102,0.378,184.267,https://open.spotify.com/track/4F1AgKpuFRMLEgtPETVwZk,129120,3
 1967,Magical Mystery Tour,Your Mother Should Know,0.698,0.293,0,-11.361,1,0.0332,0.784,0.0106,0.0936,0.724,117.613,https://open.spotify.com/track/1dxbAIfCASqv6jix2R1Taj,148413,4
+
 1965,Help!,You're Going to Lose That Girl,0.533,0.66,4,-7.694,1,0.0337,0.346,0,0.26,0.818,131.975,https://open.spotify.com/track/70HNt0eoBVqr4ss68U8x3B,138667,4
