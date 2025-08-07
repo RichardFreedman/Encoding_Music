@@ -996,7 +996,7 @@ euclid_dist_df = pd.DataFrame(euclidean_distances(attributes), index=df['song'],
 It will look like this:
 
 
-![alt text](01_Tutorials/images/euclid_dist.png)
+![alt text](images/euclid_dist.png)
 
 Now check the distribution of values in the table, so you know how to filter it:
 
@@ -1006,7 +1006,7 @@ fig = px.histogram(stack, x='distance', nbins=50)
 fig
 ```
 
-![alt text](01_Tutorials/images/screenshot_3522.png)
+![alt text](images/screenshot_3522.png)
 
 
 Filter the data accordingly:
@@ -1026,7 +1026,7 @@ pairs = stack[stack['distance'].between(lower_limit, upper_limit, inclusive='rig
 
 The result:
 
-![alt text](01_Tutorials/images/euclid_pairs.png)
+![alt text](images/euclid_pairs.png)
 
 
 Now the network:
@@ -1063,7 +1063,7 @@ network_graph.save_graph(output_name)
 
 
 
-![alt text](euclid.png)
+![alt text](images/euclid.png)
 
 <Details>
 <Summary> Complete Code for Euclidean Distance Network </Summary>
