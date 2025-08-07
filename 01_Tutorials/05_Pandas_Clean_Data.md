@@ -18,11 +18,12 @@ A guide to cleaning data with Pandas on [Medium][towards-data-science-cleaning].
 | 1. | [**Identifying the Problem**](#identifying-the-problem) |
 | 2. | [**Understanding Clean and Tidy Data**](#understanding-clean-and-tidy-data) |
 | 3. | [**Wrong or Inconsistent Format or Values**](#wrong-or-inconsistent-format-or-values) |
-| 4. | [**Cleaning Data with Functions**](#cleaning-data-with-functions) |
-| 5. | [**Missing Data**](#missing-data) |
-| 6. | [**Duplicate Rows**](#duplicate-rows) |
-| 7. | [**Wrong Data Type**](#wrong-data-type) |
-| 8. | [**Data Cleaning Best Practices**](#data-cleaning-best-practices) |
+| 4. | [**Using a Dictionary with Map to Clean Data**](#using-a-dictionary-with-map-to-clean-data) |
+| 5. | [**Cleaning Data with Functions**](#cleaning-data-with-functions) |
+| 6. | [**Missing Data**](#missing-data) |
+| 7. | [**Duplicate Rows**](#duplicate-rows) |
+| 8. | [**Wrong Data Type**](#wrong-data-type) |
+| 9. | [**Data Cleaning Best Practices**](#data-cleaning-best-practices) |
 
 ### Create a Notebook and Load the Pandas library
 
@@ -184,6 +185,22 @@ You may want to regularize the `'Genre'` column, since it's stored as a string, 
 
 ```python
 beatles_billboard['Genre'].str.split(', ')
+```
+## Using a Dictionary with Map to Clean Data
+
+If you want to replace a specific value with another value, you can use the `.map()` method. This is particularly useful when you have a large number of values to replace, or when you want to replace values based on a mapping.  For example, you might first get all the unique values in a column with `beatles_billboard['genre'].unique()`. Then on the basis of that list, you can create a dictionary that maps each value to a new value.
+
+
+```python
+# Define dictionary mapping terms to labels
+term_mapping_dict = {
+    'rock n roll': 'rock',
+    'rock and roll': 'rock',
+    'rock & roll': 'rock'
+}
+
+# Add new column based on term mapping
+beatles_billboard['clean_genre'] = beatles_billboard['genre'].map(term_mapping_dict).fillna('other')
 ```
 
 ## Cleaning Data with Functions
