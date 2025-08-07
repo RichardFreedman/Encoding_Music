@@ -43,7 +43,7 @@ We will work with both of these sets, and in the process learn how to clean and 
 Get the Spotify data:
 
 ```python
-beatles_spotify_csv = 'https://github.com/RichardFreedman/Encoding_Music/blob/main/02_Lab_Data/Beatles/M_255_Beatles_Spotify_2025.csv'
+beatles_spotify_csv = 'https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/refs/heads/main/02_Lab_Data/Beatles/M_255_Beatles_Spotify_2025.csv'
 
 beatles_spotify = pd.read_csv(beatles_spotify_csv)
 ```
