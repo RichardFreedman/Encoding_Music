@@ -171,16 +171,6 @@ df.explode("characters")["characters"].value_counts().head()
 
 ---
 
----
-
-**Key reminders:**
-
-- Start by designing your output with Pydantic.
-  - Descriptions are the LLM’s instructions — be specific.
-  - Structured output forces the model to match your schema.
-- Once you have data, you can analyze it with the pandas tools you already know.
-- You can also export as csv then upload it to Google Sheets
-
 
 
 **Helpful links:**
