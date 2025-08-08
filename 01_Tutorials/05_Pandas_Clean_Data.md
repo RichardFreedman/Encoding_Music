@@ -18,11 +18,12 @@ A guide to cleaning data with Pandas on [Medium][towards-data-science-cleaning].
 | 1. | [**Identifying the Problem**](#identifying-the-problem) |
 | 2. | [**Understanding Clean and Tidy Data**](#understanding-clean-and-tidy-data) |
 | 3. | [**Wrong or Inconsistent Format or Values**](#wrong-or-inconsistent-format-or-values) |
-| 4. | [**Cleaning Data with Functions**](#cleaning-data-with-functions) |
-| 5. | [**Missing Data**](#missing-data) |
-| 6. | [**Duplicate Rows**](#duplicate-rows) |
-| 7. | [**Wrong Data Type**](#wrong-data-type) |
-| 8. | [**Data Cleaning Best Practices**](#data-cleaning-best-practices) |
+| 4. | [**Using a Dictionary with Map to Clean Data**](#using-a-dictionary-with-map-to-clean-data) |
+| 5. | [**Cleaning Data with Functions**](#cleaning-data-with-functions) |
+| 6. | [**Missing Data**](#missing-data) |
+| 7. | [**Duplicate Rows**](#duplicate-rows) |
+| 8. | [**Wrong Data Type**](#wrong-data-type) |
+| 9. | [**Data Cleaning Best Practices**](#data-cleaning-best-practices) |
 
 ### Create a Notebook and Load the Pandas library
 
@@ -34,7 +35,7 @@ import pandas as pd
 
 We continue with our data about The Beatles:
 
-* A set from **Spotify** that includes information about 193 songs, albums, years, plus other acoustic ratings that Spotify uses to characterize tracks. View these data as a [Google spreadsheet](https://docs.google.com/spreadsheets/d/1CBiNbxqF4FHWMkFv-C6nl7AyOJUFqycrR-EvWvDZEWY/edit#gid=953807965).
+* A set from **Spotify** that includes information about 193 songs, albums, years, plus other acoustic ratings that Spotify uses to characterize tracks. View these data as a [Github](https://github.com/RichardFreedman/Encoding_Music/blob/main/02_Lab_Data/Beatles/M_255_Beatles_Spotify_2025.csv).
 
 * A set compiled by a team at the **University of Belgrade (Serbia)** that contains information about over 300 Beatles songs:  author(s), lead singer(s), album, musical genre(s), and standing in the Top 50 Billboard charts.  View these data on [Github]('https://github.com/inteligentni/Class-05-Feature-engineering/blob/master/The%20Beatles%20songs%20dataset%2C%20v1%2C%20no%20NAs.csv').
 
@@ -43,7 +44,7 @@ We will work with both of these sets, and in the process learn how to clean and 
 Get the Spotify data:
 
 ```python
-beatles_spotify_csv = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRCv45ldJmq0isl2bvWok7AbD5C6JWA0Xf1tBqow5ngX7_ox8c2d846PnH9iLp_SikzgYmvdPHe9k7G/pub?output=csv'
+beatles_spotify_csv = 'https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/refs/heads/main/02_Lab_Data/Beatles/M_255_Beatles_Spotify_2025.csv'
 
 beatles_spotify = pd.read_csv(beatles_spotify_csv)
 ```
@@ -184,6 +185,22 @@ You may want to regularize the `'Genre'` column, since it's stored as a string, 
 
 ```python
 beatles_billboard['Genre'].str.split(', ')
+```
+## Using a Dictionary with Map to Clean Data
+
+If you want to replace a specific value with another value, you can use the `.map()` method. This is particularly useful when you have a large number of values to replace, or when you want to replace values based on a mapping.  For example, you might first get all the unique values in a column with `beatles_billboard['genre'].unique()`. Then on the basis of that list, you can create a dictionary that maps each value to a new value.
+
+
+```python
+# Define dictionary mapping terms to labels
+term_mapping_dict = {
+    'rock n roll': 'rock',
+    'rock and roll': 'rock',
+    'rock & roll': 'rock'
+}
+
+# Add new column based on term mapping
+beatles_billboard['clean_genre'] = beatles_billboard['genre'].map(term_mapping_dict).fillna('other')
 ```
 
 ## Cleaning Data with Functions
