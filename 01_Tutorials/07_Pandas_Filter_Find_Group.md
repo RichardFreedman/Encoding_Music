@@ -10,11 +10,11 @@ In this tutorial we will explore several key concepts for working with complex d
 * **Groups**, which allow you to perform the same operation on several distinct subsets of your data simultaneously (among other things)
 * The ways in which **tidy data** is essential for all of these tools
 
-Read the official Pandas [documentation][pandas-documentation].
+Read the official Pandas [documentation](https://pandas.pydata.org/about/).
 
-Find tutorials at [W3Schools][w3schools].
+Find tutorials at [W3Schools](https://www.w3schools.com/python/pandas/default.asp).
 
-A helpful [Pandas Cheat Sheet][pandas-cheat-sheet].
+A helpful [Pandas Cheat Sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf).
 
 Contents of this Tutorial
 
@@ -25,7 +25,7 @@ Contents of this Tutorial
 | 3. | [**Bins: From Continuous to Categorical Data**](#bins-from-continuous-to-categorical-data) |
 | 4. | [**Groupby Functions**](#groupby-functions) |
 
-## Create a Notebook and Load the Pandas library
+## Create a Notebook and Load the Pandas Library
 
 ```python
 import pandas as pd
@@ -383,7 +383,7 @@ beatles_billboard[~(beatles_billboard['Year'] > 1964)]
 To search for strings within a column, there are two methods:
 
 *  `str.contains()`, which checks whether a cell contains the given substring
-*  `isin(["string_1", "string_2"])`, which checks whether the cell contents are equal to any string in the given list
+*  `.contains("str1 | str2 | str3")`, which checks whether the cell contents contain any string in the given list
 
 #### The `str.contains()` Method
 
@@ -494,6 +494,14 @@ beatles_billboard[beatles_billboard['Album.debut'].str.contains('Anthology')]
 > ```
 > &nbsp;
 
+#### Using `.contains` with multiple strings
+
+To create a filter that checks if the column contains one string **OR** another, you can use `.contains("string1 | string2")`. Make sure that the `|` (which means or) is within the parentheses.
+
+```python
+Lennon_or_McCartney = genre_counts[genre_counts['songwriter'].str.contains("Lennon | McCartney")]
+```
+
 #### The `.isin()` Method
 
 The `.isin()` method works if you are looking for cells that match *at least one of several* possible strings. Note that the strings must be presented as a "list", thus `isin(["string_1", "string_2"])`.  For example, to return rows that have just "Lennon" OR just "McCartney":
@@ -516,8 +524,9 @@ As an example, you can filter for tracks both from one of the "Anthology" albums
 ```python
 beatles_billboard[(beatles_billboard['Album.debut'].str.contains('Anthology')) & (beatles_billboard['Year'] < 1965)]
 ```
+<a name="bins-from-continuous-to-categorical-data"></a>
+## Bins: From Continuous to Categorical Data
 
-## Bins:  From Continuous to Categorical Data
 
 Another important tool is being able to categorize data. Oftentimes, this is done through "binning" -- assigning the entry to one of several discrete categories based on some continuous value. 
 
@@ -619,111 +628,233 @@ With `qcut` method:
 ```python
 binned_data = pd.qcut(beatles_spotify["danceability"], q=4, labels=['l', 'm', 'h', 's'])
 ```
-
 ## Groupby Functions
 
-`groupby` is a powerful method that saves time when working with subsets (groups) of your data that share a certain characteristic. Some of its most important use cases are **compiling statistics for several subsets of your data, simultaneously** and **creating graphs based on those subsets**.
+`groupby` is a powerful method that saves time when working with subsets (groups) of your data that share a certain characteristic. Some of its most important use cases are compiling statistics for several subsets of your data, simultaneously and creating graphs based on those subsets.
 
 However, `groupby` also requires special attention to the tidiness of your data in order for it to function correctly.
 
-There will be a supplemental essay on `groupby` functions available on Moodle or GDrive. That will be a more in-depth view of the topic, whereas the below guide to `groupby` focuses on some of the core features.
+There will be a supplemental essay on groupby functions available on Moodle or GDrive. That will be a more in-depth view of the topic, whereas the below guide to groupby focuses on some of the core features.
 
-In this section:
 
-|    | Topic |
-|----|-------|
-| 1. | [Introduction to `groupby`](#introduction-to-groupby) |
-| 2. | [Cleaning data for `groupby`](#cleaning-data-for-groupby) |
-| 3. | [Examples using `groupby`](#examples-using-groupby) |
-| 3. | [A brief `groupby` reference](#a-brief-groupby-reference) |
+|    | In this section               | 
+|----|-----------------------------------------|
+| 1. | [**Cleaning Data for groupby**](#cleaning-data-for-groupby) |
+| 2. | [**Introduction to groupby**](#introduction-to-groupby) |
+| 3. | [**Additional Examples using groupby**](#additional-examples-using-groupby) |
+| 4. | [**Groupby Functions**](#groupby-functions) |
+| 5. | [**Working With a Single Group**](#working-with-a-single-group) |
+| 6. | [**More ways to use groupby**](#more-ways-to-use-groupby) |
 
-### Introduction to `groupby`
+<a name="cleaning-data-for-groupby"></a>
+### Cleaning Data for groupby
 
-Imagine you want to find the average duration of tracks in the album "Help!". Without `groupby`, you'd write something like:
+When you use groupby, you choose a *grouping column*. In the example below, we will use the 'Album.debut' column. This column is easy to work with, since (almost) every track has exactly one album; each row had exactly one *group name* (the album title).
+
+This is not always the case, and for this reason you may have to tidy your data before being able to group it. Consider the following example:
+
+Imagine you want to group by genre. Consider the song "Golden Slumbers", which has the genre 'Rock, Baroque Pop, Pop/Rock'. Our ideal result is that Golden Slumbers is placed into three groups: one group for 'Rock', one for 'Baroque Pop', and one for 'Pop/Rock'. However, if we try to group by genre without tidying the data, Golden Slumbers will be placed into a 'Rock, Baroque Pop, Pop/Rock' group, containing only songs with identical genres, written in the same order. How can we fix this? Using explode\!
+
+As you learned in [Pandas: Tidy Data][pandas-tidy], you can explode a column containing several observations into several rows, each containing a single observation (e.g. one genre).
+
+Code to explode genre 
+
+```py
+# clean the data before exploding
+beatles_billboard['Genre'] = beatles_billboard['Genre'].str.lower().str.strip().fillna('').str.split(', ')
+
+# explode the data
+beatles_billboard_exploded = beatles_billboard.explode('Genre').reset_index(drop=True)
+
+# clean individual problems in the exploded data with str.replace() and str.strip()
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.strip('[')
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('pop/rock', 'pop rock')
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('r&b', 'rhythm and blues')
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('rock and roll', 'rock')
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('experimental music', 'experimental')
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace("children's music", "children's")
+beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace("stage&screen", "stage and screen")
+```
+
+The result for Golden Slumbers would look like this:
+
+|  | Title | Year | Album.debut | Duration | Other.releases | Genre | Songwriter | Lead.vocal | Top.50.Billboard |
+| :---: | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
+| 154 | Golden Slumbers | 1969 | Abbey Road | 91 | 5 | rock | McCartney | McCartney | \-1 |
+| 155 | Golden Slumbers | 1969 | Abbey Road | 91 | 5 | baroque pop | McCartney | McCartney | \-1 |
+| 156 | Golden Slumbers | 1969 | Abbey Road | 91 | 5 | pop/rock | McCartney | McCartney | \-1 |
+
+Now, when you use groupby on the 'Genre' column, Golden Slumbers will be correctly placed into three groups: 'rock', 'baroque pop', and 'pop/rock'.
+
+This example demonstrates the importance of tidying your data whenever appropriate for a specific operation (like groupby). Your *grouping column* should contain exactly one *group name* per row. Refer to the techniques in [Pandas: Clean Data][pandas-clean] and [Pandas: Tidy Data][pandas-tidy] for instructions and examples.
+
+### Introduction to groupby
+
+In order to use groupby, you need:
+
+* A *grouping column* (or several\!)  
+  * For example, if you want to find the number of songs in each album, you would group by album.  
+* Each row in the *grouping column* should contain exactly one *group name* (i.e. a clean and tidy dataset, more on this later)  
+  * In this case, we don’t want one song to have multiple albums in the same row. If a song is in multiple albums, we would want to explode the data first to make sure it gets counted in both.
+
+#### Basic Syntax and Output
+
+Perform the groupby operation:
+
 
 ```python
+grouped = beatles_billboard.groupby('Album.debut')
+```
+
+The result of the groupby operation has been stored in the variable grouped. But be careful\! The result is called a "groupby object" \- not a dataframe, but a collection of several dataframes, one for each group. This is more difficult to represent visually, and in fact Pandas won't display grouped when you just use the variable name:
+
+
+```python
+grouped
+```
+Output:
+
+
+
+
+    <pandas.core.groupby.generic.DataFrameGroupBy object at 0x7f902dd15300>
+
+
+
+One way to get around this is using `.value_counts()`, or an aggregate function like `.mean()`, depending on what you’re looking for. There is a longer list of aggregate functions you can use to analyze your data below. Since almost every item is unique, when displaying the number of occurrences of each item, `.value_counts()` will display each distinct item, with just 1 occurrence as noted in the far-right column.
+
+
+```python
+grouped.value_counts()
+```
+<details><summary>Output</summary>
+
+
+
+
+    Album.debut                                        Title                           Year  Duration  Other.releases  Genre                                  Songwriter              Lead.vocal                                    Top.50.Billboard
+    Abbey Road                                         Because                         1969  165       11              Pop/Rock                               Lennon                  Lennon, McCartney, Harrison                   -1                  1
+                                                       Carry That Weight               1969  96        5               Symphonic Rock, Pop/Rock               McCartney               McCartney, with Lennon, Harrison and Starkey  -1                  1
+                                                       Come Together                   1969  258       17              Blues Rock, Pop/Rock                   Lennon                  Lennon                                         6                  1
+                                                       Golden Slumbers                 1969  91        5               Rock, Baroque Pop, Pop/Rock            McCartney               McCartney                                     -1                  1
+                                                       Her Majesty                     1969  23        8               Music Hall, Folk, Pop/Rock             McCartney               McCartney                                     -1                  1
+                                                                                                                                                                                                                                                       ..
+    UK: With the Beatles US: The Beatles Second Album  You've Really Got a Hold on Me  1963  182       2               Soul, Pop/Rock                         Robinson                Lennon and Harrison                           -1                  1
+    Yellow Submarine                                   All Together Now                1967  130       8               Skiffle, Pop/Rock                      McCartney, with Lennon  McCartney, with Lennon                        -1                  1
+                                                       Hey Bulldog                     1968  194       12              Psychedelic Rock, Hard Rock, Pop/Rock  Lennon                  Lennon                                        -1                  1
+                                                       It's All Too Much               1967  388       11              Psychedelic Rock, Acid Rock, Pop/Rock  Harrison                Harrison                                      -1                  1
+                                                       Only a Northern Song            1967  207       9               Psychedelic Rock, Pop/Rock             Harrison                Harrison                                      -1                  1
+    Name: count, Length: 282, dtype: int64
+
+</details>
+
+#### Examples of Aggregate Functions to Follow Groupby
+
+An aggregate function is a function that is applied to a group of data and returns a value. So, using an aggregate function after `.groupby()` will return one value for each *group* that `.groupby()` created. 
+
+If you’re confused by any of these or want to see sample output for our object above, see the examples of many of these in [these examples](#using-our-aggregate-functions-to-work-with-all-groups) below. It's worth noting that most of these simple aggregation functions work for quantitative data - see [More Ways to Use Groupby](#more-ways-to-use-groupby) for more information on how to display qualitative data. Also see [Pandas documentation](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.agg.html) for agg, to use aggregation functions with different columns or to aggregate using one or more operations over the specified axis.
+
+* `.count()` – Counts non-null values in each group.  
+* `.size()` – Returns the size (number of rows) of each group, including nulls.  
+* `.sum()` – Computes the sum of values for each group.  
+* `.mean()` – Calculates the mean (average) of values for each group.  
+* `.median()` – Computes the median of values for each group.  
+* `.min()` / `.max()` – Finds the minimum or maximum value in each group.  
+* `.std()` – Calculates the standard deviation of values for each group.  
+* `.var()` – Computes the variance of values for each group.  
+* `.sem()` – Calculates the standard error of the mean for each group.  
+* `.nunique()` – Counts the number of unique values in each group.  
+* `.first()` / `.last()` – Returns the first or last value in each group.  
+* `.nth(n)` – Retrieves the nth value in each group.  
+* `.describe()` – Generates descriptive statistics for each group, including count, mean, std, min, 25%, 50%, 75%, and max.
+
+#### A Brief Example
+
+Imagine you want to find the average duration of tracks in the album "Help\!". Without groupby, you'd write something like:
+
+```py
 beatles_billboard[beatles_billboard['Album.debut'] == 'Help!']['Duration'].mean()
 ```
 
-> `.mean()` returns the average of all the values in a numerical column
+*  *`.mean()` returns the average of all the values in a numerical column*
 
-This is perfectly good, concise code. But what if you want to find the average duration of *every* album? You would have to find all the album names, filter for each of them one at a time, then compute the average for each - not a trivial task!
+This is perfectly good, concise code. But what if you want to find the average duration of *every* album? You would have to find all the album names, filter for each of them one at a time, then compute the average for each \- not a trivial task\!
 
-Instead, you can use `groupby` to separate your data into groups. Pandas can then apply the same operation to each group individually. In one line, this would be:
+Instead, you can use `.groupby()` to separate your data into groups. Pandas can then apply the same operation to each group individually. In one line, this would be:
+
 
 ```python
 beatles_billboard.groupby('Album.debut')['Duration'].mean()
 ```
+<details><summary>Output</summary>
 
-<table border="0">
-    <tr>
-        <th valign="top">Output:</th>
-        <td>
-            <pre style="white-space: pre;">
-Album.debut
-Abbey Road                                                         166.411765
-Anthology 1                                                        147.619048
-Anthology 2                                                        181.250000
-Anthology 3                                                        181.222222
-Help!                                                              146.285714<details><summary>Click to show more</summary>Let It Be                                                          175.750000
-Let It Be... Naked - Fly on the Wall bonus disc                    176.000000
-Live at the BBC                                                    137.548387
-Live! at the Star-Club in Hamburg, Germany; 1962                   150.000000
-Magical Mystery Tour                                               200.000000
-On Air - Live at the BBC Volume 2                                  109.000000
-Revolver                                                           150.181818
-Rock 'n' Roll Music                                                153.000000
-Rubber Soul                                                        150.800000
-Sgt. Pepper's Lonely Hearts Club Band                              182.769231
-The Beatles                                                        185.266667
-The Beatles Bootleg Recordings 1963                                117.000000
-The Beatles' Christmas Album                                       183.000000
-UK: 1967-1970 US: Hey Jude                                         226.333333
-UK: A Collection of Beatles Oldies US: 1962-1966                   116.000000
-UK: A Collection of Beatles Oldies US: Beatles '65                 145.000000
-UK: A Collection of Beatles Oldies US: Beatles VI                  150.000000
-UK: A Collection of Beatles Oldies US: Hey Jude                    138.000000
-UK: A Collection of Beatles Oldies US: Meet The Beatles!           144.000000
-UK: A Collection of Beatles Oldies US: The Beatles Second Album    138.000000
-UK: A Collection of Beatles Oldies US: Yesterday and Today         152.500000
-UK: A Hard Day's Night US: 1962-1966                               152.000000
-UK: A Hard Day's Night US: Beatles '65                             140.000000
-UK: A Hard Day's Night US: Hey Jude                                147.500000
-UK: A Hard Day's Night US: Something New                           137.500000
-UK: A Hard Day's Night US: The Beatles Second Album                157.000000
-UK: Beatles for Sale US: Beatles '65                               141.875000
-UK: Beatles for Sale US: Beatles VI                                145.500000
-UK: Help! US: Beatles VI                                           152.000000
-UK: Help! US: Rubber Soul                                          121.000000
-UK: Help! US: Yesterday and Today                                  131.000000
-UK: Past Masters Volume 1 US: The Beatles Second Album             126.500000
-UK: Please Please Me US: Meet The Beatles!                         175.000000
-UK: Please Please Me US: Rarities                                  108.000000
-UK: Please Please Me US: The Early Beatles                         141.181818
-UK: Rarities US: Beatles '65                                       183.000000
-UK: Rarities US: Beatles VI                                        161.000000
-UK: Rarities US: Hey Jude                                          179.000000
-UK: Rarities US: Meet The Beatles!                                 133.000000
-UK: Rarities US: Rarities                                          185.333333
-UK: Rarities US: Something New                                     146.000000
-UK: Rarities US: The Beatles Second Album                          121.000000
-UK: Revolver US: Yesterday and Today                               146.000000
-UK: Rock 'n' Roll Music US: Something New                          146.000000
-UK: Rock 'n' Roll Music US: The Beatles Second Album               130.000000
-UK: Rubber Soul US: Yesterday and Today                            156.250000
-UK: With the Beatles US: Meet The Beatles!                         128.555556
-UK: With the Beatles US: The Beatles Second Album                  164.000000
-Yellow Submarine                                                   229.750000
-Name: Duration, dtype: float64</details></pre>
-        </td>
-    </tr>
-</table>
+    Album.debut
+    Abbey Road                                                         166.411765
+    Anthology 1                                                        147.619048
+    Anthology 2                                                        181.250000
+    Anthology 3                                                        181.222222
+    Help!                                                              146.285714
+    Let It Be                                                          175.750000
+    Let It Be... Naked - Fly on the Wall bonus disc                    176.000000
+    Live at the BBC                                                    137.548387
+    Live! at the Star-Club in Hamburg, Germany; 1962                   150.000000
+    Magical Mystery Tour                                               200.000000
+    On Air - Live at the BBC Volume 2                                  109.000000
+    Revolver                                                           150.181818
+    Rock 'n' Roll Music                                                153.000000
+    Rubber Soul                                                        150.800000
+    Sgt. Pepper's Lonely Hearts Club Band                              182.769231
+    The Beatles                                                        185.266667
+    The Beatles Bootleg Recordings 1963                                117.000000
+    The Beatles' Christmas Album                                       183.000000
+    UK: 1967-1970 US: Hey Jude                                         226.333333
+    UK: A Collection of Beatles Oldies US: 1962-1966                   116.000000
+    UK: A Collection of Beatles Oldies US: Beatles '65                 145.000000
+    UK: A Collection of Beatles Oldies US: Beatles VI                  150.000000
+    UK: A Collection of Beatles Oldies US: Hey Jude                    138.000000
+    UK: A Collection of Beatles Oldies US: Meet The Beatles!           144.000000
+    UK: A Collection of Beatles Oldies US: The Beatles Second Album    138.000000
+    UK: A Collection of Beatles Oldies US: Yesterday and Today         152.500000
+    UK: A Hard Day's Night US: 1962-1966                               152.000000
+    UK: A Hard Day's Night US: Beatles '65                             140.000000
+    UK: A Hard Day's Night US: Hey Jude                                147.500000
+    UK: A Hard Day's Night US: Something New                           137.500000
+    UK: A Hard Day's Night US: The Beatles Second Album                157.000000
+    UK: Beatles for Sale US: Beatles '65                               141.875000
+    UK: Beatles for Sale US: Beatles VI                                145.500000
+    UK: Help! US: Beatles VI                                           152.000000
+    UK: Help! US: Rubber Soul                                          121.000000
+    UK: Help! US: Yesterday and Today                                  131.000000
+    UK: Past Masters Volume 1 US: The Beatles Second Album             126.500000
+    UK: Please Please Me US: Meet The Beatles!                         175.000000
+    UK: Please Please Me US: Rarities                                  108.000000
+    UK: Please Please Me US: The Early Beatles                         141.181818
+    UK: Rarities US: Beatles '65                                       183.000000
+    UK: Rarities US: Beatles VI                                        161.000000
+    UK: Rarities US: Hey Jude                                          179.000000
+    UK: Rarities US: Meet The Beatles!                                 133.000000
+    UK: Rarities US: Rarities                                          185.333333
+    UK: Rarities US: Something New                                     146.000000
+    UK: Rarities US: The Beatles Second Album                          121.000000
+    UK: Revolver US: Yesterday and Today                               146.000000
+    UK: Rock 'n' Roll Music US: Something New                          146.000000
+    UK: Rock 'n' Roll Music US: The Beatles Second Album               130.000000
+    UK: Rubber Soul US: Yesterday and Today                            156.250000
+    UK: With the Beatles US: Meet The Beatles!                         128.555556
+    UK: With the Beatles US: The Beatles Second Album                  164.000000
+    Yellow Submarine                                                   229.750000
+    Name: Duration, dtype: float64
 
-Pandas Tutor provides an excellent visualization of this with a subset of the data (just a few columns and albums) <a href="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0A%0Acsv%20%3D%20'''%0ATitle,Album.debut,Duration%0AAnother%20Girl,Help!,124%0AEleanor%20Rigby,Revolver,128%0AFor%20No%20One,Revolver,121%0AGirl,Rubber%20Soul,153%0AGood%20Day%20Sunshine,Revolver,129%0AGot%20to%20Get%20You%20into%20My%20Life,Revolver,147%0AHelp!,Help!,138%0A%22Here,%20There%20and%20Everywhere%22,Revolver,145%0AI%20Need%20You,Help!,148%0AI%20Want%20to%20Tell%20You,Revolver,149%0AI'm%20Looking%20Through%20You,Rubber%20Soul,147%0AIn%20My%20Life,Rubber%20Soul,148%0ALove%20You%20To,Revolver,181%0AMichelle,Rubber%20Soul,160%0ANorwegian%20Wood%20%28This%20Bird%20Has%20Flown%29,Rubber%20Soul,125%0ARun%20for%20Your%20Life,Rubber%20Soul,138%0AShe%20Said%20She%20Said,Revolver,157%0ATaxman,Revolver,159%0AThe%20Night%20Before,Help!,153%0AThe%20Word,Rubber%20Soul,161%0AThink%20for%20Yourself,Rubber%20Soul,138%0ATicket%20to%20Ride,Help!,190%0ATomorrow%20Never%20Knows,Revolver,178%0AWait,Rubber%20Soul,136%0AYellow%20Submarine,Revolver,158%0AYou%20Won't%20See%20Me,Rubber%20Soul,202%0AYou're%20Going%20to%20Lose%20That%20Girl,Help!,140%0AYou've%20Got%20to%20Hide%20Your%20Love%20Away,Help!,131%0A'''%0A%0Asongs%20%3D%20pd.read_csv%28io.StringIO%28csv%29%29%0Asongs%20%3D%20songs%5B%5B'Title',%20'Album.debut',%20'Duration'%5D%5D.sort_values%28'Album.debut'%29%0A%0Asongs.groupby%28'Album.debut'%29%5B'Duration'%5D.mean%28%29&d=2024-07-26&lang=py&v=v1" target="_blank">here</a>. Copy and paste the code snippet below if it does not automatically load in.
+</details>
+<br>
 
-<details><summary>Code snippet for Pandas Tutor</summary>
+If you wanted to round your result, you could use .round() after .mean() with a specified number of decimal points.
 
-```python
+Pandas Tutor provides an excellent visualization of this with a subset of the data (just a few columns and albums) [here](https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0A%0Acsv%20%3D%20'''%0ATitle,Album.debut,Duration%0AAnother%20Girl,Help!,124%0AEleanor%20Rigby,Revolver,128%0AFor%20No%20One,Revolver,121%0AGirl,Rubber%20Soul,153%0AGood%20Day%20Sunshine,Revolver,129%0AGot%20to%20Get%20You%20into%20My%20Life,Revolver,147%0AHelp!,Help!,138%0A%22Here,%20There%20and%20Everywhere%22,Revolver,145%0AI%20Need%20You,Help!,148%0AI%20Want%20to%20Tell%20You,Revolver,149%0AI'm%20Looking%20Through%20You,Rubber%20Soul,147%0AIn%20My%20Life,Rubber%20Soul,148%0ALove%20You%20To,Revolver,181%0AMichelle,Rubber%20Soul,160%0ANorwegian%20Wood%20%28This%20Bird%20Has%20Flown%29,Rubber%20Soul,125%0ARun%20for%20Your%20Life,Rubber%20Soul,138%0AShe%20Said%20She%20Said,Revolver,157%0ATaxman,Revolver,159%0AThe%20Night%20Before,Help!,153%0AThe%20Word,Rubber%20Soul,161%0AThink%20for%20Yourself,Rubber%20Soul,138%0ATicket%20to%20Ride,Help!,190%0ATomorrow%20Never%20Knows,Revolver,178%0AWait,Rubber%20Soul,136%0AYellow%20Submarine,Revolver,158%0AYou%20Won't%20See%20Me,Rubber%20Soul,202%0AYou're%20Going%20to%20Lose%20That%20Girl,Help!,140%0AYou've%20Got%20to%20Hide%20Your%20Love%20Away,Help!,131%0A'''%0A%0Asongs%20%3D%20pd.read_csv%28io.StringIO%28csv%29%29%0Asongs%20%3D%20songs%5B%5B'Title',%20'Album.debut',%20'Duration'%5D%5D.sort_values%28'Album.debut'%29%0A%0Asongs.groupby%28'Album.debut'%29%5B'Duration'%5D.mean%28%29&d=2024-07-26&lang=py&v=v1). Copy and paste the code snippet below if it does not automatically load in.
+
+<details><summary>Code snippet for Pandas Tutor</summary> 
+
+```py
 import pandas as pd
 import io
 
@@ -764,108 +895,22 @@ songs = songs[['Title', 'Album.debut', 'Duration']].sort_values('Album.debut')
 
 songs.groupby('Album.debut')['Duration'].mean()
 ```
+
 </details>
 
-### Cleaning Data for `groupby`
+<a name="#additional-examples-using-groupby"></a>
+### Additional Examples using groupby
 
-When you use `groupby`, you choose a *grouping column*. In the above example, we used the `'Album.debut'` column. This column was easy to work with, since (almost) every track has exactly one album; each row had exactly one *group name* (the album title).
-
-This is not always the case, and for this reason you may have to tidy your data before being able to group it. Consider the following example:
-
-Imagine you want to group by genre. Consider the song "Golden Slumbers", which has the genre `'Rock, Baroque Pop, Pop/Rock'`. Our ideal result is that Golden Slumbers is placed into **three** groups: one group for `'Rock'`, one for `'Baroque Pop'`, and one for `'Pop/Rock'`. However, if we try to group by genre without tidying the data, Golden Slumbers will be placed into a `'Rock, Baroque Pop, Pop/Rock'` group, containing **only songs with identical genres, written in the same order**. How can we fix this? Using `explode`!
-
-As you learned in [Pandas: Tidy Data][pandas-tidy], you can `explode` a column containing several observations into several rows, each containing a single observation (e.g. one genre). 
-
-<details><summary>Code to explode genre</summary>
-
-```python
-# clean the data before exploding
-beatles_billboard['Genre'] = beatles_billboard['Genre'].str.lower().str.strip().fillna('').str.split(', ')
-
-# explode the data
-beatles_billboard_exploded = beatles_billboard.explode('Genre').reset_index(drop=True)
-
-# clean individual problems in the exploded data with str.replace() and str.strip()
-beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.strip('[')
-beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('pop/rock', 'pop rock')
-beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('r&b', 'rhythm and blues')
-beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('rock and roll', 'rock')
-beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace('experimental music', 'experimental')
-beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace("children's music", "children's")
-beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace("stage&screen", "stage and screen")
-```
-</details><br>
-
-The result for Golden Slumbers would look like this:
-
-<table border="1">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Title</th>
-      <th>Year</th>
-      <th>Album.debut</th>
-      <th>Duration</th>
-      <th>Other.releases</th>
-      <th>Genre</th>
-      <th>Songwriter</th>
-      <th>Lead.vocal</th>
-      <th>Top.50.Billboard</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>154</th>
-      <td>Golden Slumbers</td>
-      <td>1969</td>
-      <td>Abbey Road</td>
-      <td>91</td>
-      <td>5</td>
-      <td>rock</td>
-      <td>McCartney</td>
-      <td>McCartney</td>
-      <td>-1</td>
-    </tr>
-    <tr>
-      <th>155</th>
-      <td>Golden Slumbers</td>
-      <td>1969</td>
-      <td>Abbey Road</td>
-      <td>91</td>
-      <td>5</td>
-      <td>baroque pop</td>
-      <td>McCartney</td>
-      <td>McCartney</td>
-      <td>-1</td>
-    </tr>
-    <tr>
-      <th>156</th>
-      <td>Golden Slumbers</td>
-      <td>1969</td>
-      <td>Abbey Road</td>
-      <td>91</td>
-      <td>5</td>
-      <td>pop/rock</td>
-      <td>McCartney</td>
-      <td>McCartney</td>
-      <td>-1</td>
-    </tr>
-  </tbody>
-</table>
-
-Now, when you use `groupby` on the `'Genre'` column, Golden Slumbers will be correctly placed into three groups: `'rock'`, `'baroque pop'`, and `'pop/rock'`.
-
-This example demonstrates the importance of **tidying your data** whenever appropriate for a specific operation (like `groupby`). Your *grouping column* should contain exactly one *group name* per row. Refer to the techniques in [Pandas: Clean Data][pandas-clean] and [Pandas: Tidy Data][pandas-tidy] for instructions and examples.
-
-### Examples using `groupby`
-
-**`groupby`** functions allow you to organize and analyze data that share certain features.  For instance, we could find the **number of songs per album**:
+groupby functions allow you to organize and analyze data that share certain features. For instance, we could find the number of songs per album:
 
 ```python
 beatles_billboard.groupby("Album.debut")["Title"].count()
 ```
 
-<details><summary>Output</summary><pre>
+<details>
+<summary>Output</summary>
+
+```
 Album.debut
 Abbey Road                                                         17
 Anthology 1                                                        21
@@ -891,27 +936,54 @@ UK: A Collection of Beatles Oldies US: Beatles '65                  1
 UK: A Collection of Beatles Oldies US: Beatles VI                   1
 UK: A Collection of Beatles Oldies US: Hey Jude                     1
 UK: A Collection of Beatles Oldies US: Meet The Beatles!            1
-...
+UK: A Collection of Beatles Oldies US: The Beatles Second Album     1
+UK: A Collection of Beatles Oldies US: Yesterday and Today          2
+UK: A Hard Day's Night US: 1962-1966                                1
+UK: A Hard Day's Night US: Beatles '65                              1
+UK: A Hard Day's Night US: Hey Jude                                 2
+UK: A Hard Day's Night US: Something New                            8
+UK: A Hard Day's Night US: The Beatles Second Album                 1
+UK: Beatles for Sale US: Beatles '65                                8
+UK: Beatles for Sale US: Beatles VI                                 6
+UK: Help! US: Beatles VI                                            3
+UK: Help! US: Rubber Soul                                           2
+UK: Help! US: Yesterday and Today                                   2
+UK: Past Masters Volume 1 US: The Beatles Second Album              2
+UK: Please Please Me US: Meet The Beatles!                          1
+UK: Please Please Me US: Rarities                                   2
+UK: Please Please Me US: The Early Beatles                         11
+UK: Rarities US: Beatles '65                                        1
+UK: Rarities US: Beatles VI                                         1
+UK: Rarities US: Hey Jude                                           1
+UK: Rarities US: Meet The Beatles!                                  1
+UK: Rarities US: Rarities                                           3
+UK: Rarities US: Something New                                      1
+UK: Rarities US: The Beatles Second Album                           1
+UK: Revolver US: Yesterday and Today                                3
+UK: Rock 'n' Roll Music US: Something New                           2
 UK: Rock 'n' Roll Music US: The Beatles Second Album                1
 UK: Rubber Soul US: Yesterday and Today                             4
 UK: With the Beatles US: Meet The Beatles!                          9
 UK: With the Beatles US: The Beatles Second Album                   5
 Yellow Submarine                                                    4
 Name: Title, dtype: int64
-</pre>
+```
+
 </details>
 
-<br>
+
 
 Or focus on the relative activity of Lennon and McCartney across the years, first by filtering to work that is theirs exclusively:
+
 
 ```python
 beatles_jl_pm = beatles_billboard[beatles_billboard['Songwriter'].isin(["Lennon", "McCartney"])]
 ```
 
-> Note this excludes tracks they did not write independently. `.isin()` searches for exact matches, so for example, `'Lennon and Harrison'` would not be included.
+Note this excludes tracks they did not write independently. .isin() searches for exact matches, so for example, 'Lennon and Harrison' would not be included.
 
 Then find the 'groups':
+
 
 ```python
 grouped = beatles_jl_pm.groupby("Songwriter")
@@ -919,21 +991,27 @@ grouped = beatles_jl_pm.groupby("Songwriter")
 list(grouped.groups.keys())
 ```
 
-<details><summary>Output</summary><pre>
-['Lennon', 'McCartney']
-</pre>
-</details>
 
-<br>
+
+
+    ['Lennon', 'McCartney']
+
+
 
 And inspect a single "group":
+
 
 ```python
 grouped.get_group("Lennon")
 ```
 
-<details><summary>Output</summary>
-<table border="1">
+
+
+<details>
+<summary>Output</summary>
+
+<div>
+<table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1084,19 +1162,24 @@ grouped.get_group("Lennon")
   </tbody>
 </table>
 <p>65 rows × 9 columns</p>
+</div>
+
 </details>
 
-<br>
+
 
 And finally to compare the outputs by grouping via two columns, songwriter and year.
 
-"Size" considers *all* the rows (even ones with `NaN`s).
+"Size" considers *all* the rows (even ones with NaNs).
+
 
 ```python
 beatles_jl_pm.groupby(['Songwriter','Year']).size()
 ```
+<details>
+<summary>Output</summary>
 
-<details><summary>Output</summary><pre>
+```
 Songwriter  Year
 Lennon      1960     1
             1962     2
@@ -1117,19 +1200,26 @@ McCartney   1960     1
             1968    14
             1969    15
 dtype: int64
-</pre>
+```
+
 </details>
 
-<br>
+
 
 "Count" includes only the rows with valid data.
+
 
 ```python
 beatles_jl_pm.groupby(['Songwriter','Year']).count()
 ```
 
-<details><summary>Output</summary>
-<table border="1">
+
+
+<details>
+<summary>Output</summary>
+<div>
+
+<table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1339,11 +1429,12 @@ beatles_jl_pm.groupby(['Songwriter','Year']).count()
     </tr>
   </tbody>
 </table>
+</div>
 </details>
 
-<br>
+There are many other functions that can be applied to aggregate, filter and transform data within groups! See the supplemental essay on groupby functions for more in-depth information.
 
-There are many other functions that can be applied to aggregate, filter and transform data within groups!  See the supplemental essay on `groupby` functions for more in-depth information.
+You may also notice that there is a lot of redundancy in this table. To only list the results of one column, you can specify just like any other pandas operation using \[column-name] before .count(). See the next example.
 
 A count of track titles per album:
 
@@ -1351,128 +1442,73 @@ A count of track titles per album:
 beatles_billboard.groupby("Album.debut")["Title"].count()
 ```
 
-Group by Songwriter and Year, showing counts for each:
+<details>
+<summary>Output</summary>
 
-<details><summary>Output</summary><pre>
-Songwriter  Year
-Lennon      1960     1
-            1962     2
-            1963     6
-            1964    12
-            1965     7
-            1966     5
-            1967     3
-            1968    17
-            1969    12
-McCartney   1960     1
-            1962     4
-            1963     2
-            1964     7
-            1965     8
-            1966     9
-            1967     7
-            1968    14
-            1969    15
-dtype: int64
-</pre></details>
-
-<br>
-
-### A brief `groupby` reference
-
-Since `groupby` is such a powerful but complex tool, it may be helpful to learn more about the various ways to use it.
-
-In order to use `groupby`, you need:
-
-* A *grouping column* (or several!)
-* Each row in the *grouping column* should contain exactly one *group name* (i.e. a clean and tidy dataset)
-
-Perform the `groupby` operation:
-
-```python
-grouped = beatles_billboard.groupby('Album.debut')
 ```
-
-<blockquote><details><summary>What if I want to <code>groupby</code> on several columns?</summary>
-
-Performing a `groupby` operation on several columns at once if you want to create subgroups within a group. For example:
-
-```python
-album_vocal = beatles_billboard.groupby(['Album.debut', 'Lead.vocal'])
+Album.debut
+Abbey Road                                                         17
+Anthology 1                                                        21
+Anthology 2                                                         4
+Anthology 3                                                         9
+Help!                                                               7
+Let It Be                                                          12
+Let It Be... Naked - Fly on the Wall bonus disc                     4
+Live at the BBC                                                    31
+Live! at the Star-Club in Hamburg, Germany; 1962                    1
+Magical Mystery Tour                                               11
+On Air - Live at the BBC Volume 2                                   2
+Revolver                                                           11
+Rock 'n' Roll Music                                                 1
+Rubber Soul                                                        10
+Sgt. Pepper's Lonely Hearts Club Band                              13
+The Beatles                                                        30
+The Beatles Bootleg Recordings 1963                                 2
+The Beatles' Christmas Album                                        1
+UK: 1967-1970 US: Hey Jude                                          6
+UK: A Collection of Beatles Oldies US: 1962-1966                    1
+UK: A Collection of Beatles Oldies US: Beatles '65                  1
+UK: A Collection of Beatles Oldies US: Beatles VI                   1
+UK: A Collection of Beatles Oldies US: Hey Jude                     1
+UK: A Collection of Beatles Oldies US: Meet The Beatles!            1
+UK: A Collection of Beatles Oldies US: The Beatles Second Album     1
+UK: A Collection of Beatles Oldies US: Yesterday and Today          2
+UK: A Hard Day's Night US: 1962-1966                                1
+UK: A Hard Day's Night US: Beatles '65                              1
+UK: A Hard Day's Night US: Hey Jude                                 2
+UK: A Hard Day's Night US: Something New                            8
+UK: A Hard Day's Night US: The Beatles Second Album                 1
+UK: Beatles for Sale US: Beatles '65                                8
+UK: Beatles for Sale US: Beatles VI                                 6
+UK: Help! US: Beatles VI                                            3
+UK: Help! US: Rubber Soul                                           2
+UK: Help! US: Yesterday and Today                                   2
+UK: Past Masters Volume 1 US: The Beatles Second Album              2
+UK: Please Please Me US: Meet The Beatles!                          1
+UK: Please Please Me US: Rarities                                   2
+UK: Please Please Me US: The Early Beatles                         11
+UK: Rarities US: Beatles '65                                        1
+UK: Rarities US: Beatles VI                                         1
+UK: Rarities US: Hey Jude                                           1
+UK: Rarities US: Meet The Beatles!                                  1
+UK: Rarities US: Rarities                                           3
+UK: Rarities US: Something New                                      1
+UK: Rarities US: The Beatles Second Album                           1
+UK: Revolver US: Yesterday and Today                                3
+UK: Rock 'n' Roll Music US: Something New                           2
+UK: Rock 'n' Roll Music US: The Beatles Second Album                1
+UK: Rubber Soul US: Yesterday and Today                             4
+UK: With the Beatles US: Meet The Beatles!                          9
+UK: With the Beatles US: The Beatles Second Album                   5
+Yellow Submarine                                                    4
+Name: Title, dtype: int64
 ```
+</details>
 
-Then any operation you perform will be performed on the subgroup of `'Lead.vocal'` within the larger `'Album.debut'` group.
 
-Note that using `groupby` with several grouping columns will complicate the operations you perform later. Use the documentation!
 
-</details></blockquote>
-
-<br>
-
-The result of the `groupby` operation has been stored in the variable `grouped`. The result is called a "`groupby` object" - not a dataframe, but a collection of several dataframes, one for each group. This is more difficult to represent visually, and in fact Pandas won't display `grouped` when you just use the variable name:
-
-```python
-grouped
-```
-
-<table border="0">
-    <tr>
-        <th valign="top">Output:</th>
-        <td>
-            <pre>
-&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x12a634af0&gt;</pre>
-        </td>
-    </tr>
-</table>
-
-One way to get around this is using `.value_counts()`. Since almost every item is unique, when displaying the number of occurences of each item, `.value_counts()` will display each distinct item, with just `1` occurence as noted in the far-right column.
-
-```python
-grouped.value_counts()
-```
-
-<table border="0">
-    <tr>
-        <th valign="top">Output:</th>
-        <td>
-            <pre style="white-space: pre;"><details><summary>Show output</summary>
-Album.debut                                        Title                           Year  Duration  Other.releases  Genre                                  Songwriter              Lead.vocal                                    Top.50.Billboard
-Abbey Road                                         Because                         1969  165       11              Pop/Rock                               Lennon                  Lennon, McCartney, Harrison                   -1                  1
-                                                   Carry That Weight               1969  96        5               Symphonic Rock, Pop/Rock               McCartney               McCartney, with Lennon, Harrison and Starkey  -1                  1
-                                                   Come Together                   1969  258       17              Blues Rock, Pop/Rock                   Lennon                  Lennon                                         6                  1
-                                                   Golden Slumbers                 1969  91        5               Rock, Baroque Pop, Pop/Rock            McCartney               McCartney                                     -1                  1
-                                                   Her Majesty                     1969  23        8               Music Hall, Folk, Pop/Rock             McCartney               McCartney                                     -1                  1
-                                                                                                                                                                                                                                                   ..
-UK: With the Beatles US: The Beatles Second Album  You've Really Got a Hold on Me  1963  182       2               Soul, Pop/Rock                         Robinson                Lennon and Harrison                           -1                  1
-Yellow Submarine                                   All Together Now                1967  130       8               Skiffle, Pop/Rock                      McCartney, with Lennon  McCartney, with Lennon                        -1                  1
-                                                   Hey Bulldog                     1968  194       12              Psychedelic Rock, Hard Rock, Pop/Rock  Lennon                  Lennon                                        -1                  1
-                                                   It's All Too Much               1967  388       11              Psychedelic Rock, Acid Rock, Pop/Rock  Harrison                Harrison                                      -1                  1
-                                                   Only a Northern Song            1967  207       9               Psychedelic Rock, Pop/Rock             Harrison                Harrison                                      -1                  1
-Name: count, Length: 282, dtype: int64</pre></details>
-        </td>
-    </tr>
-</table>
-
-> By default, Pandas only displays 10 rows. If you want to see the entire object, you can change this setting, but be careful: your computer could run slowly or crash if it tries to display too many rows!
->
-> To increase the limit, create a new code block with the following code, run it, and then run the code to display your data.
-> 
-> ```python
-> # sets maximum number of rows to display
-> pd.set_option('display.max_rows', None) # you can replace None with a number
-> ```
-> 
-> After displaying your data, you should reset the setting. You could just set the option back to 10, or use `reset_option`:
->
-> ```python
-> pd.reset_option('display.max_rows')
-> ```
-
-Now you've created a **groupby object**, what can you do with it?
-
-Each group is represented as its own dataframe, and all of the groups are contained in the groupby object. You can work with all the groups at once, or just one group at a time.
-
-#### Working With All Groups
+<a name="#using-our-aggregate-functions-to-work-with-all-groups"></a>
+### Using our Aggregate Functions to Work With All Groups
 
 When you work with all groups simultaneously, there are a number of possible operations you can perform.
 
@@ -1482,345 +1518,104 @@ When you work with all groups simultaneously, there are a number of possible ope
 grouped.size()
 ```
 
-<details><summary>Output</summary><pre>
+<details>
+<summary>Output</summary>
+
+```
 Album.debut
-Abbey Road                                              17
-Anthology 1                                             21
-Anthology 2                                              4
-Anthology 3                                              9
-Help!                                                    7
-                                                        ..
-UK: Rock 'n' Roll Music US: The Beatles Second Album     1
-UK: Rubber Soul US: Yesterday and Today                  4
-UK: With the Beatles US: Meet The Beatles!               9
-UK: With the Beatles US: The Beatles Second Album        5
-Yellow Submarine                                         4
-Length: 54, dtype: int64</pre>
-</details>
-
-##### See the number of rows, **excluding those with missing values**, in each *column* of each group
-
-```python
-grouped.count()
+Abbey Road                                                         17
+Anthology 1                                                        21
+Anthology 2                                                         4
+Anthology 3                                                         9
+Help!                                                               7
+Let It Be                                                          12
+Let It Be... Naked - Fly on the Wall bonus disc                     4
+Live at the BBC                                                    31
+Live! at the Star-Club in Hamburg, Germany; 1962                    1
+Magical Mystery Tour                                               11
+On Air - Live at the BBC Volume 2                                   2
+Revolver                                                           11
+Rock 'n' Roll Music                                                 1
+Rubber Soul                                                        10
+Sgt. Pepper's Lonely Hearts Club Band                              13
+The Beatles                                                        30
+The Beatles Bootleg Recordings 1963                                 2
+The Beatles' Christmas Album                                        1
+UK: 1967-1970 US: Hey Jude                                          6
+UK: A Collection of Beatles Oldies US: 1962-1966                    1
+UK: A Collection of Beatles Oldies US: Beatles '65                  1
+UK: A Collection of Beatles Oldies US: Beatles VI                   1
+UK: A Collection of Beatles Oldies US: Hey Jude                     1
+UK: A Collection of Beatles Oldies US: Meet The Beatles!            1
+UK: A Collection of Beatles Oldies US: The Beatles Second Album     1
+UK: A Collection of Beatles Oldies US: Yesterday and Today          2
+UK: A Hard Day's Night US: 1962-1966                                1
+UK: A Hard Day's Night US: Beatles '65                              1
+UK: A Hard Day's Night US: Hey Jude                                 2
+UK: A Hard Day's Night US: Something New                            8
+UK: A Hard Day's Night US: The Beatles Second Album                 1
+UK: Beatles for Sale US: Beatles '65                                8
+UK: Beatles for Sale US: Beatles VI                                 6
+UK: Help! US: Beatles VI                                            3
+UK: Help! US: Rubber Soul                                           2
+UK: Help! US: Yesterday and Today                                   2
+UK: Past Masters Volume 1 US: The Beatles Second Album              2
+UK: Please Please Me US: Meet The Beatles!                          1
+UK: Please Please Me US: Rarities                                   2
+UK: Please Please Me US: The Early Beatles                         11
+UK: Rarities US: Beatles '65                                        1
+UK: Rarities US: Beatles VI                                         1
+UK: Rarities US: Hey Jude                                           1
+UK: Rarities US: Meet The Beatles!                                  1
+UK: Rarities US: Rarities                                           3
+UK: Rarities US: Something New                                      1
+UK: Rarities US: The Beatles Second Album                           1
+UK: Revolver US: Yesterday and Today                                3
+UK: Rock 'n' Roll Music US: Something New                           2
+UK: Rock 'n' Roll Music US: The Beatles Second Album                1
+UK: Rubber Soul US: Yesterday and Today                             4
+UK: With the Beatles US: Meet The Beatles!                          9
+UK: With the Beatles US: The Beatles Second Album                   5
+Yellow Submarine                                                    4
+dtype: int64
 ```
 
-<details><summary>Output</summary>
-<table border="1">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Title</th>
-      <th>Year</th>
-      <th>Duration</th>
-      <th>Other.releases</th>
-      <th>Genre</th>
-      <th>Songwriter</th>
-      <th>Lead.vocal</th>
-      <th>Top.50.Billboard</th>
-    </tr>
-    <tr>
-      <th>Album.debut</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Abbey Road</th>
-      <td>17</td>
-      <td>17</td>
-      <td>17</td>
-      <td>17</td>
-      <td>17</td>
-      <td>17</td>
-      <td>17</td>
-      <td>17</td>
-    </tr>
-    <tr>
-      <th>Anthology 1</th>
-      <td>21</td>
-      <td>21</td>
-      <td>21</td>
-      <td>21</td>
-      <td>21</td>
-      <td>21</td>
-      <td>19</td>
-      <td>21</td>
-    </tr>
-    <tr>
-      <th>Anthology 2</th>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
-      <td>3</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>Anthology 3</th>
-      <td>9</td>
-      <td>9</td>
-      <td>9</td>
-      <td>9</td>
-      <td>9</td>
-      <td>9</td>
-      <td>9</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <th>Help!</th>
-      <td>7</td>
-      <td>7</td>
-      <td>7</td>
-      <td>7</td>
-      <td>7</td>
-      <td>7</td>
-      <td>7</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>UK: Rock 'n' Roll Music US: The Beatles Second Album</th>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>UK: Rubber Soul US: Yesterday and Today</th>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>UK: With the Beatles US: Meet The Beatles!</th>
-      <td>9</td>
-      <td>9</td>
-      <td>9</td>
-      <td>9</td>
-      <td>9</td>
-      <td>9</td>
-      <td>9</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <th>UK: With the Beatles US: The Beatles Second Album</th>
-      <td>5</td>
-      <td>5</td>
-      <td>5</td>
-      <td>5</td>
-      <td>5</td>
-      <td>5</td>
-      <td>5</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>Yellow Submarine</th>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
-    </tr>
-  </tbody>
-</table>
-<p>54 rows × 8 columns</p>
 </details>
+
 
 ##### See the number of unique rows in each *column* of each group
 
-```python
+```py
 grouped.nunique()
 ```
+<details>
+<summary>Output</summary>
 
-<details><summary>Output</summary>
-<table border="1">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Title</th>
-      <th>Year</th>
-      <th>Duration</th>
-      <th>Other.releases</th>
-      <th>Genre</th>
-      <th>Songwriter</th>
-      <th>Lead.vocal</th>
-      <th>Top.50.Billboard</th>
-    </tr>
-    <tr>
-      <th>Album.debut</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Abbey Road</th>
-      <td>17</td>
-      <td>1</td>
-      <td>17</td>
-      <td>9</td>
-      <td>12</td>
-      <td>4</td>
-      <td>6</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>Anthology 1</th>
-      <td>21</td>
-      <td>7</td>
-      <td>14</td>
-      <td>3</td>
-      <td>14</td>
-      <td>19</td>
-      <td>8</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>Anthology 2</th>
-      <td>4</td>
-      <td>2</td>
-      <td>4</td>
-      <td>2</td>
-      <td>2</td>
-      <td>4</td>
-      <td>3</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>Anthology 3</th>
-      <td>9</td>
-      <td>2</td>
-      <td>8</td>
-      <td>1</td>
-      <td>7</td>
-      <td>6</td>
-      <td>4</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>Help!</th>
-      <td>7</td>
-      <td>1</td>
-      <td>7</td>
-      <td>7</td>
-      <td>7</td>
-      <td>4</td>
-      <td>4</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>UK: Rock 'n' Roll Music US: The Beatles Second Album</th>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>UK: Rubber Soul US: Yesterday and Today</th>
-      <td>4</td>
-      <td>1</td>
-      <td>4</td>
-      <td>4</td>
-      <td>3</td>
-      <td>4</td>
-      <td>4</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>UK: With the Beatles US: Meet The Beatles!</th>
-      <td>9</td>
-      <td>1</td>
-      <td>8</td>
-      <td>8</td>
-      <td>5</td>
-      <td>7</td>
-      <td>5</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>UK: With the Beatles US: The Beatles Second Album</th>
-      <td>5</td>
-      <td>1</td>
-      <td>5</td>
-      <td>5</td>
-      <td>4</td>
-      <td>5</td>
-      <td>3</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>Yellow Submarine</th>
-      <td>4</td>
-      <td>2</td>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
-      <td>3</td>
-      <td>3</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-<p>54 rows × 8 columns</p>
-</details><br>
 
-Now that you have a better sense of what the data looks like, you can begin to perform operations on it. These operations should be performed on a specific column, or just a few columns. For example, while it makes sense to compute the `mean` of the `'Duration'` column, it doesn't make sense to compute the `mean` of the `'Title'` column (and in fact you can't)!
+|  | Title | Year | Duration | Other.releases | Genre | Songwriter | Lead.vocal | Top.50.Billboard |
+| :---: | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
+| Album.debut |  |  |  |  |  |  |  |  |
+| Abbey Road | 17 | 1 | 17 | 9 | 12 | 4 | 6 | 3 |
+| Anthology 1 | 21 | 7 | 14 | 3 | 14 | 19 | 8 | 4 |
+| Anthology 2 | 4 | 2 | 4 | 2 | 2 | 4 | 3 | 2 |
+| Anthology 3 | 9 | 2 | 8 | 1 | 7 | 6 | 4 | 1 |
+| Help\! | 7 | 1 | 7 | 7 | 7 | 4 | 4 | 3 |
+| ... | ... | ... | ... | ... | ... | ... | ... | ... |
+| UK: Rock 'n' Roll Music US: The Beatles Second Album | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+| UK: Rubber Soul US: Yesterday and Today | 4 | 1 | 4 | 4 | 3 | 4 | 4 | 2 |
+| UK: With the Beatles US: Meet The Beatles\! | 9 | 1 | 8 | 8 | 5 | 7 | 5 | 1 |
+| UK: With the Beatles US: The Beatles Second Album | 5 | 1 | 5 | 5 | 4 | 5 | 3 | 1 |
+| Yellow Submarine | 4 | 2 | 4 | 4 | 4 | 3 | 3 | 1 |
 
-You can select columns to operate on the same way you would with a regular dataframe, using square brackets: `grouped['column_name']` or `grouped[['column_1', 'column_2']]`.
+54 rows × 8 columns
 
-You can perform the same counting operations (`.size()`, `.count()`, `.nunique()`):
+</details>
+
+Now that you have a better sense of what the data looks like, you can begin to perform operations on it. These operations should be performed on a specific column, or just a few columns. For example, while it makes sense to compute the mean of the 'Duration' column, it doesn't make sense to compute the mean of the 'Title' column (and in fact you can't)\!
+
+You can select columns to operate on the same way you would with a regular dataframe, using square brackets: grouped\['column\_name'\] or grouped\[\['column\_1', 'column\_2'\]\].
+
+You can perform any of the common counting operations—.size(), .count(), or .nunique()—individually, depending on your needs. Here is an example of each, applied to a different column or columns:
 
 ##### See the size (number of rows), *in the specified column(s)*, for each group
 
@@ -1828,364 +1623,596 @@ You can perform the same counting operations (`.size()`, `.count()`, `.nunique()
 grouped['Duration'].size()
 ```
 
-<details><summary>Output</summary><pre>
+<details>
+<summary>Output</summary>
+
+```
 Album.debut
-Abbey Road                                              17
-Anthology 1                                             21
-Anthology 2                                              4
-Anthology 3                                              9
-Help!                                                    7
-                                                        ..
-UK: Rock 'n' Roll Music US: The Beatles Second Album     1
-UK: Rubber Soul US: Yesterday and Today                  4
-UK: With the Beatles US: Meet The Beatles!               9
-UK: With the Beatles US: The Beatles Second Album        5
-Yellow Submarine                                         4
-Name: Duration, Length: 54, dtype: int64
-</pre></details>
+Abbey Road                                                         17
+Anthology 1                                                        21
+Anthology 2                                                         4
+Anthology 3                                                         9
+Help!                                                               7
+Let It Be                                                          12
+Let It Be... Naked - Fly on the Wall bonus disc                     4
+Live at the BBC                                                    31
+Live! at the Star-Club in Hamburg, Germany; 1962                    1
+Magical Mystery Tour                                               11
+On Air - Live at the BBC Volume 2                                   2
+Revolver                                                           11
+Rock 'n' Roll Music                                                 1
+Rubber Soul                                                        10
+Sgt. Pepper's Lonely Hearts Club Band                              13
+The Beatles                                                        30
+The Beatles Bootleg Recordings 1963                                 2
+The Beatles' Christmas Album                                        1
+UK: 1967-1970 US: Hey Jude                                          6
+UK: A Collection of Beatles Oldies US: 1962-1966                    1
+UK: A Collection of Beatles Oldies US: Beatles '65                  1
+UK: A Collection of Beatles Oldies US: Beatles VI                   1
+UK: A Collection of Beatles Oldies US: Hey Jude                     1
+UK: A Collection of Beatles Oldies US: Meet The Beatles!            1
+UK: A Collection of Beatles Oldies US: The Beatles Second Album     1
+UK: A Collection of Beatles Oldies US: Yesterday and Today          2
+UK: A Hard Day's Night US: 1962-1966                                1
+UK: A Hard Day's Night US: Beatles '65                              1
+UK: A Hard Day's Night US: Hey Jude                                 2
+UK: A Hard Day's Night US: Something New                            8
+UK: A Hard Day's Night US: The Beatles Second Album                 1
+UK: Beatles for Sale US: Beatles '65                                8
+UK: Beatles for Sale US: Beatles VI                                 6
+UK: Help! US: Beatles VI                                            3
+UK: Help! US: Rubber Soul                                           2
+UK: Help! US: Yesterday and Today                                   2
+UK: Past Masters Volume 1 US: The Beatles Second Album              2
+UK: Please Please Me US: Meet The Beatles!                          1
+UK: Please Please Me US: Rarities                                   2
+UK: Please Please Me US: The Early Beatles                         11
+UK: Rarities US: Beatles '65                                        1
+UK: Rarities US: Beatles VI                                         1
+UK: Rarities US: Hey Jude                                           1
+UK: Rarities US: Meet The Beatles!                                  1
+UK: Rarities US: Rarities                                           3
+UK: Rarities US: Something New                                      1
+UK: Rarities US: The Beatles Second Album                           1
+UK: Revolver US: Yesterday and Today                                3
+UK: Rock 'n' Roll Music US: Something New                           2
+UK: Rock 'n' Roll Music US: The Beatles Second Album                1
+UK: Rubber Soul US: Yesterday and Today                             4
+UK: With the Beatles US: Meet The Beatles!                          9
+UK: With the Beatles US: The Beatles Second Album                   5
+Yellow Submarine                                                    4
+Name: Duration, dtype: int64
+```
+</details>
+
+
 
 ##### See the number of rows without missing data, *in the specified column(s)*, for each group
 
-```python
+```py
 grouped[['Title', 'Lead.vocal']].count()
 ```
 
-<details><summary>Output</summary>
-<table border="1">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Title</th>
-      <th>Lead.vocal</th>
-    </tr>
-    <tr>
-      <th>Album.debut</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Abbey Road</th>
-      <td>17</td>
-      <td>17</td>
-    </tr>
-    <tr>
-      <th>Anthology 1</th>
-      <td>21</td>
-      <td>19</td>
-    </tr>
-    <tr>
-      <th>Anthology 2</th>
-      <td>4</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>Anthology 3</th>
-      <td>9</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <th>Help!</th>
-      <td>7</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>UK: Rock 'n' Roll Music US: The Beatles Second Album</th>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>UK: Rubber Soul US: Yesterday and Today</th>
-      <td>4</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>UK: With the Beatles US: Meet The Beatles!</th>
-      <td>9</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <th>UK: With the Beatles US: The Beatles Second Album</th>
-      <td>5</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>Yellow Submarine</th>
-      <td>4</td>
-      <td>4</td>
-    </tr>
-  </tbody>
-</table>
-<p>54 rows × 2 columns</p>
+<details>
+<summary>Output</summary>
+
+|  | Title | Lead.vocal |
+| :---: | ----- | ----- |
+| Album.debut |  |  |
+| Abbey Road | 17 | 17 |
+| Anthology 1 | 21 | 19 |
+| Anthology 2 | 4 | 3 |
+| Anthology 3 | 9 | 9 |
+| Help\! | 7 | 7 |
+| ... | ... | ... |
+| UK: Rock 'n' Roll Music US: The Beatles Second Album | 1 | 1 |
+| UK: Rubber Soul US: Yesterday and Today | 4 | 4 |
+| UK: With the Beatles US: Meet The Beatles\! | 9 | 9 |
+| UK: With the Beatles US: The Beatles Second Album | 5 | 5 |
+| Yellow Submarine | 4 | 4 |
+
 </details>
 
-##### See the number of unique rows, *in the specified column(s)*, for each group
+##### See the number of unique rows, in the specified column(s), for each group
 
 ```python
 grouped['Other.releases'].nunique()
 ```
 
-<details><summary>Output</summary><pre>
+<details>
+<summary>Output</summary>
+
+```
 Album.debut
-Abbey Road                                              9
-Anthology 1                                             3
-Anthology 2                                             2
-Anthology 3                                             1
-Help!                                                   7
-                                                       ..
-UK: Rock 'n' Roll Music US: The Beatles Second Album    1
-UK: Rubber Soul US: Yesterday and Today                 4
-UK: With the Beatles US: Meet The Beatles!              8
-UK: With the Beatles US: The Beatles Second Album       5
-Yellow Submarine                                        4
-Name: Other.releases, Length: 54, dtype: int64
-</pre></details>
+Abbey Road                                                          9
+Anthology 1                                                         3
+Anthology 2                                                         2
+Anthology 3                                                         1
+Help!                                                               7
+Let It Be                                                           9
+Let It Be... Naked - Fly on the Wall bonus disc                     1
+Live at the BBC                                                     2
+Live! at the Star-Club in Hamburg, Germany; 1962                    1
+Magical Mystery Tour                                                8
+On Air - Live at the BBC Volume 2                                   1
+Revolver                                                            9
+Rock 'n' Roll Music                                                 1
+Rubber Soul                                                        10
+Sgt. Pepper's Lonely Hearts Club Band                               5
+The Beatles                                                        10
+The Beatles Bootleg Recordings 1963                                 1
+The Beatles' Christmas Album                                        1
+UK: 1967-1970 US: Hey Jude                                          6
+UK: A Collection of Beatles Oldies US: 1962-1966                    1
+UK: A Collection of Beatles Oldies US: Beatles '65                  1
+UK: A Collection of Beatles Oldies US: Beatles VI                   1
+UK: A Collection of Beatles Oldies US: Hey Jude                     1
+UK: A Collection of Beatles Oldies US: Meet The Beatles!            1
+UK: A Collection of Beatles Oldies US: The Beatles Second Album     1
+UK: A Collection of Beatles Oldies US: Yesterday and Today          2
+UK: A Hard Day's Night US: 1962-1966                                1
+UK: A Hard Day's Night US: Beatles '65                              1
+UK: A Hard Day's Night US: Hey Jude                                 2
+UK: A Hard Day's Night US: Something New                            6
+UK: A Hard Day's Night US: The Beatles Second Album                 1
+UK: Beatles for Sale US: Beatles '65                                6
+UK: Beatles for Sale US: Beatles VI                                 5
+UK: Help! US: Beatles VI                                            3
+UK: Help! US: Rubber Soul                                           2
+UK: Help! US: Yesterday and Today                                   2
+UK: Past Masters Volume 1 US: The Beatles Second Album              2
+UK: Please Please Me US: Meet The Beatles!                          1
+UK: Please Please Me US: Rarities                                   2
+UK: Please Please Me US: The Early Beatles                         11
+UK: Rarities US: Beatles '65                                        1
+UK: Rarities US: Beatles VI                                         1
+UK: Rarities US: Hey Jude                                           1
+UK: Rarities US: Meet The Beatles!                                  1
+UK: Rarities US: Rarities                                           3
+UK: Rarities US: Something New                                      1
+UK: Rarities US: The Beatles Second Album                           1
+UK: Revolver US: Yesterday and Today                                3
+UK: Rock 'n' Roll Music US: Something New                           2
+UK: Rock 'n' Roll Music US: The Beatles Second Album                1
+UK: Rubber Soul US: Yesterday and Today                             4
+UK: With the Beatles US: Meet The Beatles!                          8
+UK: With the Beatles US: The Beatles Second Album                   5
+Yellow Submarine                                                    4
+Name: Other.releases, dtype: int64
+```
+
+</details>
+
+
 
 ##### See the sum of the specified column(s) for each group
 
-> This will work with textual data, but it doesn't make sense! All the text entries in a column will be combined into one string. `sum` is best used with numerical data.
+This will work with textual data, but it doesn't make sense\! All the text entries in a column will be combined into one string. sum is best used with numerical data.
+
 
 ```python
 grouped['Duration'].sum()
 ```
+<details>
+<summary>Output</summary>
 
-<details><summary>Output</summary><pre>
-Album.debut
-Abbey Road                                              2829
-Anthology 1                                             3100
-Anthology 2                                              725
-Anthology 3                                             1631
-Help!                                                   1024
-                                                        ... 
-UK: Rock 'n' Roll Music US: The Beatles Second Album     130
-UK: Rubber Soul US: Yesterday and Today                  625
-UK: With the Beatles US: Meet The Beatles!              1157
-UK: With the Beatles US: The Beatles Second Album        820
-Yellow Submarine                                         919
-Name: Duration, Length: 54, dtype: int64
-</pre></details>
+    Album.debut
+    Abbey Road                                                         2829
+    Anthology 1                                                        3100
+    Anthology 2                                                         725
+    Anthology 3                                                        1631
+    Help!                                                              1024
+    Let It Be                                                          2109
+    Let It Be... Naked - Fly on the Wall bonus disc                     704
+    Live at the BBC                                                    4264
+    Live! at the Star-Club in Hamburg, Germany; 1962                    150
+    Magical Mystery Tour                                               2200
+    On Air - Live at the BBC Volume 2                                   218
+    Revolver                                                           1652
+    Rock 'n' Roll Music                                                 153
+    Rubber Soul                                                        1508
+    Sgt. Pepper's Lonely Hearts Club Band                              2376
+    The Beatles                                                        5558
+    The Beatles Bootleg Recordings 1963                                 234
+    The Beatles' Christmas Album                                        183
+    UK: 1967-1970 US: Hey Jude                                         1358
+    UK: A Collection of Beatles Oldies US: 1962-1966                    116
+    UK: A Collection of Beatles Oldies US: Beatles '65                  145
+    UK: A Collection of Beatles Oldies US: Beatles VI                   150
+    UK: A Collection of Beatles Oldies US: Hey Jude                     138
+    UK: A Collection of Beatles Oldies US: Meet The Beatles!            144
+    UK: A Collection of Beatles Oldies US: The Beatles Second Album     138
+    UK: A Collection of Beatles Oldies US: Yesterday and Today          305
+    UK: A Hard Day's Night US: 1962-1966                                152
+    UK: A Hard Day's Night US: Beatles '65                              140
+    UK: A Hard Day's Night US: Hey Jude                                 295
+    UK: A Hard Day's Night US: Something New                           1100
+    UK: A Hard Day's Night US: The Beatles Second Album                 157
+    UK: Beatles for Sale US: Beatles '65                               1135
+    UK: Beatles for Sale US: Beatles VI                                 873
+    UK: Help! US: Beatles VI                                            456
+    UK: Help! US: Rubber Soul                                           242
+    UK: Help! US: Yesterday and Today                                   262
+    UK: Past Masters Volume 1 US: The Beatles Second Album              253
+    UK: Please Please Me US: Meet The Beatles!                          175
+    UK: Please Please Me US: Rarities                                   216
+    UK: Please Please Me US: The Early Beatles                         1553
+    UK: Rarities US: Beatles '65                                        183
+    UK: Rarities US: Beatles VI                                         161
+    UK: Rarities US: Hey Jude                                           179
+    UK: Rarities US: Meet The Beatles!                                  133
+    UK: Rarities US: Rarities                                           556
+    UK: Rarities US: Something New                                      146
+    UK: Rarities US: The Beatles Second Album                           121
+    UK: Revolver US: Yesterday and Today                                438
+    UK: Rock 'n' Roll Music US: Something New                           292
+    UK: Rock 'n' Roll Music US: The Beatles Second Album                130
+    UK: Rubber Soul US: Yesterday and Today                             625
+    UK: With the Beatles US: Meet The Beatles!                         1157
+    UK: With the Beatles US: The Beatles Second Album                   820
+    Yellow Submarine                                                    919
+    Name: Duration, dtype: int64
+
+</details>
 
 ##### See the maximum value in the specified column(s) for each group
 
-> Only works with numerical data
+Only works with numerical data
+
 
 ```python
 grouped['Top.50.Billboard'].max()
 ```
 
-<details><summary>Output</summary><pre>
-Album.debut
-Abbey Road                                              30
-Anthology 1                                             45
-Anthology 2                                             47
-Anthology 3                                             -1
-Help!                                                   17
-                                                        ..
-UK: Rock 'n' Roll Music US: The Beatles Second Album    -1
-UK: Rubber Soul US: Yesterday and Today                 27
-UK: With the Beatles US: Meet The Beatles!              -1
-UK: With the Beatles US: The Beatles Second Album       -1
-Yellow Submarine                                        -1
-Name: Top.50.Billboard, Length: 54, dtype: int64
-</pre></details>
+<details>
+<summary>Output</summary>
+
+
+    Album.debut
+    Abbey Road                                                         30
+    Anthology 1                                                        45
+    Anthology 2                                                        47
+    Anthology 3                                                        -1
+    Help!                                                              17
+    Let It Be                                                          20
+    Let It Be... Naked - Fly on the Wall bonus disc                    -1
+    Live at the BBC                                                    -1
+    Live! at the Star-Club in Hamburg, Germany; 1962                   -1
+    Magical Mystery Tour                                               48
+    On Air - Live at the BBC Volume 2                                  -1
+    Revolver                                                           38
+    Rock 'n' Roll Music                                                -1
+    Rubber Soul                                                        -1
+    Sgt. Pepper's Lonely Hearts Club Band                              -1
+    The Beatles                                                        -1
+    The Beatles Bootleg Recordings 1963                                -1
+    The Beatles' Christmas Album                                       -1
+    UK: 1967-1970 US: Hey Jude                                         32
+    UK: A Collection of Beatles Oldies US: 1962-1966                   -1
+    UK: A Collection of Beatles Oldies US: Beatles '65                 11
+    UK: A Collection of Beatles Oldies US: Beatles VI                  -1
+    UK: A Collection of Beatles Oldies US: Hey Jude                    19
+    UK: A Collection of Beatles Oldies US: Meet The Beatles!            2
+    UK: A Collection of Beatles Oldies US: The Beatles Second Album     3
+    UK: A Collection of Beatles Oldies US: Yesterday and Today         29
+    UK: A Hard Day's Night US: 1962-1966                                8
+    UK: A Hard Day's Night US: Beatles '65                             -1
+    UK: A Hard Day's Night US: Hey Jude                                10
+    UK: A Hard Day's Night US: Something New                           43
+    UK: A Hard Day's Night US: The Beatles Second Album                -1
+    UK: Beatles for Sale US: Beatles '65                               -1
+    UK: Beatles for Sale US: Beatles VI                                49
+    UK: Help! US: Beatles VI                                           -1
+    UK: Help! US: Rubber Soul                                          -1
+    UK: Help! US: Yesterday and Today                                  50
+    UK: Past Masters Volume 1 US: The Beatles Second Album             -1
+    UK: Please Please Me US: Meet The Beatles!                         36
+    UK: Please Please Me US: Rarities                                  -1
+    UK: Please Please Me US: The Early Beatles                         34
+    UK: Rarities US: Beatles '65                                       31
+    UK: Rarities US: Beatles VI                                        -1
+    UK: Rarities US: Hey Jude                                          42
+    UK: Rarities US: Meet The Beatles!                                 -1
+    UK: Rarities US: Rarities                                          -1
+    UK: Rarities US: Something New                                     -1
+    UK: Rarities US: The Beatles Second Album                          46
+    UK: Revolver US: Yesterday and Today                               -1
+    UK: Rock 'n' Roll Music US: Something New                          44
+    UK: Rock 'n' Roll Music US: The Beatles Second Album               -1
+    UK: Rubber Soul US: Yesterday and Today                            27
+    UK: With the Beatles US: Meet The Beatles!                         -1
+    UK: With the Beatles US: The Beatles Second Album                  -1
+    Yellow Submarine                                                   -1
+    Name: Top.50.Billboard, dtype: int64
+
+</details>
 
 ##### See the minimum value in the specified column(s) for each group
 
-> Only works with numerical data
+Only works with numerical data
 
-```python
+```py
 grouped[['Other.releases', 'Top.50.Billboard']].min()
 ```
 
-<details><summary>Output</summary>
-<table border="1">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Other.releases</th>
-      <th>Top.50.Billboard</th>
-    </tr>
-    <tr>
-      <th>Album.debut</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Abbey Road</th>
-      <td>5</td>
-      <td>-1</td>
-    </tr>
-    <tr>
-      <th>Anthology 1</th>
-      <td>0</td>
-      <td>-1</td>
-    </tr>
-    <tr>
-      <th>Anthology 2</th>
-      <td>0</td>
-      <td>-1</td>
-    </tr>
-    <tr>
-      <th>Anthology 3</th>
-      <td>0</td>
-      <td>-1</td>
-    </tr>
-    <tr>
-      <th>Help!</th>
-      <td>6</td>
-      <td>-1</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>UK: Rock 'n' Roll Music US: The Beatles Second Album</th>
-      <td>35</td>
-      <td>-1</td>
-    </tr>
-    <tr>
-      <th>UK: Rubber Soul US: Yesterday and Today</th>
-      <td>9</td>
-      <td>-1</td>
-    </tr>
-    <tr>
-      <th>UK: With the Beatles US: Meet The Beatles!</th>
-      <td>9</td>
-      <td>-1</td>
-    </tr>
-    <tr>
-      <th>UK: With the Beatles US: The Beatles Second Album</th>
-      <td>2</td>
-      <td>-1</td>
-    </tr>
-    <tr>
-      <th>Yellow Submarine</th>
-      <td>8</td>
-      <td>-1</td>
-    </tr>
-  </tbody>
-</table>
-<p>54 rows × 2 columns</p>
+<details>
+<summary>Output</summary>
+
+Output
+
+|  | Other.releases | Top.50.Billboard |
+| :---: | ----- | ----- |
+| Album.debut |  |  |
+| Abbey Road | 5 | \-1 |
+| Anthology 1 | 0 | \-1 |
+| Anthology 2 | 0 | \-1 |
+| Anthology 3 | 0 | \-1 |
+| Help\! | 6 | \-1 |
+| ... | ... | ... |
+| UK: Rock 'n' Roll Music US: The Beatles Second Album | 35 | \-1 |
+| UK: Rubber Soul US: Yesterday and Today | 9 | \-1 |
+| UK: With the Beatles US: Meet The Beatles\! | 9 | \-1 |
+| UK: With the Beatles US: The Beatles Second Album | 2 | \-1 |
+| Yellow Submarine | 8 | \-1 |
+
+54 rows × 2 columns
+
 </details>
 
 ##### See the average value in the specified column(s) for each group
 
-> Only works with numerical data
+Only works with numerical data
+
 
 ```python
 grouped['Top.50.Billboard'].mean()
 ```
 
-<details><summary>Output</summary><pre>
-Album.debut
-Abbey Road                                               1.235294
-Anthology 1                                              5.095238
-Anthology 2                                             11.000000
-Anthology 3                                             -1.000000
-Help!                                                    3.714286
-                                                          ...    
-UK: Rock 'n' Roll Music US: The Beatles Second Album    -1.000000
-UK: Rubber Soul US: Yesterday and Today                  6.000000
-UK: With the Beatles US: Meet The Beatles!              -1.000000
-UK: With the Beatles US: The Beatles Second Album       -1.000000
-Yellow Submarine                                        -1.000000
-Name: Top.50.Billboard, Length: 54, dtype: float64
-</pre></details>
+<details>
+<summary>Output</summary>
+
+
+    Album.debut
+    Abbey Road                                                          1.235294
+    Anthology 1                                                         5.095238
+    Anthology 2                                                        11.000000
+    Anthology 3                                                        -1.000000
+    Help!                                                               3.714286
+    Let It Be                                                           1.666667
+    Let It Be... Naked - Fly on the Wall bonus disc                    -1.000000
+    Live at the BBC                                                    -1.000000
+    Live! at the Star-Club in Hamburg, Germany; 1962                   -1.000000
+    Magical Mystery Tour                                               11.000000
+    On Air - Live at the BBC Volume 2                                  -1.000000
+    Revolver                                                            7.090909
+    Rock 'n' Roll Music                                                -1.000000
+    Rubber Soul                                                        -1.000000
+    Sgt. Pepper's Lonely Hearts Club Band                              -1.000000
+    The Beatles                                                        -1.000000
+    The Beatles Bootleg Recordings 1963                                -1.000000
+    The Beatles' Christmas Album                                       -1.000000
+    UK: 1967-1970 US: Hey Jude                                         13.500000
+    UK: A Collection of Beatles Oldies US: 1962-1966                   -1.000000
+    UK: A Collection of Beatles Oldies US: Beatles '65                 11.000000
+    UK: A Collection of Beatles Oldies US: Beatles VI                  -1.000000
+    UK: A Collection of Beatles Oldies US: Hey Jude                    19.000000
+    UK: A Collection of Beatles Oldies US: Meet The Beatles!            2.000000
+    UK: A Collection of Beatles Oldies US: The Beatles Second Album     3.000000
+    UK: A Collection of Beatles Oldies US: Yesterday and Today         19.000000
+    UK: A Hard Day's Night US: 1962-1966                                8.000000
+    UK: A Hard Day's Night US: Beatles '65                             -1.000000
+    UK: A Hard Day's Night US: Hey Jude                                 4.500000
+    UK: A Hard Day's Night US: Something New                            9.250000
+    UK: A Hard Day's Night US: The Beatles Second Album                -1.000000
+    UK: Beatles for Sale US: Beatles '65                               -1.000000
+    UK: Beatles for Sale US: Beatles VI                                11.000000
+    UK: Help! US: Beatles VI                                           -1.000000
+    UK: Help! US: Rubber Soul                                          -1.000000
+    UK: Help! US: Yesterday and Today                                  31.000000
+    UK: Past Masters Volume 1 US: The Beatles Second Album             -1.000000
+    UK: Please Please Me US: Meet The Beatles!                         36.000000
+    UK: Please Please Me US: Rarities                                  -1.000000
+    UK: Please Please Me US: The Early Beatles                          9.181818
+    UK: Rarities US: Beatles '65                                       31.000000
+    UK: Rarities US: Beatles VI                                        -1.000000
+    UK: Rarities US: Hey Jude                                          42.000000
+    UK: Rarities US: Meet The Beatles!                                 -1.000000
+    UK: Rarities US: Rarities                                          -1.000000
+    UK: Rarities US: Something New                                     -1.000000
+    UK: Rarities US: The Beatles Second Album                          46.000000
+    UK: Revolver US: Yesterday and Today                               -1.000000
+    UK: Rock 'n' Roll Music US: Something New                          42.000000
+    UK: Rock 'n' Roll Music US: The Beatles Second Album               -1.000000
+    UK: Rubber Soul US: Yesterday and Today                             6.000000
+    UK: With the Beatles US: Meet The Beatles!                         -1.000000
+    UK: With the Beatles US: The Beatles Second Album                  -1.000000
+    Yellow Submarine                                                   -1.000000
+    Name: Top.50.Billboard, dtype: float64
+
+</details>
+
+With the Top 50 Billboard, we took the max, min, and average. In the min, we discovered that -1 is a placeholder value for when a title does not make the top 50. So, our averages don't actually mean much, and we would want to filter the data to greater than 0 before doing these operations. This is why it is important to look into your data before doing one operation and drawing conclusions.
 
 ##### See the standard deviation in the specified column(s) for each group
 
-> Only works with numerical data
+Only works with numerical data
+
 
 ```python
 grouped['Duration'].std()
 ```
 
-<details><summary>Output</summary><pre>
-Album.debut
-Abbey Road                                              100.616884
-Anthology 1                                              33.071855
-Anthology 2                                              38.482680
-Anthology 3                                              81.551790
-Help!                                                    21.592547
-                                                           ...    
-UK: Rock 'n' Roll Music US: The Beatles Second Album           NaN
-UK: Rubber Soul US: Yesterday and Today                  12.816006
-UK: With the Beatles US: Meet The Beatles!               16.432522
-UK: With the Beatles US: The Beatles Second Album        13.247641
-Yellow Submarine                                        110.738054
-Name: Duration, Length: 54, dtype: float64
-</pre>
-<blockquote>Note that one of the standard deviations is <code>NaN</code>! Can you guess why?
-<br><br>
-<em>Hint: can you find how many rows are in that group?</em>
+<details>
+<summary>Output</summary>
+
+
+    Album.debut
+    Abbey Road                                                         100.616884
+    Anthology 1                                                         33.071855
+    Anthology 2                                                         38.482680
+    Anthology 3                                                         81.551790
+    Help!                                                               21.592547
+    Let It Be                                                           68.439921
+    Let It Be... Naked - Fly on the Wall bonus disc                     52.000000
+    Live at the BBC                                                     22.409579
+    Live! at the Star-Club in Hamburg, Germany; 1962                          NaN
+    Magical Mystery Tour                                                42.878899
+    On Air - Live at the BBC Volume 2                                    4.242641
+    Revolver                                                            19.338139
+    Rock 'n' Roll Music                                                       NaN
+    Rubber Soul                                                         21.212156
+    Sgt. Pepper's Lonely Hearts Club Band                               69.883419
+    The Beatles                                                         77.810084
+    The Beatles Bootleg Recordings 1963                                 35.355339
+    The Beatles' Christmas Album                                              NaN
+    UK: 1967-1970 US: Hey Jude                                         103.903160
+    UK: A Collection of Beatles Oldies US: 1962-1966                          NaN
+    UK: A Collection of Beatles Oldies US: Beatles '65                        NaN
+    UK: A Collection of Beatles Oldies US: Beatles VI                         NaN
+    UK: A Collection of Beatles Oldies US: Hey Jude                           NaN
+    UK: A Collection of Beatles Oldies US: Meet The Beatles!                  NaN
+    UK: A Collection of Beatles Oldies US: The Beatles Second Album           NaN
+    UK: A Collection of Beatles Oldies US: Yesterday and Today          24.748737
+    UK: A Hard Day's Night US: 1962-1966                                      NaN
+    UK: A Hard Day's Night US: Beatles '65                                    NaN
+    UK: A Hard Day's Night US: Hey Jude                                 23.334524
+    UK: A Hard Day's Night US: Something New                            12.983506
+    UK: A Hard Day's Night US: The Beatles Second Album                       NaN
+    UK: Beatles for Sale US: Beatles '65                                20.773868
+    UK: Beatles for Sale US: Beatles VI                                 19.377822
+    UK: Help! US: Beatles VI                                             6.082763
+    UK: Help! US: Rubber Soul                                            8.485281
+    UK: Help! US: Yesterday and Today                                   11.313708
+    UK: Past Masters Volume 1 US: The Beatles Second Album               3.535534
+    UK: Please Please Me US: Meet The Beatles!                                NaN
+    UK: Please Please Me US: Rarities                                    1.414214
+    UK: Please Please Me US: The Early Beatles                          17.954488
+    UK: Rarities US: Beatles '65                                              NaN
+    UK: Rarities US: Beatles VI                                               NaN
+    UK: Rarities US: Hey Jude                                                 NaN
+    UK: Rarities US: Meet The Beatles!                                        NaN
+    UK: Rarities US: Rarities                                           66.078236
+    UK: Rarities US: Something New                                            NaN
+    UK: Rarities US: The Beatles Second Album                                 NaN
+    UK: Revolver US: Yesterday and Today                                31.953091
+    UK: Rock 'n' Roll Music US: Something New                           41.012193
+    UK: Rock 'n' Roll Music US: The Beatles Second Album                      NaN
+    UK: Rubber Soul US: Yesterday and Today                             12.816006
+    UK: With the Beatles US: Meet The Beatles!                          16.432522
+    UK: With the Beatles US: The Beatles Second Album                   13.247641
+    Yellow Submarine                                                   110.738054
+    Name: Duration, dtype: float64
+
 </details>
 
-#### Working With a Single Group
+Note that some of the standard deviations are NaN\! Can you guess why?
 
-Another way to make use of a `groupby` object is to examine one group in particular.
+*Hint: can you find how many rows are in that group?*
+
+<a name="working-with-a-single-group"></a>
+### Working With a Single Group
+
+Another way to make use of a groupby object is to examine one group in particular.
 
 ##### See the list of groups
 
-```python
+```py
 list(grouped.groups.keys())
 ```
 
-<blockquote><details><summary>What's going on here?</summary>
+What's going on here?
 
-`grouped.groups` returns a dictionary, wherein each **key** is a group name and each **value** is a list. The list contains the indices of each item from the original dataframe that is in that group.
+grouped.groups returns a dictionary, wherein each key is a group name and each value is a list. The list contains the indices of each item from the original dataframe that is in that group.
 
-If we want to see all of the group names, we only need the **keys** of this dictionary. However, `grouped.groups.keys()` comes out in a weird format. We can fix this by converting the output to a list, using `list()`. The result is a nicely formatted list of every group name in the `groupby` object.
-</details></blockquote>
+If we want to see all of the group names, we only need the keys of this dictionary. However, grouped.groups.keys() comes out in a weird format. We can fix this by converting the output to a list, using list(). The result is a nicely formatted list of every group name in the groupby object.
 
-<br>
+<details>
+<summary>Output</summary>
 
-<details><summary>Output</summary><pre>
-['Abbey Road',
- 'Anthology 1',
- 'Anthology 2',
- 'Anthology 3',
- 'Help!',
- ...
- "UK: Rock 'n' Roll Music US: The Beatles Second Album",
- 'UK: Rubber Soul US: Yesterday and Today',
- 'UK: With the Beatles US: Meet The Beatles!',
- 'UK: With the Beatles US: The Beatles Second Album',
- 'Yellow Submarine']
-</pre>
-</details>
+\['Abbey Road',<br>
+ 'Anthology 1',<br>
+ 'Anthology 2',<br>
+ 'Anthology 3',<br>
+ 'Help\!',<br>
+ ...<br>
+ "UK: Rock 'n' Roll Music US: The Beatles Second Album",<br>
+ 'UK: Rubber Soul US: Yesterday and Today',<br>
+ 'UK: With the Beatles US: Meet The Beatles\!',<br>
+ 'UK: With the Beatles US: The Beatles Second Album',<br>
+ 'Yellow Submarine'\]
+
+</details> 
 
 ##### Check the number of groups
 
-```python
+```py
 grouped.ngroups
 ```
 
-<details><summary>Output</summary><pre>
-54
-</pre>
-</details>
+Output
+
+`54`
 
 ##### See the contents of a group
 
-```python
+```py
 help = grouped.get_group('Help!')
 
 # see the group
 help
 ```
 
-<details><summary>Output</summary>
-<table border="1">
+<details>
+<summary>Output</summary>
+
+|  | Title | Year | Album.debut | Duration | Other.releases | Genre | Songwriter | Lead.vocal | Top.50.Billboard |
+| :---: | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
+| 16 | Another Girl | 1965 | Help\! | 124 | 9 | Country Rock, Pop/Rock | McCartney | McCartney | \-1 |
+| 92 | Help\! | 1965 | Help\! | 138 | 34 | Folk Rock, Pop/Rock | Lennon, with McCartney | Lennon | 14 |
+| 114 | I Need You | 1965 | Help\! | 148 | 11 | Pop/Rock | Harrison | Harrison | \-1 |
+| 261 | The Night Before | 1965 | Help\! | 153 | 13 | Electronic Pop/Rock | McCartney | McCartney | \-1 |
+| 270 | Ticket to Ride | 1965 | Help\! | 190 | 31 | Power Pop, Jangle Pop, Folk Rock, Pop/Rock | Lennon | Lennon, with McCartney | 17 |
+| 305 | You're Going to Lose That Girl | 1965 | Help\! | 140 | 6 | Rock, Pop/Rock | Lennon | Lennon | \-1 |
+| 306 | You've Got to Hide Your Love Away | 1965 | Help\! | 131 | 12 | FolkPop/Rock | Lennon | Lennon | \-1 |
+
+</details>
+
+The result stored in help is a dataframe\! You could perform any operation on help that you would on a dataframe.
+
+<a name="more-ways-to-use-groupby"></a>
+### More ways to use groupby
+
+Since groupby is such a powerful but complex tool, it may be helpful to learn more about the various ways to use it.
+
+#### Using Categorical Data - Lambda Functions and `apply(list)`
+So far, the aggregations methods explored have been applied to numerical data. However, we can also use categorical data with groupby. This section will explore function calls: lambda functions and `apply(list)`. While neither of these are aggregation functions, they can be extremely useful in transforming and analyzing our data, especially categorical data.
+
+##### Lambda Functions and `.apply()`
+`.apply()` takes a data structure and applies a function to it. For example, you could make a new column in a dataframe with a Boolean value. In this example, we'll check if a given track in Help\! made it in the top 50 billboard.
+
+
+```python
+# get the group for the album Help!
+help = grouped.get_group('Help!') 
+
+# set up a boolean function
+def is_top_50(track_rank) -> bool:
+    # Function to check if a track is in the top 50.
+    return track_rank > 0
+
+# apply the function to the help group
+help['is_top_50'] = help['Top.50.Billboard'].apply(is_top_50)
+help
+```
+
+<details>
+<summary>Output</summary>
+
+
+<div>
+
+<table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2198,6 +2225,7 @@ help
       <th>Songwriter</th>
       <th>Lead.vocal</th>
       <th>Top.50.Billboard</th>
+      <th>is_top_50</th>
     </tr>
   </thead>
   <tbody>
@@ -2212,6 +2240,7 @@ help
       <td>McCartney</td>
       <td>McCartney</td>
       <td>-1</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>92</th>
@@ -2224,6 +2253,7 @@ help
       <td>Lennon, with McCartney</td>
       <td>Lennon</td>
       <td>14</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>114</th>
@@ -2236,6 +2266,7 @@ help
       <td>Harrison</td>
       <td>Harrison</td>
       <td>-1</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>261</th>
@@ -2248,6 +2279,7 @@ help
       <td>McCartney</td>
       <td>McCartney</td>
       <td>-1</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>270</th>
@@ -2260,6 +2292,7 @@ help
       <td>Lennon</td>
       <td>Lennon, with McCartney</td>
       <td>17</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>305</th>
@@ -2272,6 +2305,7 @@ help
       <td>Lennon</td>
       <td>Lennon</td>
       <td>-1</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>306</th>
@@ -2284,17 +2318,237 @@ help
       <td>Lennon</td>
       <td>Lennon</td>
       <td>-1</td>
+      <td>False</td>
     </tr>
   </tbody>
 </table>
+</div>
+
 </details>
+
+
+However, many functions are small enough that they can be defined without a name - these are called lambda functions! The code below shows how to use a lambda function to do the same thing as the is_top_50 function above.
+
+
+```python
+# get the group for the album Help!
+help = grouped.get_group('Help!') 
+
+# use a lambda function to apply the is_top_50 function
+help['is_top_50'] = help['Top.50.Billboard'].apply(lambda x: x > 0)
+help
+```
+
+<details>
+<summary>Output</summary>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Album.debut</th>
+      <th>Duration</th>
+      <th>Other.releases</th>
+      <th>Genre</th>
+      <th>Songwriter</th>
+      <th>Lead.vocal</th>
+      <th>Top.50.Billboard</th>
+      <th>is_top_50</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>16</th>
+      <td>Another Girl</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>124</td>
+      <td>9</td>
+      <td>Country Rock, Pop/Rock</td>
+      <td>McCartney</td>
+      <td>McCartney</td>
+      <td>-1</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>92</th>
+      <td>Help!</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>138</td>
+      <td>34</td>
+      <td>Folk Rock, Pop/Rock</td>
+      <td>Lennon, with McCartney</td>
+      <td>Lennon</td>
+      <td>14</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>114</th>
+      <td>I Need You</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>148</td>
+      <td>11</td>
+      <td>Pop/Rock</td>
+      <td>Harrison</td>
+      <td>Harrison</td>
+      <td>-1</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>261</th>
+      <td>The Night Before</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>153</td>
+      <td>13</td>
+      <td>Electronic Pop/Rock</td>
+      <td>McCartney</td>
+      <td>McCartney</td>
+      <td>-1</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>270</th>
+      <td>Ticket to Ride</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>190</td>
+      <td>31</td>
+      <td>Power Pop, Jangle Pop, Folk Rock, Pop/Rock</td>
+      <td>Lennon</td>
+      <td>Lennon, with McCartney</td>
+      <td>17</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>305</th>
+      <td>You're Going to Lose That Girl</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>140</td>
+      <td>6</td>
+      <td>Rock, Pop/Rock</td>
+      <td>Lennon</td>
+      <td>Lennon</td>
+      <td>-1</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>306</th>
+      <td>You've Got to Hide Your Love Away</td>
+      <td>1965</td>
+      <td>Help!</td>
+      <td>131</td>
+      <td>12</td>
+      <td>FolkPop/Rock</td>
+      <td>Lennon</td>
+      <td>Lennon</td>
+      <td>-1</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+</details>
+
+Since we are already defining the column of interest, we can simply write `lambda x: x > 0`, and it will check if the value from the Top.50.Billboard column (*written as x, but could be any name*) is greater than 0 for each row, automatically entering the boolean response into is_top_50.
+
+##### Using `.apply(list)` with dataframes
+
+Now we're going to use the ``list`` function as an aggregation function, to work with genres and songs. Let's say we wanted a list of albums containing each Beatles genre.
+
+
+```python
+# First, we need to clean the data
+beatles_billboard['Genre'] = beatles_billboard['Genre'].str.lower().str.strip().fillna('') 
+beatles_billboard['Genre'] = beatles_billboard['Genre'].str.split(', ') 
+
+# Then, we need to explode the 'Genre' column
+beatles_exploded = beatles_billboard.explode('Genre')
+beatles_exploded
+
+# Now we can group by 'Genre' and aggregate the 'Title' column into a list
+grouped_list = beatles_exploded.groupby('Genre')['Album.debut'].apply(list)
+# But, this will have duplicates since multiple songs in each album can have the same genre tag. 
+
+# So, we'll have to combine this with a lambda function to remove duplicates - we can just use the built in "pd.unique".
+grouped_list = beatles_exploded.groupby('Genre')['Album.debut'].apply(lambda x: list(pd.unique(x)))
+grouped_list
+```
+
+<details>
+<summary>Output</summary>
+
+
+    Genre
+                       [Let It Be... Naked - Fly on the Wall bonus di...
+    acid rock                   [Magical Mystery Tour, Yellow Submarine]
+    acid rock[                                                [Revolver]
+    art pop                           [Magical Mystery Tour, Abbey Road]
+    art rock           [Sgt. Pepper's Lonely Hearts Club Band, Revolv...
+                                             ...                        
+    stage&screen            [UK: Please Please Me US: The Early Beatles]
+    sunshine pop                                              [Revolver]
+    swamp pop                                               [Abbey Road]
+    symphonic rock                                          [Abbey Road]
+    vaudeville rock                               [Magical Mystery Tour]
+    Name: Album.debut, Length: 81, dtype: object
+
+</details>
+
+
+Or, if we wanted to zoom in a little, we could get a list of every album containing a certain genre, like "psychedelic rock". The column that we group by serves as an index, so I can simply call it in the list.
+
+
+```python
+grouped_list["psychedelic rock"]
+```
+
+<details>
+<summary>Output</summary>
+
+
+    ["Sgt. Pepper's Lonely Hearts Club Band",
+     'Magical Mystery Tour',
+     'UK: Revolver US: Yesterday and Today',
+     'The Beatles',
+     'Yellow Submarine',
+     'Revolver',
+     'UK: A Collection of Beatles Oldies US: Hey Jude',
+     'UK: Rarities US: Hey Jude',
+     nan,
+     'Anthology 3']
+
+</details>
+
+
+#### Performing groupby on several columns
+
+What if I want to groupby on several columns?
+
+Performing a groupby operation on several columns at once if you want to create subgroups within a group. For example:
+
+```py
+album_vocal = beatles_billboard.groupby(['Album.debut', 'Lead.vocal'])
+```
+
+Then any operation you perform will be performed on the subgroup of 'Lead.vocal' within the larger 'Album.debut' group.
+
+Note that using groupby with several grouping columns will complicate the operations you perform later. Use the documentation\!
 
 <br>
 
-The result stored in `help` is a dataframe! You could perform any operation on `help` that you would on a dataframe.
 
 | [Pandas Basics][pandas-basics] | [Clean Data][pandas-clean] | [Tidy Data][pandas-tidy] | **Filtering, Finding, and Grouping** | [Graphs and Charts][pandas-graphs] | [Networks][pandas-networks] |
 |--------|--------|--------|--------|-------|-------|
+
 
 [pandas-basics]: 04_Pandas_Basics.md
 [pandas-clean]: 05_Pandas_Clean_Data.md

@@ -25,9 +25,12 @@ Our main resource is the [Plotly Express](https://plotly.com/python/plotly-expre
 
 ---
 
-The first step is always to import the relevant library:
+The first step is always to import the relevant library. 
+
 
 ```python
+# Import libraries
+import pandas as pd
 import plotly.express as px
 ```
 
@@ -41,142 +44,93 @@ From here you will normally:
 
 Bar charts are used to display categorical data. They consist of vertical or horizontal bars that represent different categories and their corresponding values. Bar charts are excellent for comparing data across different categories.  Learn more at [Plotly Express](https://plotly.com/python/bar-charts/)
 
-Here's an example of a bar chart showing the sales of different products:
+Here's an example of a bar chart showing mean values for selected Spotify features, by album:
 
-<Details>
-<Summary> Sample Bar Chart Code </Summary>
+<details><summary>Bar Chart Code</summary>
 
 ```python
-# import libraries
-import pandas as pd
-import plotly.express as px
-# Create a DataFrame for bar chart
-bar_data = {'categories': ['Product A', 'Product B', 'Product C'],
-            'sales': [100, 150, 120]}
-df_bar = pd.DataFrame(bar_data)
+# Group data by year and album, calculating the mean for selected audio features
+grouped_data = beatles_spotify.groupby(['year', "album"])[['danceability', 'energy', 'acousticness']].mean().copy()
+grouped_data = grouped_data.reset_index()
 
-# The barchart with Plotly Express specifying the source df, the columns to use as x and y axes, 
-# labels to use for those axes, and an overall title for the figure that will serve as your caption
-fig = px.bar(df_bar, 
-             x = 'categories', y= 'sales', 
-             labels={'categories': 'Product Category', 'sales': 'Sales'},
-             title='Figure 1: Sales Report'
-            )
-# Set width and height in pixels
-fig.update_layout(width=600, height=400) 
+fig = px.bar(grouped_data,
+             x='album',
+             y=['danceability', 'energy', 'acousticness'], # If you wanted a simpler bar chart, you could use a single feature
+             labels={'danceability': 'Danceability', 'energy': 'Energy', 'acousticness': 'Acousticness'},
+             title='Figure 1: Compararive Beatles Album Scores for Selected Audio Features')
+
+fig.update_layout(barmode='group') # Set bar mode to group for side-by-side comparison, rather than stacked
+
+# Show the figure
 fig.show()
 ```
 
-</Details>
+</details>
+
+<br>
+    
+![png](images/bar_chart.png)
+    
 <br>
 
-![Alt text](images/bar.png)
 
 ## Histograms
 Histograms are used to display the distribution of numerical data. They consist of a series of adjacent rectangles (bins) that represent the frequency or proportion of data falling within specific intervals. Histograms help us understand the shape and spread of data.  Learn more at [Plotly Express](https://plotly.com/python/histograms/)
 
-Here's an example of a histogram displaying the distribution of exam scores:
+Let's use one to see how energetic Beatles songs tend to be!
 
-<Details>
-<Summary> Sample Histogram Code </Summary>
+<details><summary>Histogram Code</summary>
 
 ```python
-import pandas as pd
-import plotly.express as px
+ # Create histogram of song energy
+fig = px.histogram(
+    beatles_spotify,
+    x='energy',
+    nbins=20, ## Number of bins in the histogram
+    title='Distribution of Energy in Beatles Songs',
+    labels={'energy': 'Energy (0 = calm, 1 = intense)'},
+)
 
-# Create a DataFrame for bar chart
-hist_data = {'scores': [80, 85, 90, 70, 75, 88, 82, 95, 92, 78, 87, 80, 85, 90, 73, 79, 83]}
-df_hist = pd.DataFrame(hist_data)
-
-# The histogram with Plotly Express specifying the source df, the column to use for the histogram,
-# and title for the 
-fig = px.histogram(df_hist, 
-                   "scores",
-                   labels={'scores': 'Test Scores'},
-                   title="Score Distribution")
-
-# option to rename the y axis
-fig.update_yaxes(title_text='Count of Scores')
-
-# Set width and height in pixels
-fig.update_layout(width=600, height=400) 
 fig.show()
 ```
+</details>
 
-</Details>
+![png](images/histogram_example.png)
 
 <br>
-
-![Alt text](images/hist.png)
 
 ## Scatter Plots
 Scatter plots are used to display the relationship between two numerical variables. Each point on the plot represents the values of the variables. Scatter plots are useful for identifying patterns, trends, and outliers in the data.  Learn more at [Plotly Express](https://plotly.com/python/line-and-scatter/)
 
-Here's an example of a scatter plot showing the relationship between study hours and exam scores:
+Here's an example of a scatter plot showing the relationship between energy and danceability. You may notice that the graph is a little hard to read, since it is stretched out sideways. We'll change this later, when we learn how to customize graphs and charts.
 
-<Details>
-<Summary> Sample Scatter Plot Code </Summary>
+<details><summary>Scatter Plot Code</summary>
 
 ```python
-# Plotly
-import pandas as pd
-import plotly.express as px
+fig = px.scatter(
+    beatles_spotify,
+    x='danceability',
+    y='energy',
+    color='album',
+    title='Scatter Plot: Danceability vs Energy in Beatles Songs',
+    labels={'danceability': 'Danceability (0 = low, 1 = high)', 'energy': 'Energy (0 = calm, 1 = intense)'},
+)
 
-# Create a DataFrame for scatter plot
-scatter_data = {'study_hours': [3, 4, 2, 5, 6, 5, 3, 4, 2, 6],
-                'exam_scores': [70, 80, 65, 90, 95, 85, 75, 80, 70, 90]}
-df_scatter = pd.DataFrame(scatter_data)
+fig.show()
 
-# Plotly Scatter Plot
-# Note that here we include a Trend Line calculated using the Ordinary Least Squares (ols) method.
-# There are other methods, see documentation
-# also note options to change opacity of the plot points and the color of the trend line.
-fig_scatter = px.scatter(df_scatter,
-                         x = 'study_hours', y = 'exam_scores',
-                         opacity=1.00, 
-                         trendline='ols', 
-                         trendline_color_override='red',
-                        labels={'study_hours': 'Study Hours', 'exam_scores' : "Examination Scores"},
-                        title = "Scatter Plot of Study Hours vs Exam Scores, with Regression Line")
-
-fig_scatter.show()
 ```
 
-</Details>
+</details>
+
+![png](images/scatter_example1.png)
 
 <br>
-
-![Alt text](images/scatter.png)
-
-[See More Info on Regressions, here](Regressions.md)
 
 ### Scatter Plot with Variable Marker Size
 
-Here we combine several data features to make a more interesting kind of Scatter Plot, showing the changing representation of various places over time.  The examples draw from RILM Abstracts, the leading database of writings about music, all over the world.  In this case we searched for the terms "travel explorations", "explorers and travelers", and "travel writings" in the RILM Database.  We also restricted our results to only those subject entries that concerned "places" (the "G" category in the RILM Term taxonomy). This resulted in the following dataframe:
+Here we combine several data features to make a more interesting kind of Scatter Plot.
 
-
-![alt text](images/rilm_g_df.png)
-
-<br>
-
-This was in turn passed to the our scatterplot function. The occurences of the place names (the Y axis) are plotted over time (X axis).  The size of the marker reflects the relative number of occurences of that term in that year (the minimum is set with the 'term_threshold' argument).  Terms that occur in the work of the same author are given the same color (we can show or hide these with the 'legend' argument).  The title of the image is set with the 'title' argument.  We can also set the heighth and width of the image with two other variables
-
-
-
-
-```python
-final_results = final_results
-term_threshold = 5
-legend = False
-title = 'Travelogue Places'
-scatter_plot(final_results, term_threshold=term_threshold, legend=legend, title=title)
-```
-
-With the following result:
-
-![alt text](images/rilm_g_scatter.png)
-
-<br>
+![png](images/complex_scatter_beatles.png)
 
 Here is the code to do it:
 
@@ -186,38 +140,47 @@ Here is the code to do it:
 
 
 ```python
-# scatter plot shows terms over time
-def scatter_plot(final_results, term_threshold=5, legend=True, height=600, width=800, title=None):
-    # Filter out terms appearing less frequently than term_threshold
-    filtered_df = final_results.groupby('term').filter(lambda x: len(x) > term_threshold)
-    
-    # Calculate the size of markers based on term occurrence per year
-    value_counts = filtered_df.groupby(['term', 'year']).size().reset_index(name='marker_size')
-    
-    # Merge filtered_df with value_counts to ensure marker_size is correctly aligned
-    filtered_df = pd.merge(filtered_df, value_counts, on=['term', 'year'], how='left')
-    
-    # Create scatter plot
-    fig_scatter = px.scatter(filtered_df,
-                             x='year', y='term',
-                             hover_data=['author'],
-                             color='author',
-                             labels={'term': "Term", "author": "Author", "year": "Publication Year"},
-                             size='marker_size',
-                             height=height,
-                             width=width,
-                             title=title)
-    
-    # Customize layout
-    fig_scatter.update_layout(height=800)
-    fig_scatter.update_layout(showlegend=legend)
-    fig_scatter.update_yaxes(categoryorder='category descending')
-    
-    # Show plot
-    fig_scatter.show()
+genre_counts = beatles_data.groupby(['album', 'year', 'songwriter'])['genre'].value_counts().reset_index()
+
+substrings = ['Lennon', 'McCartney']
+
+
+john_paul = genre_counts[genre_counts['songwriter'].str.contains('|'.join(substrings))]
+
+
+# Create the scatter plot
+fig = px.scatter(
+    john_paul,
+    x='year',
+    y='genre',
+    size='count',
+    color='songwriter',
+    hover_data=['count'],
+    labels={
+        'x': 'Year',
+        'y': 'Genre',
+        'size': 'Number of Songs',
+        'color': 'Genre'
+    },
+    title="Number of Songs by Genre Over Time"
+)
+
+# Customize the plot
+fig.update_layout(
+    xaxis_title="Year",
+    yaxis_title="Genre",
+    showlegend=True,
+
+    width=800,  # Set width to 800px
+    height=800,  # Set height to 800px
+)
+
+# Show the plot
+fig.show()
 ```
 
 </Details>
+
 
 
 ## Radar or Spider Plots
@@ -225,6 +188,7 @@ def scatter_plot(final_results, term_threshold=5, legend=True, height=600, width
 Radar (or Polar) plots are a useful way to represent multiple variables at once, putting each of several variables around a central point:  the distance from the center indicates the strength of that feature.  There are many types of polar (radar) plots available in Plotly Express.  Here we use the `line_polar` plot.  Read more about the various features via [Plotly Express](https://plotly.com/python/radar-chart/).  
 
 It is helpful in this instance to use the Pandas `melt` method to transform our 'wide' data (with multiple columns for the individual audio features) into 'long' form data (with each feature represented as an individual row: 
+
 
 ```python
 pd.melt(sample, id_vars=['track_title'], value_vars=feature_list)
@@ -278,6 +242,7 @@ spotify_tools.audio_feature_radar(audio_feature_data, feature_list, "My Radar Pl
 
 <br>
 
+
 ## Correlation Plots and Heatmaps
 
 Correlation plots are used to visualize the strength and direction of the relationship between two numerical variables. They provide a numerical measure called the correlation coefficient, which ranges from -1 to 1. A value close to -1 indicates a strong negative correlation, a value close to 1 indicates a strong positive correlation, and a value close to 0 indicates no or weak correlation.
@@ -285,6 +250,7 @@ Correlation plots are used to visualize the strength and direction of the relati
 One way to do this is via the `scatter_matrix` function in Plotly Express, which produces an individual scatterplot of all pairs of values in each pair of variables in your data.  Here is an example using audio feature data from Spotify.   Learn more at [Plotly Express](https://plotly.com/python/splom/)
 
 Note that to show trend lines as noted above, you would need to produce an individual scatterplot for each pair of variables.
+
 
 <Details>
 <Summary> Sample Correlation Plot Code </Summary>
@@ -321,7 +287,9 @@ fig.show()
 ![Alt text](images/corr_matrix_chart.png)
 
 
+
 Another way to get a good sense of the high-level correlations among variables is by first making a correlation matrix with Pandas (that is:  `correlation_matrix = data_to_correlate.corr()`) and then passing that result to the Plotly Express `imshow()` method, as seen below.  Learn more at [Plotly Express](https://plotly.com/python/heatmaps/)
+
 
 <Details>
 <Summary> Sample Code to Show Correlation Matrix as Plotly Heatmap </Summary>
@@ -355,6 +323,7 @@ fig.show()
 
 ![Alt text](images/corrheatmap.png)
 
+
 ### Correlation Does Not Equal Causation
 It's crucial to understand that correlation does not imply causation. Just because two variables are correlated does not mean that one variable causes the other. Correlation measures the statistical relationship between variables but cannot determine cause and effect.
 
@@ -374,60 +343,125 @@ In Plotly Express there are various ways to change the size of your final image,
 
 The Plotly Express documentation explains the main options.  Here we summarize a few of the most important.
 
+
+
 ### Adjusting Size of the Image
 
-Adjust the size by adding `fig.update_layout(width=600, height=400)` on the penultimate line of your chart code (immediately before `fig.show()`. The values for width and height are expressed in pixels.  Learn more at [Plotly Express](https://plotly.com/python/setting-graph-size/)
+Remember the scatterplot that was hard to read because of the layout size? Here, we are going to try to fix it by setting the x and y dimensions to values that makes sense, prevent stretching of the axes. Generally, 800 x 600 is a good place to start.
 
-<Details>
-<Summary> Sample Code to Adjust Size of Plotly Express Figure </Summary>
+Adjust the size by adding `fig.update_layout(width=x, height=y)` on the penultimate line of your chart code (immediately before `fig.show()`.  The values for width and height are expressed in pixels. Of course, remember to replace x and y with actual values! Learn more at [Plotly Express](https://plotly.com/python/setting-graph-size/).
+
+<details><summary>Code for altering size</summary>
 
 ```python
-import pandas as pd
-import plotly.express as px
+# Create the original scatter plot of danceability vs energy
+fig = px.scatter(
+    beatles_spotify,
+    x='danceability',
+    y='energy',
+    color='album',
+    title='Scatter Plot: Danceability vs Energy in Beatles Songs',
+    labels={'danceability': 'Danceability (0 = low, 1 = high)', 'energy': 'Energy (0 = calm, 1 = intense)'},
+)
 
-# Create a DataFrame for bar chart
-hist_data = {'scores': [80, 85, 90, 70, 75, 88, 82, 95, 92, 78, 87, 80, 85, 90, 73, 79, 83]}
-df_hist = pd.DataFrame(hist_data)
+# Adjust size
+fig.update_layout(
+    width=800,
+    height=600,
+)
 
-# Create the Figure
-fig = px.histogram(df_hist, 
-                   "scores",
-                   labels={'scores': 'Test Scores'},
-                   title="Score Distribution")
-
-# Set width and height in pixels
-fig.update_layout(width=600, height=400) 
+# Show the figure
 fig.show()
 ```
 
-</Details>
+</details>
+
+![png](images/size_example.png)
 
 <br>
+
+#### Adding a trend line
+
+Now that we can read our plot a little better, lets add a basic trend line with `trendline="ols"`. It's worth noting that if you don't remove `color = 'album'`, it will create a trend line for each album - a jumbled mess. Also, see how we adjusted the size within the initial code.
+
+<details><summary>Trend line code</summary>
+
+```python
+# Create the scatter plot of danceability vs energy
+fig = px.scatter(
+    beatles_spotify,
+    x='danceability',
+    y='energy',
+    trendline="ols", # Adding a trendline for better analysis
+    title='Scatter Plot: Danceability vs Energy in Beatles Songs',
+    labels={'danceability': 'Danceability (0 = low, 1 = high)', 'energy': 'Energy (0 = calm, 1 = intense)'},
+    width=800,
+    height=700,
+)
+
+fig.show()
+```
+
+</details>
+
+![png](images/trend_line.png)
+
 
 ### Pick Custom Color Scheme
 
 You can select an overall color palette from among several options.  Here you need to add `color_discrete_sequence=px.colors.qualitative.Pastel` when you create the chart.  Learn more at [Plotly Express](https://plotly.com/python/discrete-color/)
 
-<Details>
-<Summary> Sample Code to Adjust Color Palette  </Summary>
+
+<details><summary>Changing the color scheme</summary>
 
 ```python
-# Load the gapminder dataset
-df = px.data.gapminder()
+# we also 'filter' the results to eliminate songs instances of just one song in the matching Year/Songwriter/Genre category
 
-# Create a histogram of life expectancy, colored by continent
-fig = px.histogram(df, x="lifeExp", nbins=50, color="continent",
-                   color_discrete_sequence=px.colors.qualitative.Pastel,
-                   title="Histogram of Life Expectancy, Colored by Continent")
+# First, create a 'song_count' column (since it doesn't exist in the DataFrame)
+beatles_billboard['song_count'] = 1
 
-# Display the figure
+author_counts = beatles_billboard.groupby(['Year', 'Songwriter', 'Genre'])['song_count'].sum().reset_index()
+
+# filter out 'unique' genres (or focus on them!)
+author_counts = author_counts[author_counts['song_count'] >= 2]
+
+# Create the scatter plot
+fig = px.scatter(
+    author_counts,
+    x='Year',
+    y='Songwriter',
+    size='song_count',
+    color='Genre',
+    hover_data=['song_count'],
+    labels={
+        'Year': 'Year',
+        'Songwriter': 'Songwriter',
+        'song_count': 'Number of Songs',
+        'Genre': 'Genre'
+    },
+    title="Number of Songs by Songwriter Over Time",
+    color_discrete_sequence = px.colors.qualitative.Pastel # Change the color scheme to a pastel palette
+)
+
+# Customize the plot
+fig.update_layout(
+    xaxis_title="Year",
+    yaxis_title="Songwriter",
+    showlegend=True,
+    width=1200,  # Set width to 800px
+    height=800,  # Set height to 800px
+)
+
+# Show the plot
 fig.show()
 ```
-</Details>
+
+</details>
+
+![png](images/color_scheme.png)
 
 <br>
 
-![Alt text](images/hist_color.png)
 
 ### Axis Scaling:  Linear or Logarithmic?
 
@@ -437,8 +471,7 @@ Normally numerical values are shown on a linear scale.  But it's possible to use
 <Summary> Sample Code to Adjust Axis Scaling </Summary>
 
 ```python
-import pandas as pd
-import plotly.express as px
+# This is a generic example, since we don't have anything logarithmic in our datasets.
 
 fig = px.scatter(x=[1, 2, 3], y=[10, 100, 1000],
                 log_y=True)
@@ -451,36 +484,47 @@ fig.show()
 
 <br>
 
-### Adding a Title
 
-To give your chart or graph an overall title, include `fig.update_layout(title_text="My Chart's Title")`. Learn more via the [Plotly Express documentation](https://plotly.com/python/figure-labels/).
 
-<Details>
-<Summary> Sample Code to add Figure Title </Summary>
+
+### Adding Titles
+
+To give your chart or graph an overall title, include `fig.update_layout(title_text="My Chart's Title")`. You can also customize your x and y-axis titles. Learn more via the [Plotly Express documentation](https://plotly.com/python/figure-labels/).
+
+
+<details><summary>Add Titles</summary>
 
 ```python
-import pandas as pd
-import plotly.express as px
+ # Create histogram of song energy
+fig = px.histogram(
+    beatles_spotify,
+    x='energy',
+    nbins=5,
+    labels={'energy': 'Energy (0 = calm, 1 = intense)'},
+    template='plotly_white'
+)
 
-# Create the bar chart
-fig = px.bar(x=[1, 2, 3], y=[10, 11, 12])])
+fig.update_layout(
+    title_text = 'New Title: Distribution of Energy in Beatles Songs', # Changes the text that is displayed at the top of the plot
+    xaxis_title = 'Energy (0 = calm, 1 = intense)', # Changes the x-axis title
+    yaxis_title = 'Count', # Changes the y-axis title
+    width=800,  # Set width to 800px
+    height=600,  # Set height to 600px
+)
 
-# Add a title
-fig.update_layout(title_text="Sales by Product")
-
-# Show the chart
 fig.show()
 ```
 
-</Details>
+</details>
+
+![png](images/titles.png)
 
 <br>
-
-![Alt text](images/bar.png)
 
 ### Labels and Legends 
 
 You can label data so that each point or category is identified with a particular color, which is then explained in a legend at the side of the chart. Learn more via the [Plotly Express documentation](https://plotly.com/python/figure-labels/).
+
 
 <Details>
 <Summary> Sample Code to Add Legend and Data Labels </Summary>
@@ -502,10 +546,12 @@ fig.show()
 ![Alt text](images/legend.png)
 
 
+
 ### X and Y Axis Tickmarks
 
 The content of the x and y axes are termined via variables passed in when you create your plot.  But the orientation, size and other graphical aspects of the scales themselves are determined via 'tickmark' adjustments.  One useful technique when dealing with song titles from Spotify information is to angle the X-axis tickmarks by updating the figure with `fig.update_xaxes(tickangle=45)
 `. You can easily adjust many other aspects of the tickmarks and labelling style. See more at [Plotly Express](https://plotly.com/python/axes/)
+
 
 <Details>
 <Summary> Sample Code to Adjust Tickmark Angle </Summary>
@@ -533,9 +579,11 @@ fig.show()
 
 ![Alt text](images/plotly_tick_angle.png)
 
+
 ### Hover to Show Data Points
 
 Include a list of `hover_data` columns when you create the Plotly Express figure.  Learn more via the [Plotly Express documentation](https://plotly.com/python/hover-text-and-formatting/), and see the example below.
+
 
 <Details>
 <Summary> Sample Code to Add Hover Data </Summary>
@@ -553,6 +601,7 @@ fig.show()
 <br>
 
 ![Alt text](images/hover.png)
+
 
 | [Pandas Basics][pandas-basics] | [Clean Data][pandas-clean] | [Tidy Data][pandas-tidy] | [Filtering, Finding, and Grouping][pandas-filter-find-group] | **Graphs and Charts** | [Networks][pandas-networks] |
 |--------|--------|--------|--------|-------|-------|
