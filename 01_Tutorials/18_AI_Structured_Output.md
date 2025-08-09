@@ -1,4 +1,4 @@
-# AI Tutorial: Structured Output with LangChain (Vaudeville Project)
+# AI Tutorial: Structured Output with LangChain 
 
 In your previous labs, you’ve worked with **structured data** — tidy CSV files with neat columns. In this tutorial, we’ll learn how to take **unstructured text** (like a scanned play) and turn it into structured data you can analyze with pandas.
 
