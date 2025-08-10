@@ -676,6 +676,9 @@ beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.re
 beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace("stage&screen", "stage and screen")
 ```
 
+You could also clean the data with a a dictionary and map, as we explained in the [Pandas: Clean Data][pandas-clean]tutorial
+
+
 The result for Golden Slumbers would look like this:
 
 |  | Title | Year | Album.debut | Duration | Other.releases | Genre | Songwriter | Lead.vocal | Top.50.Billboard |
@@ -2184,6 +2187,39 @@ The result stored in help is a dataframe\! You could perform any operation on he
 ### More ways to use groupby
 
 Since groupby is such a powerful but complex tool, it may be helpful to learn more about the various ways to use it.
+
+#### Using `transform()` with Groupby to Create New Columns in your Existing DataFrame
+
+So far we have seen various ways to aggregate data using groupby.  Each of these returns a dataframe that is shaped very different from our original.  But what if you wanted to derive some data about groups of objects that are then added to the original set?  We do this with `transform()`.  
+
+For example, let's say we want to filter out of our dataset all genres that appear only **once**.  We could do this by getting the `df.value_counts()` then, filtering that list, and finally using that short list to test for values in our genre column, with `isin([])`.
+
+```python
+# explode the genre column to get each genre in its own row
+beatles_exploded = beatles_billboard.explode('Genre')
+
+# get the value counts of the genre column
+genre_counts = beatles_exploded['Genre'].value_counts()
+# filter the value counts to only those that appear more than once
+common_genres = genre_counts[genre_counts > 1].index
+# filter the original dataframe to only those genres that appear more than once
+beatles_exploded_common_genres = beatles_exploded[beatles_exploded['Genre'].isin(common_genres)]
+beatles_exploded_common_genres.head()
+```
+
+But another way to do this would be with `groupby` and `transform()`, reporting the resulting count for each genre value to a new column in the original dataset and then filtering those out.  Here is how:
+
+
+```python
+# groupby the genre column and transform to get the count of each genre
+beatles_exploded = beatles_billboard.explode('Genre')
+
+beatles_exploded['genre_count'] = beatles_exploded.groupby('genre')['genre'].transform('count')
+# filter out the genres that appear only once
+beatles_exploded_common_genres = beatles_exploded[beatles_exploded['genre_count'] > 1]
+beatles_exploded_common_genres.head()
+```
+
 
 #### Using Categorical Data - Lambda Functions and `apply(list)`
 So far, the aggregations methods explored have been applied to numerical data. However, we can also use categorical data with groupby. This section will explore function calls: lambda functions and `apply(list)`. While neither of these are aggregation functions, they can be extremely useful in transforming and analyzing our data, especially categorical data.
