@@ -676,7 +676,7 @@ beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.re
 beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace("stage&screen", "stage and screen")
 ```
 
-You could also clean the data with a a dictionary and map, as we explained in the [Pandas: Clean Data][pandas-clean]tutorial
+You could also clean the data with a a dictionary and map, as we explained in the [Pandas: Clean Data][pandas-clean] tutorial
 
 
 The result for Golden Slumbers would look like this:
@@ -983,7 +983,7 @@ Or focus on the relative activity of Lennon and McCartney across the years, firs
 beatles_jl_pm = beatles_billboard[beatles_billboard['Songwriter'].isin(["Lennon", "McCartney"])]
 ```
 
-Note this excludes tracks they did not write independently. .isin() searches for exact matches, so for example, 'Lennon and Harrison' would not be included.
+Note this excludes tracks they did not write independently. `.isin()` searches for exact matches, so for example, 'Lennon and Harrison' would not be included.
 
 Then find the 'groups':
 
