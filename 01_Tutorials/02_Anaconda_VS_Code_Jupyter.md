@@ -45,12 +45,15 @@ The terminal prompt (in a new window), will look something like what you see bel
 Copy the following code and paste it directly after the terminal prompt, then press return/enter.
 
 ```python
-pip install git+https://github.com/RichardFreedman/Encoding_Music
+pip install git+https://github.com/RichardFreedman/Encoding_Music.git
 ```
 
-![Alt text](images/screenshot_1621.png)
 
 This might take a minute or two, and you will see a long and rapdily moving display of content in the Terminal window.  Eventually the process will stop and you will see the prompt again.  Success!
+
+#### Note about LLM Tools
+
+Note that some of the 'dependencies' used by our LangChain system for managing work with LLMS and Open AI differ slightly from those in the main Encoding Music tools.  You might need to create a new virtual environment for these!
 
 ### Get The Notebooks and Work With Them Locally
 
@@ -80,11 +83,6 @@ You might also want to install an extension called `live preview`, which will he
 
 ![Alt text](images/screenshot_1624.png)
 
-### Run VS Code Locally While Using Encoding Music Server Remotely
-
-It is also possible to use a *local* copy of VS Code but invoke the code *from the remote Encoding Music server*.  In this way you will not need to install the libraries, and you will still be able to use all the current features for our work.
-
-In development!  more to come!
 
 
 
