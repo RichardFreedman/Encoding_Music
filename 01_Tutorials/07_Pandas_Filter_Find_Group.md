@@ -628,6 +628,12 @@ With `qcut` method:
 ```python
 binned_data = pd.qcut(beatles_spotify["danceability"], q=4, labels=['l', 'm', 'h', 's'])
 ```
+
+The results are each a Series.  You can assign these binned (and labelled) categories back to a column in the original dataframe.  For example:
+
+```python
+beatles_spotify['dance_binned'] = pd.qcut(beatles_spotify["danceability"], q=4, labels=['l', 'm', 'h', 's'])
+
 ## Groupby Functions
 
 `groupby` is a powerful method that saves time when working with subsets (groups) of your data that share a certain characteristic. Some of its most important use cases are compiling statistics for several subsets of your data, simultaneously and creating graphs based on those subsets.
