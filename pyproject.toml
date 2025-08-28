@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools>=42", "wheel", "poetry-core>=1.0.0"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "encoding-music"
@@ -10,16 +10,18 @@ readme = "README.md"
 authors = ["Richard Freedman <rfreedma@haverford.edu>"]
 license = "creative commons"
 
+# Poetry will auto-detect the encoding_music package now
+
 [tool.poetry.dependencies]
 python = ">=3.9"
 altair = "5.2.0"
 beautifulsoup4 = "^4.12.3"
 certifi = "2020.12.5"
-crim_intervals = "2.0.51"
+crim_intervals = "2.0.59"
 chardet = "4.0.0"
 h11 = "0.14.0"
 httpcore = "1.0.2"
-httpx = "0.26.0"
+httpx = "0.27.0"
 idna = "3.1"
 ipython = ">=7.23.1,<8.0"
 joblib = "1.0.1"
@@ -51,9 +53,9 @@ verovio = "4.1.0"
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.0.0"
 
-# Keep the bumpversion configuration
+# Updated path for bumpversion
 [[tool.poetry_bumpversion.replacements]]
-files = ["crim_intervals/__init__.py"]
+files = ["encoding_music/__init__.py"]
 search = '__version__ = "{current_version}"'
 replace = '__version__ = "{new_version}"'
 
