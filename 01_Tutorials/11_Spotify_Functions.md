@@ -1,5 +1,10 @@
 # Spotify Functions for the Encoding Music Course
 
+## Update for 2025!
+
+As of December 2024, Spotify has all but eliminated access to the Spotify API for most users.  It's possible that the code below will work again in the future, but for now, this is simply for historical reference!
+
+
 |    | Contents of this Tutorial               | 
 |----|-----------------------------------------|
 | 1. | [**Brief Introduction: Spotify, APIs, Spotify API, and Spotipy**](#brief-introduction-spotify-apis-spotify-api-and-spotipy) |

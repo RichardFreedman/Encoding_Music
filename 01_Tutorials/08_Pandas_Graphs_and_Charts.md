@@ -243,6 +243,103 @@ spotify_tools.audio_feature_radar(audio_feature_data, feature_list, "My Radar Pl
 <br>
 
 
+## Sankey Charts
+
+Sankey charts can be an interesting way of showing connections among different categorical data.  In this example we show the 'flow' of songs in two different albums according to their danceability.  We previously turned the Spotify scalar danceability ratings into 'low', 'middle', and 'high' categoricals using `pd.qcut`, like this:
+
+```python
+beatles['dance_binned'] = pd.qcut(beatles["danceability"], q=3, labels=['low', 'medium', 'high'])
+```
+
+Then to create our Sankey chart we filter the data to show just two albums, and select the other features accordingly.
+
+Creating a Sankey chart is a bit like creating a network:  we need to establish various `nodes` and various `links` among them.
+
+```python
+df = beatles[beatles['album'].isin(['Magical Mystery Tour', 'Abbey Road'])].copy()
+
+
+# Configure your columns here - just change the chosen_feature to any column name
+album_col = 'album'
+song_col = 'song'
+chosen_feature = 'dance_binned'  # Change this to any column name you want (e.g., 'key', 'tempo', 'energy', etc.)
+
+# Create count column for flow values
+df['count'] = 1
+
+# Create Album → Song links
+album_song_links = df.groupby([album_col, song_col])['count'].sum().reset_index()
+album_song_links.columns = ['source', 'target', 'value']
+
+# Create Song → Feature links
+song_feature_links = df.groupby([song_col, chosen_feature])['count'].sum().reset_index()
+song_feature_links.columns = ['source', 'target', 'value']
+
+# Get unique nodes for each tier
+albums = sorted(df[album_col].unique())
+songs = sorted(df[song_col].unique())
+features = sorted([str(feature) for feature in df[chosen_feature].unique()])
+
+# Create complete node list
+all_nodes = albums + songs + features
+
+# Create node index mapping
+node_to_index = {node: idx for idx, node in enumerate(all_nodes)}
+
+# Create source and target index lists
+sources = []
+targets = []
+values = []
+
+# Add Album → Song links
+for _, row in album_song_links.iterrows():
+    sources.append(node_to_index[row['source']])
+    targets.append(node_to_index[row['target']])
+    values.append(row['value'])
+
+# Add Song → Feature links
+for _, row in song_feature_links.iterrows():
+    sources.append(node_to_index[row['source']])
+    targets.append(node_to_index[str(row['target'])])
+    values.append(row['value'])
+
+# Create node colors
+num_albums = len(albums)
+num_songs = len(songs)
+num_features = len(features)
+
+node_colors = (['lightcoral'] * num_albums +      # Albums in light coral
+              ['lightblue'] * num_songs +          # Songs in light blue  
+              ['lightgreen'] * num_features)       # Features in light green
+
+# Simple Sankey with automatic positioning
+fig = go.Figure(data=[go.Sankey(
+    node=dict(
+        label=all_nodes,
+        color=node_colors
+    ),
+    link=dict(
+        source=sources,
+        target=targets,
+        value=values
+    )
+)])
+
+# Dynamic title based on chosen feature
+feature_name = chosen_feature.replace('_', ' ').title()
+fig.update_layout(title=f"Album → Song → {feature_name}",
+                 height=1200)
+fig.show()
+
+```
+
+<br>
+
+
+![alt text](images/sankey.png)
+
+<br>
+
 ## Correlation Plots and Heatmaps
 
 Correlation plots are used to visualize the strength and direction of the relationship between two numerical variables. They provide a numerical measure called the correlation coefficient, which ranges from -1 to 1. A value close to -1 indicates a strong negative correlation, a value close to 1 indicates a strong positive correlation, and a value close to 0 indicates no or weak correlation.
