@@ -57,6 +57,15 @@ beatles_billboard_csv = 'https://raw.githubusercontent.com/inteligentni/Class-05
 beatles_billboard = pd.read_csv(beatles_billboard_csv)
 ```
 
+You can merge these with `pd.merge()`.  Or just load the combined data from our Encoding Music repository, in this case as a `pickle`:
+
+```python
+beatles_spotify_pkl = 'https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/main/02_Lab_Data/Beatles/beatles_data.pkl'
+
+# Import to a Pandas dataframe
+beatles_spotify = pd.read_pickle(beatles_spotify_pkl)
+```
+
 ## A Basic Filter
 
 An important feature in Pandas is the ability to look at only rows that meet a desired condition. This is called **filtering**. 

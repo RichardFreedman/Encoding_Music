@@ -34,6 +34,15 @@ import pandas as pd
 import plotly.express as px
 ```
 
+And of course get some data:
+
+```python
+beatles_spotify_pkl = 'https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/main/02_Lab_Data/Beatles/beatles_data.pkl'
+
+# Import to a Pandas dataframe
+beatles_spotify = pd.read_pickle(beatles_spotify_pkl)
+```
+
 From here you will normally:
 
 - Define a figure by passing a dataframe to a method (such as `fig = px.histogram(df_hist(df)`)

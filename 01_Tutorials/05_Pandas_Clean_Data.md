@@ -57,6 +57,15 @@ beatles_billboard_csv = 'https://raw.githubusercontent.com/inteligentni/Class-05
 beatles_billboard = pd.read_csv(beatles_billboard_csv)
 ```
 
+You can combine them with `pd.merge()`.  Or you can simply load a combined version of them from our lab data:
+
+```python
+beatles_spotify_pkl = 'https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/main/02_Lab_Data/Beatles/beatles_data.pkl'
+
+# Import to a Pandas dataframe
+beatles_spotify = pd.read_pickle(beatles_spotify_pkl)
+```
+
 ## Understanding Clean and Tidy Data
 
 You will quickly run into all sorts of issues when working with data. Most, however, fall into two major categories: issues of **cleanliness** and issues of **organization**. Data that is both clean and organized is known as **Tidy Data**, and this is what we strive for when we use, manipulate, and create our data. This helps us understand our data better, and perhaps most importantly helps programs like Pandas perform better analysis on our data.
