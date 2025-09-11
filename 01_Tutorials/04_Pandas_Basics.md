@@ -55,7 +55,7 @@ We will work with both of these sets, and in the process learn how to inspect, c
 We give the URL of the CSV file a name (simply for convenience), then pass that name to the `read_csv('source_file_name')` method, and name the resulting data frame.
 
 ```python
-beatles_spotify_csv = 'https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/refs/heads/main/02_Lab_Data/Beatles/M_255_Beatles_Spotify_2025.csv'
+beatles_spotify_csv = 'https://docs.google.com/spreadsheets/d/1j_Be1iDDdmvGXfiSUIbSpJrkzKVg3fkWD5PiFJE2m7s/edit?gid=742074147#gid=742074147'
 
 beatles_spotify = pd.read_csv(beatles_spotify_csv)
 ```
