@@ -187,6 +187,24 @@ There are various ways to:
 * update the **value for a particular key**: `my_dict["date"] = "1789"`
 * add a **key/value pair**:  `my_dict["language"] = "German"`
 * remove a **key/value pair**: `my_dict.pop("language")`
+* add a **key** (and supply the value later)    `my_dict["librettist"] = None`
+
+
+Need to build a dictionary for a mapping function in Pandas?  Here is a way to do this from a list of keys:
+
+
+```python
+my_keys = ["artist_first_name", "artist_last_name", "work_title", "work_genre", "date", "first_performance_place"]
+my_dict = dict.fromkeys(my_keys)
+print(my_dict)
+
+{'artist_first_name': None, 'artist_last_name': None, 'work_title': None, 'work_genre': None, 'date': None, 'first_performance_place': None}
+```
+
+Now you could take that dictionary and fill in the values as needed.
+
+
+
 
 Sometimes you will encounter a **List of Dictionaries**:
 
