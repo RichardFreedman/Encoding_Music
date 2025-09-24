@@ -23,6 +23,32 @@ Read the famous [essay on Tidy Data][tidy-data].
 | 6. | [**Combining Columns**](#combining-columns) |
 | 7. | [**Stack and Unstack**](#stack-and-unstack) |
 
+### We continue with our data about The Beatles:
+
+* A set from **Spotify** that includes information about 193 songs, albums, years, plus other acoustic ratings that Spotify uses to characterize tracks. View these data as a [Github](https://github.com/RichardFreedman/Encoding_Music/blob/main/02_Lab_Data/Beatles/M_255_Beatles_Spotify_2025.csv).
+
+* A set compiled by a team at the **University of Belgrade (Serbia)** that contains information about over 300 Beatles songs:  author(s), lead singer(s), album, musical genre(s), and standing in the Top 50 Billboard charts.  View these data on [Github]('https://github.com/inteligentni/Class-05-Feature-engineering/blob/master/The%20Beatles%20songs%20dataset%2C%20v1%2C%20no%20NAs.csv').
+
+We will work with both of these sets, and in the process learn how to clean and 'tidy' the data in preparation for other operations.
+
+Get the Spotify data:
+
+```python
+beatles_spotify_csv = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRz7AsrNvu-jVR_VnV1K7gMCuZy5AXrp3d6o_-GOeMx_EzJ5NCiStSR_fAsh0U-h1UsqvCzaBHOnTwr/pub?output=csv'
+
+beatles_spotify = pd.read_csv(beatles_spotify_csv)
+```
+
+and the Billboard data:
+
+```python
+beatles_billboard_csv = 'https://raw.githubusercontent.com/inteligentni/Class-05-Feature-engineering/master/The%20Beatles%20songs%20dataset%2C%20v1%2C%20no%20NAs.csv'
+
+beatles_billboard = pd.read_csv(beatles_billboard_csv)
+```
+
+You can combine them with `pd.merge()`
+
 ## Data Organization Principles
 
 The next step to take with your data is making it **tidy**. The key concepts of Tidy Data are:
@@ -50,6 +76,8 @@ You can read more in Hadley Wickham's paper on Tidy Data [here][tidy-data].
 ### What are the benefits of following Tidy Data principles?
 
 Beyond having a largely standardized format for datasets, making your data "tidy" will massively simplify your work in Pandas. In [Pandas: Filtering, Finding, and Grouping][pandas-filter-find-group], you'll start working with your data in-depth. All of Pandas built-in tools to parse, analyze, and visualize your data will work best when your data is organized following these principles.
+
+
 
 ## Fixing Multiple Variables in One Column
 
