@@ -725,10 +725,11 @@ Pandas affords many ways to take stock of your data, with built-in functions cou
 
 ### Sort Values
 
-**Sort Values** in any column.  This ascending (alphabetically or numerically) by default, but can be reversed.  Example:  
+**Sort Values** in any column.  This ascending (alphabetically or numerically) by default, but can be reversed with `ascending=False`.  Example:  
 
 ```python
 beatles_spotify.sort_values("danceability")
+# reversed: beatles_spotify.sort_values("danceability",ascending=False)
 ```
 
 <table border="0">
