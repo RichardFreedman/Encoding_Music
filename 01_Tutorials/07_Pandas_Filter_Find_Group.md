@@ -642,6 +642,7 @@ The results are each a Series.  You can assign these binned (and labelled) categ
 
 ```python
 beatles_spotify['dance_binned'] = pd.qcut(beatles_spotify["danceability"], q=4, labels=['l', 'm', 'h', 's'])
+```
 
 ## Groupby Functions
 
@@ -650,6 +651,7 @@ beatles_spotify['dance_binned'] = pd.qcut(beatles_spotify["danceability"], q=4, 
 However, `groupby` also requires special attention to the tidiness of your data in order for it to function correctly.
 
 There will be a supplemental essay on groupby functions available on Moodle or GDrive. That will be a more in-depth view of the topic, whereas the below guide to groupby focuses on some of the core features.
+
 
 
 |    | In this section               | 
