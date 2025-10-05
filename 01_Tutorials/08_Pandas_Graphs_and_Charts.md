@@ -264,6 +264,10 @@ Then to create our Sankey chart we filter the data to show just two albums, and 
 
 Creating a Sankey chart is a bit like creating a network:  we need to establish various `nodes` and various `links` among them.
 
+<Details>
+
+<br>
+
 ```python
 df = beatles[beatles['album'].isin(['Magical Mystery Tour', 'Abbey Road'])].copy()
 
@@ -341,6 +345,9 @@ fig.update_layout(title=f"Album → Song → {feature_name}",
 fig.show()
 
 ```
+
+</Details>
+
 
 <br>
 
