@@ -174,8 +174,8 @@ First, we'll go over a simple example of comparing two songs:
 2. Convert each list to a special format to use with the `cosine_similarity` and `euclidean_distances` functions:
 
     ```python
-    boys = np.array(x).reshape(1, -1)
-    till = np.array(y).reshape(1, -1)
+    boys = np.array(boys).reshape(1, -1)
+    till = np.array(till).reshape(1, -1)
     ```
 
 3. Compute the values:
