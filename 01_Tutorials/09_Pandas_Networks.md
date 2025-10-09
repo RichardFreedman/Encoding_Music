@@ -297,6 +297,7 @@ This is what this looks like for a single list of genre labels in one row:
 # make sure you have imported the relevant library, itertools, and of course pandas
 import pandas as pd
 import itertools
+from itertools import combinations
 # now a sample list and the resulting combinations
 sample_list = ['psychedelic rock', 'art rock', 'pop rock']
 pairs = list(combinations(sample_list, 2))
