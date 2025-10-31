@@ -46,3 +46,14 @@ Debugging is a crucial part of the development process. Visual Studio Code provi
 Debugging in Visual Studio Code significantly streamlines the process of finding and fixing errors in your code. By utilizing the debugging tools effectively, you can save time and enhance the quality of your software.
 
 Remember, the exact steps and options might vary based on the programming language and environment you're working with.
+
+
+## Credits and License
+
+Resources from **Music 255:  Encoding Music**, a course taught at Haverford College by Professor Richard Freedman.
+
+Special thanks to Haverford College students Charlie Cross, Owen Yaggy, Harrison West, Edgar Leon and Oleh Shostak for indispensable help in developing the course, the methods and documentation.
+
+Additional thanks to Anna Lacy and Patty Guardiola of the Digital Scholarship team of the Haverford College libraries, to Adam Portier, systems administrator in the IITS department, and to Dr Daniel Russo-Batterham, Melbourne University.
+
+This work is licensed under CC BY-NC-SA 4.0 

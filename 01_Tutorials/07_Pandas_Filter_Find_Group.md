@@ -2613,3 +2613,14 @@ Note that using groupby with several grouping columns will complicate the operat
 [pandas-cheat-sheet]: https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf
 [pandas-cut]: https://pandas.pydata.org/docs/reference/api/pandas.cut.html
 [pandas-tutor-groupby-1]: https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0A%0Acsv%20%3D%20'''%0ATitle,Album.debut,Duration%0AAnother%20Girl,Help!,124%0AEleanor%20Rigby,Revolver,128%0AFor%20No%20One,Revolver,121%0AGirl,Rubber%20Soul,153%0AGood%20Day%20Sunshine,Revolver,129%0AGot%20to%20Get%20You%20into%20My%20Life,Revolver,147%0AHelp!,Help!,138%0A%22Here,%20There%20and%20Everywhere%22,Revolver,145%0AI%20Need%20You,Help!,148%0AI%20Want%20to%20Tell%20You,Revolver,149%0AI'm%20Looking%20Through%20You,Rubber%20Soul,147%0AIn%20My%20Life,Rubber%20Soul,148%0ALove%20You%20To,Revolver,181%0AMichelle,Rubber%20Soul,160%0ANorwegian%20Wood%20%28This%20Bird%20Has%20Flown%29,Rubber%20Soul,125%0ARun%20for%20Your%20Life,Rubber%20Soul,138%0AShe%20Said%20She%20Said,Revolver,157%0ATaxman,Revolver,159%0AThe%20Night%20Before,Help!,153%0AThe%20Word,Rubber%20Soul,161%0AThink%20for%20Yourself,Rubber%20Soul,138%0ATicket%20to%20Ride,Help!,190%0ATomorrow%20Never%20Knows,Revolver,178%0AWait,Rubber%20Soul,136%0AYellow%20Submarine,Revolver,158%0AYou%20Won't%20See%20Me,Rubber%20Soul,202%0AYou're%20Going%20to%20Lose%20That%20Girl,Help!,140%0AYou've%20Got%20to%20Hide%20Your%20Love%20Away,Help!,131%0A'''%0A%0Asongs%20%3D%20pd.read_csv%28io.StringIO%28csv%29%29%0Asongs%20%3D%20songs%5B%5B'Title',%20'Album.debut',%20'Duration'%5D%5D.sort_values%28'Album.debut'%29%0A%0Asongs.groupby%28'Album.debut'%29%5B'Duration'%5D.mean%28%29&d=2024-07-26&lang=py&v=v1
+
+
+## Credits and License
+
+Resources from **Music 255:  Encoding Music**, a course taught at Haverford College by Professor Richard Freedman.
+
+Special thanks to Haverford College students Charlie Cross, Owen Yaggy, Harrison West, Edgar Leon and Oleh Shostak for indispensable help in developing the course, the methods and documentation.
+
+Additional thanks to Anna Lacy and Patty Guardiola of the Digital Scholarship team of the Haverford College libraries, to Adam Portier, systems administrator in the IITS department, and to Dr Daniel Russo-Batterham, Melbourne University.
+
+This work is licensed under CC BY-NC-SA 4.0 

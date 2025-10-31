@@ -521,3 +521,14 @@ This sets you up for the next step: **tidying** your data in [Pandas: Tidy Data]
 [datetime-format-codes]: https://docs.python.org/3/library/datetime.html#format-codes
 [pandas-documentation-categories]: https://pandas.pydata.org/docs/user_guide/categorical.html
 [tidy-data]: https://www.jstatsoft.org/article/view/v059i10
+
+
+## Credits and License
+
+Resources from **Music 255:  Encoding Music**, a course taught at Haverford College by Professor Richard Freedman.
+
+Special thanks to Haverford College students Charlie Cross, Owen Yaggy, Harrison West, Edgar Leon and Oleh Shostak for indispensable help in developing the course, the methods and documentation.
+
+Additional thanks to Anna Lacy and Patty Guardiola of the Digital Scholarship team of the Haverford College libraries, to Adam Portier, systems administrator in the IITS department, and to Dr Daniel Russo-Batterham, Melbourne University.
+
+This work is licensed under CC BY-NC-SA 4.0 
