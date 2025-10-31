@@ -1614,3 +1614,14 @@ Pandas is a powerful library that makes complex data science easier. There are m
 [pandas-concat]: https://pandas.pydata.org/docs/reference/api/pandas.concat.html
 [pandas-merge]: https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html
 [pandas-join]: https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.join.html
+
+
+## Credits and License
+
+Resources from **Music 255:  Encoding Music**, a course taught at Haverford College by Professor Richard Freedman.
+
+Special thanks to Haverford College students Charlie Cross, Owen Yaggy, Harrison West, Edgar Leon and Oleh Shostak for indispensable help in developing the course, the methods and documentation.
+
+Additional thanks to Anna Lacy and Patty Guardiola of the Digital Scholarship team of the Haverford College libraries, to Adam Portier, systems administrator in the IITS department, and to Dr Daniel Russo-Batterham, Melbourne University.
+
+This work is licensed under CC BY-NC-SA 4.0 

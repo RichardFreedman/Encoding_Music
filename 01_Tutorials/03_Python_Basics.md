@@ -527,3 +527,14 @@ for sample_name in sample_name_list:
 You may encounter code using the term `lambda`. This is a shorthand way for defining entire functions in a single line. While it is quicker to write, it is much harder to read and understand. For this reason, you'll mostly see functions defined using `def` in these tutorials. However, you are encouraged to learn more about Python `lambda` functions [here][lambda-functions].
 
 [lambda-functions]: https://www.w3schools.com/python/python_lambda.asp
+
+
+## Credits and License
+
+Resources from **Music 255:  Encoding Music**, a course taught at Haverford College by Professor Richard Freedman.
+
+Special thanks to Haverford College students Charlie Cross, Owen Yaggy, Harrison West, Edgar Leon and Oleh Shostak for indispensable help in developing the course, the methods and documentation.
+
+Additional thanks to Anna Lacy and Patty Guardiola of the Digital Scholarship team of the Haverford College libraries, to Adam Portier, systems administrator in the IITS department, and to Dr Daniel Russo-Batterham, Melbourne University.
+
+This work is licensed under CC BY-NC-SA 4.0 

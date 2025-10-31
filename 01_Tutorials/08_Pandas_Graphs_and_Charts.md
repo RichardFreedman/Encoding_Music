@@ -724,3 +724,15 @@ fig.show()
 [pandas-tidy]: 06_Pandas_Tidy_Data.md
 [pandas-filter-find-group]: 07_Pandas_Filter_Find_Group.md
 [pandas-networks]: 09_Pandas_Networks.md
+
+
+## Credits and License
+
+Resources from **Music 255:  Encoding Music**, a course taught at Haverford College by Professor Richard Freedman.
+
+Special thanks to Haverford College students Charlie Cross, Owen Yaggy, Harrison West, Edgar Leon and Oleh Shostak for indispensable help in developing the course, the methods and documentation.
+
+Additional thanks to Anna Lacy and Patty Guardiola of the Digital Scholarship team of the Haverford College libraries, to Adam Portier, systems administrator in the IITS department, and to Dr Daniel Russo-Batterham, Melbourne University.
+
+This work is licensed under CC BY-NC-SA 4.0 
+
