@@ -1082,7 +1082,11 @@ We also provide a mapping of the MEI accidental values to more familiar symbols:
 ```python
 def extract_notes_simplified(soup):
     """
-    Simplified version for extracting notes with accidentals
+    The basic pitch of each note is recorded as a pname attribute.  
+    Accidentals are however recorded in two different ways:  
+    those corresponding to the accidentals specified in the staffDef as key signature are recorded an accid.ges attributes of the note element.
+    Temporary accidentals within the bar are recorded as separate <accid> child elements of the note, and in turn have their own accid attribute value.
+    In the MEI these accidentals are recorded as 's', 'f', 'n'.  Here we map those to conventional symbols.
     """
     accid_mapper = {'s': '#', 'f': 'b', 'n': ''}
     note_list = []
