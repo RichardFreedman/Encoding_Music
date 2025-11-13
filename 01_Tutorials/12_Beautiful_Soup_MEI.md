@@ -1073,7 +1073,7 @@ print("Accidentals appear in " + str(measure_list))
 
 ### Find Notes with their Accidentals
 
-Some accidentals are expressed as attributes of the `note` tag itself, while others are in child `<accid>` tags.  The former are part of the original score staff definition, and recording as accid.ges attributes of the note.  The latter are editorial interventions, and recorded as child `<accid>` tags.
+Some accidentals are expressed as attributes of the `note` tag itself, while others are in child `<accid>` tags.  The former are part of the original score staff definition, and recording as `accid.ges` attributes of the note.  The latter are editorial interventions, and recorded as child `<accid>` tags.
 
 For this we will create a function that extracts the pitch names along with their accidentals, if any.  The function returns a list of all the notes in the piece, with accidentals appended to the pitch name where applicable.  
 
@@ -1115,7 +1115,7 @@ def extract_notes_simplified(soup):
 ```
 
 
-### Note that some accidentals are in fact editorial interventions, and thus part of another element:  `<supplied>`
+### Note that still other accidentals are in fact editorial interventions, and thus part of another element:  `<supplied>`
 
 Here we can find and report relevant information about them, including the measure number, the kind of accidental, and what pitch they apply to:
 
