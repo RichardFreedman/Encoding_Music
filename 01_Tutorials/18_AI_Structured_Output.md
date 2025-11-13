@@ -177,3 +177,14 @@ df.explode("characters")["characters"].value_counts().head()
 
 - Langchain Structured Output: [https://js.langchain.com/docs/concepts/structured\_outputs/](https://js.langchain.com/docs/concepts/structured_outputs/)
 - Full Vaudeville Structured Output Notebook: [https://cwcross.github.io/Encoding-Music-Summer-2025/Vaudeville/Vaudeville\_structured.html](https://cwcross.github.io/Encoding-Music-Summer-2025/Vaudeville/Vaudeville_structured.html)
+
+
+## Credits and License
+
+Resources from **Music 255:  Encoding Music**, a course taught at Haverford College by Professor Richard Freedman.
+
+Special thanks to Haverford College students Charlie Cross, Owen Yaggy, Harrison West, Edgar Leon and Oleh Shostak for indispensable help in developing the course, the methods and documentation.
+
+Additional thanks to Anna Lacy and Patty Guardiola of the Digital Scholarship team of the Haverford College libraries, to Adam Portier, systems administrator in the IITS department, and to Dr Daniel Russo-Batterham, Melbourne University.
+
+This work is licensed under CC BY-NC-SA 4.0 
