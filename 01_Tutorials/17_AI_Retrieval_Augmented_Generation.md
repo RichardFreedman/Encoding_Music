@@ -651,6 +651,7 @@ Source 9: 18. Orchestra Program Spring 2019.pdf
 Source 10: 18. Orchestra Program Spring 2019.pdf
 ```
 
+</details>
 
 ## Credits and License
 
