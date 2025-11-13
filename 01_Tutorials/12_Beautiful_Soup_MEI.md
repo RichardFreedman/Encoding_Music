@@ -524,7 +524,7 @@ Siblings are tags of the *same type* as a given tag.
 
 Thus `first_person = soup.titleStmt.persName` will find the **first element** of the `persName` type.
 
-To **find the first sibling of this tag, we use `findNextSibling`, or even just `findNext`.  If the **first sibling** was the composer, then `findNext` or `findNextSibling` will be one of the editors:
+To **find the first sibling of this tag**, we use `findNextSibling`, or even just `findNext`.  If the **first sibling** was the composer, then `findNext` or `findNextSibling` will be one of the editors:
 
 ```python
 very_next_sibling = soup.titleStmt.persName.findNextSibling()
