@@ -1061,21 +1061,59 @@ What the accidentals in a piece?
 accidentals = soup.find_all('accid')
 ```
 
-In which measures do they appear?  Here we use `find_parent('measure')`, and then `get` the `n` for that measure:
+Note that this will find *all the accidentals*:  both those specified in the key signature, and those that are local to a particular measure.
 
-```python
-measure_list = []
-for accidental in accidentals:
-    measure_number = accidental.find_parent('measure').get('n')
-    measure_list.append(measure_number)
-print("Accidentals appear in " + str(measure_list))
+It's thus important to understand how MEI records accidentals in two different ways. Some of them are part of the original score staff definition, and recording as `accid.ges` attributes of the note.  These correspond to the accidentals specified in the `staffDef` as key signature.  They look like this:
+
+```xml
+<note dur="16" dur.ppq="64" oct="5" pname="c" pnum="73" stem.dir="down" tstamp.real="00:00:06.187" vel="0" xml:id="m-154">
+    <accid accid.ges="s" xml:id="m-155"/>
+</note>
 ```
 
-### Find Notes with their Accidentals
+Others are *local to a particular measure*, and recorded as separate `<accid>` child elements of the note.  These are temporary accidentals within the bar.  They look like this:
 
-Some accidentals are expressed as attributes of the `note` tag itself, while others are in child `<accid>` tags.  The former are part of the original score staff definition, and recording as `accid.ges` attributes of the note.  The latter are editorial interventions, and recorded as child `<accid>` tags.
+```xml
+<note dur="16" dur.ppq="64" oct="4" pname="g" pnum="68" stem.dir="down" tstamp.real="00:00:06.937" vel="0" xml:id="m-159">
+    <accid accid="s" xml:id="m-160"/>
+</note>
+```
 
-For this we will create a function that extracts the pitch names along with their accidentals, if any.  The function returns a list of all the notes in the piece, with accidentals appended to the pitch name where applicable.  
+Depending on what you are looking for, you may want to find one or the other, or both kinds of accidentals.
+
+Finding all the accidentals of *both* kinds is straightforward:
+
+```python
+all_accidentals = soup.find_all('accid')
+for accid in all_accidentals:
+    accid_value = accid.get('accid.ges') or accid.get('accid')
+    print(accid_value)
+```
+
+Finding only those accidentals that are *part of the key signature* (i.e. those recorded as attributes of the `note` tag). Here we will look for only those `<accid>` tags that have an `accid.ges` attribute:
+
+```python
+all_staff_accidentals = soup.find_all('accid', attrs={'accid.ges': True})
+```
+
+Finding the accidentals that are *local to a particular measure* (i.e. those recorded as child `<accid>` tags of the `note` tag). Here we will look for only those `<accid>` tags that have an `accid` attribute:
+
+```python
+all_local_accidentals = soup.find_all('accid', attrs={'accid': True})
+# and find the parent measure numbers of these 
+list_measure_numbers = []
+for accidental in all_local_accidentals:
+    measure_number = accidental.find_parent('measure').get('n')
+    list_measure_numbers.append(measure_number)
+print("Local accidentals appear in measures: " + str(list_measure_numbers))
+```
+
+See the discussion of Editorial Accidentals below for a way to assemble a dataframe of these local accidentals, along with their measure numbers and pitch names, and pieces in which they appear.  This could be used to _map_ pitch space across a corpus of pieces.
+
+
+### Find Notes with their Accidentals with a Function
+
+Here we create a function that extracts the pitch names along with their accidentals, if any.  The function returns a list of all the notes in the piece, with accidentals appended to the pitch name where applicable.  
 
 We also provide a mapping of the MEI accidental values to more familiar symbols:  's' = sharp (#), 'f' = flat (b), and 'n' = natural (♮).
 
@@ -1119,17 +1157,21 @@ def extract_notes_simplified(soup):
 ```
 
 
-### Note that still other accidentals are in fact editorial interventions, and thus part of another element:  `<supplied>`
+### What about Editorial Accidentals?
 
-Here we can find and report relevant information about them, including the measure number, the kind of accidental, and what pitch they apply to:
+Note that still other accidentals might in fact be editorial interventions, and thus part of yet another child element of a `note`: `<supplied>`
+
+Here is now to find and report relevant information about them, including the measure number, the kind of accidental, and what pitch they apply to:
 
 ```python
 list_supplied_accid_data = []
 
+# finding all supplied tags:
 for supplied in soup.find_all("supplied"):
+    # and within those, all the accidentals
     accidentals = supplied.find_all('accid')
     for accidental in accidentals:
-        
+        # a temporary dictionary for each accidental found, with various metadata about the editor, measure, etc
         temp_dict = {
                      'title' : soup.find('title').text.strip(),
                      'composer' : soup.find('persName', {'role' : 'composer'}).text.strip(),
