@@ -890,7 +890,11 @@ print(measure_66.prettify())
 We already know how to find the first note (of the first staff in the first bar):
 
 ```python
-soup.note.get('pname')
+# first note in the piece
+soup.find('note')
+
+# first note of the second staff in the first measure
+soup.find_all('measure')[0].find_all('staff')[1].find('note')
 ```
 
 But we can also get the first pitch:
@@ -899,7 +903,7 @@ But we can also get the first pitch:
 
 ```python
 # gets just the first pitch
-soup.note.get('pname')
+soup.find('note').get('pname')
 ```
 
     'g'
@@ -908,7 +912,7 @@ Or the last pitch:
 
 
 ```python
-soup.find_all("note")[-1]
+soup.find_all("note")[-1].get('pname')
 ```
 
 Or the last note of the first staff:
