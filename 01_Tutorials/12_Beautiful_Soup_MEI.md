@@ -953,7 +953,7 @@ len(soup.find_all('note'))
 
 Find all notes with a particular duration, pitch, and octave:
 
-* Use dictionary of **key/value pairs to specify particular attributes.
+* Use dictionary of **key/value pairs** to specify particular attributes.
 
 ```python
 soup.find_all('note', {'dur': "4", 'pname': "g", 'oct': '3'})
