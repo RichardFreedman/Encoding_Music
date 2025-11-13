@@ -1071,6 +1071,49 @@ for accidental in accidentals:
 print("Accidentals appear in " + str(measure_list))
 ```
 
+### Find Notes with their Accidentals
+
+Some accidentals are expressed as attributes of the `note` tag itself, while others are in child `<accid>` tags.  The former are part of the original score staff definition, and recording as accid.ges attributes of the note.  The latter are editorial interventions, and recorded as child `<accid>` tags.
+
+For this we will create a function that extracts the pitch names along with their accidentals, if any.  The function returns a list of all the notes in the piece, with accidentals appended to the pitch name where applicable.  
+
+We also provide a mapping of the MEI accidental values to more familiar symbols:  's' = sharp (#), 'f' = flat (b), and 'n' = natural (♮).
+
+```python
+def extract_notes_simplified(soup):
+    """
+    Simplified version for extracting notes with accidentals
+    """
+    accid_mapper = {'s': '#', 'f': 'b', 'n': ''}
+    note_list = []
+    
+    notes = soup.find_all('note')
+    
+    for note in notes:
+        pname = note.get('pname')
+        if not pname:
+            continue
+            
+        clean_tone = pname.upper()
+        
+        # Check note's accid.ges attribute first
+        accid_ges = note.get('accid.ges')
+        if accid_ges:
+            clean_tone += accid_mapper.get(accid_ges, '')
+        else:
+            # Check for accid child elements
+            accid_elem = note.find('accid')  # Find first accid element
+            if accid_elem:
+                # Try accid.ges first, then accid attribute
+                accid_value = accid_elem.get('accid.ges') or accid_elem.get('accid')
+                if accid_value:
+                    clean_tone += accid_mapper.get(accid_value, '')
+        
+        note_list.append(clean_tone)
+    
+    return note_list
+```
+
 
 ### Note that some accidentals are in fact editorial interventions, and thus part of another element:  `<supplied>`
 
