@@ -959,11 +959,6 @@ Find all notes with a particular duration, pitch, and octave:
 soup.find_all('note', {'dur': "4", 'pname': "g", 'oct': '3'})
 ```
 
-
-```python
-soup.find_all('note', {'dur': "4", 'pname': "g", 'oct': '3'})
-```
-
 Count all the notes, then produce a dataframe that gives us a **percentage for each note, relative to the complete total**.
 
 Note the use of Python `Counter()` to keep track of the counts of each note.  See documentation at [Python.org](https://docs.python.org/3/library/collections.html#collections.Counter)
