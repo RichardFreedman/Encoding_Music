@@ -18,17 +18,16 @@ In this short guide you will learn how to use **Jupyter Notebooks**, which allow
 
 Notebooks are organized as 'cells', which can be **commentary** (or 'markdown' cells). These are static, and written in [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet), or **Python code** (which produce dynamic output).  
 
-Normally you will do this in our [Encoding Music Jupyter Hub](https://encodingmusic.crimproject.org), which manages all the necessary Python libraries needed for our work. But it is also possible to run your notebook locally in an integrated development environment such as **VS Code**.  See the separate tutorial to learn more.
+Normally you will do this in our [Jupyter Hub](https://jupyterhub.haverford.edu), which manages all the necessary Python libraries needed for our work. But it is also possible to run your notebook locally in an integrated development environment such as **VS Code**.  See the separate tutorial to learn more.
 
-Notebooks can be saved in your Encoding Music Jupyter Hub space, or downloaded to share or submit as part of your work. But while a saved version of your notebook contains all the code and commentary you used, it does not preserve all of the results.  
+Be sure to select **Encoding Music** as the Python 'Kernel' when you log in; this is done via the pulldwon menu that you will see after the initial authentication.
+
+Notebooks can be saved in your Encoding Music Jupyter Hub space, or downloaded to share or submit as part of your work. Learn more below about how to save, download and publish to HTML with Quarto.
 
 **Quarto** provides a great way for you to publish your work in an elegant way, preserving the interactive tables and charts, hiding the code, and allowing your readers to focus on what matters about your ideas. Quarto allows you to think of a notebook as a narrative argument, turning your notebook into a stand-alone HTML or PDF document. And you can create a Quarto version of your notebook easily, with a few lines of code.  See more below and at [Quarto tutorial](https://quarto.org/docs/get-started/hello/jupyter.html).
 
 
 ## Log In to Jupyter Hub
-
-There are several ways to run, edit, and create notebooks. Students in Encoding Music can use the [Jupyter Hub](encodingmusic.crimproject.org). Ask your instructor for your username. You will create a password on your first log in.  Make it something secure and write it down, since it cannot be changed!
-
 
 
 ![Alt text](images/em_1_log.png)
@@ -381,7 +380,15 @@ Now from the Export menu select 'HTML' (PDF will not work!). The HTML will be sa
 ![Alt text](<images/nb 16.png>)
 
 
+## Credits and License
 
+Resources from **Music 255:  Encoding Music**, a course taught at Haverford College by Professor Richard Freedman.
+
+Special thanks to Haverford College students Charlie Cross, Owen Yaggy, Harrison West, Edgar Leon and Oleh Shostak for indispensable help in developing the course, the methods and documentation.
+
+Additional thanks to Anna Lacy and Patty Guardiola of the Digital Scholarship team of the Haverford College libraries, to Adam Portier, systems administrator in the IITS department, and to Dr Daniel Russo-Batterham, Melbourne University.
+
+This work is licensed under CC BY-NC-SA 4.0 
 
 
 

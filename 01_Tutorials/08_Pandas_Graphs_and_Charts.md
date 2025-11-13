@@ -34,6 +34,15 @@ import pandas as pd
 import plotly.express as px
 ```
 
+And of course get some data:
+
+```python
+beatles_spotify_pkl = 'https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/main/02_Lab_Data/Beatles/beatles_data.pkl'
+
+# Import to a Pandas dataframe
+beatles_spotify = pd.read_pickle(beatles_spotify_pkl)
+```
+
 From here you will normally:
 
 - Define a figure by passing a dataframe to a method (such as `fig = px.histogram(df_hist(df)`)
@@ -242,6 +251,110 @@ spotify_tools.audio_feature_radar(audio_feature_data, feature_list, "My Radar Pl
 
 <br>
 
+
+## Sankey Charts
+
+Sankey charts can be an interesting way of showing connections among different categorical data.  In this example we show the 'flow' of songs in two different albums according to their danceability.  We previously turned the Spotify scalar danceability ratings into 'low', 'middle', and 'high' categoricals using `pd.qcut`, like this:
+
+```python
+beatles['dance_binned'] = pd.qcut(beatles["danceability"], q=3, labels=['low', 'medium', 'high'])
+```
+
+Then to create our Sankey chart we filter the data to show just two albums, and select the other features accordingly.
+
+Creating a Sankey chart is a bit like creating a network:  we need to establish various `nodes` and various `links` among them.
+
+<Details>
+
+<br>
+
+```python
+df = beatles[beatles['album'].isin(['Magical Mystery Tour', 'Abbey Road'])].copy()
+
+
+# Configure your columns here - just change the chosen_feature to any column name
+album_col = 'album'
+song_col = 'song'
+chosen_feature = 'dance_binned'  # Change this to any column name you want (e.g., 'key', 'tempo', 'energy', etc.)
+
+# Create count column for flow values
+df['count'] = 1
+
+# Create Album → Song links
+album_song_links = df.groupby([album_col, song_col])['count'].sum().reset_index()
+album_song_links.columns = ['source', 'target', 'value']
+
+# Create Song → Feature links
+song_feature_links = df.groupby([song_col, chosen_feature])['count'].sum().reset_index()
+song_feature_links.columns = ['source', 'target', 'value']
+
+# Get unique nodes for each tier
+albums = sorted(df[album_col].unique())
+songs = sorted(df[song_col].unique())
+features = sorted([str(feature) for feature in df[chosen_feature].unique()])
+
+# Create complete node list
+all_nodes = albums + songs + features
+
+# Create node index mapping
+node_to_index = {node: idx for idx, node in enumerate(all_nodes)}
+
+# Create source and target index lists
+sources = []
+targets = []
+values = []
+
+# Add Album → Song links
+for _, row in album_song_links.iterrows():
+    sources.append(node_to_index[row['source']])
+    targets.append(node_to_index[row['target']])
+    values.append(row['value'])
+
+# Add Song → Feature links
+for _, row in song_feature_links.iterrows():
+    sources.append(node_to_index[row['source']])
+    targets.append(node_to_index[str(row['target'])])
+    values.append(row['value'])
+
+# Create node colors
+num_albums = len(albums)
+num_songs = len(songs)
+num_features = len(features)
+
+node_colors = (['lightcoral'] * num_albums +      # Albums in light coral
+              ['lightblue'] * num_songs +          # Songs in light blue  
+              ['lightgreen'] * num_features)       # Features in light green
+
+# Simple Sankey with automatic positioning
+fig = go.Figure(data=[go.Sankey(
+    node=dict(
+        label=all_nodes,
+        color=node_colors
+    ),
+    link=dict(
+        source=sources,
+        target=targets,
+        value=values
+    )
+)])
+
+# Dynamic title based on chosen feature
+feature_name = chosen_feature.replace('_', ' ').title()
+fig.update_layout(title=f"Album → Song → {feature_name}",
+                 height=1200)
+fig.show()
+
+```
+
+</Details>
+
+
+<br>
+
+
+![alt text](images/sankey.png)
+
+<br>
 
 ## Correlation Plots and Heatmaps
 
@@ -611,3 +724,15 @@ fig.show()
 [pandas-tidy]: 06_Pandas_Tidy_Data.md
 [pandas-filter-find-group]: 07_Pandas_Filter_Find_Group.md
 [pandas-networks]: 09_Pandas_Networks.md
+
+
+## Credits and License
+
+Resources from **Music 255:  Encoding Music**, a course taught at Haverford College by Professor Richard Freedman.
+
+Special thanks to Haverford College students Charlie Cross, Owen Yaggy, Harrison West, Edgar Leon and Oleh Shostak for indispensable help in developing the course, the methods and documentation.
+
+Additional thanks to Anna Lacy and Patty Guardiola of the Digital Scholarship team of the Haverford College libraries, to Adam Portier, systems administrator in the IITS department, and to Dr Daniel Russo-Batterham, Melbourne University.
+
+This work is licensed under CC BY-NC-SA 4.0 
+

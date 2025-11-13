@@ -174,9 +174,15 @@ First, we'll go over a simple example of comparing two songs:
 2. Convert each list to a special format to use with the `cosine_similarity` and `euclidean_distances` functions:
 
     ```python
-    boys = np.array(x).reshape(1, -1)
-    till = np.array(y).reshape(1, -1)
+    boys = np.array(boys).reshape(1, -1)
+    till = np.array(till).reshape(1, -1)
     ```
+
+
+This will create an array with one row and six columns, which is the format these functions expect.  `boys`, for instance, will now look like this:
+
+`array([[0.402 , 0.86  , 0.0504, 0.607 , 0.736 , 0.822 ]])`
+
 
 3. Compute the values:
 
@@ -441,14 +447,32 @@ You can now generate cosine similarity and Euclidean distances between data poin
 
 But data rarely exists on these extremes. You have to decide **how to interpret** these similarity ratings. What is the threshold for similarity?
 
+#### Try `df.describe()` to Help Interpret Your Data
+
 To give you some help, you can calculate statistics on the comparison dataframes. `cosine_sim_df.describe()` and `euclid_dist_df.describe()` will give insight into key figures, like the mean and standard deviation. These can help you interpret your data.
 
-And always remember:
+#### Visualize Your Data
+
+Another approach might be to visualize your data. You could use a histogram to see how your similarity ratings are distributed. This could help you decide on a threshold for similarity.  Or you could use a heatmap to visualize the entire comparison dataframe. This could help you see which songs are most similar to each other.
+
+```python
+
+fig = px.imshow(cosine_sim_df) # assuming your dataframe is called cosine_sim_df
+fig.update_layout(height=800, width=800) 
+
+fig.show()
+```
+
+![Alt text](images/cosine_heat.png)
+
+
+### Things You Need to Consider
+
+When using these methods, keep in mind:
 
 * These results are based on Spotify data - is that data a good assessment?
 * "Similar" according one method might not be "similar" according to another, as we have seen.
 
-### Things You Need to Consider
 
 In this example, we didn't clean our data. This could present problems down the line, particularly since we used the entries in the `'song'` column as our indices in our comparison table. Here are potential issues to consider:
 * Song titles have inconsistent formatting, e.g. capitalization
@@ -479,3 +503,14 @@ https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.cosin
 
 [khan-academy-dot-products]: https://www.khanacademy.org/math/multivariable-calculus/thinking-about-multivariable-function/x786f2022:vectors-and-matrices/a/dot-products-mvc
 [khan-academy-vector-magnitudes]: https://www.khanacademy.org/math/precalculus/x9e81a4f98389efdf:vectors/x9e81a4f98389efdf:vec-mag/v/finding-vector-magnitude-from-components
+
+## Credits and License
+
+Resources from **Music 255:  Encoding Music**, a course taught at Haverford College by Professor Richard Freedman.
+
+Special thanks to Haverford College students Charlie Cross, Owen Yaggy, Harrison West, Edgar Leon and Oleh Shostak for indispensable help in developing the course, the methods and documentation.
+
+Additional thanks to Anna Lacy and Patty Guardiola of the Digital Scholarship team of the Haverford College libraries, to Adam Portier, systems administrator in the IITS department, and to Dr Daniel Russo-Batterham, Melbourne University.
+
+This work is licensed under CC BY-NC-SA 4.0 
+

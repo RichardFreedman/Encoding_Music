@@ -35,7 +35,7 @@ import pandas as pd
 
 We continue with our data about The Beatles:
 
-* A set from **Spotify** that includes information about 193 songs, albums, years, plus other acoustic ratings that Spotify uses to characterize tracks. View these data as a [Github](https://github.com/RichardFreedman/Encoding_Music/blob/main/02_Lab_Data/Beatles/M_255_Beatles_Spotify_2025.csv).
+* A set from **Spotify** that includes information about 193 songs, albums, years, plus other acoustic ratings that Spotify uses to characterize tracks. View these data as [Google Sheet](https://docs.google.com/spreadsheets/d/1j_Be1iDDdmvGXfiSUIbSpJrkzKVg3fkWD5PiFJE2m7s/edit?usp=sharing).
 
 * A set compiled by a team at the **University of Belgrade (Serbia)** that contains information about over 300 Beatles songs:  author(s), lead singer(s), album, musical genre(s), and standing in the Top 50 Billboard charts.  View these data on [Github]('https://github.com/inteligentni/Class-05-Feature-engineering/blob/master/The%20Beatles%20songs%20dataset%2C%20v1%2C%20no%20NAs.csv').
 
@@ -44,7 +44,7 @@ We will work with both of these sets, and in the process learn how to clean and 
 Get the Spotify data:
 
 ```python
-beatles_spotify_csv = 'https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/refs/heads/main/02_Lab_Data/Beatles/M_255_Beatles_Spotify_2025.csv'
+beatles_spotify_csv = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRz7AsrNvu-jVR_VnV1K7gMCuZy5AXrp3d6o_-GOeMx_EzJ5NCiStSR_fAsh0U-h1UsqvCzaBHOnTwr/pub?output=csv'
 
 beatles_spotify = pd.read_csv(beatles_spotify_csv)
 ```
@@ -55,6 +55,15 @@ and the Billboard data:
 beatles_billboard_csv = 'https://raw.githubusercontent.com/inteligentni/Class-05-Feature-engineering/master/The%20Beatles%20songs%20dataset%2C%20v1%2C%20no%20NAs.csv'
 
 beatles_billboard = pd.read_csv(beatles_billboard_csv)
+```
+
+You can combine them with `pd.merge()`.  Or you can simply load a combined version of them from our lab data:
+
+```python
+beatles_spotify_pkl = 'https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/main/02_Lab_Data/Beatles/beatles_data.pkl'
+
+# Import to a Pandas dataframe
+beatles_spotify = pd.read_pickle(beatles_spotify_pkl)
 ```
 
 ## Understanding Clean and Tidy Data
@@ -512,3 +521,14 @@ This sets you up for the next step: **tidying** your data in [Pandas: Tidy Data]
 [datetime-format-codes]: https://docs.python.org/3/library/datetime.html#format-codes
 [pandas-documentation-categories]: https://pandas.pydata.org/docs/user_guide/categorical.html
 [tidy-data]: https://www.jstatsoft.org/article/view/v059i10
+
+
+## Credits and License
+
+Resources from **Music 255:  Encoding Music**, a course taught at Haverford College by Professor Richard Freedman.
+
+Special thanks to Haverford College students Charlie Cross, Owen Yaggy, Harrison West, Edgar Leon and Oleh Shostak for indispensable help in developing the course, the methods and documentation.
+
+Additional thanks to Anna Lacy and Patty Guardiola of the Digital Scholarship team of the Haverford College libraries, to Adam Portier, systems administrator in the IITS department, and to Dr Daniel Russo-Batterham, Melbourne University.
+
+This work is licensed under CC BY-NC-SA 4.0 

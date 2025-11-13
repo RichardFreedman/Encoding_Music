@@ -184,3 +184,13 @@ A helpful [Pandas Cheat Sheet][pandas-cheat-sheet].
 [pandas-documentation]: https://pandas.pydata.org/about/
 [w3schools]: https://www.w3schools.com/python/pandas/default.asp
 [pandas-cheat-sheet]: https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf
+
+## Credits and License
+
+Resources from **Music 255:  Encoding Music**, a course taught at Haverford College by Professor Richard Freedman.
+
+Special thanks to Haverford College students Charlie Cross, Owen Yaggy, Harrison West, Edgar Leon and Oleh Shostak for indispensable help in developing the course, the methods and documentation.
+
+Additional thanks to Anna Lacy and Patty Guardiola of the Digital Scholarship team of the Haverford College libraries, to Adam Portier, systems administrator in the IITS department, and to Dr Daniel Russo-Batterham, Melbourne University.
+
+This work is licensed under CC BY-NC-SA 4.0 

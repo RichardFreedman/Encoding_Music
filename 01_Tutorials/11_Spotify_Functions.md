@@ -1,5 +1,10 @@
 # Spotify Functions for the Encoding Music Course
 
+## Update for 2025!
+
+As of December 2024, Spotify has all but eliminated access to the Spotify API for most users.  It's possible that the code below will work again in the future, but for now, this is simply for historical reference!
+
+
 |    | Contents of this Tutorial               | 
 |----|-----------------------------------------|
 | 1. | [**Brief Introduction: Spotify, APIs, Spotify API, and Spotipy**](#brief-introduction-spotify-apis-spotify-api-and-spotipy) |
@@ -1421,3 +1426,14 @@ Or a network based on binned (categorical) treatment of the same information, he
 ![alt text](images/nw_beatles_spot_2_cuts_66-67.png)
 
 Learn more about [Network Graphs](/09_Pandas_Networks.md)
+
+
+## Credits and License
+
+Resources from **Music 255:  Encoding Music**, a course taught at Haverford College by Professor Richard Freedman.
+
+Special thanks to Haverford College students Charlie Cross, Owen Yaggy, Harrison West, Edgar Leon and Oleh Shostak for indispensable help in developing the course, the methods and documentation.
+
+Additional thanks to Anna Lacy and Patty Guardiola of the Digital Scholarship team of the Haverford College libraries, to Adam Portier, systems administrator in the IITS department, and to Dr Daniel Russo-Batterham, Melbourne University.
+
+This work is licensed under CC BY-NC-SA 4.0 

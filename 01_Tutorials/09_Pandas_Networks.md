@@ -297,6 +297,7 @@ This is what this looks like for a single list of genre labels in one row:
 # make sure you have imported the relevant library, itertools, and of course pandas
 import pandas as pd
 import itertools
+from itertools import combinations
 # now a sample list and the resulting combinations
 sample_list = ['psychedelic rock', 'art rock', 'pop rock']
 pairs = list(combinations(sample_list, 2))
@@ -1625,3 +1626,13 @@ The key thing is that **Louvain does NOT know about the lists**!  It creates the
 [pandas-filter-find-group]: 07_Pandas_Filter_Find_Group.md
 [pandas-graphs]: 08_Pandas_Graphs_and_Charts.md
 [pandas-networks]: 09_Pandas_Networks.md
+
+## Credits and License
+
+Resources from **Music 255:  Encoding Music**, a course taught at Haverford College by Professor Richard Freedman.
+
+Special thanks to Haverford College students Charlie Cross, Owen Yaggy, Harrison West, Edgar Leon and Oleh Shostak for indispensable help in developing the course, the methods and documentation.
+
+Additional thanks to Anna Lacy and Patty Guardiola of the Digital Scholarship team of the Haverford College libraries, to Adam Portier, systems administrator in the IITS department, and to Dr Daniel Russo-Batterham, Melbourne University.
+
+This work is licensed under CC BY-NC-SA 4.0 

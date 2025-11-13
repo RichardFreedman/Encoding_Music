@@ -187,6 +187,24 @@ There are various ways to:
 * update the **value for a particular key**: `my_dict["date"] = "1789"`
 * add a **key/value pair**:  `my_dict["language"] = "German"`
 * remove a **key/value pair**: `my_dict.pop("language")`
+* add a **key** (and supply the value later)    `my_dict["librettist"] = None`
+
+
+Need to build a dictionary for a mapping function in Pandas?  Here is a way to do this from a list of keys:
+
+
+```python
+my_keys = ["artist_first_name", "artist_last_name", "work_title", "work_genre", "date", "first_performance_place"]
+my_dict = dict.fromkeys(my_keys)
+print(my_dict)
+
+{'artist_first_name': None, 'artist_last_name': None, 'work_title': None, 'work_genre': None, 'date': None, 'first_performance_place': None}
+```
+
+Now you could take that dictionary and fill in the values as needed.
+
+
+
 
 Sometimes you will encounter a **List of Dictionaries**:
 
@@ -509,3 +527,14 @@ for sample_name in sample_name_list:
 You may encounter code using the term `lambda`. This is a shorthand way for defining entire functions in a single line. While it is quicker to write, it is much harder to read and understand. For this reason, you'll mostly see functions defined using `def` in these tutorials. However, you are encouraged to learn more about Python `lambda` functions [here][lambda-functions].
 
 [lambda-functions]: https://www.w3schools.com/python/python_lambda.asp
+
+
+## Credits and License
+
+Resources from **Music 255:  Encoding Music**, a course taught at Haverford College by Professor Richard Freedman.
+
+Special thanks to Haverford College students Charlie Cross, Owen Yaggy, Harrison West, Edgar Leon and Oleh Shostak for indispensable help in developing the course, the methods and documentation.
+
+Additional thanks to Anna Lacy and Patty Guardiola of the Digital Scholarship team of the Haverford College libraries, to Adam Portier, systems administrator in the IITS department, and to Dr Daniel Russo-Batterham, Melbourne University.
+
+This work is licensed under CC BY-NC-SA 4.0 

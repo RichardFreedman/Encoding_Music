@@ -57,6 +57,15 @@ beatles_billboard_csv = 'https://raw.githubusercontent.com/inteligentni/Class-05
 beatles_billboard = pd.read_csv(beatles_billboard_csv)
 ```
 
+You can merge these with `pd.merge()`.  Or just load the combined data from our Encoding Music repository, in this case as a `pickle`:
+
+```python
+beatles_spotify_pkl = 'https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/main/02_Lab_Data/Beatles/beatles_data.pkl'
+
+# Import to a Pandas dataframe
+beatles_spotify = pd.read_pickle(beatles_spotify_pkl)
+```
+
 ## A Basic Filter
 
 An important feature in Pandas is the ability to look at only rows that meet a desired condition. This is called **filtering**. 
@@ -628,6 +637,13 @@ With `qcut` method:
 ```python
 binned_data = pd.qcut(beatles_spotify["danceability"], q=4, labels=['l', 'm', 'h', 's'])
 ```
+
+The results are each a Series.  You can assign these binned (and labelled) categories back to a column in the original dataframe.  For example:
+
+```python
+beatles_spotify['dance_binned'] = pd.qcut(beatles_spotify["danceability"], q=4, labels=['l', 'm', 'h', 's'])
+```
+
 ## Groupby Functions
 
 `groupby` is a powerful method that saves time when working with subsets (groups) of your data that share a certain characteristic. Some of its most important use cases are compiling statistics for several subsets of your data, simultaneously and creating graphs based on those subsets.
@@ -635,6 +651,7 @@ binned_data = pd.qcut(beatles_spotify["danceability"], q=4, labels=['l', 'm', 'h
 However, `groupby` also requires special attention to the tidiness of your data in order for it to function correctly.
 
 There will be a supplemental essay on groupby functions available on Moodle or GDrive. That will be a more in-depth view of the topic, whereas the below guide to groupby focuses on some of the core features.
+
 
 
 |    | In this section               | 
@@ -675,6 +692,9 @@ beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.re
 beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace("children's music", "children's")
 beatles_billboard_exploded['Genre'] = beatles_billboard_exploded['Genre'].str.replace("stage&screen", "stage and screen")
 ```
+
+You could also clean the data with a a dictionary and map, as we explained in the [Pandas: Clean Data][pandas-clean] tutorial
+
 
 The result for Golden Slumbers would look like this:
 
@@ -980,7 +1000,7 @@ Or focus on the relative activity of Lennon and McCartney across the years, firs
 beatles_jl_pm = beatles_billboard[beatles_billboard['Songwriter'].isin(["Lennon", "McCartney"])]
 ```
 
-Note this excludes tracks they did not write independently. .isin() searches for exact matches, so for example, 'Lennon and Harrison' would not be included.
+Note this excludes tracks they did not write independently. `.isin()` searches for exact matches, so for example, 'Lennon and Harrison' would not be included.
 
 Then find the 'groups':
 
@@ -2185,6 +2205,39 @@ The result stored in help is a dataframe\! You could perform any operation on he
 
 Since groupby is such a powerful but complex tool, it may be helpful to learn more about the various ways to use it.
 
+#### Using `transform()` with Groupby to Create New Columns in your Existing DataFrame
+
+So far we have seen various ways to aggregate data using groupby.  Each of these returns a dataframe that is shaped very different from our original.  But what if you wanted to derive some data about groups of objects that are then added to the original set?  We do this with `transform()`.  
+
+For example, let's say we want to filter out of our dataset all genres that appear only **once**.  We could do this by getting the `df.value_counts()` then, filtering that list, and finally using that short list to test for values in our genre column, with `isin([])`.
+
+```python
+# explode the genre column to get each genre in its own row
+beatles_exploded = beatles_billboard.explode('Genre')
+
+# get the value counts of the genre column
+genre_counts = beatles_exploded['Genre'].value_counts()
+# filter the value counts to only those that appear more than once
+common_genres = genre_counts[genre_counts > 1].index
+# filter the original dataframe to only those genres that appear more than once
+beatles_exploded_common_genres = beatles_exploded[beatles_exploded['Genre'].isin(common_genres)]
+beatles_exploded_common_genres.head()
+```
+
+But another way to do this would be with `groupby` and `transform()`, reporting the resulting count for each genre value to a new column in the original dataset and then filtering those out.  Here is how:
+
+
+```python
+# groupby the genre column and transform to get the count of each genre
+beatles_exploded = beatles_billboard.explode('Genre')
+
+beatles_exploded['genre_count'] = beatles_exploded.groupby('genre')['genre'].transform('count')
+# filter out the genres that appear only once
+beatles_exploded_common_genres = beatles_exploded[beatles_exploded['genre_count'] > 1]
+beatles_exploded_common_genres.head()
+```
+
+
 #### Using Categorical Data - Lambda Functions and `apply(list)`
 So far, the aggregations methods explored have been applied to numerical data. However, we can also use categorical data with groupby. This section will explore function calls: lambda functions and `apply(list)`. While neither of these are aggregation functions, they can be extremely useful in transforming and analyzing our data, especially categorical data.
 
@@ -2560,3 +2613,14 @@ Note that using groupby with several grouping columns will complicate the operat
 [pandas-cheat-sheet]: https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf
 [pandas-cut]: https://pandas.pydata.org/docs/reference/api/pandas.cut.html
 [pandas-tutor-groupby-1]: https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0A%0Acsv%20%3D%20'''%0ATitle,Album.debut,Duration%0AAnother%20Girl,Help!,124%0AEleanor%20Rigby,Revolver,128%0AFor%20No%20One,Revolver,121%0AGirl,Rubber%20Soul,153%0AGood%20Day%20Sunshine,Revolver,129%0AGot%20to%20Get%20You%20into%20My%20Life,Revolver,147%0AHelp!,Help!,138%0A%22Here,%20There%20and%20Everywhere%22,Revolver,145%0AI%20Need%20You,Help!,148%0AI%20Want%20to%20Tell%20You,Revolver,149%0AI'm%20Looking%20Through%20You,Rubber%20Soul,147%0AIn%20My%20Life,Rubber%20Soul,148%0ALove%20You%20To,Revolver,181%0AMichelle,Rubber%20Soul,160%0ANorwegian%20Wood%20%28This%20Bird%20Has%20Flown%29,Rubber%20Soul,125%0ARun%20for%20Your%20Life,Rubber%20Soul,138%0AShe%20Said%20She%20Said,Revolver,157%0ATaxman,Revolver,159%0AThe%20Night%20Before,Help!,153%0AThe%20Word,Rubber%20Soul,161%0AThink%20for%20Yourself,Rubber%20Soul,138%0ATicket%20to%20Ride,Help!,190%0ATomorrow%20Never%20Knows,Revolver,178%0AWait,Rubber%20Soul,136%0AYellow%20Submarine,Revolver,158%0AYou%20Won't%20See%20Me,Rubber%20Soul,202%0AYou're%20Going%20to%20Lose%20That%20Girl,Help!,140%0AYou've%20Got%20to%20Hide%20Your%20Love%20Away,Help!,131%0A'''%0A%0Asongs%20%3D%20pd.read_csv%28io.StringIO%28csv%29%29%0Asongs%20%3D%20songs%5B%5B'Title',%20'Album.debut',%20'Duration'%5D%5D.sort_values%28'Album.debut'%29%0A%0Asongs.groupby%28'Album.debut'%29%5B'Duration'%5D.mean%28%29&d=2024-07-26&lang=py&v=v1
+
+
+## Credits and License
+
+Resources from **Music 255:  Encoding Music**, a course taught at Haverford College by Professor Richard Freedman.
+
+Special thanks to Haverford College students Charlie Cross, Owen Yaggy, Harrison West, Edgar Leon and Oleh Shostak for indispensable help in developing the course, the methods and documentation.
+
+Additional thanks to Anna Lacy and Patty Guardiola of the Digital Scholarship team of the Haverford College libraries, to Adam Portier, systems administrator in the IITS department, and to Dr Daniel Russo-Batterham, Melbourne University.
+
+This work is licensed under CC BY-NC-SA 4.0 
