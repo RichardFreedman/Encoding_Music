@@ -1,4 +1,8 @@
-| [Pandas Basics][pandas-basics] | [Clean Data][pandas-clean] | [Tidy Data][pandas-tidy] | **Filtering, Finding, and Grouping** | [Graphs and Charts][pandas-graphs] | [Networks][pandas-networks] |
+grouped_basic = finals.groupby('2', dropna=False).agg({
+    'Composer': list,
+    'Title': list
+}).reset_index()
+grouped_basic| [Pandas Basics][pandas-basics] | [Clean Data][pandas-clean] | [Tidy Data][pandas-tidy] | **Filtering, Finding, and Grouping** | [Graphs and Charts][pandas-graphs] | [Networks][pandas-networks] |
 |--------|--------|--------|--------|-------|-------|
 
 # Advanced Pandas: Filtering, Finding, and Grouping
@@ -919,6 +923,7 @@ songs.groupby('Album.debut')['Duration'].mean()
 </details>
 
 <a name="#additional-examples-using-groupby"></a>
+
 ### Additional Examples using groupby
 
 groupby functions allow you to organize and analyze data that share certain features. For instance, we could find the number of songs per album:
@@ -991,7 +996,14 @@ Name: Title, dtype: int64
 
 </details>
 
+Or a list of song titles and songwriters per album: 
 
+grouped_albums = beatles_billboard.groupby('Album.debut', dropna=False).agg({
+    'Songwriter': list,
+    'Title': list
+}).reset_index()
+
+grouped_albums
 
 Or focus on the relative activity of Lennon and McCartney across the years, first by filtering to work that is theirs exclusively:
 
