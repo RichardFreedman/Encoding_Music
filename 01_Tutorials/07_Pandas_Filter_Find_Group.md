@@ -998,12 +998,14 @@ Name: Title, dtype: int64
 
 Or a list of song titles and songwriters per album: 
 
+```
 grouped_albums = beatles_billboard.groupby('Album.debut', dropna=False).agg({
     'Songwriter': list,
     'Title': list
 }).reset_index()
 
 grouped_albums
+```
 
 Or focus on the relative activity of Lennon and McCartney across the years, first by filtering to work that is theirs exclusively:
 
