@@ -1,169 +1,93 @@
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
-@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
-@prefix : <https://www.bico-sound-map-2.edu/>.
+import streamlit as st
+import pandas as pd
+import numpy as np
 
-## Defining class taxonomy
+@st.cache_data
+def load_data():
+    """Load and validate dataset"""
+    try:
+        df = pd.read_csv('https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/main/06_SoundMap/bicomap.csv')
+        
+        # Clean data
+        df = df.dropna(subset=['latitude', 'longitude'])
+        
+        # Validate coordinate ranges
+        df = df[
+            (df['latitude'].between(-90, 90)) & 
+            (df['longitude'].between(-180, 180))
+        ]
+        
+        return df
+        
+    except Exception as e:
+        st.error(f"Error loading data: {str(e)}")
+        st.stop()
 
-:thing
-    rdf:type rdfs:Class;
-    rdfs:label "Thing super class"^^xsd:string.
+# App Setup
+st.title('Bi-Co Sound Survey Computational Essay')
+st.markdown('By Logan Griffin, Luke Sheppard, Reed Solomon, and Jade Yu')
+st.markdown('Sounds of Silence: A Sound Survey of the Bi-Co During Finals Week')
 
-:person
-    rdf:type rdfs:Class;
-    rdfs:subClassOf :thing;
-    rdfs:label "Person"^^xsd:string.
+# Load data
+df = load_data()
 
-:event
-    rdf:type rdfs:Class;
-    rdfs:subClassOf :thing;
-    rdfs:label "Event"^^xsd:string.
+# Sidebar Controls
+with st.sidebar:
+    st.header("Filters")
+    
+    volume_min = float(df['volume'].min())
+    volume_max = float(df['volume'].max())
+    
+    volume_threshold = st.slider(
+        "Maximum Volume Threshold",
+        min_value=volume_min,
+        max_value=volume_max,
+        value=volume_max,
+        step=0.1
+    )
+    
+    show_data = st.checkbox('Show Filtered Data', value=False)
 
-:sound_event
-    rdf:type rdfs:Class;
-    rdfs:subClassOf :event;
-    rdfs:label "Sound recording"^^xsd:string.
+# Filter data
+filtered_df = df[df['volume'] <= volume_threshold]
 
-:location
-    rdf:type rdfs:Class;
-    rdfs:subClassOf :thing;
-    rdfs:label "Location"^^xsd:string.
+# Display filtered data if requested
+if show_data:
+    st.subheader("Filtered Data")
+    st.write(filtered_df)
 
-:campus
-    rdf:type rdfs:Class;
-    rdfs:subClassOf :thing;
-    rdfs:label "Campus whether Byrn Mawr or Haverford"^^xsd:string.
+# Display map using Streamlit's native map
+st.subheader("Sound Survey Map")
 
-:building
-    rdf:type rdfs:Class;
-    rdfs:subClassOf :location;
-    rdfs:label "A building"^^xsd:string.
+if len(filtered_df) == 0:
+    st.warning("No data points match the current filter criteria.")
+else:
+    # Prepare data for Streamlit map
+    map_data = filtered_df[['latitude', 'longitude']].copy()
+    
+    # Add size based on volume (optional)
+    map_data['size'] = filtered_df['volume'] * 10  # Scale for visibility
+    
+    # Display the map
+    st.map(map_data, size='size', zoom=12)
+    
+    # Show location details below map
+    st.subheader("Location Details")
+    for idx, row in filtered_df.iterrows():
+        with st.expander(f"{row['location']} (Volume: {row['volume']})"):
+            st.write(f"**Coordinates:** {row['latitude']}, {row['longitude']}")
+            st.write(f"**Volume:** {row['volume']}")
+            if 'distractability' in row:
+                st.write(f"**Distractability:** {row['distractability']}")
+            if 'rowdiness' in row:
+                st.write(f"**Rowdiness:** {row['rowdiness']}")
 
-:outdoor_location
-    rdf:type rdfs:Class;
-    rdfs:subClassOf :location;
-    rdfs:label "Location outside"^^xsd:string.
-
-:recording_event 
-    rdf:type rdfs:Class;
-    rdfs:subClassOf :event;
-    rdfs:label "The recording of sound event"^^xsd:string.
-
-:recording_device
-    rdf:type rdfs:Class;
-    rdfs:subClassOf :thing;
-    rdfs:label "The device used to record"^^xsd:string.
-
-:sound_data
-    rdf:type rdfs:Class;
-    rdfs:subClassOf :thing;
-    rdfs:label "Metadata for corresponding recording event"^^xsd:string.
-
-:sound_type
-    rdf:type rdfs:Class;
-    rdfs:subClassOf :thing;
-    rdfs:label "Characteristic for describing the sound of the sound event"^^xsd:string.
-
-## Defining relations
-
-:took_place_in_campus
-    rdf:type rdf:Property;
-    rdfs:domain :sound_event;
-    rdfs:range :campus;
-    rdfs:label "Campus where sound event occurred"^^xsd:string.
-
-:took_place_in
-    rdf:type rdf:Property;
-    rdfs:domain :sound_event;
-    rdfs:range :location;
-    rdfs:label "Building or outdoor location where sound event took place"^^xsd:string.
-
-:hasdescription
-    rdf:type rdf:Property;
-    rdfs:domain :thing; 
-    rdfs:range rdfs:Literal.
-
-:has_date
-    rdf:type rdf:Property;
-    rdfs:domain :sound_event, :recording_event;
-    rdfs:range rdfs:Literal;
-    rdfs:label "Date"^^xsd:date.
-
-:recorded
-    rdf:type rdf:Property;
-    rdfs:domain :recording_event;
-    rdfs:range :sound_event;
-    rdfs:label "The action of a recording_event recording a sound_event"^^xsd:string.
-
-:performed_by
-    rdf:type rdf:Property;
-    rdfs:domain :recording_event;
-    rdfs:range :person;
-    rdfs:label "The person who completed the sound recording"^^xsd:string.
-
-:recorded_on
-    rdf:type rdf:Property;
-    rdfs:domain :recording_event;
-    rdfs:range :recording_device.
-
-:time_recorded_at 
-    rdf:type rdf:Property;
-    rdfs:domain :recording_event;
-    rdfs:range rdfs:Literal.
-
-:has_latitude
-    rdf:type rdf:Property;
-    rdfs:domain :building, :outdoor_location;
-    rdfs:range rdfs:Literal.
-
-:has_longitude
-    rdf:type rdf:Property;
-    rdfs:domain :building, :outdoor_location;
-    rdfs:range rdfs:Literal.
-
-:measured_by
-    rdf:type rdf:Property;
-    rdfs:domain :sound_data;
-    rdfs:range :person;
-    rdfs:label "The person who measured sound data"^^xsd:string.
-
-:has_sound_type
-    rdf:type rdf:Property;
-    rdfs:domain :sound_data;
-    rdfs:range :sound_type.
-
-:has_volume
-    rdf:type rdf:Property;
-    rdfs:domain :sound_data; 
-    rdfs:range rdfs:Literal.
-
-:has_pitch 
-    rdf:type rdf:Property;
-    rdfs:domain :sound_data; 
-    rdfs:range rdfs:Literal.
-
-:has_distractability 
-    rdf:type rdf:Property;
-    rdfs:domain :sound_data; 
-    rdfs:range rdfs:Literal.
-
-:has_rowdiness 
-    rdf:type rdf:Property;
-    rdfs:domain :sound_data; 
-    rdfs:range rdfs:Literal.
-
-:has_multiplicity 
-    rdf:type rdf:Property;
-    rdfs:domain :sound_data; 
-    rdfs:range rdfs:Literal.
-
-:has_repetition 
-    rdf:type rdf:Property;
-    rdfs:domain :sound_data; 
-    rdfs:range rdfs:Literal.
-
-:has_persistence 
-    rdf:type rdf:Property;
-    rdfs:domain :sound_data; 
-    rdfs:range rdfs:Literal.
+# Debug Information
+with st.expander("Debug Information"):
+    st.write(f"**Total data points:** {len(df)}")
+    st.write(f"**Filtered data points:** {len(filtered_df)}")
+    st.write(f"**Volume threshold:** {volume_threshold}")
+    
+    if len(filtered_df) > 0:
+        st.write("**Sample coordinates:**")
+        st.write(filtered_df[['latitude', 'longitude', 'location', 'volume']].head())
