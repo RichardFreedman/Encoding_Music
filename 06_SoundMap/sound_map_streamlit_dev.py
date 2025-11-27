@@ -3,9 +3,14 @@
 import streamlit as st
 import pandas as pd
 import pydeck as pdk
+import re 
 
 st.set_page_config(page_title="Musical Events Map", layout="wide")
-st.title("🎵 Musical Events Interactive Map")
+st.title("BiCo Sound Map")
+
+
+st.markdown('Sounds of Silence: A Sound Survey of the Bi-Co During Finals Week')
+st.markdown('By Logan Griffin, Luke Sheppard, Reed Solomon, and Jade Yu')
 
 # Bryn Mawr, PA coordinates
 CENTER_LAT = 40.0209
@@ -14,12 +19,12 @@ CENTER_LON = -75.3137
 # Load data
 @st.cache_data
 def load_data():
-    return pd.read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTT1nChPTl-tDC-g6R-Uv6kctTq48S8hYy_k3NMc9PwFLEhVJelmTLC0jIoFecerYc1KJNk7EcX9dlY/pub?output=csv")
+    return pd.read_csv("https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/refs/heads/main/06_SoundMap/bicomap.csv")
 
 df = load_data()
 
 # Sidebar filters
-st.sidebar.header("🎛️ Filter Events")
+st.sidebar.header("Filter Events by Category")
 
 # Initialize filtered dataframe
 filtered_df = df.copy()
@@ -28,20 +33,33 @@ active_filters = []
 # Purpose filter (multiselect)
 if 'purpose' in df.columns:
     st.sidebar.subheader("📝 Purpose")
-    purpose_options = df['purpose'].dropna().unique()
+    
+    # Split all purpose strings and collect unique substrings
+    all_purposes = set()
+    for purpose_string in df['purpose'].dropna():
+        # Split by semicolon and add each cleaned substring to the set
+        purposes = [p.strip() for p in purpose_string.split(';') if p.strip()]
+        all_purposes.update(purposes)
+    
+    # Convert to sorted list for the multiselect
+    purpose_options = sorted(all_purposes)
+    
     if len(purpose_options) > 0:
         selected_purposes = st.sidebar.multiselect(
             "Select purposes:",
-            options=sorted(purpose_options),
-            default=sorted(purpose_options),
+            options=purpose_options,
+            default=purpose_options,
             key="purpose_filter"
         )
+        
         if len(selected_purposes) < len(purpose_options):
-            filtered_df = filtered_df[filtered_df['purpose'].isin(selected_purposes)]
+            # Create regex pattern to match any of the selected purposes
+            pattern = '|'.join([re.escape(purpose) for purpose in selected_purposes])
+            filtered_df = filtered_df[filtered_df['purpose'].str.contains(pattern, na=False, regex=True)]
             active_filters.append(f"Purpose: {len(selected_purposes)}/{len(purpose_options)}")
 
 # Numeric fields section
-st.sidebar.subheader("🔢 Numeric Attributes")
+st.sidebar.subheader("Numeric Attributes")
 
 numeric_fields = ['volume', 'pitch', 'distractability', 'rowdiness', 'multiplicity', 'repetition', 'persistence']
 
@@ -76,7 +94,7 @@ for field in numeric_fields:
                     active_filters.append(f"{field.title()}: {selected_range[0]}-{selected_range[1]}")
 
 # Marker size control
-st.sidebar.subheader("📏 Marker Size")
+st.sidebar.subheader("Set Marker Size")
 available_numeric_fields = [field for field in numeric_fields if field in df.columns]
 size_field = st.sidebar.selectbox(
     "Size markers by:",
@@ -87,14 +105,14 @@ size_field = st.sidebar.selectbox(
 
 # Show active filters in sidebar
 if active_filters:
-    st.sidebar.subheader("🎯 Active Filters")
+    st.sidebar.subheader("Active Filters")
     for filter_info in active_filters:
         st.sidebar.write(f"• {filter_info}")
 else:
     st.sidebar.info("No filters applied - showing all events")
 
 # Reset filters button
-if st.sidebar.button("🔄 Reset All Filters"):
+if st.sidebar.button("Reset All Filters"):
     st.rerun()
 
 # Clean coordinate data for filtered results
@@ -153,7 +171,7 @@ with col1:
         st.warning("No events match the selected filters.")
 
 with col2:
-    st.subheader("📊 Summary")
+    st.subheader("Summary")
     
     # Metrics
     total_events = len(df)
@@ -178,7 +196,7 @@ with col2:
         st.write(f"Showing {coverage:.1f}% of all events")
 
 # Optional data preview
-with st.expander("📋 View Filtered Data"):
+with st.expander("View Filtered Data"):
     if len(filtered_df) > 0:
         st.dataframe(filtered_df, use_container_width=True)
         
