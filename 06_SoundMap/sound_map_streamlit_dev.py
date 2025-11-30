@@ -1,18 +1,18 @@
-
-        
+# import necessary libraries
 import streamlit as st
 import pandas as pd
 import pydeck as pdk
 import re 
 
+# Set up Streamlit page
 st.set_page_config(page_title="Musical Events Map", layout="wide")
 st.title("BiCo Sound Map")
 
-
+# Page description
 st.markdown('Sounds of Silence: A Sound Survey of the Bi-Co During Finals Week')
 st.markdown('By Logan Griffin, Luke Sheppard, Reed Solomon, and Jade Yu')
 
-# Bryn Mawr, PA coordinates
+# Bryn Mawr, PA coordinates (used as map center)
 CENTER_LAT = 40.0209
 CENTER_LON = -75.3137
 
@@ -198,7 +198,7 @@ with col2:
 # Optional data preview
 with st.expander("View Filtered Data"):
     if len(filtered_df) > 0:
-        st.dataframe(filtered_df, use_container_width=True)
+        st.dataframe(filtered_df, width='stretch')
         
         # Download button
         csv = filtered_df.to_csv(index=False)
