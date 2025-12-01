@@ -89,7 +89,7 @@ This tutorial introduces [Streamlit](https://streamlit.io/), a Python library fo
 			st.dataframe(data)
 	else:
 		st.write("👈 Check the box in the sidebar to display the scatter plot!")
-		```
+	```
 
 ## D. Running the Streamlit App Locally
 
