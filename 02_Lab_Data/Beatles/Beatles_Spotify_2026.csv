@@ -1,0 +1,192 @@
+year,album,song,spotify url,danceability,energy,key,loudness,mode,speechiness,acousticness,instrumentalness,liveness,valence,tempo,duration_ms,time_signature
+1967,Sgt. Pepper's Lonely Hearts Club Band,A Day in the Life,https://open.spotify.com/track/0hKRSZhUGEhKU6aNSPBACZ,0.364,0.457,4,-14.162,0,0.0675,0.29,0.000106,0.922,0.175,163.219,337413,4
+1964,A Hard Day's Night,A Hard Day's Night,https://open.spotify.com/track/5J2CHimS7dWYMImCHkEFaJ,0.59,0.805,0,-6.481,1,0.0371,0.137,0,0.0996,0.797,138.514,154200,4
+1970,Let It Be,Across the Universe,https://open.spotify.com/track/4dkoqJrP0L8FXftrMZongF,0.257,0.412,1,-11.788,1,0.0287,0.361,0.0000868,0.0702,0.858,152.126,228133,4
+1965,Help!,Act Naturally,https://open.spotify.com/track/0IxxqsYBcCHEQ1HqLYJnwx,0.702,0.447,7,-10.122,1,0.0308,0.366,0,0.153,0.944,93.02,150373,4
+1963,With The Beatles,All I've Got to Do,https://open.spotify.com/track/5tztLBvTlNC15Np2tnQ5Ll,0.49,0.579,1,-10.301,0,0.0344,0.217,0,0.0644,0.879,119.403,122573,4
+1963,With The Beatles,All My Loving,https://open.spotify.com/track/4joiWvli4qJVEW6qZV2i2J,0.416,0.563,1,-8.724,0,0.0298,0.207,0,0.343,0.9,77.56,127853,4
+1969,Yellow Submarine,All Together Now,https://open.spotify.com/track/2ck8lFrYAch2GPtdhpTHe3,0.587,0.431,2,-9.495,1,0.0686,0.0722,0,0.561,0.778,95.937,130893,4
+1967,Magical Mystery Tour,All You Need Is Love,https://open.spotify.com/track/68BTFws92cRztMS1oQ7Ewj,0.4,0.48,7,-7.768,1,0.0295,0.346,0.000031,0.155,0.653,103.436,230387,4
+1969,Yellow Submarine,All You Need Is Love,https://open.spotify.com/track/2Z8cY4QpZTFUZxCQCpvNe1,0.4,0.463,7,-8.455,1,0.0288,0.345,0.0000459,0.286,0.627,103.103,231213,4
+1964,A Hard Day's Night,And I Love Her,https://open.spotify.com/track/65vdMBskhx3akkG9vQlSH1,0.767,0.331,1,-10.777,0,0.0337,0.64,0,0.0681,0.636,113.312,149693,4
+1966,Revolver,And Your Bird Can Sing,https://open.spotify.com/track/4KRgqwb4kvBuTz1utbYxfb,0.555,0.65,4,-6.936,1,0.0282,0.0067,0.0491,0.236,0.966,132.59,120493,4
+1963,Please Please Me,Anna (Go to Him),https://open.spotify.com/track/2baEFuU0gQon0hgVRioI1o,0.608,0.565,2,-11.06,1,0.0336,0.635,0,0.0601,0.835,109.286,177133,4
+1965,Help!,Another Girl,https://open.spotify.com/track/7hefVXaGsFPesbK6fKwS6F,0.516,0.638,9,-7.453,1,0.0314,0.238,0,0.333,0.822,88.657,125360,4
+1964,A Hard Day's Night,Any Time at All,https://open.spotify.com/track/70XHAdaMaoLIOVb1hSaeJ4,0.612,0.719,2,-7.026,1,0.0398,0.366,0.00000388,0.437,0.744,141.016,131280,4
+1963,Please Please Me,Ask Me Why,https://open.spotify.com/track/7529Z6b1rlGZFFPWjHPeV5,0.605,0.394,4,-11.33,1,0.0378,0.767,0,0.0967,0.597,133.942,146533,4
+1963,Please Please Me,Baby It's You,https://open.spotify.com/track/2VmB1rF9FtfKUmFHDVnq8Q,0.608,0.494,4,-12.211,0,0.0345,0.778,0,0.0926,0.879,112.421,160520,4
+1967,Magical Mystery Tour,"Baby, You're a Rich Man",https://open.spotify.com/track/0JBvtprXP2Z0LP3jmzA7Xp,0.619,0.625,7,-9.635,1,0.036,0.0119,0.00000105,0.152,0.467,96.751,181307,4
+1964,Beatles for Sale,Baby's in Black,https://open.spotify.com/track/7cb2SdLm1UMLwdUoWwrZN1,0.374,0.596,9,-7.666,1,0.0416,0.434,0,0.098,0.876,202.97,124520,3
+1968,The Beatles (white album),Back in the U.S.S.R.,https://open.spotify.com/track/0j3p1p06deJ7f9xmJ9yG22,0.48,0.969,9,-7.464,1,0.0854,0.069,0.00022,0.0608,0.494,142.489,163453,4
+1969,Abbey Road,Because,https://open.spotify.com/track/1rxoyGj1QuPoVi8fOft1Kt,0.328,0.249,2,-11.777,1,0.0272,0.754,0.00000577,0.134,0.162,81.257,165667,4
+1967,Sgt. Pepper's Lonely Hearts Club Band,Being for the Benefit of Mr. Kite!,https://open.spotify.com/track/6W35n1UlkvqhfMZstB4BXs,0.526,0.413,0,-9.865,1,0.0446,0.338,0,0.0992,0.71,111.874,157533,4
+1968,The Beatles (white album),Birthday,https://open.spotify.com/track/1ABegtCPBMMJaMpfDyATjE,0.541,0.727,2,-7.509,1,0.0384,0.0000737,0.717,0.232,0.91,139.239,163080,4
+1968,The Beatles (white album),Blackbird,https://open.spotify.com/track/5jgFfDIR6FR0gvlA56Nakr,0.686,0.127,7,-14.361,1,0.0342,0.754,0.0000141,0.0573,0.372,93.699,138387,4
+1967,Magical Mystery Tour,Blue Jay Way,https://open.spotify.com/track/0QIX9BS0AUCQcHYvyrsMkV,0.294,0.407,0,-11.575,1,0.0308,0.0258,0.000219,0.0852,0.0378,101.052,235067,4
+1963,Please Please Me,Boys,https://open.spotify.com/track/7JxGM1R32ZqfwZou3VtnTg,0.402,0.86,4,-10.31,1,0.0504,0.607,0,0.736,0.822,142.445,146440,4
+1964,A Hard Day's Night,Can't Buy Me Love,https://open.spotify.com/track/3SdingSsFcZDZAyvcJbgAw,0.483,0.677,0,-5.91,1,0.0593,0.283,0,0.321,0.842,170.72,131867,4
+1969,Abbey Road,Carry That Weight,https://open.spotify.com/track/5eZrW59C3UgBhkqNlowEID,0.543,0.458,0,-8.976,1,0.0274,0.226,0.00663,0.298,0.704,84.319,96467,4
+1963,Please Please Me,Chains,https://open.spotify.com/track/3JQWLa88R35d971o5bIImd,0.654,0.561,10,-10.551,1,0.0304,0.608,0,0.129,0.929,129.884,145080,4
+1969,Abbey Road,Come Together,https://open.spotify.com/track/2EqlS6tkEnglzr7tkKAAYD,0.533,0.376,9,-11.913,0,3.93E-02,0.0302,0.248,0.0926,0.187,165.007,259947,4
+1968,The Beatles (white album),Cry Baby Cry,https://open.spotify.com/track/5XmetMMUFNXClbiYnGdVmP,0.517,0.529,9,-11.851,0,3.23E-02,0.115,0.00396,0.174,0.362,76.644,182080,4
+1968,The Beatles (white album),Dear Prudence,https://open.spotify.com/track/5NQYyej46WQkgCbnzGD21W,0.388,0.529,7,-10.533,1,4.36E-02,0.16,0.0681,0.108,0.332,150.721,235773,4
+1963,With The Beatles,Devil in Her Heart,https://open.spotify.com/track/5maTh4fY9SlgR3FhRkf040,0.618,0.622,7,-8.861,1,0.0296,0.227,0,0.0438,0.966,121.072,146213,4
+1970,Let It Be,Dig a Pony,https://open.spotify.com/track/4OUmlC67FoPLvQNuE5C7kF,0.538,0.478,11,-8.957,0,0.0388,0.472,0,0.17,0.527,59.004,235000,4
+1970,Let It Be,Dig It,https://open.spotify.com/track/0eRyOunOVBChlXxIvqwOxH,0.54,0.489,5,-12.276,1,0.117,0.659,0.0019,0.457,0.67,157.03,50467,3
+1965,Help!,"Dizzy, Miss Lizzy",https://open.spotify.com/track/70Dohn82wv6VtxGesqRzbZ,0.373,0.934,9,-6.753,1,0.0591,0.116,0.00445,0.0962,0.918,136.037,176507,4
+1963,Please Please Me,Do You Want to Know a Secret?,https://open.spotify.com/track/7Aobt67JnaF7qN8jCCKvHq,0.673,0.349,4,-12.414,1,0.0368,0.608,0,0.38,0.609,124.451,117013,4
+1966,Revolver,Doctor Robert,https://open.spotify.com/track/1ob06Ol8FMIPQgjpg7bMyk,0.394,0.64,4,-8.992,1,0.0488,0.164,0.139,0.153,0.574,164.626,134267,4
+1963,With The Beatles,Don't Bother Me,https://open.spotify.com/track/7y1hMqXNa0dKQLZH7CKbUG,0.371,0.724,2,-9.792,1,0.0562,0.554,0,0.299,0.916,170.377,148253,3
+1968,The Beatles (white album),Don't Pass Me By,https://open.spotify.com/track/4zq4rrfHZeZsTbo5vjJXSV,0.599,0.537,0,-9.617,1,0.0254,0.594,0.0000192,0.194,0.946,84.895,230453,4
+1965,Rubber Soul,Drive My Car,https://open.spotify.com/track/06ypiqmILMdVeaiErMFA91,0.754,0.571,2,-8.547,1,4.21E-02,0.0173,0,0.3,0.82,122.463,148893,4
+1964,Beatles for Sale,Eight Days a Week,https://open.spotify.com/track/1Dg4dFJr3HW7sbA7vPejre,0.652,0.583,9,-7.811,1,0.038,0.412,0,0.119,0.744,138.134,163600,4
+1966,Revolver,Eleanor Rigby,https://open.spotify.com/track/5GjPQ0eI7AgmOnADn1EO6Q,0.581,0.28,4,-9.091,0,3.81E-02,0.936,0.0000156,0.305,0.813,137.831,126533,4
+1964,Beatles for Sale,every little thing,https://open.spotify.com/track/2CxTkdvhDuQrOxl8xXkdJS,0.74,0.49,2,-9.095,1,0.038,0.488,0,0.103,0.678,123.227,123800,4
+1968,The Beatles (white album),everybodys got something to hide even you,https://open.spotify.com/track/64P3zpRsDHIk7YTpRtaKYL,0.523,0.731,2,-8.613,1,5.59E-02,0.0207,0.000464,0.081,0.81,117.089,144773,4
+1964,Beatles for Sale,Everybody's Trying to Be My Baby,https://open.spotify.com/track/4DZAH8eiqSAkMIE9l5D71U,0.543,0.806,4,-7.231,1,0.0385,0.466,0,0.134,0.943,85.172,146000,4
+1967,Sgt. Pepper's Lonely Hearts Club Band,Fixing a Hole,https://open.spotify.com/track/3pKKxkeB1pOUMHwWBmKc3Y,0.469,0.507,0,-8.917,0,4.51E-02,0.382,0,0.0783,0.619,112.984,156827,4
+1967,Magical Mystery Tour,Flying,https://open.spotify.com/track/1itLKsCWHtLnxALkgBk1Fa,0.551,0.395,0,-14.755,1,5.01E-02,0.368,0.88,0.0932,0.261,92.929,135520,4
+1966,Revolver,For No One,https://open.spotify.com/track/1kDkaFlmkdEZiVUogaP9OZ,0.483,0.351,1,-10.487,0,0.0278,0.783,0,0.115,0.713,81.208,119813,4
+1970,Let It Be,For You Blue,https://open.spotify.com/track/5dpRJkvY8oWMQmQbEQTXhO,0.88,0.556,2,-10.773,1,0.0855,0.24,0.0483,0.24,0.955,128.542,152213,4
+1970,Let It Be,Get Back,https://open.spotify.com/track/4MLBqAEzNN89o2M9h92Z26,0.761,0.592,2,-9.836,1,0.0586,0.492,0.00626,0.61,0.332,123.095,189387,4
+1967,Sgt. Pepper's Lonely Hearts Club Band,Getting Better,https://open.spotify.com/track/3LtOmWpTXLhilL5odoKysR,0.632,0.471,0,-7.887,1,0.0348,0.313,0.00000508,0.0712,0.764,121.672,168120,4
+1965,Rubber Soul,Girl,https://open.spotify.com/track/6tQvjqDIK9GXWIC6mejms8,0.699,0.294,5,-13.205,0,0.0294,0.587,0,0.117,0.893,96.615,151720,4
+1968,The Beatles (white album),Glass Onion,https://open.spotify.com/track/2jAojvUaPoHPFSPpF0UNRo,0.523,0.51,7,-9.827,0,0.0514,0.0123,0.0000838,0.108,0.789,120.432,137840,4
+1969,Abbey Road,Golden Slumbers,https://open.spotify.com/track/01SfTM5nfCou5gQL70r6gs,0.419,0.152,0,-12.126,1,0.0277,0.326,0.0034,0.113,0.239,80.608,91760,4
+1966,Revolver,Good Day Sunshine,https://open.spotify.com/track/7HTH1ppjkkOe7RLoBDKXYJ,0.77,0.496,11,-8.45,1,0.0468,0.719,0,0.123,0.571,117.331,129293,3
+1967,Sgt. Pepper's Lonely Hearts Club Band,"Good Morning, Good Morning",https://open.spotify.com/track/0xIuNHHcKI1JDuBPlSwzb1,0.542,0.618,2,-8.876,1,0.139,0.0858,0,0.772,0.93,121.849,161227,3
+1968,The Beatles (white album),Good Night,https://open.spotify.com/track/3T4Kt51PV4k8tx6YCtBgcl,0.146,0.355,7,-14.583,1,0.0352,0.865,0.835,0.114,0.178,146.408,193760,3
+1966,Revolver,Got to Get You into My Life,https://open.spotify.com/track/3tGhRLgcCP6SIZU3tbGl7l,0.521,0.524,0,-6.136,1,0.0302,0.42,0.00000927,0.0838,0.711,136.679,149240,4
+1968,The Beatles (white album),Happiness Is a Warm Gun,https://open.spotify.com/track/71LsKf3xISiOlY1mj7FFPP,0.431,0.54,9,-9.6,0,5.89E-02,0.523,0.00000134,0.169,0.44,139.288,164547,4
+1967,Magical Mystery Tour,"Hello, Goodbye",https://open.spotify.com/track/0vZ97gHhemKm6c64hTfJNA,0.479,0.733,0,-8.753,1,0.0256,0.306,0.000024,0.414,0.806,99.307,208840,4
+1965,Help!,Help!,https://open.spotify.com/track/7DD7eSuYSC5xk2ArU62esN,0.534,0.725,6,-7.576,0,0.0332,0.188,0,0.0994,0.763,95.003,139560,4
+1968,The Beatles (white album),Helter Skelter,https://open.spotify.com/track/0Bs0hUYxz7REyIHH7tRhL2,0.166,0.831,9,-8.469,1,0.0894,0.000606,0.846,0.811,0.281,167.518,269787,4
+1969,Abbey Road,Her Majesty,https://open.spotify.com/track/6UCFZ9ZOFRxK8oak7MdPZu,0.703,0.215,2,-23.03,1,8.92E-02,0.728,0.00000123,0.13,0.522,100.874,25987,3
+1966,Revolver,"Here, There and Everywhere",https://open.spotify.com/track/2B4Y9u4ERAFiMo13XPJyGP,0.29,0.247,7,-12.125,1,3.83E-02,0.921,0.00565,0.0917,0.36,165.361,144880,4
+1969,Abbey Road,Heres comes the sun,https://open.spotify.com/track/6dGnYIeXmHdcikdzNNDMm2,0.557,0.54,9,-10.484,1,3.47E-02,0.0339,0.00248,0.179,0.394,129.171,185733,4
+1969,Yellow Submarine,Hey Bulldog,https://open.spotify.com/track/5xYC2ZJJ9TMJL8BOl85O2R,0.587,0.617,7,-9.164,1,0.028,0.0197,0.639,0.199,0.947,100.495,191307,4
+1963,With The Beatles,Hold Me Tight,https://open.spotify.com/track/2RvKsA6Ho7VbJkVFiD4UQF,0.54,0.744,5,-9.637,1,0.0312,0.664,0,0.21,0.963,135.731,151907,4
+1964,Beatles for Sale,Honey Don't,https://open.spotify.com/track/2d7GP7Fz1NrfPpo7MzWZgb,0.629,0.545,4,-11.466,1,0.0348,0.473,0.0000508,0.0854,0.735,162.438,177427,4
+1968,The Beatles (white album),Honey Pie,https://open.spotify.com/track/1TPcNcmuKlq0PKpYOBgP1U,0.537,0.297,7,-15.452,1,0.0822,0.88,0.000015,0.145,0.553,144.197,161160,4
+1967,Magical Mystery Tour,I Am the Walrus,https://open.spotify.com/track/6Pq9MmkDQYZiiCDpxnvrf6,0.401,0.556,2,-10.532,1,5.13E-02,0.0828,0.000359,0.589,0.654,85.206,275867,4
+1964,Beatles for Sale,I Don't Want to Spoil the Party,https://open.spotify.com/track/3kQDIa85ZK8cKVn72NfBnl,0.533,0.668,7,-7.237,1,3.30E-02,0.451,0,0.149,0.889,95.438,154467,4
+1970,Let It Be,I Me Mine,https://open.spotify.com/track/2BMqay80iBzZTa608Y1eG1,0.291,0.638,9,-7.854,0,0.0554,0.179,0,0.101,0.525,185.235,145587,3
+1965,Help!,I Need You,https://open.spotify.com/track/5EzvwjFwdP5Kfl5AZAemzu,0.601,0.489,9,-8.554,1,4.55E-02,0.277,0,0.0988,0.638,136.215,148787,4
+1963,Please Please Me,I Saw Her Standing There,https://open.spotify.com/track/3KiexfmhxHvG5IgAElmTkd,0.491,0.801,4,-9.835,1,0.0361,0.27,0,0.0665,0.971,160.109,173947,4
+1964,A Hard Day's Night,I Should Have Known Better,https://open.spotify.com/track/3pU1CUgPiFfxPCpscwIwQR,0.682,0.444,7,-7.689,1,0.0289,0.257,0,0.115,0.91,130.704,163080,4
+1963,With The Beatles,I Wanna Be Your Man,https://open.spotify.com/track/0sIZcoe69iSym9AecvZ7CT,0.553,0.914,9,-8.232,1,0.0415,0.477,0,0.292,0.683,99.138,119507,4
+1966,Revolver,I Want to Tell You,https://open.spotify.com/track/7orb0y6ySGdsYZywMoQtsD,0.493,0.525,9,-9.289,1,0.0315,0.182,0.0000044,0.148,0.449,127.492,147973,4
+1969,Abbey Road,I Want You (She's So Heavy),https://open.spotify.com/track/3Z25k4ZF6QENy2d9YatsM5,0.37,0.515,2,-9.487,0,3.21E-02,0.0233,0.205,0.0966,0.42,115.732,467320,4
+1968,The Beatles (white album),I Will,https://open.spotify.com/track/09x9v1o51dbqi5H0u7UGfp,0.631,0.387,5,-11.529,1,2.62E-02,0.742,0.000406,0.0822,0.832,103.11,105933,4
+1964,A Hard Day's Night,If I Fell,https://open.spotify.com/track/1hgvykolO4kBIEozATmpyj,0.665,0.31,2,-8.928,1,2.78E-02,0.68,0,0.0877,0.568,108.211,139467,4
+1965,Rubber Soul,if I needed someone,https://open.spotify.com/track/7C6hdDIz90Uf5YmdZnYbJJ,0.492,0.755,9,-9.273,1,3.31E-02,0.00748,0,0.102,0.796,127.387,142267,4
+1964,A Hard Day's Night,I'll Be Back,https://open.spotify.com/track/3lSi6qfnp2YZazTzcOLBZk,0.721,0.527,9,-7.224,1,0.0293,0.744,0,0.186,0.641,123.902,144187,4
+1964,A Hard Day's Night,I'll Cry Instead,https://open.spotify.com/track/01xMiErR26kH1KCif6uEYI,0.643,0.73,7,-6.859,1,0.0347,0.0917,0,0.253,0.96,96.711,105987,4
+1964,Beatles for Sale,I'll Follow the Sun,https://open.spotify.com/track/45WX2cfbL8bCIqv3rOq1G3,0.689,0.313,0,-10.073,1,0.0366,0.789,0,0.144,0.625,133.754,108853,4
+1964,Beatles for Sale,im a loser,https://open.spotify.com/track/7wC4EW11mBVxDK3xdC7FTf,0.492,0.628,7,-7.813,1,0.0439,0.567,0.00000107,0.267,0.856,89.877,150027,4
+1964,A Hard Day's Night,Im Happy Just To Dance With You,https://open.spotify.com/track/0gd50I2gKioJ59C827EdAY,0.658,0.537,6,-7.535,0,0.0307,0.138,0,0.0572,0.887,132.115,116373,4
+1965,Rubber Soul,I'm Looking Through You,https://open.spotify.com/track/5E3BVY66TEDexFutOO5GeS,0.667,0.498,1,-11.027,1,0.0364,0.00772,0,0.0481,0.774,85.843,146387,4
+1966,Revolver,I'm Only Sleeping,https://open.spotify.com/track/2ylCrFiBu98SC0vFfaCent,0.494,0.47,8,-9.599,0,0.0301,0.21,0,0.28,0.698,103.477,180320,4
+1968,The Beatles (white album),I'm So Tired,https://open.spotify.com/track/2X9H5BokS1u5O46YpNYNsZ,0.433,0.483,9,-9.422,1,0.175,0.656,0.0000264,0.539,0.717,68.492,123493,4
+1965,Rubber Soul,In My Life,https://open.spotify.com/track/3KfbEIOC7YIv90FIfNSZpo,0.688,0.435,9,-11.359,1,0.0323,0.449,0,0.113,0.435,103.239,146333,4
+1963,With The Beatles,It Won't Be Long,https://open.spotify.com/track/4ekUX4pWizXXksJe0JfS9U,0.472,0.673,4,-8.853,1,0.0318,0.284,0,0.206,0.862,133.117,133387,4
+1969,Yellow Submarine,It's All Too Much,https://open.spotify.com/track/2bQZ9BBhP7vSBiyDz7KXnv,0.39,0.781,7,-7.878,1,0.0364,0.000043,0.412,0.1,0.199,113.511,385013,4
+1965,Help!,It's Only Love,https://open.spotify.com/track/2ue1KRstSKHF8jQkIJZiNC,0.629,0.551,0,-8.281,1,0.0256,0.22,0,0.0432,0.685,113.155,116480,3
+1970,Let It Be,I've Got a Feeling,https://open.spotify.com/track/3gwRWIbr5ycEVLIAXrWaw7,0.44,0.609,2,-8.824,1,0.0358,0.0715,0,0.582,0.364,165.156,217560,4
+1965,Help!,I've Just Seen a Face,https://open.spotify.com/track/788U1Sqej9M6c4iikuDGxO,0.647,0.56,9,-8.809,1,0.0387,0.723,0,0.118,0.913,120.418,125040,3
+1968,The Beatles (white album),Julia,https://open.spotify.com/track/5FnpXVgDOk2sLT58qM22Of,0.512,0.0953,2,-16.082,1,3.04E-02,0.828,0.000268,0.117,0.193,134.706,176667,4
+1964,Beatles for Sale,"Kansas City/Hey, Hey, Hey, Hey",https://open.spotify.com/track/5xf0zdP4KCfshyVn02D3Ea,0.588,0.724,7,-6.63,1,3.35E-02,0.614,0.0000892,0.877,0.924,131.36,158147,4
+1970,Let It Be,Let It Be,https://open.spotify.com/track/7iN1s7xHE4ifF5povM6A48,0.443,0.403,0,-8.339,1,3.22E-02,0.631,0,0.111,0.41,143.462,243027,4
+1963,With The Beatles,Little Child,https://open.spotify.com/track/0KogQrSowDnZoU8GSpaxkj,0.526,0.858,9,-8.533,1,4.76E-02,0.292,0.001,0.353,0.886,75.596,106400,4
+1968,The Beatles (white album),"Long, Long, Long",https://open.spotify.com/track/40d2EcaOOCUjDzzo2YvUWn,0.349,0.129,5,-15.883,1,0.0294,0.539,0.405,0.192,0.163,104.837,186307,3
+1963,Please Please Me,Love Me Do,https://open.spotify.com/track/3VbGCXWRiouAq8VyMYN2MI,0.52,0.829,0,-6.228,1,0.0806,0.386,0.000062,0.227,0.744,147.997,141693,4
+1966,Revolver,Love You To,https://open.spotify.com/track/4RdJFhfLQcezwN5LsXl4qP,0.391,0.593,5,-8.999,1,0.0413,0.7,0.000249,0.0829,0.707,123.986,179827,4
+1967,Sgt. Pepper's Lonely Hearts Club Band,Lovely Rita,https://open.spotify.com/track/6h9W5FxX4E9lUFsyq8j1AD,0.61,0.471,8,-9.151,0,0.0261,0.0634,0,0.118,0.63,87.379,162093,4
+1967,Sgt. Pepper's Lonely Hearts Club Band,Lucy in the Sky with Diamonds,https://open.spotify.com/track/25yQPHgC35WNnnOUqFhgVR,0.311,0.325,2,-9.042,1,2.83E-02,0.0469,0,0.139,0.668,65.09,208467,1
+1970,Let It Be,Maggie Mae,https://open.spotify.com/track/2VsX1BoWSGiuVXGiFSUr6h,0.516,0.515,2,-12.035,0,2.15E-01,0.379,0,0.103,0.524,169.039,40040,4
+1967,Magical Mystery Tour,Magical Mystery Tour,https://open.spotify.com/track/0qHMhBZqYb99yhX9BHcIkV,0.297,0.613,9,-9.065,1,0.0931,0.0385,0.0000398,0.0734,0.338,170.962,170107,4
+1969,Yellow Submarine,march of the meanies,https://open.spotify.com/track/7zJKIrxcH2jY4TOqpvoLvH,0.538,0.378,9,-14.117,0,3.87E-02,0.934,0.758,0.456,0.16,117.185,139360,4
+1968,The Beatles (white album),Martha My Dear,https://open.spotify.com/track/1swmf4hFMJYRNA8Rq9PVaW,0.472,0.292,10,-11.591,1,0.0321,0.872,0.0007,0.128,0.824,177.624,148573,4
+1969,Abbey Road,Maxwell's Silver Hammer,https://open.spotify.com/track/2S8xyNRJX1XQdo3qnTuovI,0.764,0.426,2,-11.045,1,0.0405,0.629,0.000119,0.132,0.726,131.12,207920,4
+1969,Abbey Road,Mean Mr. Mustard,https://open.spotify.com/track/4JOyMhad5dD81uGYLGgKrS,0.676,0.596,4,-9.107,1,0.0272,0.0699,0.0000196,0.351,0.97,100.687,66533,4
+1965,Rubber Soul,Michelle,https://open.spotify.com/track/5By7Pzgl6TMuVJG168VWzS,0.578,0.29,5,-12.501,0,3.41E-02,0.652,0,0.105,0.666,117.403,162373,4
+1963,Please Please Me,Misery,https://open.spotify.com/track/40qXGg5nRbcWzcFb26KWkQ,0.591,0.605,0,-10.925,1,0.0413,0.707,0,0.309,0.882,133.348,108547,4
+1963,With The Beatles,Money (That's What I Want),https://open.spotify.com/track/3zw4FTrVNfy2teEkV9FOvh,0.545,0.853,11,-8.369,0,0.0394,0.425,0,0.266,0.923,128.816,169507,1
+1968,The Beatles (white album),Mother Nature's Son,https://open.spotify.com/track/6TjUg1cTUzWHbal6yQAi7c,0.608,0.178,2,-17.109,1,0.0264,0.634,0.352,0.166,0.401,84.78,168027,4
+1964,Beatles for Sale,Mr. Moonlight,https://open.spotify.com/track/6pPOkr2OxhQ6htrzOiDmq9,0.631,0.424,6,-9.106,1,0.0438,0.796,0.000143,0.118,0.589,126.127,158627,5
+1964,Beatles for Sale,No Reply,https://open.spotify.com/track/4ltC6PrqkTtpcRNi5lvS4z,0.718,0.593,0,-9.976,1,0.0377,0.67,0,0.172,0.869,124.251,136067,4
+1965,Rubber Soul,Norwegian Wood (This Bird Has Flown),https://open.spotify.com/track/1H7gMYGykdtwZOV6s1N0by,0.425,0.369,4,-11.876,1,0.0379,0.183,0.00126,0.112,0.65,176.625,124693,3
+1963,With The Beatles,Not a Second Time,https://open.spotify.com/track/5vl0sRtrQM1BTSAxQZFqEN,0.471,0.817,7,-9.999,1,0.0372,0.213,0,0.498,0.961,124.848,126827,4
+1965,Rubber Soul,Nowhere Man,https://open.spotify.com/track/5SUlhldQJtOhUr2GzH5RI7,0.534,0.624,4,-9.589,1,4.62E-02,0.00797,0,0.128,0.687,121.402,163693,4
+1968,The Beatles (white album),"Ob-La-Di, Ob-La-Da",https://open.spotify.com/track/1gFNm7cXfG1vSMcxPpSxec,0.818,0.728,10,-8.331,1,0.0314,0.232,0.0642,0.251,0.975,113.059,188960,4
+1969,Abbey Road,Octopus's Garden,https://open.spotify.com/track/0suLngfo7rJoetk7Ub6N8l,0.626,0.512,1,-9.15,0,0.0247,0.155,0.0000465,0.215,0.73,92.225,170720,4
+1969,Abbey Road,Oh! Darling,https://open.spotify.com/track/2mxByJWOajjiVsLWjNXvDJ,0.422,0.656,4,-8.412,1,0.0397,0.0126,0.0279,0.268,0.549,173.93,207240,3
+1970,Let It Be,One After 909,https://open.spotify.com/track/50qHmeex1nPTyQTwBXjSE4,0.554,0.828,4,-6.435,1,0.0739,0.0307,0,0.907,0.888,90.95,173960,4
+1969,Yellow Submarine,Only a Northern Song,https://open.spotify.com/track/4phXWLTSlC1BEogSWhJMDD,0.175,0.731,9,-8.341,1,7.05E-02,0.000341,0.000751,0.0846,0.801,209.242,204493,4
+1963,Please Please Me,P.S. I Love You,https://open.spotify.com/track/7Msq9qojB7yORuJvz49iUy,0.635,0.656,2,-8.5,1,0.0291,0.389,0.00127,0.0828,0.77,134.435,124360,4
+1967,Magical Mystery Tour,Penny Lane,https://open.spotify.com/track/1h04XMpzGzmAudoI6VHBgA,0.651,0.488,9,-8.22,1,0.0316,0.212,0.026,0.136,0.49,113.038,180893,4
+1969,Yellow Submarine,pepperland,https://open.spotify.com/track/1y8kq7M3tBw4zAttsZMya8,0.354,0.281,7,-12.434,1,0.032,0.661,0.763,0.243,0.367,113.126,140733,4
+1969,Yellow Submarine,pepperland laid waste,https://open.spotify.com/track/0rHHNFcUgB0zlzCk4MVluw,0.269,0.0902,8,-23.018,0,0.042,0.877,0.821,0.302,0.0462,82.423,132773,4
+1968,The Beatles (white album),Piggies,https://open.spotify.com/track/4ZmjfLdJXbqjAENqk7eWSE,0.542,0.445,8,-9.105,1,0.0303,0.643,0,0.516,0.52,93.245,124267,4
+1963,With The Beatles,Please Mr. Postman,https://open.spotify.com/track/6wfK1R6FoLpmUA9lk5ll4T,0.552,0.644,9,-9.129,1,0.0372,0.675,0,0.36,0.961,122.546,154160,4
+1963,Please Please Me,Please Please Me,https://open.spotify.com/track/6EHuOufBeL6vk3TvVJB5qo,0.527,0.48,4,-9.61,1,0.028,0.334,0,0.0702,0.706,139.388,120853,4
+1969,Abbey Road,Polythene Pam,https://open.spotify.com/track/1FTCA6wQwulQFokDddKE68,0.474,0.939,11,-8.884,0,0.199,0.00472,0.674,0.19,0.499,166.829,72640,4
+1968,The Beatles (white album),Revolution 1,https://open.spotify.com/track/1aOzDhi5a1RWWRy5dmYA8I,0.386,0.626,9,-9.451,1,3.77E-02,0.0785,0.00164,0.621,0.695,98.425,255707,4
+1968,The Beatles (white album),Revolution 9,https://open.spotify.com/track/5dZ8PeKKZJLIQAWNTdp8WX,0.208,0.615,2,-15.297,0,0.342,0.769,0.118,0.824,0.101,91.158,502013,4
+1964,Beatles for Sale,Rock and Roll Music,https://open.spotify.com/track/7Ho3T7ERfooiAfvODaMQ2N,0.457,0.917,9,-6.213,1,4.41E-02,0.566,0,0.333,0.965,167.092,151280,4
+1968,The Beatles (white album),Rocky Raccoon,https://open.spotify.com/track/1ITQbrueGLl581a25XXm9c,0.599,0.363,7,-11.728,1,0.0315,0.333,0,0.243,0.648,79.456,213107,4
+1963,With The Beatles,Roll Over Beethoven,https://open.spotify.com/track/3idqWaBn3mRdsIodCU6uBi,0.351,0.749,2,-9.435,2,0.0312,0.289,0,0.0952,0.967,160.673,165467,4
+1965,Rubber Soul,Run for Your Life,https://open.spotify.com/track/4gUYV3ktbaOeAK5KrXMWV5,0.563,0.705,2,-9.232,1,0.103,0.0103,0,0.0552,0.822,176.732,141093,4
+1968,The Beatles (white album),Savoy Truffle,https://open.spotify.com/track/5iyCSUM7zzficwaGo8GIoc,0.623,0.544,11,-11.043,0,5.36E-02,0.00814,0.309,0.134,0.793,120.761,174467,4
+1969,Yellow Submarine,sea of holes,https://open.spotify.com/track/6n42oei7aEx2I0dcluKAGx,0.249,0.0994,6,-19.266,0,0.04,0.959,0.926,0.454,0.0357,118.99,136693,3
+1969,Yellow Submarine,sea of monsters,https://open.spotify.com/track/30u8QyT0kBSYO5RcZmaLl3,0.253,0.166,9,-16.624,1,0.0346,0.945,0.862,0.135,0.0489,83.971,216693,3
+1969,Yellow Submarine,sea of time,https://open.spotify.com/track/6FvhNdlAom6yYHa8ekAaAM,0.237,0.096,2,-20.629,0,0.0387,0.971,0.0961,0.203,0.0629,128.054,180213,4
+1968,The Beatles (white album),Sexy Sadie,https://open.spotify.com/track/2tBv9tAdqEbLNDi5smSjbg,0.577,0.624,0,-9.626,1,0.0285,0.33,0.00622,0.117,0.671,75.478,195267,4
+1967,Sgt. Pepper's Lonely Hearts Club Band,Sgt. Pepper's Lonely Hearts Club Band,https://open.spotify.com/track/42ocGQCOT0xYtV3f5kJDsD,0.653,0.889,1,-8.006,1,0.0453,0.0061,0.589,0.892,0.879,118.773,79067,4
+1967,Sgt. Pepper's Lonely Hearts Club Band,Sgt. Pepper's Lonely Hearts Club Band (Reprise),https://open.spotify.com/track/4fUKE8EULjQdHF4zb0M8FO,0.451,0.673,7,-9.115,1,0.0734,0.0857,0.00225,0.797,0.583,95.513,122893,4
+1969,Abbey Road,She Came in Through the Bathroom Window,https://open.spotify.com/track/2jtUGFsqanQ82zqDlhiKIp,0.53,0.72,2,-8.793,1,0.0338,0.00376,0.0000338,0.314,0.69,80.652,118627,4
+1966,Revolver,She Said She Said,https://open.spotify.com/track/3VSuWxZM6x6V3ig5nYtikL,0.329,0.678,3,-7.878,1,0.0344,0.103,0.168,0.843,0.672,106.476,156040,4
+1967,Sgt. Pepper's Lonely Hearts Club Band,She's Leaving Home,https://open.spotify.com/track/3PjMtNzwhDHqxoKudm6GvF,0.381,0.214,4,-11.629,1,0.0337,0.944,0,0.106,0.393,127.581,215160,3
+1969,Abbey Road,Something,https://open.spotify.com/track/0pNeVovbiZHkulpGeOx1Gj,0.396,0.338,0,-10.872,1,0.0304,0.198,0.00000262,0.138,0.377,133.522,182293,4
+1967,Magical Mystery Tour,Strawberry Fields Forever,https://open.spotify.com/track/3Am0IbOxmvlSXro7N5iSfZ,0.39,0.502,10,-12.277,1,0.178,0.336,0.000138,0.0713,0.289,97.871,247320,4
+1969,Abbey Road,Sun King,https://open.spotify.com/track/4nwKdZID1ht0lDBJ5h2p87,0.483,0.177,2,-17.629,1,2.77E-02,0.284,0.499,0.116,0.192,74.994,146267,4
+1963,Please Please Me,Taste of Honey,https://open.spotify.com/track/7fh53ta3vAOGJMQ4i5tCHe,0.42,0.372,1,-11.416,0,0.0327,0.698,0,0.104,0.412,101.408,123480,3
+1966,Revolver,Taxman,https://open.spotify.com/track/4BRkPBUxOYffM2QXVlq7aC,0.469,0.596,7,-8.348,1,0.0749,0.0101,0,0.321,0.783,133.586,158853,4
+1965,Help!,Tell Me What You See,https://open.spotify.com/track/2jnr9KaaMAmvk0zMcM9UzV,0.592,0.796,7,-8.125,1,0.0429,0.061,0,0.131,0.7,136.675,157987,4
+1964,A Hard Day's Night,Tell Me Why,https://open.spotify.com/track/0Wzp5pWPoX0YoBg002HXL9,0.267,0.688,11,-6.309,0,3.88E-02,0.586,0,0.307,0.797,150.942,128693,3
+1968,The Beatles (white album),The Continuing Story of Bungalow Bill,https://open.spotify.com/track/5Z3Rd1fMcaty8g5Pn7yhBQ,0.621,0.459,0,-10.414,1,0.104,0.224,0,0.656,0.648,114.816,194160,4
+1969,Abbey Road,The End,https://open.spotify.com/track/5aHHf6jrqDRb1fcBmue2kn,0.647,0.487,11,-10.119,0,0.0689,0.00101,0.285,0.138,0.222,123.444,141613,1
+1967,Magical Mystery Tour,The Fool on the Hill,https://open.spotify.com/track/6rHh8urosEFRI67xVa6fzU,0.365,0.26,4,-10.577,0,3.14E-02,0.913,0.0000021,0.105,0.49,144.184,179107,4
+1970,Let It Be,The Long and Winding Road,https://open.spotify.com/track/3mlMpmY8oZIBFc39D9zLbh,0.299,0.329,3,-10.096,1,2.79E-02,0.756,0.0105,0.0559,0.392,132.282,218187,4
+1965,Help!,The Night Before,https://open.spotify.com/track/5xcfepnz1v7a83T8An9gjw,0.461,0.762,2,-6.727,1,0.0379,0.0537,0,0.238,0.632,84.496,154933,4
+1965,Rubber Soul,The Word,https://open.spotify.com/track/4GBaPHvAyj4V2jeobD9tsy,0.59,0.641,0,-9.687,1,0.0416,0.00682,0,0.0553,0.792,120.773,163107,4
+1963,Please Please Me,There's a Place,https://open.spotify.com/track/4dessGxnKXmTbHPhVgqODq,0.455,0.582,4,-10.009,1,0.0292,0.629,0.00000422,0.172,0.927,140.928,110493,4
+1964,A Hard Day's Night,Things We Said Today,https://open.spotify.com/track/0voUr8lubIafUVJlauJxYF,0.551,0.575,2,-8.208,0,0.0332,0.239,0,0.112,0.516,137.054,155333,4
+1965,Rubber Soul,Think for Yourself,https://open.spotify.com/track/64bKVrkaXQAKx04dLHqCNz,0.529,0.567,0,-9.796,1,0.0282,0.0124,0,0.0729,0.799,130.544,138520,4
+1965,Help!,Ticket to Ride,https://open.spotify.com/track/7CZiDzGVjUssMSOXrDNYHL,0.519,0.85,9,-6.777,1,0.0678,0.0457,0,0.233,0.749,123.419,189680,4
+1963,With The Beatles,Till There Was You,https://open.spotify.com/track/0ESIjVxnDnCDaTPo6sStHm,0.727,0.338,5,-13.887,1,0.0454,0.79,0,0.105,0.646,122.421,133507,4
+1966,Revolver,Tomorrow Never Knows,https://open.spotify.com/track/00oZhqZIQfL9P5CjOP6JsO,0.38,0.829,5,-6.105,1,0.0405,0.000084,0.00208,0.342,0.0534,125.887,179547,4
+1963,Please Please Me,Twist and Shout,https://open.spotify.com/track/5ZBeML7Lf3FMEVviTyvi8l,0.482,0.849,2,-9.198,1,0.0452,0.641,0.00000774,0.0414,0.937,124.631,155227,4
+1970,Let It Be,Two of Us,https://open.spotify.com/track/0CaBBQsaAiRHhiLmzi7ZRp,0.726,0.702,7,-10.757,1,3.20E-02,0.0974,0.0000346,0.239,0.931,109.114,216813,4
+1965,Rubber Soul,Wait,https://open.spotify.com/track/0CGbof9amBnsNlRhZ8IY2H,0.552,0.487,6,-10.574,0,0.04,0.0175,0,0.105,0.657,127.201,134720,4
+1965,Rubber Soul,what goes on,https://open.spotify.com/track/19QXdPRZFHI5kNK3tN8Mh7,0.67,0.776,4,-10.035,1,0.0749,0.0168,0.00000301,0.0732,0.765,96.93,168573,4
+1964,Beatles for Sale,What Goes On,https://open.spotify.com/track/6C6y4OWK1Ki3FVF1TIonxW,0.695,0.53,2,-8.309,1,4.03E-02,0.301,0.000002,0.0583,0.825,129.506,150040,4
+1964,A Hard Day's Night,What You're Doing,https://open.spotify.com/track/4oLQ0imA5IDtNUnhFKY87q,0.568,0.793,9,-6.201,0,0.0482,0.384,0,0.388,0.64,125.375,136640,4
+1967,Sgt. Pepper's Lonely Hearts Club Band,When I'm Sixty-Four,https://open.spotify.com/track/1NrbnHlR2BFREcyWXHIHip,0.704,0.241,1,-13.258,1,0.0476,0.625,0.000028,0.0868,0.661,140.411,157667,4
+1968,The Beatles (white album),While My Guitar Gently Weeps,https://open.spotify.com/track/389QX9Q1eUOEZ19vtzzI9O,0.453,0.654,4,-8.855,0,0.0317,0.0205,0.00395,0.172,0.702,115,285000,4
+1968,The Beatles (white album),Why Don't We Do It in the Road?,https://open.spotify.com/track/4eLIq1nQNwz2qLu8DeiWIp,0.589,0.522,2,-8.718,1,0.0521,0.53,0.000243,0.0993,0.957,187.688,101160,4
+1968,The Beatles (white album),Wild Honey Pie,https://open.spotify.com/track/6j67aNAPeQ31uw4qw4rpLa,0.792,0.763,2,-11.185,1,0.0506,0.425,0.627,0.789,0.152,89.9,52973,4
+1967,Sgt. Pepper's Lonely Hearts Club Band,With a Little Help from My Friends,https://open.spotify.com/track/2RnPATK99oGOZygnD2GTO6,0.705,0.515,4,-9.343,1,0.0337,0.365,0,0.389,0.803,112.035,164107,4
+1967,Sgt. Pepper's Lonely Hearts Club Band,Within You Without You,https://open.spotify.com/track/3Umg8CDhO8dOSj7yBTInYb,0.352,0.479,6,-9.965,1,0.0338,0.339,0.000353,0.486,0.354,126.166,304667,4
+1964,Beatles for Sale,Words of Love,https://open.spotify.com/track/42qkSeX6HNJYHxlk6cWoFe,0.551,0.533,9,-9.8,1,2.97E-02,0.323,0.722,0.173,0.85,122.358,124320,4
+1966,Revolver,Yellow Submarine,https://open.spotify.com/track/50xwQXPtfNZFKFeZ0XePWc,0.604,0.549,1,-9.873,1,3.89E-02,0.531,0,0.438,0.696,111.398,158880,4
+1969,Yellow Submarine,yellow submarine in pepperland,https://open.spotify.com/track/7ExawMDcRz2lMgNEjjYzdr,0.406,0.219,7,-13.155,1,0.0359,0.808,0.599,0.15,0.271,105.345,134027,4
+1968,The Beatles (white album),Yer Blues,https://open.spotify.com/track/2AsGApoUuN8pTM17Lq9eUd,0.327,0.525,9,-10.272,1,0.0475,0.000875,0.259,0.133,0.435,151.766,240453,3
+1965,Help!,Yesterday,https://open.spotify.com/track/3BQHpFgAp4l80e1XslIjNI,0.332,0.179,5,-11.83,1,0.0326,0.879,0,0.0886,0.315,96.529,125667,4
+1965,Help!,You Can't Do That,https://open.spotify.com/track/0y1LLH0NiwOD5tM3aNMXTr,0.555,0.57,7,-7.869,1,0.0302,0.415,0,0.191,0.899,88.316,156867,4
+1969,Abbey Road,You Never Give Me Your Money,https://open.spotify.com/track/1jOLTO379yIu9aMnCkpMQl,0.335,0.416,0,-11.051,1,3.48E-02,0.345,0.136,0.116,0.223,174.464,242973,3
+1963,With The Beatles,You Really Got A Hold On Me,https://open.spotify.com/track/7rgUYidQh5tH0YlXCoKaYJ,0.373,0.388,9,-9.31,1,0.0337,0.525,0,0.267,0.687,77.643,181347,4
+1965,Rubber Soul,You Won't See Me,https://open.spotify.com/track/4LLBKnNCrSRrSjSTuiwjE9,0.488,0.539,9,-8.752,1,0.0304,0.136,0,0.0538,0.473,115.941,199960,4
+1965,Help!,You've Got to Hide Your Love Away,https://open.spotify.com/track/4F1AgKpuFRMLEgtPETVwZk,0.398,0.392,7,-9.05,1,0.0282,0.207,0,0.102,0.378,184.267,129120,3
+1967,Magical Mystery Tour,Your Mother Should Know,https://open.spotify.com/track/1dxbAIfCASqv6jix2R1Taj,0.698,0.293,0,-11.361,1,0.0332,0.784,0.0106,0.0936,0.724,117.613,148413,4
+1965,Help!,You're Going to Lose That Girl,https://open.spotify.com/track/70HNt0eoBVqr4ss68U8x3B,0.533,0.66,4,-7.694,1,0.0337,0.346,0,0.26,0.818,131.975,138667,4
