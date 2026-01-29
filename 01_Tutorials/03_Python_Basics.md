@@ -267,6 +267,7 @@ for work in list_work_dicts:
 
 # the output:
 Aïda was first performed in 1871.
+```
 
 **Nested Dictionaries** are ones in which one dictionary contains another.  These can be much more complex to work with.
 
