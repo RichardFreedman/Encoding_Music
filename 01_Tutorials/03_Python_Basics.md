@@ -204,8 +204,6 @@ print(my_dict)
 Now you could take that dictionary and fill in the values as needed.
 
 
-
-
 Sometimes you will encounter a **List of Dictionaries**:
 
 ```python
@@ -232,8 +230,13 @@ In this case we can iterate through each dictionary in the list, returning value
 For instance, reporting each value for the `work_title` key:
 
 ```python
+# iterate through each dictionary in the list
 for work in list_work_dicts:
+    # print the value for the 'work_title' key
     print(work['work_title'])
+
+
+# the output:
 The Magic Flute
 Aïda
 ```
@@ -241,14 +244,29 @@ Aïda
 Or now performing a logical test that allows us to report *only certain values*:
 
 ```python
+# itrerate through each dictionary in the list
 for work in list_work_dicts:
+
     if work['work_title'] == "The Magic Flute":
-        
+        # print the composer's full name
         print(work['composer_first_name'] + " " + work['composer_last_name'])
+
+# the output:
 Wolfgang Amadeus Mozart
 ```
 
+Or to report the date of first performance for works in the genre "opera":
 
+```python
+# iterate through each dictionary in the list
+for work in list_work_dicts:
+    # check if the date is 1871
+    if work['date'] == "1871":
+        # print the work title and date
+        print(work['work_title'] + " was first performed in " + work['date']+ ".")
+
+# the output:
+Aïda was first performed in 1871.
 
 **Nested Dictionaries** are ones in which one dictionary contains another.  These can be much more complex to work with.
 
@@ -470,6 +488,7 @@ my_operas = {
         "work_genre" : "opera",
         "date" : "1871",
         "first_performance_place" : "Cairo"}
+}
 ```
 
 
@@ -478,9 +497,13 @@ Then try the following to iterate through each work in the dictionary, and then 
 
 
 ```
-for work_id, work_info in my_concert.items():
+python
+# interate through each work in the nested dictionary, returning both the work id and its info as a tuple
+for work_id, work_info in my_operas.items():
+    # print the work id
     print("\nWork ID:", work_id)
     
+    # now iterate through each key in the work's info dictionary and print the key and its value
     for key in work_info:
         print(key + ':', work_info[key])
 ```
