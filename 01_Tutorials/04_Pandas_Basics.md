@@ -533,6 +533,15 @@ renaming_dict = {
 beatles_billboard.rename(columns = renaming_dict)
 ```
 
+You could also create a dictionary with keys drawn from the unique values in a column. This is useful when you want to map existing values to new ones. Use `dict.fromkeys()` with the unique values from a column:
+
+```python
+album_dict = dict.fromkeys(beatles_billboard["Album.debut"].unique(), '')
+album_dict
+```
+
+This gives you a dictionary with every unique album name as a key and an empty string as the value. You can then fill in the values by hand to create a mapping for replacing or categorizing the entries in that column.
+
 #### Show the data types of the columns
 
 Each column has a data type, which tells Pandas what form the column's data is in. This affects what operations are possible on the column; if it is stored as a number, you can't use string methods on the column, and if it is stored as a string, you can't apply mathematical operations. You'll learn more about working with data types in [Pandas: Clean Data][pandas-clean].
