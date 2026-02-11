@@ -47,7 +47,23 @@ beatles_billboard_csv = 'https://raw.githubusercontent.com/inteligentni/Class-05
 beatles_billboard = pd.read_csv(beatles_billboard_csv)
 ```
 
-You can combine them with `pd.merge()`
+You can combine them with `pd.merge()`, like this:
+
+```python
+beatles_spotify_billboard_combined_raw = pd.merge(beatles_billboard, beatles_spotify, left_on = 'Title', right_on = 'title')
+```
+
+Finally, if you would like to see what things look like *after* the process of cleaning and tidying are complete, try loading this!  But do your own work!
+
+```python
+beatles_billboard_spotify_combined_clean_pkl = 'https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/main/02_Lab_Data/Beatles/beatles_data_combined_clean_tidy.pkl'
+
+# Import to a Pandas dataframe
+beatles_billboard_spotify_clean_tidy = pd.read_pickle(beatles_billboard_spotify_combined_clean_pkl)
+beatles_billboard_spotify_clean_tidy
+```
+
+
 
 ## Data Organization Principles
 
