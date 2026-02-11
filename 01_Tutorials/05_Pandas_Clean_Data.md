@@ -57,13 +57,13 @@ beatles_billboard_csv = 'https://raw.githubusercontent.com/inteligentni/Class-05
 beatles_billboard = pd.read_csv(beatles_billboard_csv)
 ```
 
-You can combine them with `pd.merge()`.  Or you can simply load a combined version of them from our lab data:
+You can combine them with `pd.merge()`.  Or you can simply load a combined version of them from our lab data.  Note that this has NOT been cleaned, just merged together, so you can practice cleaning it yourself.
 
 ```python
-beatles_spotify_pkl = 'https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/main/02_Lab_Data/Beatles/beatles_data.pkl'
+beatles_billboard_spotify_raw_pkl = 'https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/main/02_Lab_Data/Beatles/beatles_billboard_spotify_combined_raw.pkl'
 
 # Import to a Pandas dataframe
-beatles_spotify = pd.read_pickle(beatles_spotify_pkl)
+beatles_billboard_spotify = pd.read_pickle(beatles_billboard_spotify_raw_pkl)
 ```
 
 ## Understanding Clean and Tidy Data
