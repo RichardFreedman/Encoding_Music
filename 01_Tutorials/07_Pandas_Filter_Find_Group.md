@@ -43,17 +43,9 @@ The Pandas library has a vast array of tools for sorting, filtering, grouping, a
 
 * A set compiled by a team at the **University of Belgrade (Serbia)** that contains information about over 300 Beatles songs:  author(s), lead singer(s), album, musical genre(s), and standing in the Top 50 Billboard charts.  View these data on [Github]('https://github.com/inteligentni/Class-05-Feature-engineering/blob/master/The%20Beatles%20songs%20dataset%2C%20v1%2C%20no%20NAs.csv').
 
-We will work with both of these sets, and in the process learn how to inspect, clean, combine, filter, group, and analyze the information they contain.
+In the examples below we will work with the original Beatles Billboard data.  Note that this set has NOT been cleaned or tidied, but the concepts of filtering and grouping would apply equally well to a fully curated dataset.
 
-We give the URL of the CSV file a name (simply for convenience), then pass that name to the `read_csv('source_file_name')` method, and name the resulting data frame.
-
-```python
-beatles_spotify_csv = 'https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/refs/heads/main/02_Lab_Data/Beatles/M_255_Beatles_Spotify_2025.csv'
-
-beatles_spotify = pd.read_csv(beatles_spotify_csv)
-```
-
-and 
+Here is the ORIGINAL data set as used below (you can adjust the Filter/Find/Group sections below to learn more.)
 
 ```python
 beatles_billboard_csv = 'https://raw.githubusercontent.com/inteligentni/Class-05-Feature-engineering/master/The%20Beatles%20songs%20dataset%2C%20v1%2C%20no%20NAs.csv'
@@ -61,13 +53,13 @@ beatles_billboard_csv = 'https://raw.githubusercontent.com/inteligentni/Class-05
 beatles_billboard = pd.read_csv(beatles_billboard_csv)
 ```
 
-You can merge these with `pd.merge()`.  Or just load the combined data from our Encoding Music repository, in this case as a `pickle`:
+Or if you want to work with a dataset that has ALREADY BEEN CLEANED AND TIDIED, so you can practice filtering and grouping without having to worry about cleaning and tidying the data first.  You can also use this combined set to practice cleaning and tidying the data yourself.
 
 ```python
-beatles_spotify_pkl = 'https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/main/02_Lab_Data/Beatles/beatles_data.pkl'
+beatles_billboard_spotify_combined_clean_pkl = 'https://raw.githubusercontent.com/RichardFreedman/Encoding_Music/main/02_Lab_Data/Beatles/beatles_data_combined_clean_tidy.pkl'
 
 # Import to a Pandas dataframe
-beatles_spotify = pd.read_pickle(beatles_spotify_pkl)
+beatles_billboard_spotify_clean_tidy = pd.read_pickle(beatles_billboard_spotify_combined_clean_pkl)
 ```
 
 ## A Basic Filter
