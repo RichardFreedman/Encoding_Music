@@ -202,14 +202,14 @@ If you want to replace a specific value with another value, you can use the `.ma
 
 ```python
 # Define dictionary mapping terms to labels
-term_mapping_dict = {
+genre_mapping_dict = {
     'rock n roll': 'rock',
     'rock and roll': 'rock',
     'rock & roll': 'rock'
 }
 
 # Add new column based on term mapping
-beatles_billboard['clean_genre'] = beatles_billboard['genre'].map(term_mapping_dict).fillna('other')
+beatles_billboard['clean_genre'] = beatles_billboard['genre'].map(genre_mapping_dict).fillna('other')
 ```
 ### make a quick dictionary with dict.fromkeys()
 
@@ -223,13 +223,20 @@ This returns something like this:
 
 ```python
 # Define dictionary mapping terms to labels
-term_mapping_dict = {
+term_mappigenre_dictng_dict = {
     'rock n roll': '',
     'rock and roll': '',
     'rock & roll': ''
 }
 ```
-Now you can fill in the blank strings with the 'values' to which you want to map each of those keys!
+Now you can fill in the blank strings with the 'values' to which you want to map each of those keys!  
+
+And finally remember to `map` the dictionary to the column:
+
+```python
+# Add new column based on term mapping
+beatles_billboard['clean_genre'] = beatles_billboard['genre'].map(genre_mapping_dict).fillna('other')
+```
 
 
 ## Cleaning Data with Functions
