@@ -521,19 +521,22 @@ beatles_billboard = beatles_billboard.drop(columns=['Album.debut'])
 
 This is the same as adding a new column, `'album'`, where every entry is the same as in the `'Album.debut'` column. You then have to get rid of the redundant `'Album.debut'` column, hence the drop.
 
+#### Rename all columns with a dictionary
+
 You can also rename columns by creating a dictionary that specifies which column names should be changed, and what they should be changed to:
 
 ```python
-renaming_dict = {
+col_dict = {
     'Album.debut': 'album',
     'Title': 'song',
     'Year': 'release_date'
 }
 
-beatles_billboard.rename(columns = renaming_dict)
+beatles_billboard.rename(columns = col_dict)
 ```
+#### use dict.fromkeys() to make a quick dictionary!
 
-You could also create a dictionary with column names as keys. This is useful when you want to map existing values to new ones. Use `dict.fromkeys()` to do this:
+Use `dict.fromkeys()` make an instant dictionary with the current names as the keys and empty strings as the values.  You can then easily fill these in with real values you want for your map!
 
 ```python
 col_dict = dict.fromkeys(beatles_billboard.columns)
@@ -551,7 +554,9 @@ col_dict = {
 }
 ```
 
-You can then fill in the values by hand to create a mapping the new names.
+Remember to complete the process with `rename`:
+
+`beatles_billboard.rename(columns = col_dict)`
 
 #### Show the data types of the columns
 
