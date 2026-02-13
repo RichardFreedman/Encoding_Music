@@ -337,7 +337,7 @@ When you are ready to 'render', follow these steps:
 
 * At the `command prompt`, type the following text (edited to match the name of your notebook!)
 
-`jupyter-hc_test@encodingmusic:~$ quarto render My_Notebook.ipynb`
+`quarto render My_Notebook.ipynb`
 
 * Double check before clicking enter that you:
 	* Included the raw cell at the top
