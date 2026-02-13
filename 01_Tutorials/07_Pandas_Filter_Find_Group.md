@@ -43,14 +43,22 @@ The Pandas library has a vast array of tools for sorting, filtering, grouping, a
 
 * A set compiled by a team at the **University of Belgrade (Serbia)** that contains information about over 300 Beatles songs:  author(s), lead singer(s), album, musical genre(s), and standing in the Top 50 Billboard charts.  View these data on [Github]('https://github.com/inteligentni/Class-05-Feature-engineering/blob/master/The%20Beatles%20songs%20dataset%2C%20v1%2C%20no%20NAs.csv').
 
-In the examples below we will work with the original Beatles Billboard data.  Note that this set has NOT been cleaned or tidied, but the concepts of filtering and grouping would apply equally well to a fully curated dataset.
+In the examples below we will work with the **original** Beatles Billboard and Spotify data.  Note that this set has NOT been cleaned or tidied, but the concepts of filtering and grouping would apply equally well to a fully curated dataset.
 
-Here is the ORIGINAL data set as used below (you can adjust the Filter/Find/Group sections below to learn more.)
+Here is the ORIGINAL Billboard data set as used below (you can adjust the Filter/Find/Group sections below to learn more.)
 
 ```python
 beatles_billboard_csv = 'https://raw.githubusercontent.com/inteligentni/Class-05-Feature-engineering/master/The%20Beatles%20songs%20dataset%2C%20v1%2C%20no%20NAs.csv'
 
 beatles_billboard = pd.read_csv(beatles_billboard_csv)
+```
+
+And here is the ORIGINAL Spotify data:
+
+```python
+beatles_spotify_csv = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRz7AsrNvu-jVR_VnV1K7gMCuZy5AXrp3d6o_-GOeMx_EzJ5NCiStSR_fAsh0U-h1UsqvCzaBHOnTwr/pub?output=csv'
+
+beatles_spotify = pd.read_csv(beatles_spotify_csv)
 ```
 
 Or if you want to work with a dataset that has ALREADY BEEN CLEANED AND TIDIED, so you can practice filtering and grouping without having to worry about cleaning and tidying the data first.  You can also use this combined set to practice cleaning and tidying the data yourself.
