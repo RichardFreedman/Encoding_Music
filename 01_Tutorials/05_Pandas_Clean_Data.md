@@ -211,6 +211,26 @@ term_mapping_dict = {
 # Add new column based on term mapping
 beatles_billboard['clean_genre'] = beatles_billboard['genre'].map(term_mapping_dict).fillna('other')
 ```
+### make a quick dictionary with dict.fromkeys()
+
+You could also use `dict.fromkeys()` to speed up the process.  Pass in the unique values of a given column and return a dictionary prepopulated with those items as the keys of the dict.  The values will be empty strings at first, but you can fill these in with your chosen mappings.  
+
+For example, here is how to get the unique genres as a dictionary:
+
+`genre_dict = dict.fromkeys(beatles_billboard['genre'].unique())`
+
+This returns something like this:
+
+```python
+# Define dictionary mapping terms to labels
+term_mapping_dict = {
+    'rock n roll': '',
+    'rock and roll': '',
+    'rock & roll': ''
+}
+```
+Now you can fill in the blank strings with the 'values' to which you want to map each of those keys!
+
 
 ## Cleaning Data with Functions
 

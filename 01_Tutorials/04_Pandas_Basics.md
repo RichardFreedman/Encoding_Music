@@ -533,14 +533,25 @@ renaming_dict = {
 beatles_billboard.rename(columns = renaming_dict)
 ```
 
-You could also create a dictionary with keys drawn from the unique values in a column. This is useful when you want to map existing values to new ones. Use `dict.fromkeys()` with the unique values from a column:
+You could also create a dictionary with column names as keys. This is useful when you want to map existing values to new ones. Use `dict.fromkeys()` to do this:
 
 ```python
-album_dict = dict.fromkeys(beatles_billboard["Album.debut"].unique(), '')
-album_dict
+col_dict = dict.fromkeys(beatles_billboard.columns)
+col_dict
 ```
 
-This gives you a dictionary with every unique album name as a key and an empty string as the value. You can then fill in the values by hand to create a mapping for replacing or categorizing the entries in that column.
+This gives you a dictionary with name of each _column_ a key and an empty string as the value, like this:
+
+
+```python
+col_dict = {
+    'Album.debut': '',
+    'Title': '',
+    'Year': ''
+}
+```
+
+You can then fill in the values by hand to create a mapping the new names.
 
 #### Show the data types of the columns
 
