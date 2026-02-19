@@ -2256,8 +2256,33 @@ beatles_exploded_common_genres.head()
 So far, the aggregations methods explored have been applied to numerical data. However, we can also use categorical data with groupby. This section will explore function calls: lambda functions and `apply(list)`. While neither of these are aggregation functions, they can be extremely useful in transforming and analyzing our data, especially categorical data.
 
 ##### Lambda Functions and `.apply()`
-`.apply()` takes a data structure and applies a function to it. For example, you could make a new column in a dataframe with a Boolean value. In this example, we'll check if a given track in Help\! made it in the top 50 billboard.
+`.apply()` takes a data structure and applies a function to it. 
 
+There are various *built in* functions we can use with apply:
+
+
+```python
+.apply(list)        # collect values into a list
+.apply(set)         # unique values as a set
+.apply(tuple)       # collect as tuple
+.apply(sorted)      # sorted list
+```
+And still others that come from numpy:
+
+```python
+.apply(np.mean)
+.apply(np.sum)
+.apply(np.std)
+.apply(np.median)
+```
+
+Put any one of these in the parentheses of apply and it will be applied to the groupby object.  For example, if we wanted to see the unique genres for each album, we could do this:
+
+```python
+beatles_exploded.groupby('album.debut.uk')['genre'].apply(set)
+```
+
+Or you can create a custom function and apply that to the groupby object. For example, you could make a new column in a dataframe with a Boolean value. In this example, we'll check if a given track in Help\! made it in the top 50 billboard.
 
 ```python
 # get the group for the album Help!
@@ -2394,7 +2419,7 @@ help
 </details>
 
 
-However, many functions are small enough that they can be defined without a name - these are called lambda functions! The code below shows how to use a lambda function to do the same thing as the is_top_50 function above.
+However, many functions are small enough that they can be defined without a name - these are called *lambda* functions! The code below shows how to use a lambda function to do the same thing as the is_top_50 function above.
 
 
 ```python
@@ -2527,10 +2552,23 @@ help
 
 Since we are already defining the column of interest, we can simply write `lambda x: x > 0`, and it will check if the value from the Top.50.Billboard column (*written as x, but could be any name*) is greater than 0 for each row, automatically entering the boolean response into is_top_50.
 
+Some sample use cases for lambda functions include:
+
+```python
+.apply(lambda x: x.tolist())
+.apply(lambda x: ', '.join(x))           # join strings
+.apply(lambda x: x.nunique())            # count unique
+.apply(lambda x: x.value_counts())       # frequency counts
+.apply(lambda x: x.str.upper().tolist()) # transform then collect
+.apply(lambda x: x[x.str.contains('Rock')].tolist())  # filter within group
+```
+
 ##### Using `.apply(list)` with dataframes
 
-Now we're going to use the ``list`` function as an aggregation function, to work with genres and songs. Let's say we wanted a list of albums containing each Beatles genre.
+Now we're going to use the `list` function as an aggregation function, to work with genres and songs. Let's say we wanted a *list of albums containing each genre tag given to the songs contained in that album*.
 
+
+Clean and explode (if you haven't already!)
 
 ```python
 # First, we need to clean the data
@@ -2540,6 +2578,12 @@ beatles_billboard['Genre'] = beatles_billboard['Genre'].str.split(', ')
 # Then, we need to explode the 'Genre' column
 beatles_exploded = beatles_billboard.explode('Genre')
 beatles_exploded
+
+```
+
+How we are ready to groupsy by genre, we can use the `list` function to aggregate the album names into a list for each genre.
+
+```python
 
 # Now we can group by 'Genre' and aggregate the 'Title' column into a list
 grouped_list = beatles_exploded.groupby('Genre')['Album.debut'].apply(list)
