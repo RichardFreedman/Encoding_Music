@@ -2581,7 +2581,7 @@ beatles_exploded
 
 ```
 
-How we are ready to groupsy by genre, we can use the `list` function to aggregate the album names into a list for each genre.
+Now we are ready to `groupby` on genre, a and then we can use the `list` function to aggregate the album names into a list for each genre.
 
 ```python
 
