@@ -503,9 +503,9 @@ beatles_billboard[beatles_billboard['Album.debut'].str.contains('Anthology')]
 > ```
 > &nbsp;
 
-#### Using `.contains` with multiple strings
+#### Using `.str.contains` with multiple strings
 
-To create a filter that checks if the column contains one string **OR** another, you can use `.contains("string1 | string2")`. Make sure that the `|` (which means or) is within the parentheses.
+To create a filter that checks if the column contains one string **OR** another, you can use `.str.contains("string1 | string2")`. Make sure that the `|` (which means or) is within the parentheses.
 
 ```python
 Lennon_or_McCartney = genre_counts[genre_counts['songwriter'].str.contains("Lennon | McCartney")]
