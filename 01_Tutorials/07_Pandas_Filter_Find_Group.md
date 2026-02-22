@@ -1,8 +1,4 @@
-grouped_basic = finals.groupby('2', dropna=False).agg({
-    'Composer': list,
-    'Title': list
-}).reset_index()
-grouped_basic| [Pandas Basics][pandas-basics] | [Clean Data][pandas-clean] | [Tidy Data][pandas-tidy] | **Filtering, Finding, and Grouping** | [Graphs and Charts][pandas-graphs] | [Networks][pandas-networks] |
+| [Pandas Basics][pandas-basics] | [Clean Data][pandas-clean] | [Tidy Data][pandas-tidy] | **Filtering, Finding, and Grouping** | [Graphs and Charts][pandas-graphs] | [Networks][pandas-networks] |
 |--------|--------|--------|--------|-------|-------|
 
 # Advanced Pandas: Filtering, Finding, and Grouping
