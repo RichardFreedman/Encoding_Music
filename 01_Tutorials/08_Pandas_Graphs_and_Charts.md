@@ -277,6 +277,7 @@ Creating a Sankey chart is a bit like creating a network:  we need to establish 
 <br>
 
 ```python
+import plotly.graph_objects as go
 df = beatles[beatles['album'].isin(['Magical Mystery Tour', 'Abbey Road'])].copy()
 
 
@@ -376,27 +377,35 @@ Note that to show trend lines as noted above, you would need to produce an indiv
 <Details>
 <Summary> Sample Correlation Plot Code </Summary>
 
+Here we assume you are working with _wide_ format spotify data from the Beatles set:
+
+![alt text](images/spotify_corr_sample.png)
+
+
 ```python
-import pandas as pd
-import plotly.express as px
+_cols = ['album', 'song', 'energy', 'speechiness', 'acousticness', 
+         'instrumentalness', 'liveness', 'valence']
 
-audio_features = {
-    'danceability': [0.227, 0.832, 0.689, 0.654, 0.442, 0.351, 0.576, 0.352, 0.607, 0.664],
-    'energy': [0.431, 0.346, 0.676, 0.285, 0.527, 0.903, 0.759, 0.424, 0.411, 0.283],
-    'acousticness': [0.0432, 0.036, 0.288, 0.0375, 0.0314, 0.0681, 0.0599, 0.0394, 0.0414, 0.0498],
-    'instrumentalness': [0.575, 0.688, 0.865, 0.148, 0.453, 0.354, 0.501, 0.141, 0.412, 0.558],
-    'speechiness': [0.126, 0.0945, 0.0481, 0.105, 0.297, 0.252, 0.121, 0.0664, 0.103, 0.345]
-}
-audio_feature_df = pd.DataFrame(audio_features)
+spotify_selected = beatles_spotify_clean[_cols]
+selected_albums = ['Rubber Soul', 'Let It Be']
+album_data = spotify_selected[spotify_selected['album'].isin(selected_albums)]
 
-# create matrix (and ignore non-numerical columns if they exist)
-correlation_matrix = audio_feature_df.corr(numeric_only=True)
+feature_cols = ['energy', 'speechiness', 'acousticness', 
+                'instrumentalness', 'liveness', 'valence']
 
-# fig = px.scatter_matrix(correlation_matrix)
-fig = px.scatter_matrix(audio_feature_df, dimensions=audio_feature_df.columns)
+fig = px.scatter_matrix(
+    album_data,
+    dimensions=feature_cols,
+    color='album',
+    hover_data=['song', 'album'],   # these appear in the tooltip
+    labels={'album': 'Album'}
+)
 
-# fig.update_yaxes(tickangle=90)
-fig.update_layout(title=f'Audio Feature Correlation: {correlation:.2f}')
+fig.update_layout(
+    title=f'Audio Feature Correlation for {", ".join(selected_albums)}',
+    width=800,
+    height=800
+)
 fig.show()
 
 ```
@@ -405,45 +414,43 @@ fig.show()
 
 <br>
 
-![Alt text](images/corr_matrix_chart.png)
 
 
+![alt text](images/spot_corr_plot.png)
 
-Another way to get a good sense of the high-level correlations among variables is by first making a correlation matrix with Pandas (that is:  `correlation_matrix = data_to_correlate.corr()`) and then passing that result to the Plotly Express `imshow()` method, as seen below.  Learn more at [Plotly Express](https://plotly.com/python/heatmaps/)
 
+You can also create a correlation heatmap, which shows the correlation coefficients between pairs of variables in a matrix format. The values are typically color-coded to indicate the strength and direction of the correlations.  Learn more at [Plotly Express](https://plotly.com/python/heatmaps/)
 
 <Details>
-<Summary> Sample Code to Show Correlation Matrix as Plotly Heatmap </Summary>
+<Summary> Sample Correlation Heatmap Code </Summary>
 
 ```python
-import pandas as pd
-import numpy as np
-import plotly.express as px
+selected_albums = ['Rubber Soul']
+selected_album_data = beatles_spotify_clean[beatles_spotify_clean['album'].isin(selected_albums)]
 
-data = {
-    'danceability': [0.227, 0.832, 0.689, 0.654, 0.442, 0.351, 0.576, 0.352, 0.607, 0.664],
-    'energy': [0.431, 0.346, 0.676, 0.285, 0.527, 0.903, 0.759, 0.424, 0.411, 0.283],
-    'acousticness': [0.0432, 0.036, 0.288, 0.0375, 0.0314, 0.0681, 0.0599, 0.0394, 0.0414, 0.0498],
-    'instrumentalness': [0.575, 0.688, 0.865, 0.148, 0.453, 0.354, 0.501, 0.141, 0.412, 0.558],
-    'speechiness': [0.126, 0.0945, 0.0481, 0.105, 0.297, 0.252, 0.121, 0.0664, 0.103, 0.345]
-}
-data_to_correlate = pd.DataFrame(data)
+feature_cols = ['energy', 'speechiness', 'acousticness', 
+                'instrumentalness', 'liveness', 'valence']
+spotify_selected_albums = selected_album_data[feature_cols]
 
-correlation_matrix = data_to_correlate.corr()
+correlation_matrix = spotify_selected_albums.corr()
 
 fig = px.imshow(correlation_matrix)
 
-fig.update_layout(title=f'Correlation: {correlation:.2f}')
+fig.update_layout(
+    title=f'Audio Feature Correlation for {", ".join(selected_albums)}',
+    width=600,
+    height=600
+)
 fig.show()
-
 ```
-
 </Details>
 
 <br>
 
-![Alt text](images/corrheatmap.png)
+![alt text](images/heat_map_corr.png)
 
+
+<br>
 
 ### Correlation Does Not Equal Causation
 It's crucial to understand that correlation does not imply causation. Just because two variables are correlated does not mean that one variable causes the other. Correlation measures the statistical relationship between variables but cannot determine cause and effect.
