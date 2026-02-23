@@ -196,11 +196,13 @@ fig.show()
 
 Radar (or Polar) plots are a useful way to represent multiple variables at once, putting each of several variables around a central point:  the distance from the center indicates the strength of that feature.  There are many types of polar (radar) plots available in Plotly Express.  Here we use the `line_polar` plot.  Read more about the various features via [Plotly Express](https://plotly.com/python/radar-chart/).  
 
-It is helpful in this instance to use the Pandas `melt` method to transform our 'wide' data (with multiple columns for the individual audio features) into 'long' form data (with each feature represented as an individual row: 
+It is helpful in this instance to use the Pandas `melt` method to transform our 'wide' data (with multiple columns for the individual audio features) into 'long' form data (with each feature represented as an individual row), which is easier for Plotly Express to read.  Here is an example of how to do that: 
 
 
 ```python
-pd.melt(sample, id_vars=['track_title'], value_vars=feature_list)
+# assuming df is a dataframe with a 'track_title' column and several audio feature columns
+feature_list = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "acousticness", "valence"]
+pd.melt(df, id_vars=['track_title'], value_vars=feature_list)
 ```
 
 ![Alt text](images/melt_df.png)
@@ -211,37 +213,43 @@ The [Plotly Express](https://plotly.com/python/polar-chart/#polar-chart-with-plo
 <Summary>Sample Radar Plot Code</Summary>
 
 ```python
-# first declare feature list:
-# feature_list = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "acousticness", "valence", "danceability"]
-# note that you will need to make sure all these features are in your dataset!
+# filter our data (in this case to album title)
+selected_albums = ['Rubber Soul']
+# beatles_bb_spotify_tidy is the 'long' form version of the data, with one row per song and audio feature, rather than one row per song and multiple columns for the audio features
 
-def audio_feature_radar(audio_feature_data, feature_list, chart_title):
-    melted_data = pd.melt(audio_feature_data, id_vars=['title'], value_vars=feature_list)
-    closed_data = melted_data.copy()
-    closed_data.loc[len(closed_data)] = closed_data.iloc[0]
-    closed_data = closed_data.sort_values(['title', 'variable'])
-    fig = px.line_polar(closed_data, 
-                        r='value', 
-                        theta='variable', 
-                        color='title', 
-                        labels={'title': "Track Title"},
-                        line_close=True)  # Add this line
-    
-    fig.update_layout(title=chart_title)
-    
-    return fig  
+# here we filter the data to show just the songs from the selected alums
+album_data = beatles_bb_spotify_tidy[beatles_bb_spotify_tidy['album.debut.uk'].isin(selected_albums)]
+
+# now filter for the selected features
+feature_list = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "acousticness", "valence"]
+filtered_data = album_data[album_data['audio_feature'].isin(feature_list)]
+
+# title for the chart
+chart_title = f"Radar Plot of Audio Features in {selected_album}"
+
+# now make the chart
+fig = px.line_polar(filtered_data, 
+                    r='value',  # this is the audio feature scalar
+                    theta='audio_feature', # these are 
+                    color='song', 
+                    labels={'song': "Song"},
+                    line_close=True)  # Add this line to make the radar plot closed
+
+fig.update_layout(title=chart_title,
+                  width=800, 
+                  height=800,
+                 legend=dict(
+        x=1.2,    # push further right (1.0 = right edge of plot area)
+        y=0.5,    # vertically centered
+        xanchor='left',
+        yanchor='middle')
+                 )
+
+
+fig.show() 
+ 
 ```
 </Details>
-
-<br>
-
-Typical usage:
-
-```python
-feature_list = ["danceability", "energy", "speechiness", "liveness", "instrumentalness", "acousticness", "valence", "danceability"]
-spotify_tools.audio_feature_radar(audio_feature_data, feature_list, "My Radar Plot")
-```
-
 
 <br>
 
