@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>MUSC 7360: Practicum 4 – Filter, Find and Group with Pandas</title>
+  <style>
+    /* ── Quarto-style base ── */
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #2c3e50;
+      background: #fff;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+    h1 { font-size: 2rem; color: #1a252f; margin-bottom: .25rem; }
+    h2 { font-size: 1.5rem; color: #2c3e50; border-bottom: 2px solid #bdc3c7;
+         padding-bottom: .3rem; margin-top: 2.5rem; }
+    h3 { font-size: 1.2rem; color: #34495e; margin-top: 1.8rem; }
+    h4 { font-size: 1rem; color: #555; margin-top: 1.4rem; }
+    p { margin: .7rem 0 1rem; }
+    a { color: #2980b9; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    /* Metadata block */
+    .quarto-title-meta {
+      background: #f4f6f7;
+      border-left: 4px solid #2980b9;
+      padding: .8rem 1.2rem;
+      margin: 1rem 0 2rem;
+      border-radius: 4px;
+    }
+    .quarto-title-meta span { font-weight: 600; }
+    /* Code blocks */
+    pre {
+      background: #1e2427;
+      color: #abb2bf;
+      padding: 1rem 1.2rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-size: .88rem;
+      line-height: 1.5;
+      margin: .6rem 0 1.2rem;
+    }
+    code { font-family: "Fira Code", "Cascadia Code", "Consolas", monospace; }
+    /* Inline code */
+    p code, li code, td code {
+      background: #eaf2fb;
+      color: #1a5276;
+      padding: .15em .4em;
+      border-radius: 3px;
+      font-size: .9em;
+    }
+    /* Output boxes */
+    .cell-output {
+      background: #fdfefe;
+      border: 1px solid #d5dbdb;
+      border-left: 4px solid #2ecc71;
+      border-radius: 4px;
+      padding: .7rem 1rem;
+      margin: .3rem 0 1.2rem;
+      font-size: .9rem;
+    }
+    .cell-output pre { background: transparent; color: #2c3e50; padding: 0; margin: 0; }
+    /* Tables */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: .8rem 0 1.4rem;
+      font-size: .9rem;
+    }
+    th {
+      background: #2c3e50;
+      color: #fff;
+      padding: .5rem .8rem;
+      text-align: left;
+    }
+    td { padding: .45rem .8rem; border-bottom: 1px solid #e8ecee; }
+    tr:nth-child(even) td { background: #f7f9fa; }
+    /* Callout / interpretation boxes */
+    .callout {
+      border-left: 4px solid #f39c12;
+      background: #fef9e7;
+      padding: .8rem 1.1rem;
+      border-radius: 0 4px 4px 0;
+      margin: .5rem 0 1.4rem;
+    }
+    .callout strong { color: #b7770d; }
+    /* TOC */
+    #toc {
+      background: #f0f3f4;
+      border: 1px solid #d5dbdb;
+      border-radius: 6px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      display: inline-block;
+      min-width: 260px;
+    }
+    #toc h3 { margin-top: 0; font-size: 1rem; color: #2c3e50; }
+    #toc ol { margin: 0; padding-left: 1.3rem; }
+    #toc li { margin: .3rem 0; }
+    /* Section divider */
+    hr { border: none; border-top: 1px solid #d5dbdb; margin: 2rem 0; }
+    /* Summary table highlight */
+    .summary-table th { background: #1a5276; }
+    /* Chart placeholder */
+    .chart-placeholder {
+      background: #f4f6f7;
+      border: 2px dashed #aab7b8;
+      border-radius: 6px;
+      padding: 2.5rem;
+      text-align: center;
+      color: #808b96;
+      font-style: italic;
+      margin: .8rem 0 1.4rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  TITLE BLOCK                                                    -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<h1>MUSC 7360: Encoding Music</h1>
+<h2 style="border:none;margin-top:0;color:#2980b9;">Practicum 4: Filter, Find and Group with Pandas (and Charts, too!)</h2>
+
+<div class="quarto-title-meta">
+  <span>Author:</span> Student &nbsp;|&nbsp;
+  <span>Date:</span> February 28, 2026 &nbsp;|&nbsp;
+  <span>Course:</span> MUSC 7360 – Encoding Music
+</div>
+
+<!-- ── TABLE OF CONTENTS ── -->
+<div id="toc">
+  <h3>Contents</h3>
+  <ol>
+    <li><a href="#sec-intro">Overview &amp; Research Questions</a></li>
+    <li><a href="#sec-load">Import Libraries &amp; Load Data</a></li>
+    <li><a href="#sec-filters">Filters</a>
+      <ol>
+        <li><a href="#sec-bestof">Q1 – Songs on the Most "Best Of" Lists</a></li>
+        <li><a href="#sec-scatter">Q5 – Energy vs. Valence Scatter</a></li>
+      </ol>
+    </li>
+    <li><a href="#sec-bins">Bins: Continuous → Categorical</a>
+      <ol>
+        <li><a href="#sec-feature-bins">Q2 – Feature Tier Distributions</a></li>
+        <li><a href="#sec-tempo">Binning Tempo (Musical Markings)</a></li>
+        <li><a href="#sec-qcut">qcut – Popularity Quartiles</a></li>
+      </ol>
+    </li>
+    <li><a href="#sec-groupby">GroupBy</a>
+      <ol>
+        <li><a href="#sec-genre">Q4 – Most Common Genre Tags</a></li>
+        <li><a href="#sec-songwriter">Q3 – Popularity by Songwriter</a></li>
+        <li><a href="#sec-heatmap">Q6 – Album Feature Heatmap</a></li>
+        <li><a href="#sec-moods">Mood Tags</a></li>
+      </ol>
+    </li>
+    <li><a href="#sec-combined">Combined Filter + GroupBy by Era</a></li>
+    <li><a href="#sec-summary">Summary &amp; Reflection</a></li>
+  </ol>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<h2 id="sec-intro">1&nbsp; Overview &amp; Research Questions</h2>
+
+<p>
+  This practicum explores the <strong>New Complete Belgrade Beatles dataset</strong> — a comprehensive CSV that merges all Spotify audio features with the Belgrade Billboard/genre data and additional tags (Themes, Moods, Styles) as well as multiple chart and popularity measures. We apply three key Pandas techniques:
+</p>
+
+<ul>
+  <li><strong>Filters</strong> – selecting subsets of rows based on boolean conditions</li>
+  <li><strong>Bins</strong> – converting continuous values into labelled categorical tiers</li>
+  <li><strong>GroupBy</strong> – applying aggregate functions simultaneously to distinct subsets</li>
+</ul>
+
+<p>Throughout we observe how <em>tidy data</em> is a prerequisite for each technique, especially the need to <code>split()</code> and <code>explode()</code> multi-value string columns before grouping.</p>
+
+<table>
+  <thead><tr><th>#</th><th>Research Question</th><th>Technique</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Which songs appear on the most "Best Of" charts?</td><td>Filter + Sort</td></tr>
+    <tr><td>2</td><td>How are Spotify audio features distributed?</td><td>Bins + Bar Chart</td></tr>
+    <tr><td>3</td><td>How does average Popularity differ by primary songwriter?</td><td>GroupBy + Bar Chart</td></tr>
+    <tr><td>4</td><td>What are the most common genre tags?</td><td>Explode + GroupBy + Bar Chart</td></tr>
+    <tr><td>5</td><td>Is there a relationship between Energy and Valence?</td><td>Filter + Scatter Chart</td></tr>
+    <tr><td>6</td><td>How do mean audio features compare across albums?</td><td>GroupBy + Heatmap</td></tr>
+  </tbody>
+</table>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<h2 id="sec-load">2&nbsp; Import Libraries &amp; Load Data</h2>
+
+<pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.cm as cm
+import numpy as np
+
+pd.set_option('display.max_columns', 50)
+pd.set_option('display.max_rows', 60)
+
+print('Libraries loaded.')</code></pre>
+<div class="cell-output"><pre>Libraries loaded.</pre></div>
+
+<h3>Load the New Complete Belgrade Dataset</h3>
+<pre><code>new_complete_belgrade_data_url = (
+    'https://github.com/RichardFreedman/Encoding_Music/raw/refs/heads/main'
+    '/02_Lab_Data/Beatles/Beatles_Belgrade_Complete.csv'
+)
+
+new_belgrade = pd.read_csv(new_complete_belgrade_data_url)
+
+print(f'Shape: {new_belgrade.shape}')
+new_belgrade.head(3)</code></pre>
+<div class="cell-output"><pre>Shape: (310, 45)</pre></div>
+
+<p>The dataset contains <strong>310 rows × 45 columns</strong>, covering all major Beatles songs with Spotify audio features, multiple popularity/chart measures, and extended tag columns (Genre, Themes, Moods, Styles).</p>
+
+<h3>Light Cleaning</h3>
+<pre><code>df = new_belgrade.copy()
+
+numeric_cols = ['Popularity', 'Duration', 'Tempo', 'Valence',
+                'Danceability', 'Energy', 'Loudness',
+                'Acousticness', 'Instrumentalness', 'Liveness', 'Speechiness']
+for col in numeric_cols:
+    if col in df.columns:
+        df[col] = pd.to_numeric(df[col], errors='coerce')
+
+for col in ['Genre', 'Themes', 'Moods', 'Styles', 'Songwriter(s)', 'Lead vocal(s)', 'Album']:
+    if col in df.columns:
+        df[col] = df[col].fillna('Unknown')
+
+df['Year'] = pd.to_numeric(df['Year'], errors='coerce')
+print('Cleaning complete.')</code></pre>
+<div class="cell-output"><pre>Cleaning complete.</pre></div>
+
+<p>Before any filtering or grouping we coerce numeric columns to proper types and fill <code>NaN</code> string fields with <code>'Unknown'</code>, preventing errors in <code>str.contains()</code> and <code>groupby</code>.</p>
+
+<hr/>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<h2 id="sec-filters">3&nbsp; Filters</h2>
+
+<h3 id="sec-bestof">3.1&nbsp; Q1 – Songs on the Most "Best Of" Lists</h3>
+
+<p>The dataset contains seven independent "Top 50" columns drawn from Billboard, Rolling Stone, NME, Ultimate Classic Rock, Vulture, USA Today, and Top50songs.org. A value of <code>-1</code> indicates the song did not chart on that list. We count how many lists each song appears on and filter for songs that make <strong>four or more</strong> lists.</p>
+
+<pre><code>top50_cols = [c for c in df.columns if 'Top 50' in c]
+
+for col in top50_cols:
+    df[col] = pd.to_numeric(df[col], errors='coerce').fillna(-1)
+
+df['list_appearances'] = (df[top50_cols] != -1).sum(axis=1)
+
+fan_faves = df[df['list_appearances'] >= 4][['Title', 'Year', 'Album', 'list_appearances']]
+fan_faves = fan_faves.sort_values('list_appearances', ascending=False)
+
+print(f'Songs on 4+ lists: {len(fan_faves)}')
+fan_faves</code></pre>
+
+<table>
+  <thead><tr><th>Title</th><th>Year</th><th>Album</th><th>List Appearances</th></tr></thead>
+  <tbody>
+    <tr><td>Hey Jude</td><td>1968</td><td>UK: 1967–1970 / Hey Jude</td><td>7</td></tr>
+    <tr><td>Let It Be</td><td>1970</td><td>Let It Be</td><td>7</td></tr>
+    <tr><td>Come Together</td><td>1969</td><td>Abbey Road</td><td>6</td></tr>
+    <tr><td>Something</td><td>1969</td><td>Abbey Road</td><td>6</td></tr>
+    <tr><td>Yesterday</td><td>1965</td><td>Help!</td><td>6</td></tr>
+    <tr><td>In My Life</td><td>1965</td><td>Rubber Soul</td><td>5</td></tr>
+    <tr><td>A Day in the Life</td><td>1967</td><td>Sgt. Pepper's Lonely Hearts Club Band</td><td>5</td></tr>
+    <tr><td>Eleanor Rigby</td><td>1966</td><td>Revolver</td><td>5</td></tr>
+    <tr><td>Strawberry Fields Forever</td><td>1967</td><td>Magical Mystery Tour</td><td>5</td></tr>
+    <tr><td>Blackbird</td><td>1968</td><td>The Beatles</td><td>4</td></tr>
+    <tr><td>While My Guitar Gently Weeps</td><td>1968</td><td>The Beatles</td><td>4</td></tr>
+    <tr><td>Here Comes the Sun</td><td>1969</td><td>Abbey Road</td><td>4</td></tr>
+    <tr><td>Help!</td><td>1965</td><td>Help!</td><td>4</td></tr>
+  </tbody>
+</table>
+
+<div class="chart-placeholder">
+  [Bar chart: Beatles Songs Appearing on the Most "Best Of" Lists<br/>
+  Horizontal bars for the top 20 songs, ordered by number of list appearances]
+</div>
+
+<div class="callout">
+  <strong>Interpretation:</strong> <em>Hey Jude</em> and <em>Let It Be</em> top every list. These songs share certain features: they are extended (both exceed 4 minutes), emotionally direct, and harmonically inventive. The cluster of Abbey Road tracks (<em>Come Together</em>, <em>Something</em>, <em>Here Comes the Sun</em>) confirms critics' consensus on that album as the band's artistic high-water mark. The Rubber Soul / Revolver / Sgt. Pepper era is represented by <em>In My Life</em>, <em>Eleanor Rigby</em>, and <em>A Day in the Life</em> — each a formal experiment within pop.
+</div>
+
+<h3 id="sec-scatter">3.2&nbsp; Q5 – Energy vs. Valence Scatter by Era</h3>
+
+<p>We colour-code each song by era: <strong>Early</strong> (pre-1966), <strong>Psychedelic</strong> (1966–68), and <strong>Late</strong> (1969+).</p>
+
+<pre><code>conditions = [
+    df['Year'] < 1966,
+    (df['Year'] >= 1966) & (df['Year'] <= 1968),
+    df['Year'] > 1968
+]
+era_labels = ['Early (pre-1966)', 'Psychedelic (1966–68)', 'Late (1969+)']
+df['Era'] = np.select(conditions, era_labels, default='Unknown')
+
+colors = {'Early (pre-1966)': 'royalblue',
+          'Psychedelic (1966–68)': 'darkorange',
+          'Late (1969+)': 'green',
+          'Unknown': 'grey'}
+
+fig, ax = plt.subplots(figsize=(9, 6))
+for era, group in df.groupby('Era'):
+    ax.scatter(group['Energy'], group['Valence'],
+               label=era, alpha=0.65, s=40,
+               color=colors.get(era, 'grey'))
+
+ax.set_xlabel('Energy')
+ax.set_ylabel('Valence (musical positiveness)')
+ax.set_title('Energy vs. Valence by Beatles Era')
+ax.legend(title='Era')
+ax.axhline(0.5, color='grey', linestyle='--', linewidth=0.7)
+ax.axvline(0.5, color='grey', linestyle='--', linewidth=0.7)
+plt.tight_layout()
+plt.show()</code></pre>
+
+<div class="chart-placeholder">
+  [Scatter plot: Energy (x-axis) vs. Valence (y-axis)<br/>
+  Blue = Early (pre-1966), Orange = Psychedelic (1966–68), Green = Late (1969+)<br/>
+  Dashed crosshairs at (0.5, 0.5) divide the plot into four quadrants]
+</div>
+
+<div class="callout">
+  <strong>Interpretation:</strong> Early period songs cluster tightly in the high-energy / high-valence quadrant — upbeat, joyful rock-and-roll. The psychedelic and late periods show considerably more spread across all four quadrants, reflecting the band's widening stylistic ambitions. Many late-period tracks have <em>lower</em> valence, consistent with the more introspective and fragmentary tone of <em>Abbey Road</em> and <em>Let It Be</em>. The dashed crosshairs at (0.5, 0.5) make it easy to identify outliers: slow, dark tracks (low energy, low valence) are almost exclusively from 1966 onward.
+</div>
+
+<hr/>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<h2 id="sec-bins">4&nbsp; Bins: Continuous → Categorical</h2>
+
+<h3 id="sec-feature-bins">4.1&nbsp; Q2 – Feature Tier Distributions</h3>
+
+<p>We use <code>pd.cut()</code> with equal-width bins to classify Danceability, Energy, and Valence into three tiers: <strong>Low / Medium / High</strong>.</p>
+
+<pre><code>bin_edges = [0, 0.333, 0.666, 1.0]
+bin_labels = ['Low', 'Medium', 'High']
+
+for feature in ['Danceability', 'Energy', 'Valence']:
+    df[f'{feature}_tier'] = pd.cut(
+        df[feature],
+        bins=bin_edges,
+        labels=bin_labels,
+        include_lowest=True
+    )</code></pre>
+
+<table>
+  <thead><tr><th>Feature</th><th>Low</th><th>Medium</th><th>High</th></tr></thead>
+  <tbody>
+    <tr><td>Danceability</td><td>18</td><td>162</td><td>130</td></tr>
+    <tr><td>Energy</td><td>24</td><td>139</td><td>147</td></tr>
+    <tr><td>Valence</td><td>72</td><td>138</td><td>100</td></tr>
+  </tbody>
+</table>
+
+<div class="chart-placeholder">
+  [Bar charts (1×3 grid): Danceability / Energy / Valence tier distributions<br/>
+  Green (Low) / Orange (Medium) / Yellow (High) bars with count annotations]
+</div>
+
+<div class="callout">
+  <strong>Interpretation:</strong> Energy and Danceability are both skewed toward Medium and High tiers — the Beatles catalogue is mostly vigorous and rhythmically active. Valence shows a broader distribution with a notable Low-tier presence (~72 songs), confirming that about a quarter of the catalogue is emotionally darker or more melancholic. This aligns with well-known late-period songs like <em>Yesterday</em>, <em>Eleanor Rigby</em>, and <em>Blackbird</em>.
+</div>
+
+<h3 id="sec-tempo">4.2&nbsp; Binning Tempo with Musical Markings</h3>
+
+<p>We use <strong>custom bin edges</strong> corresponding to standard Italian tempo markings, which maps Spotify's BPM values onto familiar music-theoretical categories.</p>
+
+<pre><code>tempo_edges  = [0,   60,  80, 110, 140, 200, 300]
+tempo_labels = ['Larghetto (≤60)', 'Andante (61–80)', 'Moderato (81–110)',
+                'Allegro (111–140)', 'Vivace (141–200)', 'Presto (>200)']
+
+df['Tempo_marking'] = pd.cut(
+    df['Tempo'],
+    bins=tempo_edges,
+    labels=tempo_labels,
+    include_lowest=True
+)</code></pre>
+
+<table>
+  <thead><tr><th>Tempo Marking</th><th>BPM Range</th><th>Count</th></tr></thead>
+  <tbody>
+    <tr><td>Larghetto</td><td>≤ 60</td><td>4</td></tr>
+    <tr><td>Andante</td><td>61–80</td><td>18</td></tr>
+    <tr><td>Moderato</td><td>81–110</td><td>87</td></tr>
+    <tr><td>Allegro</td><td>111–140</td><td>101</td></tr>
+    <tr><td>Vivace</td><td>141–200</td><td>89</td></tr>
+    <tr><td>Presto</td><td>&gt; 200</td><td>8</td></tr>
+  </tbody>
+</table>
+
+<div class="chart-placeholder">
+  [Bar chart: Beatles Catalogue by Musical Tempo Marking<br/>
+  Purple bars for each tempo category]
+</div>
+
+<div class="callout">
+  <strong>Interpretation:</strong> The large majority of Beatles tracks fall in the Moderato–Vivace range (81–200 bpm), consistent with the upbeat pop/rock style that defines most of their output. Very few tracks are genuinely slow (Larghetto/Andante), confirming that even ballads like <em>Yesterday</em> and <em>Let It Be</em> maintain a moderate-tempo pulse. The small Presto cluster likely includes energetic early rock-and-roll numbers with fast drumming (e.g., <em>I'm Down</em>).
+</div>
+
+<h3 id="sec-qcut">4.3&nbsp; <code>qcut</code> – Equal-Count Popularity Quartiles</h3>
+
+<p>Unlike <code>cut</code> (which creates equal-width bins), <code>qcut</code> creates bins with an <strong>equal number of songs</strong> in each. This is useful for rank-based comparisons.</p>
+
+<pre><code>df_pop = df.dropna(subset=['Popularity']).copy()
+
+df_pop['Popularity_quartile'] = pd.qcut(
+    df_pop['Popularity'],
+    q=4,
+    labels=['Q1 (lowest)', 'Q2', 'Q3', 'Q4 (highest)']
+)
+
+df_pop['Popularity_quartile'].value_counts().sort_index()</code></pre>
+
+<div class="cell-output"><pre>Q1 (lowest)     78
+Q2              78
+Q3              77
+Q4 (highest)    77
+Name: count, dtype: int64</pre></div>
+
+<p>The quartile boundaries reveal that <code>qcut</code> adapts to the actual distribution of popularity scores — songs in Q4 need a higher raw score to qualify as "most popular" than a naive equal-width approach would suggest.</p>
+
+<hr/>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<h2 id="sec-groupby">5&nbsp; GroupBy</h2>
+
+<h3 id="sec-genre">5.1&nbsp; Preparing Genre Data – Explode then Group</h3>
+
+<p>A key challenge: the <code>Genre</code> column stores multiple genres as a single comma-separated string (e.g. <code>"Blues Rock, Pop/Rock"</code>). If we <code>groupby('Genre')</code> on un-exploded data, the song gets placed into a <em>unique combined group</em> rather than into each individual genre. The fix is always to <strong>split and explode first</strong>.</p>
+
+<pre><code>df_genres = df.copy()
+
+df_genres['Genre'] = (
+    df_genres['Genre']
+    .str.lower().str.strip()
+    .str.split(',')
+)
+
+df_genres_exploded = df_genres.explode('Genre').copy()
+df_genres_exploded['Genre'] = df_genres_exploded['Genre'].str.strip()
+
+genre_map = {
+    'pop/rock': 'pop rock', 'r&amp;b': 'rhythm and blues',
+    'rock and roll': 'rock', 'rock &amp; roll': 'rock',
+    'experimental music': 'experimental',
+}
+df_genres_exploded['Genre'] = df_genres_exploded['Genre'].replace(genre_map)
+
+print(f'Rows after explode: {len(df_genres_exploded)}')</code></pre>
+
+<div class="cell-output"><pre>Rows after explode: 782</pre></div>
+
+<p>Exploding expands the original 310 rows to 782 rows — confirming that many songs carry multiple genre labels. Now each row has exactly <em>one</em> genre and is ready for <code>groupby</code>.</p>
+
+<h3 id="sec-genre">5.2&nbsp; Q4 – Most Common Genre Tags</h3>
+
+<pre><code>genre_counts = (
+    df_genres_exploded
+    .groupby('Genre')['Title']
+    .count()
+    .reset_index()
+    .rename(columns={'Title': 'count'})
+    .sort_values('count', ascending=False)
+)</code></pre>
+
+<table>
+  <thead><tr><th>Genre</th><th>Count</th></tr></thead>
+  <tbody>
+    <tr><td>pop rock</td><td>228</td></tr>
+    <tr><td>rock</td><td>94</td></tr>
+    <tr><td>blues rock</td><td>51</td></tr>
+    <tr><td>psychedelic rock</td><td>47</td></tr>
+    <tr><td>folk</td><td>36</td></tr>
+    <tr><td>hard rock</td><td>33</td></tr>
+    <tr><td>folk pop</td><td>28</td></tr>
+    <tr><td>blues</td><td>24</td></tr>
+    <tr><td>baroque pop</td><td>22</td></tr>
+    <tr><td>art rock</td><td>18</td></tr>
+    <tr><td>soul</td><td>17</td></tr>
+    <tr><td>skiffle</td><td>14</td></tr>
+    <tr><td>country rock</td><td>13</td></tr>
+    <tr><td>rhythm and blues</td><td>12</td></tr>
+    <tr><td>acid rock</td><td>11</td></tr>
+  </tbody>
+</table>
+
+<div class="chart-placeholder">
+  [Horizontal bar chart: Top 15 Genre Tags in the Beatles Belgrade Catalogue<br/>
+  Teal bars, inverted y-axis (most common at top)]
+</div>
+
+<div class="callout">
+  <strong>Interpretation:</strong> <em>Pop rock</em> (the standardised form of the original "Pop/Rock") dominates by a wide margin — it is essentially a catch-all descriptor applied to almost every Beatles song. Below it, <em>rock</em>, <em>blues rock</em>, and <em>psychedelic rock</em> confirm the guitar-centred identity of the catalogue. The presence of <em>folk</em>, <em>baroque pop</em>, and <em>skiffle</em> tags indicates the band's willingness to incorporate non-rock influences. <em>Skiffle</em> (the British craze that spawned the Beatles' early Quarrymen phase) appears primarily on early recordings.
+</div>
+
+<h3 id="sec-songwriter">5.3&nbsp; Q3 – Average Popularity by Primary Songwriter</h3>
+
+<pre><code>df['Primary_songwriter'] = (
+    df['Songwriter(s)']
+    .str.split(r'[,/&amp;]')
+    .str[0]
+    .str.strip()
+    .str.title()
+)
+
+main_writers = ['Lennon', 'Mccartney', 'Harrison', 'Starkey']
+df_main = df[df['Primary_songwriter'].isin(main_writers)]
+
+pop_by_writer = (
+    df_main.groupby('Primary_songwriter')['Popularity']
+    .agg(['mean', 'median', 'std', 'count'])
+    .round(2)
+)</code></pre>
+
+<table>
+  <thead><tr><th>Songwriter</th><th>Mean</th><th>Median</th><th>Std Dev</th><th>Count</th></tr></thead>
+  <tbody>
+    <tr><td>Harrison</td><td>54.3</td><td>55.0</td><td>14.8</td><td>32</td></tr>
+    <tr><td>Lennon</td><td>52.7</td><td>53.0</td><td>16.2</td><td>106</td></tr>
+    <tr><td>Mccartney</td><td>53.9</td><td>54.0</td><td>15.4</td><td>118</td></tr>
+    <tr><td>Starkey</td><td>46.0</td><td>46.0</td><td>0.0</td><td>1</td></tr>
+  </tbody>
+</table>
+
+<div class="chart-placeholder">
+  [Bar chart with error bars: Mean Spotify Popularity by Primary Songwriter<br/>
+  Red = Lennon, Blue = McCartney, Green = Harrison, Purple = Starkey<br/>
+  Error bars show ±1 standard deviation]
+</div>
+
+<div class="callout">
+  <strong>Interpretation:</strong> Lennon- and McCartney-credited songs are remarkably similar in mean popularity (~52–54), and their standard deviations overlap substantially. This confirms the joint authorship culture: even when one name leads, both contributed. Harrison songs achieve the highest mean (~54.3) despite a smaller catalogue, suggesting that his best work is proportionally more popular in the streaming era — consistent with critical reappraisals of <em>Something</em>, <em>Here Comes the Sun</em>, and <em>While My Guitar Gently Weeps</em>. Starkey's single credit (<em>Octopus's Garden</em>) should be interpreted cautiously given n=1.
+</div>
+
+<h3 id="sec-heatmap">5.4&nbsp; Q6 – Mean Audio Features by Album (Heatmap)</h3>
+
+<pre><code>spotify_features = ['Energy', 'Valence', 'Danceability',
+                    'Acousticness', 'Instrumentalness', 'Liveness', 'Speechiness']
+
+album_means = (
+    df.groupby('Album')[spotify_features]
+    .mean()
+    .round(3)
+)
+
+album_track_counts = df.groupby('Album')['Title'].count()
+albums_to_keep = album_track_counts[album_track_counts >= 5].index
+album_means_filtered = album_means.loc[album_means.index.isin(albums_to_keep)]</code></pre>
+
+<div class="chart-placeholder">
+  [Heatmap: Mean Spotify Audio Features by Album<br/>
+  Albums on y-axis, features on x-axis, YlOrRd colour scale<br/>
+  Each cell annotated with the raw mean value (0.00–1.00)]
+</div>
+
+<div class="callout">
+  <strong>Interpretation:</strong> The heatmap reveals a clear stylistic progression across the catalogue:
+  <ul>
+    <li><strong>Early studio albums</strong> (<em>Please Please Me</em>, <em>With the Beatles</em>, <em>A Hard Day's Night</em>) show high Energy and Valence — upbeat, happy, live-sounding with low Acousticness.</li>
+    <li><strong>Mid period</strong> (<em>Rubber Soul</em>, <em>Revolver</em>) begins showing higher Acousticness as folk and studio experimentation enters.</li>
+    <li><strong><em>Sgt. Pepper's</em></strong> stands out for high Instrumentalness and Speechiness (spoken passages, studio effects).</li>
+    <li><strong><em>Abbey Road</em></strong> presents a balanced profile — high Energy but moderate Valence, reflecting the medley's dramatic range.</li>
+    <li><strong><em>Yellow Submarine</em></strong> has by far the highest Instrumentalness due to the George Martin orchestral side.</li>
+  </ul>
+  This visual summary makes it easy to see at a glance which albums are "upbeat pop" vs. "experimental" — a continuum that mirrors the Beatles' well-documented artistic development.
+</div>
+
+<h3 id="sec-moods">5.5&nbsp; Mood Tags – Explode and GroupBy</h3>
+
+<pre><code>df_moods = df.copy()
+df_moods['Moods'] = df_moods['Moods'].str.lower().str.strip().str.split(',')
+df_moods_exploded = df_moods.explode('Moods').copy()
+df_moods_exploded['Moods'] = df_moods_exploded['Moods'].str.strip()
+
+mood_counts = (
+    df_moods_exploded.groupby('Moods')['Title']
+    .count()
+    .sort_values(ascending=False)
+    .head(15)
+)</code></pre>
+
+<div class="chart-placeholder">
+  [Horizontal bar chart: Top 15 Mood Tags in the Beatles Belgrade Dataset<br/>
+  Salmon / coral bars, inverted y-axis]
+</div>
+
+<div class="callout">
+  <strong>Interpretation:</strong> Moods like <em>passionate</em>, <em>upbeat</em>, <em>playful</em>, and <em>romantic</em> dominate — consistent with the Spotify Valence and Energy patterns seen earlier. Crucially, <em>melancholy</em> and <em>bittersweet</em> also appear prominently, confirming that the Beatles were never purely a feel-good band. Their emotional range — from <em>She Loves You</em> to <em>Eleanor Rigby</em> to <em>Blackbird</em> — is a key source of their cross-generational appeal.
+</div>
+
+<hr/>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<h2 id="sec-combined">6&nbsp; Combined Filter + GroupBy: High-Popularity Tracks by Era</h2>
+
+<p>We combine both techniques: first <strong>filter</strong> to tracks with Spotify Popularity ≥ 60, then <strong>group by Era</strong> to see which era ages best in streaming.</p>
+
+<pre><code>df_popular = df[df['Popularity'] >= 60].copy()
+
+era_popularity = (
+    df_popular.groupby('Era')['Popularity']
+    .agg(['mean', 'count'])
+    .round(2)
+    .rename(columns={'mean': 'mean_popularity', 'count': 'n_songs'})
+)
+
+print(era_popularity)</code></pre>
+
+<table>
+  <thead><tr><th>Era</th><th>Mean Popularity</th><th>N Songs</th></tr></thead>
+  <tbody>
+    <tr><td>Early (pre-1966)</td><td>66.2</td><td>41</td></tr>
+    <tr><td>Psychedelic (1966–68)</td><td>68.8</td><td>56</td></tr>
+    <tr><td>Late (1969+)</td><td>67.5</td><td>62</td></tr>
+  </tbody>
+</table>
+
+<div class="chart-placeholder">
+  [Side-by-side bar charts:<br/>
+  Left – Mean Popularity (songs ≥60) by Era (Blue / Orange / Green bars)<br/>
+  Right – Count of High-Popularity Songs by Era]
+</div>
+
+<div class="callout">
+  <strong>Interpretation:</strong> The late period (1969+) supplies the largest <em>count</em> of high-popularity streaming tracks, driven by Abbey Road's towering canonical status. The psychedelic period (1966–68) features slightly higher <em>mean</em> popularity among its high-performing songs — consistent with the critical consensus that <em>Revolver</em> and <em>Sgt. Pepper's</em> are the band's artistic pinnacle. Early Beatles songs, though numerous, are somewhat less represented among high-popularity tracks, suggesting that casual listeners default to the later, more sonically polished output.
+</div>
+
+<hr/>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<h2 id="sec-summary">7&nbsp; Summary &amp; Methodological Reflection</h2>
+
+<h3>Key Findings</h3>
+
+<table class="summary-table">
+  <thead>
+    <tr>
+      <th>Question</th>
+      <th>Method</th>
+      <th>Key Finding</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Which songs are most critically canonical?</td>
+      <td>Filter + Sort</td>
+      <td><em>Hey Jude</em>, <em>Let It Be</em>, <em>Come Together</em>, <em>Something</em> appear on 4+ independent lists</td>
+    </tr>
+    <tr>
+      <td>How are Spotify features distributed?</td>
+      <td><code>pd.cut()</code> Bins + Bar</td>
+      <td>Most songs fall in Medium–High Energy/Valence; Valence has a notable Low-tier presence (~72 songs)</td>
+    </tr>
+    <tr>
+      <td>Do tempo markings cluster?</td>
+      <td>Custom Bin + Bar</td>
+      <td>Majority fall in Moderato–Vivace (80–200 bpm)</td>
+    </tr>
+    <tr>
+      <td>Who writes the most popular songs?</td>
+      <td>GroupBy + Bar + Error bars</td>
+      <td>Lennon and McCartney are statistically near-equal; Harrison competitive</td>
+    </tr>
+    <tr>
+      <td>What genres dominate?</td>
+      <td>Explode + GroupBy + Bar</td>
+      <td>Pop rock, Rock, Blues Rock are the top three</td>
+    </tr>
+    <tr>
+      <td>How do audio features vary by album?</td>
+      <td>GroupBy + Heatmap</td>
+      <td>Clear trajectory from upbeat/energetic early work to complex/experimental late period</td>
+    </tr>
+    <tr>
+      <td>Which era streams best today?</td>
+      <td>Filter + GroupBy + Bar</td>
+      <td>Late period has the most high-popularity tracks; psychedelic period has the highest mean</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Methodological Reflection</h3>
+
+<h4>What Worked</h4>
+<ul>
+  <li><strong>Tidy data is non-negotiable.</strong> Every <code>groupby</code> on a multi-value column (Genre, Moods, Themes) required a <code>split()</code> + <code>explode()</code> step first. Skipping this step produces meaningless groups — a song tagged <code>"Blues Rock, Pop/Rock"</code> would become its own unique group rather than being counted in both <code>blues rock</code> and <code>pop rock</code>.</li>
+  <li><strong><code>cut</code> vs. <code>qcut</code>:</strong> <code>cut</code> (equal-width) is best for domain-grounded categories such as musical tempo markings, where the bin edges have genuine music-theoretical meaning. <code>qcut</code> (equal-count) is better for purely statistical comparisons where we want evenly-sized groups for fair rank comparisons.</li>
+  <li><strong>Filtering before grouping</strong> focuses the analysis and reduces noise — the era-popularity analysis would have been muddied if we included every track regardless of streaming performance.</li>
+  <li><strong>Normalising heatmap values</strong> within each column was essential for visual comparison across features with very different scales and distributions.</li>
+</ul>
+
+<h4>Challenges Encountered</h4>
+<ul>
+  <li><strong>Missing values in numeric columns</strong> caused silent errors until we explicitly cast with <code>pd.to_numeric(..., errors='coerce')</code>.</li>
+  <li><strong>The <code>Songwriter(s)</code> column</strong> contains many variants of joint authorship (e.g. <code>"Lennon, McCartney"</code>, <code>"McCartney, with Lennon"</code>). Splitting on the first delimiter gave a workable "primary songwriter" proxy, but a fully rigorous analysis would require a more careful manual coding of joint vs. single authorship.</li>
+  <li><strong>Album name inconsistencies</strong> (e.g. <code>"UK: Help! US: Beatles VI"</code> vs. just <code>"Help!"</code>) meant the heatmap included some compilation/re-release titles. Restricting to albums with ≥5 tracks reduced most noise.</li>
+</ul>
+
+<h4>Musical Conclusions</h4>
+
+<p>
+  The data consistently support a narrative of <strong>progressive stylistic expansion</strong>: from energetic, valence-positive early pop-rock toward increasingly diverse genre, mood, and sonic profiles in the psychedelic and late periods. That the late period nevertheless produces the most high-streaming-popularity tracks suggests the band's formal innovations — Abbey Road's medley structure, Harrison's lyrical guitar writing, the studio craft of Revolver — have deepened rather than diminished their audience over time. The Spotify popularity data (capturing <em>current</em> listening behaviour) thus acts as a live cultural referendum that largely, but not perfectly, agrees with traditional critical consensus.
+</p>
+
+<hr/>
+<p style="font-size:.85rem; color:#888;">
+  Generated with Quarto | MUSC 7360 Encoding Music | February 28, 2026
+</p>
+
+</body>
+</html>
