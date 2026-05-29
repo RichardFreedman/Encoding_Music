@@ -292,7 +292,7 @@ format:
   html:
     code-fold: true
     embed-resources: true
-plotly-connected: true
+    self-contained: true
 jupyter: python3
 
 ---
@@ -313,7 +313,7 @@ Here is the code to use:
 ```python
 alt.renderers.enable('default')
 import plotly.io as pio
-pio.renderers.default = "plotly_mimetype+notebook_connected"
+pio.renderers.default = "plotly_mimetype+notebook"
 ```
 
 ### Render Stand-Alone HTML with Quarto and Terminal Command (Recommended!)
@@ -322,8 +322,9 @@ Quarto renders your Notebook as a 'stand-alone' HTML file, including all markdow
 
 But before you 'render' with Quarto, make sure all the outputs are as you expect.  
 
-* Run all the cells, from top to bottom.
-* **When finished running the cells, be sure to `save` your Notebook!!**  This ensures that Quarto will render all the output.
+* **Restart the Kernel**.  This is important, as it will clear out all memory and other state from previous runs, and ensure that you are starting fresh.
+* **Run all the cells**, from top to bottom.
+* **`Save` your Notebook!!**  This ensures that Quarto will render all the output.
 
 When you are ready to 'render', follow these steps:
 
